@@ -185,10 +185,14 @@ class Piece
 
   void print()
     {
-      std::cout << "normal_sprite: " << normal_sprite << "\n"
+      std::cout << "-----\nnormal_sprite: " << normal_sprite << "\n"
         << "appearing_sprite: " << appearing_sprite << "\n"
                 << "disappearing_spirte: " << disappearing_sprite << "\n"
                 << "current_sprite: " << current_sprite << "\n";
+      if(current_sprite == appearing_sprite)// && appearing_sprite -> is_finished())
+      {
+        current_sprite = normal_sprite;
+      }
     }
 
 

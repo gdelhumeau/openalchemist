@@ -56,10 +56,15 @@ public:
 
       window = new CL_DisplayWindow("OpenAlchemist",800,600);
 
-      quit_event = CL_Display::sig_window_close().connect(this, &Application::quit);
+      quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
       game = new Game(window);
   
+    }
+
+  void stop()
+    {
+      game -> stop();
     }
 
   void quit()
@@ -112,6 +117,11 @@ public:
           help();
           dont_run_game = true;
         }
+        if(strcmp(argv[i], "--license")==0)
+        {
+          license();
+          dont_run_game = true;
+        }
         
         
       }
@@ -147,9 +157,30 @@ public:
                 << "Usage: openalchemist [OPTIONS]\n\n"
                 << "Options:\n"
                 << "\t--help : Show this message\n"
+                << "\t--license : Show the license of this program\n"
                 << "\t--opengl : Use OpenGL as render target\n"
                 << "\t--sdl : Use SDL as render target (default)\n"
                      ;
+    }
+
+  void license()
+    {
+      std::cout << " * OpenAlchemist v0.xxx -- License\n"
+                << " * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>\n\n"
+                << " *\n" 
+                << " * This program is free software; you can redistribute it and/or modify \n"
+                << " * it under the terms of the GNU General Public License as published by\n"
+                << " * the Free Software Foundation; either version 2 of the License, or\n"
+                << " * (at your option) any later version.\n"
+                << " *\n"
+                << " * This program is distributed in the hope that it will be useful,\n"
+                << " * but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+                << " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+                << " * GNU General Public License for more details.\n"
+                << " *\n"
+                << " * You should have received a copy of the GNU General Public License\n"
+                << " * along with this program; if not, write to the Free Software\n"
+                << " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n *\n\n";
     }
 
 

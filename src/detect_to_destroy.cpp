@@ -36,7 +36,7 @@ void Game::detect_to_destroy()
   std::stack<Coords*> stack;
     
   list_to_destroy.clear();
-  //list_to_create.clear();
+  list_to_create.clear();
     
     
   // We will look for all pieces in the table
@@ -124,7 +124,8 @@ void Game::detect_to_destroy()
             //it++;
           }
                 
-          list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
+//          list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
+          list_to_create.add(new Coords(&new_piece));
                 
         }
       }

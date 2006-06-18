@@ -28,6 +28,8 @@
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 #include <vector>
+#include <list>
+#include "mylist.h"
 #include "piece.h"
 #include "KeyboardKey.h"
 #include "coords.h"
@@ -93,11 +95,12 @@ class Game{
   float current_pieces_angle;
   int current_pieces_next_angle;
   bool current_pieces_placed;
+  bool end;
 
   // List of the falling pieces
   std::vector<Piece*> falling_list;
   std::vector<Coords*> list_to_destroy;
-  std::vector<Coords*> list_to_create;
+  MyList::List<Coords*> list_to_create;
   
   float time_interval;
  
@@ -139,6 +142,8 @@ class Game{
   void Game::fall();
   void Game::detect_to_destroy();
   void Game::detect_to_fall();
+
+  void Game::stop();
 
 };
 

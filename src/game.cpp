@@ -320,11 +320,16 @@ void Game::calc_score()
     }
 }
 
+void Game::stop()
+{
+  end = true;
+}
+
 
 void Game::main_loop()
 {
 
-
+  end = false;
   choose_skin();
   new_game();
   load_gfx();
@@ -333,7 +338,7 @@ void Game::main_loop()
 
 
   // Run until someone presses escape
-  while (!CL_Keyboard::get_keycode(CL_KEY_Q))
+  while (!CL_Keyboard::get_keycode(CL_KEY_Q) && !end)
   {
     
       
@@ -353,7 +358,7 @@ void Game::main_loop()
     // This call updates input and performs other "housekeeping"
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
-    CL_System::keep_alive(1);
+    CL_System::keep_alive();
   }
 
   unload_gfx();

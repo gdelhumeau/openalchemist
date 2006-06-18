@@ -9,5 +9,6 @@
 #include "../includes/piece.h"
 #include "../includes/game.h"
 #include "../includes/misc.h"
+#include "mylist.h"
 
 #endif
