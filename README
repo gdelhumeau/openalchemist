@@ -1,0 +1,30 @@
+OpenAlchemist - Development version
+-----------------------------------
+
+I) What OpenAlchemist needs ?
+
+OpenAlchemist is based on ClanLib 0.8 RC2. You must install it before compiling this game. You can find the last version of clanlib at: http://www.clanlib.org
+
+You may have to edit the /etc/ld.so.conf and add to it "/etc/local/lib". Run "ldconfig" next in root.
+
+If you understand french, you can read a tutorial here: http://kephpage.free.fr/note.php?mid=197
+
+II) How to compile it
+
+You should just tape "make" in this repertory. If it doesn't work, you should edit the makefile.
+
+In the future, OpenAlchemist will have a simplified compilation system with autoconf, automake, ect...
+
+III) How to contact us
+
+You can contact the coder at kepho.o (at) gmail.com
+You can contact the graphist at guigozz (at) gmail.com
+
+IV) Licenses
+
+Code is protected by GNU GPL (see CODE-LICENSE)
+Graphics are protected by http://creativecommons.org/licenses/by-sa/2.0/fr/
+
+V) Derivated projets
+
+If you want to make a derivated project with OpenAlchemist code or graphs, you can do it. A message from you to show us your project will  be apreciated (we're curious :)).
