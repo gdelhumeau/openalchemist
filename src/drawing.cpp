@@ -42,34 +42,7 @@ void Game::draw_game()
     {
       if(body[i][j])
       {
-        body[i][j] -> draw();
-
-        /* Débuggage */
-        if(CL_Mouse::get_x() >= body[i][j]->get_x() && CL_Mouse::get_x() <= body[i][j]->get_x()+pieces_width
-           && CL_Mouse::get_y() >= body[i][j]->get_y() && CL_Mouse::get_y() <= body[i][j]->get_y()+pieces_height)
-        {
-          pieces_normal[body[i][j]->get_score_value()-1] -> draw(0,0,0);
-          body[i][j]->print();
-
-          /*for(u_int k=0; k<list_to_create.size(); ++k)
-            {
-            if(list_to_create[k] && list_to_create[k]->x == i && list_to_create[k]->y == j)
-            {
-            std::cout << "Oui c'est dans la liste \n";
-            }
-            }*/
-
-          /*for(std::list<Coords*>::iterator it = list_to_create.begin(); it != list_to_create.end(); it++)
-            {
-            Coords *c = (Coords*)*it;
-            if(c && c->x == i && c->y == j)
-            {
-            std::cout << "Oui c'est dans la liste \n";
-            }
-            
-            }*/
-          
-        }
+        body[i][j] -> draw();        
       }
     }
 
@@ -129,51 +102,6 @@ void Game::draw_falling()
   }
 
   /* This part makes pieces appear */
-  /*for(u_int i=0; i<list_to_create.size(); ++i)
-    {
-    if(list_to_create[i] && list_to_create[i]->x >= 0 && list_to_create[i]->x < NUMBER_OF_COLS
-    && list_to_create[i]->y >=0 && list_to_create[i]->y < NUMBER_OF_LINES
-    && body[list_to_create[i]->x][list_to_create[i]->y])
-    {
-    if(!body[list_to_create[i]->x][list_to_create[i]->y] -> appear())
-    all_pieces_are_placed = false;
-
-    else
-    {
-    delete list_to_create[i];
-    list_to_create[i] = NULL;
-    }
-    }
-    }*/
-
-  /*std::cout << "Pink One\n";
-    for(std::list<Coords*>::iterator it = list_to_create.begin(); it != list_to_create.end(); )
-    {
-
-    Coords *c = (Coords*)*it;
-    if(c && c->x >= 0 && c->x < NUMBER_OF_COLS
-    && c->y >=0 && c->y < NUMBER_OF_LINES
-    && body[c->x][c->y])
-    {
-    if(!body[c->x][c->y] -> appear())
-    {
-    std::cout<<"Orange 2\n";
-    all_pieces_are_placed = false;
-    ++it;
-    }
-    else
-    {
-    std::cout<<"Orange 1\n";
-    it = list_to_create.erase(it);
-    delete c;
-
-    }
-    }     
-      
-    }*/
-
-  //std::cout << "Jimi Hendrix: " << list_to_create.size << "\n";
-
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
     {
@@ -188,48 +116,9 @@ void Game::draw_falling()
     }
 
 
-  MyList::Iterator<Coords*> *it = list_to_create.get_iterator();
-  while(it -> hasNext())
-  {
-    Coords *c = it -> next();
-    /*if(c && c->x >= 0 && c->x < NUMBER_OF_COLS
-      && c->y >=0 && c->y < NUMBER_OF_LINES
-      && body[c->x][c->y])
-      {
-      if(!body[c->x][c->y] -> appear())
-      {
-      all_pieces_are_placed = false;
-      }
-      else
-      {*/
-      it -> erase();
-      delete c;
-      /* }
-    
-      }*/
-  }
-  delete it;
-
   if(all_pieces_are_placed)
-  {   
+  {      
     
-    /*for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=0; j<NUMBER_OF_LINES; ++j)
-    {
-      if(body[i][j])
-      {
-        body[i][j] -> set_normal();
-      }
-      }*/
-
-    /*for(u_int i=0; i<list_to_create.size(); ++i)
-      {
-      if(list_to_create[i])
-      {
-      delete list_to_create[i];
-      list_to_create[i] = NULL;
-      }
-      }*/
     detect_to_destroy();     
   
   }
@@ -261,52 +150,10 @@ void Game::draw_destroying()
 
   if(end)
   {
-    list_to_destroy.clear();
-        
-    /*// Now we add new pieces in the body
-      for(u_int i=0; i<list_to_create.size(); ++i)
-      {   
-      if(list_to_create[i] && list_to_create[i]->x >= 0 && list_to_create[i]->x < NUMBER_OF_COLS
-      && list_to_create[i]->y >=0 && list_to_create[i]->y < NUMBER_OF_LINES)
-      { 
-      int score = list_to_create[i]->score;
-      Piece *p = new Piece(score);  
-      p -> set_position(list_to_create[i]->x*pieces_width+game_left,
-      game_top+(list_to_create[i]->y-2)*pieces_height);
-               
-      p -> set_sprites(pieces_normal[score-1], pieces_appearing[score-1],
-      pieces_disappearing[score-1], pieces_mini[score-1]);
-
-                        
-      p -> start_appear();
-                
-      body[list_to_create[i]->x][list_to_create[i]->y] = p;
-
-                
-      }
-      }*/
+    list_to_destroy.clear();      
     
-    /*std::cout << "Pink Two\n";
-      for(std::list<Coords*>::iterator it = list_to_create.begin(); it != list_to_create.end(); it++)
-      {
-      Coords *c = (Coords*)*it;
-      int score = c->score;
-      Piece *p = new Piece(score);  
-      p -> set_position(c->x*pieces_width+game_left,
-      game_top+(c->y-2)*pieces_height);
-               
-      p -> set_sprites(pieces_normal[score-1], pieces_appearing[score-1],
-      pieces_disappearing[score-1], pieces_mini[score-1]);
-
-                        
-      p -> start_appear();
-                
-      body[c->x][c->y] = p;
-      
-      }*/
 
     MyList::Iterator<Coords *> *it = list_to_create.get_iterator();
-    //std::cout << "Pink Floyd: " << list_to_create.size << "\n";
     while(it -> hasNext())
     {
       Coords *c = it->next();
@@ -328,6 +175,9 @@ void Game::draw_destroying()
         p -> start_appear();
                 
         body[c->x][c->y] = p; 
+
+        delete c;
+        it -> erase();
       }
     }
     delete it;
