@@ -105,15 +105,24 @@ class Piece
       x = target_x;
     }
 
-  // Return true if the piece is appeared
+  void set_normal()
+    {
+      current_sprite = normal_sprite;
+    }
+
+ // Return true if the piece is appeared
   bool appear()
     {
+      if(current_sprite != appearing_sprite)
+        return true;
+
       appearing_sprite -> update();
       if(appearing_sprite -> is_finished())
       {
         current_sprite = normal_sprite;
         return true;
       }
+   
       return false;
     }
 

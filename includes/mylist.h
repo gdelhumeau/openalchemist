@@ -53,11 +53,13 @@ namespace MyList{
   public:
     Node<T> *first;
     Node<T> *last;
+    int size;
   
     List()
       {
         first = NULL;
         last = NULL;
+        size = 0;
       }
 
     void add(T new_value)
@@ -74,6 +76,7 @@ namespace MyList{
           next -> prec = last;
           last = next;
         }
+        size++;
       }
 
     void remove(Node<T> *node)
@@ -95,12 +98,14 @@ namespace MyList{
           }
           first = first -> next;
           delete node;
+          size--;
         }
         else if(last == node)
         {
           last -> prec -> next = NULL;
           last = last -> prec;
           delete node;
+          size--;
         }
         else
         {
@@ -114,6 +119,7 @@ namespace MyList{
             n -> prec -> next = n -> next;
             n -> next -> prec = n -> prec;
             delete n;
+            size--;
           }
         }      
  
