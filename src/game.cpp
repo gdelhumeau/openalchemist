@@ -119,6 +119,7 @@ void Game::new_game()
   // Finally, we create some with new score_values 
   
   unlocked_pieces = 3;
+  visible_pieces = 3;
    
   next_piece1 = new Piece(1+rand()%(unlocked_pieces));
   next_piece2 = new Piece(1+rand()%(unlocked_pieces));  
@@ -195,6 +196,13 @@ void Game::load_gfx()
     pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx);
     pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx);
     pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx);
+
+    if(i > 3)
+    {
+      pieces_progress_x[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx);
+      pieces_progress_y[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx);
+    }
+
   }
 
   // We have to change the sprite references in the Pieces...

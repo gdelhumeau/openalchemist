@@ -115,6 +115,10 @@ void Game::detect_to_destroy()
             {
               new_piece.score = NUMBER_OF_PIECES;
             }
+            if(new_piece.score > visible_pieces)
+            {
+              ++visible_pieces;
+            }
             if(new_piece.score > unlocked_pieces + 1)
             {
               unlocked_pieces ++;

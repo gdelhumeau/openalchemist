@@ -51,7 +51,7 @@
 		  </sprite> 
 		  <sprite name = "little">
 		    <image file = "piece1/little.png" />
-		  </sprite>
+		  </sprite>			
 		</section>
 		<section name = "piece_2">
 		  <sprite name = "normal">
@@ -148,6 +148,10 @@
 		  <sprite name = "little">
 		    <image file = "piece4/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "17" />
+			<integer name = "progress-y" value = "196" />
+		  
 		</section>
 		<section name = "piece_5">
 		  <sprite name = "normal">
@@ -180,6 +184,10 @@
 		  <sprite name = "little">
 		    <image file = "piece5/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "239" />
+		  
 		</section>
 		<section name = "piece_6">
 		  <sprite name = "normal">
@@ -212,6 +220,10 @@
 		  <sprite name = "little">
 		    <image file = "piece6/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "285" />
+		  
 		</section>
 		<section name = "piece_7">
 		  <sprite name = "normal">
@@ -244,6 +256,10 @@
 		  <sprite name = "little">
 		    <image file = "piece7/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "331" />
+		  
 		</section>
 		<section name = "piece_8">
 		  <sprite name = "normal">
@@ -276,6 +292,10 @@
 		  <sprite name = "little">
 		    <image file = "piece8/little.png" />
 		  </sprite>
+
+			<integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "375" />
+
 		</section>
 		<section name = "piece_9">
 		  <sprite name = "normal">
@@ -308,6 +328,10 @@
 		  <sprite name = "little">
 		    <image file = "piece9/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "421" />
+		  
 		</section>
 		<section name = "piece_10">
 		  <sprite name = "normal">
@@ -340,6 +364,10 @@
 		  <sprite name = "little">
 		    <image file = "piece10/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "18" />
+			<integer name = "progress-y" value = "466" />
+		  
 		</section>
 		<section name = "piece_11">
 		  <sprite name = "normal">
@@ -372,6 +400,10 @@
 		  <sprite name = "little">
 		    <image file = "piece11/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "17" />
+			<integer name = "progress-y" value = "510" />
+		  
 		</section>
 		<section name = "piece_12">
 		  <sprite name = "normal">
@@ -404,6 +436,10 @@
 		  <sprite name = "little">
 		    <image file = "piece12/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "16" />
+			<integer name = "progress-y" value = "556" />
+		  
 		</section>
 
 

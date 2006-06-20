@@ -58,9 +58,13 @@ class Game{
   CL_Sprite *pieces_appearing[NUMBER_OF_PIECES];
   CL_Sprite *pieces_disappearing[NUMBER_OF_PIECES];
   CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
+
+  int pieces_progress_x[NUMBER_OF_PIECES-3];
+  int pieces_progress_y[NUMBER_OF_PIECES-3];
   
   // TODO bidule
   int unlocked_pieces;
+  int visible_pieces;
   
   std::string skin;
   bool is_gfx_loaded;

@@ -36,6 +36,11 @@ void Game::draw_game()
   font_a->draw(score_left, score_top, to_string(global_score));
   font_a->draw(bonus_left, bonus_top, to_string(global_bonus));
 
+  /* We draw unlocked pieces */
+  for(int i=3; i<visible_pieces; ++i)
+  {
+    pieces_mini[i] -> draw(pieces_progress_x[i-3], pieces_progress_y[i-3], 0);
+  }
 
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -43,7 +48,7 @@ void Game::draw_game()
       if(body[i][j])
       {
         body[i][j] -> draw(); 
-        /* DÃ©buggage */
+        /* Debuggage */
         if(CL_Mouse::get_x() >= body[i][j]->get_x() && CL_Mouse::get_x() <= body[i][j]->get_x()+pieces_width
            && CL_Mouse::get_y() >= body[i][j]->get_y() && CL_Mouse::get_y() <= body[i][j]->get_y()+pieces_height)
         {
