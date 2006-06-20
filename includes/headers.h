@@ -6,9 +6,8 @@
 #include <ClanLib/application.h>
 #include <ClanLib/display.h>
 
-#include "../includes/piece.h"
-#include "../includes/game.h"
-#include "../includes/misc.h"
-#include "mylist.h"
+#include "piece.h"
+#include "game.h"
+#include "misc.h"
 
 #endif

@@ -29,7 +29,6 @@
 #include <ClanLib/display.h>
 #include <vector>
 #include <list>
-#include "mylist.h"
 #include "piece.h"
 #include "KeyboardKey.h"
 #include "coords.h"
@@ -100,7 +99,8 @@ class Game{
   // List of the falling pieces
   std::vector<Piece*> falling_list;
   std::vector<Coords*> list_to_destroy;
-  MyList::List<Coords*> list_to_create;
+  std::list<Piece*> appearing_list;
+  std::list<Coords*> list_to_create;
   
   float time_interval;
  

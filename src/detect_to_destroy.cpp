@@ -86,13 +86,13 @@ void Game::detect_to_destroy()
             global_bonus += (counter - 3);
           }
 
-          //std::vector<Coords*>::iterator it = list.begin();
+          
           Coords new_piece(NUMBER_OF_COLS+1,-1);
-               
-          //while(it != list.end())
-          for(u_int i=0; i < list.size(); ++i)
+          
+          std::vector<Coords*>::iterator it = list.begin();
+          while(it != list.end())
           {
-            Coords *c = list[i];                 
+            Coords *c = (Coords*) *it;                 
             body[c->x][c->y]->start_disappear();                    
             list_to_destroy.insert(list_to_destroy.end(),c);
                     
@@ -120,12 +120,10 @@ void Game::detect_to_destroy()
               unlocked_pieces ++;
             }
 
-            //it = list.begin();
-            //it++;
+            ++it;
           }
                 
-//          list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
-          list_to_create.add(new Coords(&new_piece));
+          list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
                 
         }
       }

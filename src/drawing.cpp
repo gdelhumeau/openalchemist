@@ -42,9 +42,20 @@ void Game::draw_game()
     {
       if(body[i][j])
       {
-        body[i][j] -> draw();        
+        body[i][j] -> draw(); 
+        /* DÃ©buggage */
+        if(CL_Mouse::get_x() >= body[i][j]->get_x() && CL_Mouse::get_x() <= body[i][j]->get_x()+pieces_width
+           && CL_Mouse::get_y() >= body[i][j]->get_y() && CL_Mouse::get_y() <= body[i][j]->get_y()+pieces_height)
+        {
+          pieces_normal[body[i][j]->get_score_value()-1] -> draw(0,0,0);
+          body[i][j]->print();
+          std::cout << "X: " << i << " Y: " << j << "\n";       
+          
+        }
       }
     }
+
+  
 
   next_piece1 -> draw_mini();
   next_piece2 -> draw_mini();
@@ -102,19 +113,21 @@ void Game::draw_falling()
   }
 
   /* This part makes pieces appear */
-  for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=0; j<NUMBER_OF_LINES; ++j)
+  std::list<Piece*>::iterator it = appearing_list.begin();
+  while(it != appearing_list.end())
+  {
+    Piece *p = (Piece*)*it;
+    if(p -> appear())
     {
-      if(body[i][j])
-      {
-        if(!body[i][j] -> appear())
-        {
-          all_pieces_are_placed = false;
-        }
-      
-      }      
+      it = appearing_list.erase(it);
     }
-
+    else
+    {
+      all_pieces_are_placed = false;
+      ++it;
+    }
+  }
+  
 
   if(all_pieces_are_placed)
   {      
@@ -150,13 +163,13 @@ void Game::draw_destroying()
 
   if(end)
   {
-    list_to_destroy.clear();      
+    list_to_destroy.clear(); 
+    appearing_list.clear();
     
-
-    MyList::Iterator<Coords *> *it = list_to_create.get_iterator();
-    while(it -> hasNext())
+    std::list<Coords*>::iterator it = list_to_create.begin();
+    while(it != list_to_create.end())
     {
-      Coords *c = it->next();
+      Coords *c = (Coords*) *it;
       if(c && c->x >= 0 && c->x < NUMBER_OF_COLS
          && c->y >=0 && c->y < NUMBER_OF_LINES
          && !body[c->x][c->y])
@@ -175,12 +188,12 @@ void Game::draw_destroying()
         p -> start_appear();
                 
         body[c->x][c->y] = p; 
+        appearing_list.insert(appearing_list.begin(), p);
 
         delete c;
-        it -> erase();
+        it = list_to_create.erase(it);
       }
     }
-    delete it;
         
     game_mode = GAME_MODE_DETECTING_WHAT_FALL;   
   }    

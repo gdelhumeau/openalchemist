@@ -113,9 +113,6 @@ class Piece
  // Return true if the piece is appeared
   bool appear()
     {
-      if(current_sprite != appearing_sprite)
-        return true;
-
       appearing_sprite -> update();
       if(appearing_sprite -> is_finished())
       {
