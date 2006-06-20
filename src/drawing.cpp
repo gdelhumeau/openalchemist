@@ -37,9 +37,9 @@ void Game::draw_game()
   font_a->draw(bonus_left, bonus_top, to_string(global_bonus));
 
   /* We draw unlocked pieces */
-  for(int i=3; i<visible_pieces; ++i)
+  for(int i=NUMBER_OF_PIECES-1; i>=visible_pieces; --i)
   {
-    pieces_mini[i] -> draw(pieces_progress_x[i-3], pieces_progress_y[i-3], 0);
+    pieces_hidder[i-3] -> draw(pieces_progress_x[i-3], pieces_progress_y[i-3], 0);
   }
 
   for(int i=0; i<NUMBER_OF_COLS; ++i)

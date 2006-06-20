@@ -58,6 +58,7 @@ class Game{
   CL_Sprite *pieces_appearing[NUMBER_OF_PIECES];
   CL_Sprite *pieces_disappearing[NUMBER_OF_PIECES];
   CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
+  CL_Sprite *pieces_hidder[NUMBER_OF_PIECES-3];
 
   int pieces_progress_x[NUMBER_OF_PIECES-3];
   int pieces_progress_y[NUMBER_OF_PIECES-3];

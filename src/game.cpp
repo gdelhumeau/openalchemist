@@ -201,6 +201,7 @@ void Game::load_gfx()
     {
       pieces_progress_x[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx);
       pieces_progress_y[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx);
+      pieces_hidder[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx);
     }
 
   }
