@@ -23,16 +23,16 @@
 
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
-import gtk
+import gtk, sys
 from sprite import Sprite
 
 class App:
 	def __init__(self):
-                self.sprite = Sprite()
+                self.sprite = Sprite(self)
                 self.sprite.width = 50
                 self.sprite.height = 50
                 self.sprite.open("appear.png");
-                self.sprite.speed = 10
+                self.sprite.speed = 0.5
                 self.sprite.start()
 		self.init_GUI()
                 #self.sprite.start()
@@ -106,11 +106,13 @@ class App:
 		# Show the window and start the main loop.
                 self.window.set_default_size(800,600)
 		self.window.show()
+		gtk.gdk.threads_init()
 		gtk.main()
 
         def __event_quit(self, widget, event):
                 self.sprite.stop()
                 gtk.main_quit()
+                sys.exit()
 
 
 app = App()

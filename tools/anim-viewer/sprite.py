@@ -26,8 +26,9 @@ import gtk, threading, time
 
 class Sprite:
 
-    def __init__(self):
+    def __init__(self, app):
 
+        self.app = app
         self.width = 0
         self.height = 0
         self.index = 0
@@ -59,7 +60,7 @@ class Sprite:
         print self.index
 
     def start(self):
-        self.s = SpriteThread(self)
+        self.s = SpriteThread(self, self.app)
         self.s.start()
     
     def stop(self):
@@ -67,8 +68,9 @@ class Sprite:
 
 class SpriteThread(threading.Thread):
 
-    def __init__(self, sprite):
+    def __init__(self, sprite, app):
         threading.Thread.__init__(self)
+        self.app = app
         self.sprite = sprite
         self.end = False
         print "pixies"
@@ -76,7 +78,11 @@ class SpriteThread(threading.Thread):
     def run(self):
         while(self.end == False):
             print "hey"
-            time.sleep(2)
+            time.sleep(self.sprite.speed)
+            gtk.gdk.threads_enter()
+            self.sprite.anim()
+            self.app.window.sprite.show()
+            gtk.gdk.threads_leave()
         
     
     
