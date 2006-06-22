@@ -23,7 +23,7 @@
 
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
-import gtk, sys
+import gtk, sys, time
 from sprite import Sprite
 
 class App:
@@ -111,8 +111,12 @@ class App:
 
         def __event_quit(self, widget, event):
                 self.sprite.stop()
-                gtk.main_quit()
-                sys.exit()
+		
+		#while self.sprite.t.isAlive():
+		#	time.sleep(1)
+		#	print "sleep"
+		gtk.main_quit()
+		sys.exit()
 
 
 app = App()

@@ -22,7 +22,7 @@
 
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
-import gtk, threading, time
+import gtk, threading, time, thread
 
 class Sprite:
 
@@ -47,11 +47,12 @@ class Sprite:
         
 
     def get_subpixbuf(self):
+        
+        subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
         self.index = self.index + 1
         if(self.index == self.maxindex):
             self.index = 0
-        subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
-
+        
         return subpixbuf
 
     def anim(self):
@@ -60,11 +61,16 @@ class Sprite:
         print self.index
 
     def start(self):
-        self.s = SpriteThread(self, self.app)
-        self.s.start()
+        self.t = SpriteThread(self, self.app)
+        self.t.start()
+        
     
     def stop(self):
-        self.s.end = True
+        self.t.stop()
+        self.t.join()
+        print "ok"
+                
+
 
 class SpriteThread(threading.Thread):
 
@@ -72,17 +78,33 @@ class SpriteThread(threading.Thread):
         threading.Thread.__init__(self)
         self.app = app
         self.sprite = sprite
-        self.end = False
-        print "pixies"
+        print dir(self)
 
+        
     def run(self):
-        while(self.end == False):
+        self._running = True
+        ok = True
+        while(self._running):
             print "hey"
             time.sleep(self.sprite.speed)
             gtk.gdk.threads_enter()
             self.sprite.anim()
             self.app.window.sprite.show()
             gtk.gdk.threads_leave()
+            #lock = threading.Lock()
+            #lock.acquire()
+            #ok = self._running
+            #lock.release()
+
+        print "je sors"
+
+    def stop(self):
+        #lock = threading.Lock()
+        #lock.acquire()
+        self._running = False
+        #lock.release()
+        
+                
         
     
     
