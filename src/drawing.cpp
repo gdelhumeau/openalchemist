@@ -239,5 +239,5 @@ void Game::draw_game_over()
   current_piece2 -> draw();
     
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
-    game_over -> draw();
+    game_over -> draw(400-game_over->get_width()/2, 300-game_over->get_height()/2);
 }
