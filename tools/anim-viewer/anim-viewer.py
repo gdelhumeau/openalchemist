@@ -120,6 +120,11 @@ class App:
                 self.window.propreties_box.txt_speed.set_text("50")
                 self.window.propreties_box.txt_speed.show()
 
+                # Pingpong
+                self.window.propreties_box.cb_pingpong = gtk.CheckButton(label="PingPong", use_underline=True)
+                self.window.propreties_box.pack_start(self.window.propreties_box.cb_pingpong, fill=False, expand=False)
+                self.window.propreties_box.cb_pingpong.show()
+
                 # Action
                 self.window.propreties_box.bt_ok = gtk.Button('OK')
                 self.window.propreties_box.pack_start(self.window.propreties_box.bt_ok, fill=False, expand=False)
@@ -148,6 +153,12 @@ class App:
                         self.sprite.speed = 0.001 * int(self.window.propreties_box.txt_speed.get_text())
                 except TypeError:
                         print "bad value"
+
+                if self.window.propreties_box.cb_pingpong.get_active():
+                        self.sprite.pingpong = True
+                else:
+                        self.sprite.pingpong = False
+                        self.sprite.direction = 1
                         
                 
         def _event_quit(self,  event):

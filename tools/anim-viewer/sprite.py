@@ -37,6 +37,8 @@ class Sprite:
         self.maxindex = 0
         self.speed = 0
         self.image = gtk.Image()
+        self.direction = 1
+        self.pingpong = True
         
         
 
@@ -53,19 +55,30 @@ class Sprite:
 
     def get_subpixbuf(self):
 
-        if(self.index == self.maxindex + 1):
+        if(self.index == self.maxindex+1):
             subpixbuf = self.pixbuf_before
-            self.index = -1
+            if self.pingpong:
+                self.direction = -1
+                self.index = self.index - 1
+            else:
+                self.index = -1
         else:            
             subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
 
 
-        self.index = self.index + 1
-        if(self.index == self.maxindex):
+        self.index = self.index + self.direction
+        if(self.index == self.maxindex and self.direction == 1):
             if(self.before):
                 self.index = self.index + 1
             else:
-                self.index = 0
+                if self.pingpong:
+                    self.direction = -1
+                    self.index = self.index - 1
+                else:
+                    self.index = 0
+        if(self.index == -1):
+            self.index = 0
+            self.direction = 1
         
         return subpixbuf
 
