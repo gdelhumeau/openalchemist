@@ -28,6 +28,8 @@ class Sprite:
 
     def __init__(self, app):
 
+        self.opened = False
+        self.before = False
         self.app = app
         self.width = 0
         self.height = 0
@@ -42,22 +44,37 @@ class Sprite:
         self.pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
         self.index = 0
         self.maxindex = int(self.pixbuf.get_width() / self.width)
-        print self.maxindex
-                
+        self.opened = True
+
+    def open_filebefore(self, filename):
+        self.pixbuf_before = gtk.gdk.pixbuf_new_from_file(filename)
+        self.before = True
+                        
 
     def get_subpixbuf(self):
-        
-        subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
+
+        if(self.index == self.maxindex + 1):
+            subpixbuf = self.pixbuf_before
+            self.index = 0
+        else:            
+            subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
+
+
         self.index = self.index + 1
         if(self.index == self.maxindex):
-            self.index = 0
+            if(self.before):
+                self.index = self.index + 1
+            else:
+                self.index = 0
         
         return subpixbuf
 
     def anim(self):
+        if not self.opened:
+            return
         subpixbuf = self.get_subpixbuf()
         self.image.set_from_pixbuf(subpixbuf)
-        print self.index
+
 
     def start(self):
         self.t = SpriteThread(self, self.app)
@@ -88,7 +105,7 @@ class SpriteThread(threading.Thread):
             self.app.window.sprite.show()
             gtk.gdk.threads_leave()
 
-        print "je sors"
+        gtk.main_quit()
 
 
     def stop(self):
