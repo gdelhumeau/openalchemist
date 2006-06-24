@@ -78,6 +78,7 @@ class Game{
   int pieces_width, pieces_height;
   int score_top, score_left;
   int bonus_top, bonus_left;
+  int combo;
   
   // Game mode
   int game_mode;

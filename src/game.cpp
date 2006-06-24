@@ -163,6 +163,7 @@ void Game::new_game()
   game_mode = GAME_MODE_PLAYING;
   global_score = 0;
   global_bonus = 0;
+  combo = 0;
 
 }
 

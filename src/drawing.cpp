@@ -133,10 +133,25 @@ void Game::draw_falling()
     }
   }
   
-
+  
   if(all_pieces_are_placed)
-  {      
+  {
     
+    combo ++;
+    
+    /* Only the second time */
+    if(combo == 2)
+    {
+      for(int i=0; i<NUMBER_OF_COLS; ++i)
+        for(int j=0; j<2; ++j)
+        {
+          if(body[i][j] != NULL)
+          {
+            game_mode = GAME_MODE_GAME_OVER;
+            return;
+          }
+        }
+    }
     detect_to_destroy();     
   
   }
@@ -198,7 +213,9 @@ void Game::draw_destroying()
         delete c;
         it = list_to_create.erase(it);
       }
-    }
+    }   
+
+      
         
     game_mode = GAME_MODE_DETECTING_WHAT_FALL;   
   }    
@@ -230,6 +247,8 @@ void Game::draw_to_playing()
           
   game_mode = GAME_MODE_PLAYING;
   calc_score();
+
+  combo = 0;
 
 }
 
