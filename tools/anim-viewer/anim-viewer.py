@@ -45,7 +45,7 @@ class App:
 		self.window.set_title('Animation Viewer')
 
                 # Add events
-                self.window.connect("delete_event", self.__event_quit)
+                self.window.connect("destroy", self.__event_quit)
 
                 # Making boxes
                 self.window.main_box = gtk.HBox(homogeneous = False, spacing=0)
@@ -110,7 +110,7 @@ class App:
 		self.window.show()
                 gtk.main()
 
-        def __event_quit(self, widget, event):
+        def __event_quit(self,  event):
                 self.sprite.stop()
                 gtk.main_quit()
 

@@ -81,7 +81,7 @@ class SpriteThread(threading.Thread):
     def run(self):
 
         self.running = True
-        while(running):
+        while(self.running):
             time.sleep(self.sprite.speed)
             gtk.gdk.threads_enter()
             self.sprite.anim()
