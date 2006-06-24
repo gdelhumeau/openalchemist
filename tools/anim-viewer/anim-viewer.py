@@ -26,8 +26,10 @@
 import gtk, sys, time
 from sprite import Sprite
 
+
 class App:
 	def __init__(self):
+                gtk.gdk.threads_init()
                 self.sprite = Sprite(self)
                 self.sprite.width = 50
                 self.sprite.height = 50
@@ -35,7 +37,7 @@ class App:
                 self.sprite.speed = 0.5
                 self.sprite.start()
 		self.init_GUI()
-                #self.sprite.start()
+                
 
 	def init_GUI(self):
 		# Window creation
@@ -106,18 +108,11 @@ class App:
 		# Show the window and start the main loop.
                 self.window.set_default_size(800,600)
 		self.window.show()
-		gtk.gdk.threads_init()
-		gtk.main()
+                gtk.main()
 
         def __event_quit(self, widget, event):
                 self.sprite.stop()
-		
-		#while self.sprite.t.isAlive():
-		#	time.sleep(1)
-		#	print "sleep"
-		gtk.main_quit()
-		sys.exit()
-
+                gtk.main_quit()
 
 app = App()
 

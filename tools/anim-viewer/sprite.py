@@ -35,16 +35,15 @@ class Sprite:
         self.maxindex = 0
         self.speed = 0
         self.image = gtk.Image()
-        self.end = False
+        
+        
 
     def open(self, filename):
         self.pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
         self.index = 0
         self.maxindex = int(self.pixbuf.get_width() / self.width)
         print self.maxindex
-        #if self.width * self.maxindex <> self.pixbuf.get_width():
-        #    print "Exception à faire"        
-        
+                
 
     def get_subpixbuf(self):
         
@@ -67,8 +66,7 @@ class Sprite:
     
     def stop(self):
         self.t.stop()
-        self.t.join()
-        print "ok"
+
                 
 
 
@@ -78,31 +76,27 @@ class SpriteThread(threading.Thread):
         threading.Thread.__init__(self)
         self.app = app
         self.sprite = sprite
-        print dir(self)
-
+        
         
     def run(self):
-        self._running = True
-        ok = True
-        while(self._running):
-            print "hey"
+
+        self.running = True
+        while(running):
             time.sleep(self.sprite.speed)
             gtk.gdk.threads_enter()
             self.sprite.anim()
             self.app.window.sprite.show()
             gtk.gdk.threads_leave()
-            #lock = threading.Lock()
-            #lock.acquire()
-            #ok = self._running
-            #lock.release()
 
         print "je sors"
 
+
     def stop(self):
-        #lock = threading.Lock()
-        #lock.acquire()
-        self._running = False
-        #lock.release()
+        self.running = False
+        
+
+
+
         
                 
         
