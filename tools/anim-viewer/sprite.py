@@ -55,7 +55,7 @@ class Sprite:
 
         if(self.index == self.maxindex + 1):
             subpixbuf = self.pixbuf_before
-            self.index = 0
+            self.index = -1
         else:            
             subpixbuf = self.pixbuf.subpixbuf(self.index * self.width, 0, self.width, self.height)
 
