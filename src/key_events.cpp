@@ -64,7 +64,7 @@ void Game::key_events()
     }
 
     // Look the key to know if we have to move the pieces to the left
-    if(current_pieces_placed && key_left->get() && position > 0)
+    if(key_left->get() && position > 0)
     {
       old_position = position;
       old_position_bis = position_bis;
@@ -73,7 +73,7 @@ void Game::key_events()
     }
 
     // Look the key to know if we have to move the pieces to the right
-    if(current_pieces_placed && key_right->get() && position < NUMBER_OF_COLS - 1)
+    if(key_right->get() && position < NUMBER_OF_COLS - 1)
     {
       if(!(position == NUMBER_OF_COLS - 2 && position_bis))
       {

@@ -29,14 +29,17 @@ void Game::detect_to_destroy()
 {
     
   game_mode = GAME_MODE_DETECTING_WHAT_DESTROY;    
-    
+  
+  // This table is used to know if a piece have been explorated 
   bool body_mark[NUMBER_OF_COLS][NUMBER_OF_LINES];
   for(int k=0; k<NUMBER_OF_COLS; ++k)
     for(int l=0; l<NUMBER_OF_LINES; ++l)
       body_mark[k][l] = false;
       
+  // Stack to explore the body
   std::stack<Coords*> stack;
-    
+  
+  // We clear the list witch will contains the pieces to make disappear
   list_to_destroy.clear();
       
     
@@ -48,7 +51,7 @@ void Game::detect_to_destroy()
       {
         int counter = 0;            
         int score_of_root = body[i][j] -> get_score_value();
-           
+        
         std::vector<Coords*> list;
            
         stack.push(new Coords(i,j));
