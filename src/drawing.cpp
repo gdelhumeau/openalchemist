@@ -241,8 +241,17 @@ void Game::draw_to_playing()
       }
     }
 
-  next_piece1 -> set_score_value(1+rand()%(unlocked_pieces));
-  next_piece2 -> set_score_value(1+rand()%(unlocked_pieces));
+  if(undo_next_next_piece1 > 0)
+  {
+    next_piece1 -> set_score_value(undo_next_next_piece1);
+    next_piece2 -> set_score_value(undo_next_next_piece2);
+    undo_next_next_piece1 = 0;
+  }
+  else
+  {
+    next_piece1 -> set_score_value(1+rand()%(unlocked_pieces));
+    next_piece2 -> set_score_value(1+rand()%(unlocked_pieces));
+  }
           
   int value;
   value = next_piece1 -> get_score_value() - 1;

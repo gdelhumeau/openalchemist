@@ -42,7 +42,67 @@ void Game::key_events()
   
   // Key entries are for the playing mode only 
   if(GAME_MODE_PLAYING == game_mode)
-  {  
+  { 
+    
+    // Undo the last move
+    if(key_undo -> get())
+    {
+      // First verify than the last move is not the first one
+      if(undo)
+      {
+        undo = false;
+        // Delete the pieces in the body and replace by new ones
+        for(int i=0; i<NUMBER_OF_COLS; ++i)
+          for(int j=0; j<NUMBER_OF_LINES; ++j)
+          {
+            if(body[i][j]) delete body[i][j];
+            body[i][j] = NULL;
+            if(body_undo[i][j] > 0)
+            {
+              body[i][j] = new Piece(body_undo[i][j]);
+              body[i][j] -> set_sprites(pieces_normal[body_undo[i][j]-1], pieces_appearing[body_undo[i][j]-1],
+                             pieces_disappearing[body_undo[i][j]-1], pieces_mini[body_undo[i][j]-1]);
+              body[i][j] -> set_position(i*pieces_width+game_left,game_top+(j-2)*pieces_height);
+            }
+          } 
+
+        global_bonus -= undo_global_bonus;
+
+        undo_next_next_piece1 = next_piece1 -> get_score_value();
+        undo_next_next_piece2 = next_piece2 -> get_score_value();
+        
+        int value = current_piece1 -> get_score_value() - 1;
+        next_piece1 -> set_score_value(value+1);
+        next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
+
+        value = current_piece2 -> get_score_value() - 1;
+        next_piece2 -> set_score_value(value+1);
+        next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
+
+        value = undo_piece1_score - 1;
+        current_piece1 -> set_score_value(value+1);
+        current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
+
+        value = undo_piece2_score - 1;
+        current_piece2 -> set_score_value(value+1);
+        current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
+
+        
+        position = undo_position;
+        position_bis = undo_position_bis;
+        position_x = position * pieces_width + position_bis * pieces_width / 2;
+
+        current_pieces_angle = undo_angle;
+        current_pieces_next_angle = undo_angle;
+        
+      }
+
+    }
+    
     // Change the order of the pieces 
     if(key_change_angle->get() && current_pieces_next_angle<=current_pieces_angle+90)
     {     
@@ -138,6 +198,28 @@ void Game::key_events()
     if(falling_requested && current_pieces_placed && (current_pieces_angle >= current_pieces_next_angle))
     {
       falling_requested = false;
+
+      undo = true;
+      // Copy to the undo body
+      for(int i=0; i<NUMBER_OF_COLS; ++i)
+        for(int j=0; j<NUMBER_OF_LINES; ++j)
+        {
+          if(body[i][j])
+          {
+            body_undo[i][j] = body[i][j] -> get_score_value();
+          }
+          else
+          {
+            body_undo[i][j] = 0;
+          }
+        } 
+
+      undo_global_bonus = 0;
+      undo_position = position;
+      undo_position_bis = position_bis;
+      undo_piece1_score = current_piece1 -> get_score_value();
+      undo_piece2_score = current_piece2 -> get_score_value();
+      undo_angle = current_pieces_next_angle;
         
 
       current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,

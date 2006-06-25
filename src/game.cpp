@@ -66,6 +66,7 @@ Game::Game(CL_DisplayWindow *window)
   key_left         = new KeyboardKey(CL_KEY_LEFT , true );
   key_right        = new KeyboardKey(CL_KEY_RIGHT, true );
   key_falling      = new KeyboardKey(CL_KEY_DOWN , false);
+  key_undo         = new KeyboardKey(CL_KEY_F5,    false);
   
   time_interval = 0;
   
@@ -89,10 +90,18 @@ Game::~Game()
       body[i][j] = NULL;
     } 
   
-  delete( next_piece1);
-  delete( next_piece2);
-  delete( current_piece1);
-  delete( current_piece2); 
+  delete next_piece1;
+  delete next_piece2;
+  delete current_piece1;
+  delete current_piece2; 
+
+  delete key_fullscreen;
+  delete key_retry;
+  delete key_change_angle;
+  delete key_left;
+  delete key_right; 
+  delete key_falling; 
+  delete key_undo;
   
 }
 
@@ -108,6 +117,7 @@ void Game::new_game()
     {
       if(body[i][j]) delete body[i][j];
       body[i][j] = NULL;   
+      body_undo[i][j] = 0;
     } 
 
 
@@ -161,8 +171,6 @@ void Game::new_game()
   next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
 
   // We set some variables
-  current_pieces_center_x = game_left + pieces_width/2;
-  current_pieces_center_target = (int)current_pieces_center_x;
   current_pieces_angle = 90; 
   current_pieces_next_angle = 90;
   current_pieces_placed = true;
@@ -173,7 +181,9 @@ void Game::new_game()
   old_position_bis = 0;
   position_x = 0*pieces_width;
 
-
+  undo = false;
+  undo_next_next_piece1 = 0;
+  undo_next_next_piece2 = 0;
 
   
   falling_requested = false;
@@ -287,10 +297,7 @@ void Game::load_gfx()
   current_piece1 -> set_position(100.0,100.0);
   current_piece2 -> set_position(152.0,100.0);
   
-  current_pieces_center_x = game_left + pieces_width/2;
-  current_pieces_center_target = (int)current_pieces_center_x;
-  current_pieces_center_y = zone_top + pieces_height/2;
-
+  
   // c² = a²+b³
   current_pieces_r = pieces_width/2;
      

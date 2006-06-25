@@ -87,9 +87,15 @@ class Game{
   int game_mode;
   int global_score;
   int global_bonus;
+  int undo_global_bonus;
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
+  int body_undo[NUMBER_OF_COLS][NUMBER_OF_LINES];
+  int undo_position, undo_angle, undo_position_bis;
+  int undo_piece1_score, undo_piece2_score;
+  int undo_next_next_piece1, undo_next_next_piece2;
+  bool undo;
   
   // 4 pieces
   Piece *current_piece1, *current_piece2;
@@ -103,10 +109,7 @@ class Game{
 
   float position_x;
 
-  float current_pieces_center_x;
-  float current_pieces_center_y;
   float current_pieces_r;
-  int current_pieces_center_target;
   float current_pieces_angle;
   int current_pieces_next_angle;
   bool current_pieces_placed;
@@ -127,6 +130,7 @@ class Game{
   KeyboardKey * key_right;
   KeyboardKey * key_falling;
   KeyboardKey * key_retry;
+  KeyboardKey * key_undo;
 
   public:
 
