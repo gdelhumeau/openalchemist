@@ -93,6 +93,13 @@ class Game{
   Piece *next_piece1, *next_piece2; 
   
   // Current pieces position
+  int position;
+  int old_position;
+  short position_bis;
+  short old_position_bis;
+
+  float position_x;
+
   float current_pieces_center_x;
   float current_pieces_center_y;
   float current_pieces_r;

@@ -154,9 +154,18 @@ void Game::new_game()
   // We set some variables
   current_pieces_center_x = game_left + pieces_width/2;
   current_pieces_center_target = (int)current_pieces_center_x;
-  current_pieces_angle = 45.0+90.0; 
-  current_pieces_next_angle = 45+90;
+  current_pieces_angle = 90; 
+  current_pieces_next_angle = 90;
   current_pieces_placed = true;
+
+  position = 0;
+  old_position = 0;
+  position_bis = 0;
+  old_position_bis = 0;
+  position_x = 0*pieces_width;
+
+
+
   
   falling_requested = false;
 
@@ -265,7 +274,7 @@ void Game::load_gfx()
   current_pieces_center_y = zone_top + pieces_height/2;
 
   // c² = a²+b³
-  current_pieces_r = sqrt((float)pieces_width*pieces_width+pieces_height*pieces_height)/2;
+  current_pieces_r = pieces_width/2;//sqrt((float)pieces_width*pieces_width+(pieces_height/2)*(pieces_height/2))/2;
      
   // So now we can say that the GFX are loaded
   is_gfx_loaded = true;
