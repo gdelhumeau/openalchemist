@@ -221,12 +221,13 @@ void Game::key_events()
     {
       falling_requested = false;
         
-      current_piece1 -> set_position(current_pieces_center_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                     current_pieces_center_y+sin(current_pieces_angle*TO_RAD)*current_pieces_r);
 
-      current_piece2 -> set_position(current_pieces_center_x+cos((current_pieces_angle+90)*TO_RAD)*current_pieces_r,
-                                     current_pieces_center_y+sin((current_pieces_angle+90)*TO_RAD)*current_pieces_r);
+      current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
+                                 zone_top+pieces_height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
+      current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
+                                 zone_top+pieces_height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
+      
       Piece *piece_on_top, *piece_on_bottom;
       if(current_piece1 -> get_y() <= current_piece2 -> get_y())
       {
