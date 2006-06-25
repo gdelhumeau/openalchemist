@@ -41,34 +41,23 @@ void Game::key_events()
   if(GAME_MODE_PLAYING == game_mode)
   {  
     // Change the order of the pieces 
-    if(key_change_angle->get() && current_pieces_next_angle<=current_pieces_angle+10)
+    if(key_change_angle->get() && current_pieces_next_angle<=current_pieces_angle+90)
     {     
       current_pieces_next_angle += 90;
       current_pieces_placed = false;
 
-      if((current_pieces_next_angle == 90) || (current_pieces_next_angle == 270))
+      if((current_pieces_next_angle%180 == 90))
       {
-        //old_position_bis = 1;
         position_bis = 0;
       }
       else
       {
         if(position == NUMBER_OF_COLS -1)
           position --;
-        //old_position_bis = 0;
+        
         position_bis = 1;
       }
 
-      /*if(current_pieces_next_angle == 315+90 && current_pieces_center_x <= game_left+pieces_width*0.2)
-      {
-        current_pieces_center_target += pieces_width;
-        current_pieces_placed = false;
-      }
-      if(current_pieces_next_angle == 135+90 && current_pieces_center_x >= (game_left+(pieces_width)*(NUMBER_OF_COLS-2)*1.2))
-      {
-        current_pieces_center_target -= pieces_width;
-        current_pieces_placed = false;
-        }*/
     }
 
     // Look the key to know if we have to move the pieces to the left
@@ -85,10 +74,10 @@ void Game::key_events()
     {
       if(!(position == NUMBER_OF_COLS - 2 && position_bis))
       {
-      old_position = position;
-      old_position_bis = position_bis;
-      position++;
-      current_pieces_placed = false;
+        old_position = position;
+        old_position_bis = position_bis;
+        position++;
+        current_pieces_placed = false;
       }
     }
 
@@ -110,10 +99,9 @@ void Game::key_events()
     if(!current_pieces_placed)
     {
       if(position * pieces_width + position_bis *pieces_width/2 >= position_x)
-//         old_position * pieces_width + (old_position_bis )*pieces_width/2)
       {
         position_x += time_interval * 0.25;
-        if(position_x >  position * pieces_width + (position_bis )*pieces_width/2)
+        if(position_x > position * pieces_width + (position_bis )*pieces_width/2)
         {
           position_x = position * pieces_width + (position_bis )*pieces_width/2;
           current_pieces_placed = true;
@@ -125,7 +113,6 @@ void Game::key_events()
     {  
       // Move the pieces to the left
       if(position * pieces_width + (position_bis )*pieces_width/2 <= position_x)
-//         old_position * pieces_width + (old_position_bis )*pieces_width/2)
       {
         position_x -= time_interval * 0.25;
         if(position_x < position * pieces_width + (position_bis)*pieces_width/2)
@@ -137,81 +124,9 @@ void Game::key_events()
     }
           
 
-    // Look the key to know if we have to move the pieces to the left
-    /*if(key_left->get() && current_pieces_center_target >= game_left+pieces_width/2)
-    {
-      if(current_pieces_center_target==game_left+pieces_width/2)
-      {
-        if(current_pieces_next_angle==315)
-        {
-          current_pieces_center_target -= pieces_width;
-          current_pieces_placed = false;
-        }
-      }
-      else
-      {
-        current_pieces_center_target -= pieces_width;
-        current_pieces_placed = false;
-      }
-          
-    }
+    
 
-    // Look the key to know if we have to move the pieces to the right
-    if(key_right->get() && current_pieces_center_target <= game_left + pieces_width/2 + (NUMBER_OF_COLS-2) * (pieces_width))
-    {
-      if(current_pieces_center_target==(game_left + pieces_width/2 + (NUMBER_OF_COLS-2) * (pieces_width)))
-      {
-        if(current_pieces_next_angle==135)
-        {
-          current_pieces_center_target += pieces_width;
-          current_pieces_placed = false;
-        }
-      }
-      else
-      {
-        current_pieces_center_target += pieces_width;
-        current_pieces_placed = false;
-      }
-          
-    } 
-          
-    // Move the pieces if the order has been changed      
-    if(current_pieces_angle<current_pieces_next_angle)
-    {
-      current_pieces_angle += time_interval * 0.3;
-      if(current_pieces_angle>=current_pieces_next_angle)
-      {
-        while(current_pieces_next_angle>=360)
-        {
-          current_pieces_next_angle-=360;             
-        }
-        current_pieces_angle = current_pieces_next_angle;
-      }
-    }
-      
-    // Move the pieces to the right
-    if(!current_pieces_placed && current_pieces_center_x<current_pieces_center_target)
-    {
-      current_pieces_center_x += time_interval * 0.25;
-      if(current_pieces_center_x>=current_pieces_center_target)
-      {
-        current_pieces_center_x = current_pieces_center_target;
-        current_pieces_placed = true;
-      }
-      }
-
-    // Move the pieces to the left
-    if(!current_pieces_placed && current_pieces_center_x>current_pieces_center_target)
-    {
-      current_pieces_center_x -= time_interval*0.25;
-      if(current_pieces_center_x<=current_pieces_center_target)
-      {
-        current_pieces_center_x = current_pieces_center_target;
-        current_pieces_placed = true;
-      }
-      }*/
-
-    // It's time to fall the pieces
+    // It's time for the pieces to fall
     if(key_falling -> get())
     {
       falling_requested = true; 
