@@ -274,7 +274,7 @@ void Game::load_gfx()
   current_pieces_center_y = zone_top + pieces_height/2;
 
   // c² = a²+b³
-  current_pieces_r = pieces_width/2;//sqrt((float)pieces_width*pieces_width+(pieces_height/2)*(pieces_height/2))/2;
+  current_pieces_r = pieces_width/2;
      
   // So now we can say that the GFX are loaded
   is_gfx_loaded = true;

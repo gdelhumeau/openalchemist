@@ -48,15 +48,6 @@ void Game::draw_game()
       if(body[i][j])
       {
         body[i][j] -> draw(); 
-        /* Debuggage */
-        if(CL_Mouse::get_x() >= body[i][j]->get_x() && CL_Mouse::get_x() <= body[i][j]->get_x()+pieces_width
-           && CL_Mouse::get_y() >= body[i][j]->get_y() && CL_Mouse::get_y() <= body[i][j]->get_y()+pieces_height)
-        {
-          pieces_normal[body[i][j]->get_score_value()-1] -> draw(0,0,0);
-          body[i][j]->print();
-          std::cout << "X: " << i << " Y: " << j << "\n";       
-          
-        }
       }
     }
 
@@ -95,23 +86,14 @@ void Game::draw_game()
 
 void Game::draw_playing()
 {
-  /*current_piece1 -> set_position(current_pieces_center_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                 current_pieces_center_y+sin(current_pieces_angle*TO_RAD)*current_pieces_r);
-
-  current_piece2 -> set_position(current_pieces_center_x+cos((current_pieces_angle+90)*TO_RAD)*current_pieces_r,
-  current_pieces_center_y+sin((current_pieces_angle+90)*TO_RAD)*current_pieces_r);*/
+  
 
   current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
                                  zone_top+pieces_height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
   current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
                                  zone_top+pieces_height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
-  //next_piece1 -> set_position(game_left+pieces_width/2+position_x-pieces_width/4, zone_top+pieces_height-pieces_height/4);
-
-  
-
-
-    
+     
   current_piece1 -> draw();
   current_piece2 -> draw();
 }

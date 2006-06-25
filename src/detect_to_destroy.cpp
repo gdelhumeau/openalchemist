@@ -36,8 +36,7 @@ void Game::detect_to_destroy()
   std::stack<Coords*> stack;
     
   list_to_destroy.clear();
-  //list_to_create.clear();
-    
+      
     
   // We will look for all pieces in the table
   for(int i=0; i<NUMBER_OF_COLS; ++i)
