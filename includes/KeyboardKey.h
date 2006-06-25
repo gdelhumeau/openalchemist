@@ -47,7 +47,7 @@ public:
       if(!key_active || (repeat && CL_System::get_time()>next_time))
       {
         key_active = true;
-        next_time = CL_System::get_time()+400;
+        next_time = CL_System::get_time()+380;
         return true;
       }
     }

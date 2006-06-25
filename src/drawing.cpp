@@ -108,8 +108,7 @@ void Game::draw_playing()
                                  zone_top+pieces_height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
   //next_piece1 -> set_position(game_left+pieces_width/2+position_x-pieces_width/4, zone_top+pieces_height-pieces_height/4);
 
-  if(position_bis)
-    pieces_normal[0] -> draw(0,0,0);
+  
 
 
     
