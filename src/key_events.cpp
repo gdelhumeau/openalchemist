@@ -95,7 +95,7 @@ void Game::key_events()
     // Move the pieces if the order has been changed      
     if(current_pieces_angle<current_pieces_next_angle)
     {
-      current_pieces_angle += time_interval * 0.3;
+      current_pieces_angle += time_interval * 0.35;
       if(current_pieces_angle>=current_pieces_next_angle)
       {
         while(current_pieces_next_angle>=360)
