@@ -28,6 +28,9 @@
 
 #define TO_RAD PI/180
 
+/**
+ * Draw the game
+ */
 void Game::draw_game()
 {
        
@@ -84,6 +87,9 @@ void Game::draw_game()
   
 }
 
+/**
+ * Draw the game when player can play
+ */
 void Game::draw_playing()
 {
   
@@ -98,6 +104,9 @@ void Game::draw_playing()
   current_piece2 -> draw();
 }
 
+/**
+ * Draw the game when pieces are falling
+ */
 void Game::draw_falling()
 {
   bool all_pieces_are_placed = true;
@@ -150,6 +159,9 @@ void Game::draw_falling()
   }
 }
 
+/**
+ * Draw the game when pieces are disappearing
+ */
 void Game::draw_destroying()
 {
   bool end = true;
@@ -214,6 +226,9 @@ void Game::draw_destroying()
   }    
 }
 
+/**
+ * Draw the game when the player is going to play
+ */
 void Game::draw_to_playing()
 {
   for(int i=0; i<NUMBER_OF_COLS; ++i)
@@ -245,6 +260,9 @@ void Game::draw_to_playing()
 
 }
 
+/**
+ * Draw the game when the game is over
+ */
 void Game::draw_game_over()
 {
   current_piece1 -> draw();

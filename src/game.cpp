@@ -27,7 +27,9 @@
 #include "misc.h"
 
 
-
+/**
+ * This function return a factor to calcul moving with time
+ */
 inline float get_time_interval(int fps)
 {
   
@@ -36,7 +38,9 @@ inline float get_time_interval(int fps)
   
 }
 
-// Constructor
+/**
+ * Game constructor
+ */
 Game::Game(CL_DisplayWindow *window)
 {
   this->window = window;
@@ -70,7 +74,9 @@ Game::Game(CL_DisplayWindow *window)
 
 }
 
-// Destructor
+/**
+ * Destructor
+ */
 Game::~Game()
 {
   unload_gfx();
@@ -90,6 +96,9 @@ Game::~Game()
   
 }
 
+/**
+ * This method start a new game
+ */
 void Game::new_game()
 {
 
@@ -176,11 +185,17 @@ void Game::new_game()
 
 }
 
+/**
+ * This method runs the skin-selector
+ */
 void Game::choose_skin()
 {
   skin = "./skins/aqua.zip";
 }
 
+/**
+ * Convert a CL_Integer to a int
+ */
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
   CL_Integer *cl_int = new CL_Integer(ressource_name, gfx);
@@ -189,6 +204,9 @@ int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx
   return to_return;
 }
 
+/**
+ * Load the selected skin
+ */
 void Game::load_gfx()
 {
 
@@ -281,6 +299,9 @@ void Game::load_gfx()
   
 }
 
+/**
+ * Unload the skin
+ */
 void Game::unload_gfx()
 {
   if(!is_gfx_loaded)
@@ -306,6 +327,9 @@ void Game::unload_gfx()
 
 }
 
+/**
+ * Switch to fullscreen/windowed
+ */
 void Game::toggle_screen()
 {
   static bool fullscreen = false;
@@ -323,6 +347,9 @@ void Game::toggle_screen()
         
 }  
 
+/**
+ * Calc the score (except bonus)
+ */
 void Game::calc_score()
 {
   global_score = 0;
@@ -339,12 +366,17 @@ void Game::calc_score()
     }
 }
 
+/**
+ * Stop the game from an other thread
+ */
 void Game::stop()
 {
   end = true;
 }
 
-
+/**
+ * Main loop
+ */
 void Game::main_loop()
 {
 

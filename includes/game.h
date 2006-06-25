@@ -42,6 +42,9 @@
 #define GAME_MODE_GAME_OVER 6
 
 
+/**
+ * This is the main class witch contains all the game
+ */
 class Game{
 
   // Context

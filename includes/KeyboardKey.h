@@ -22,6 +22,9 @@
 
 #include <ClanLib/core.h>
 
+/**
+ * Class for keyboard key
+ */
 class KeyboardKey
 {
 private:
@@ -32,6 +35,9 @@ private:
   unsigned long int next_time;
 
 public:
+  /**
+   * Constructor
+   */
   KeyboardKey::KeyboardKey(int key, bool repeat = false)
   {
     this->key = key;
@@ -40,6 +46,9 @@ public:
     next_time = 0;
   }
   
+  /**
+   * Return if the key is activated 
+   */
   bool get()
   {
     if(CL_Keyboard::get_keycode(key))

@@ -20,7 +20,10 @@
  
 #include "headers.h"
 #include <vector> 
- 
+
+/**
+ * Detect the pieces to fall
+ */ 
 void Game::detect_to_fall()
 {
   falling_list.clear();

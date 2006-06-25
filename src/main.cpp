@@ -29,7 +29,9 @@
 #define RENDER_SDL 0
 #define RENDER_OPENGL 1
 
-
+/**
+ * Main application
+ */
 class Application : public CL_ClanApplication
 {
 public:
@@ -40,6 +42,9 @@ public:
 
   Game *game;
 
+  /**
+   * Initialise the game
+   */
   void init()
     {
       CL_SetupCore::init();
@@ -62,11 +67,17 @@ public:
   
     }
 
+  /**
+   * Stop the application
+   */
   void stop()
     {
       game -> stop();
     }
 
+  /**
+   * Quit the application
+   */
   void quit()
     {
       CL_Display::sig_window_close().disconnect(quit_event);
@@ -91,6 +102,9 @@ public:
     }
 
  
+  /**
+   * Application main function
+   */
   virtual int main(int argc, char **argv)
     {
       // Create a console window for text-output if not available
@@ -151,6 +165,9 @@ public:
       return 0;
     }
 
+  /**
+   * Display the help informations
+   */
   void help()
     {
       std::cout << "OpenAlchemist v0.xxx -- Help\n"
@@ -163,6 +180,9 @@ public:
                      ;
     }
 
+  /**
+   * Display the license
+   */
   void license()
     {
       std::cout << " * OpenAlchemist v0.xxx -- License\n"

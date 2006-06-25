@@ -22,7 +22,9 @@
 #include <stack>
 #include <vector>
  
- 
+/**
+ * Detect the pieces to destroy
+ */ 
 void Game::detect_to_destroy()
 {
     

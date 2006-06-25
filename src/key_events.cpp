@@ -22,6 +22,9 @@
 
 #define TO_RAD PI/180
 
+/**
+ * Key events
+ */
 void Game::key_events()
 {
   // Switch to fullscreen/windowed mode
