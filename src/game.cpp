@@ -171,15 +171,15 @@ void Game::new_game()
   next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
 
   // We set some variables
-  current_pieces_angle = 90; 
-  current_pieces_next_angle = 90;
+  current_pieces_angle = 0; 
+  current_pieces_next_angle = 0;
   current_pieces_placed = true;
 
-  position = 0;
+  position = NUMBER_OF_COLS/2-1;
   old_position = 0;
-  position_bis = 0;
+  position_bis = 1;
   old_position_bis = 0;
-  position_x = 0*pieces_width;
+  position_x = position*pieces_width;
 
   undo = false;
   undo_next_next_piece1 = 0;
@@ -294,8 +294,8 @@ void Game::load_gfx()
   next_piece1 -> set_position(next_left, next_top);
   next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
   
-  current_piece1 -> set_position(100.0,100.0);
-  current_piece2 -> set_position(152.0,100.0);
+  /*current_piece1 -> set_position(100.0,100.0);
+    current_piece2 -> set_position(152.0,100.0);*/
   
   
   // c² = a²+b³
@@ -391,8 +391,11 @@ void Game::main_loop()
   choose_skin();
   new_game();
   load_gfx();
+  
 
-  CL_FramerateCounter fps_getter;
+  CL_FramerateCounter fps_getter; 
+
+  position_x = position*pieces_width + pieces_width/2;
 
 
   // Run until someone presses escape

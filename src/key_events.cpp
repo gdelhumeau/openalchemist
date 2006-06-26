@@ -21,6 +21,8 @@
 #include "headers.h"
 
 #define TO_RAD PI/180
+#define PIECE_MOVING_SPEED 0.25
+
 
 /**
  * Key events
@@ -163,7 +165,7 @@ void Game::key_events()
     {
       if(position * pieces_width + position_bis *pieces_width/2 >= position_x)
       {
-        position_x += time_interval * 0.25;
+        position_x += time_interval * PIECE_MOVING_SPEED;
         if(position_x > position * pieces_width + (position_bis )*pieces_width/2)
         {
           position_x = position * pieces_width + (position_bis )*pieces_width/2;
@@ -177,7 +179,7 @@ void Game::key_events()
       // Move the pieces to the left
       if(position * pieces_width + (position_bis )*pieces_width/2 <= position_x)
       {
-        position_x -= time_interval * 0.25;
+        position_x -= time_interval * PIECE_MOVING_SPEED;
         if(position_x < position * pieces_width + (position_bis)*pieces_width/2)
         {
           position_x = position * pieces_width + (position_bis)*pieces_width/2;
