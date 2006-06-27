@@ -200,7 +200,7 @@ void Game::new_game()
  */
 void Game::choose_skin()
 {
-  skin = "./skins/aqua.zip";
+  skin = CL_System::get_exe_path() + "/skins/aqua.zip";
 }
 
 /**
@@ -396,18 +396,14 @@ void Game::main_loop()
   CL_FramerateCounter fps_getter; 
 
   position_x = position*pieces_width + pieces_width/2;
-
+   
 
   // Run until someone presses escape
   while (!CL_Keyboard::get_keycode(CL_KEY_Q) && !end)
   {
     
-      
     draw_game();
-
     key_events(); 
- 
-    
 
     // Get the Framerate
     fps = fps_getter.get_fps();

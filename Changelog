@@ -1,0 +1,20 @@
+* 0.1 * - 27/06/2006
+
+#10 : Correction du bug carré blanc
+#11 : Affichage progressif des pieces (avec leur score)
+#12 : Affichage progressif repensé car le premier était mal foutu
+#13 : English revision (corrections de log dans le README)
+#14 : Ajout de nouvelles anims (pièces 1 et 2)
+#15 : Idem
+#16 : Ajout du répertoire tools et début de programmation de l'outil AnimViewer
+#17 : Ajout des animations des 9 premières pièces
+#37 : Première version utilisable de l'anim-viewer
+#40 : Changement d'angle revu
+#42 : Changement d'angle corrigé smile
+#43 : Changement du délai entre les appuis de touche
+#46 : Début de la doc Doxygen (Doxyfile)
+#48 : Annulation du dernier coup
+#49 : Juste une petite maj d'aqua.zip
+#50 : Jeu plus rapide, démarrage au milieuVersion 0.1
+----------
+

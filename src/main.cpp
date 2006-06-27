@@ -107,12 +107,7 @@ public:
    */
   virtual int main(int argc, char **argv)
     {
-      // Create a console window for text-output if not available
-      // Use printf or cout to display some text in your program
-
-      CL_ConsoleWindow console("Console");
-      console.redirect_stdio();
-
+              
       bool dont_run_game = false;
 
       render = RENDER_SDL;
@@ -159,9 +154,7 @@ public:
       }
 
 
-      // Display console close message and wait for a key
-      console.display_close_message();
-
+      
       return 0;
     }
 
