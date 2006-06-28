@@ -40,6 +40,13 @@ void Game::key_events()
   {
     new_game();
   }
+
+
+  if(CL_Keyboard::get_keycode(CL_KEY_F9))
+  {
+    skin = CL_System::get_exe_path() + "/skins/temp.zip";
+    load_gfx();
+  }
     
   
   // Key entries are for the playing mode only 

@@ -29,6 +29,12 @@
 #define RENDER_SDL 0
 #define RENDER_OPENGL 1
 
+#define OPTIONS_FILE_REVISION 1
+
+/** ! Windows user ! Uncomment this to compile for windows: */
+
+//#define _WINDOWS_
+
 /**
  * Main application
  */
@@ -109,6 +115,10 @@ public:
     {
               
       bool dont_run_game = false;
+
+     
+      //get_informations_from_options_file();
+      
 
       render = RENDER_SDL;
       for(int i = 0; i < argc; ++i)
@@ -195,6 +205,96 @@ public:
                 << " * along with this program; if not, write to the Free Software\n"
                 << " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n *\n\n";
     }
+
+
+
+  void get_informations_from_options_file()
+    {
+#ifdef _WINDOWS_
+      std::string options_path =  CL_System:get_exe_path() + "/savedata";
+#else
+      std::string options_path =  ((std::string)getenv("HOME")) + "/.openalchemist";
+#endif
+      std::string options_file = options_path + "/options";
+
+      try
+      {
+        CL_InputSource_File file(options_file);
+
+        read_options_file(&file);
+      }
+      catch(CL_Error e)
+      {
+        // File doesn't exist
+        try
+          {
+            CL_OutputSource_File file(options_file);
+            create_options_file(&file);
+          }
+        catch(CL_Error e)
+        {
+          // Directory may doesn't exist
+          if(!CL_Directory::change_to(options_path))
+          {
+            if(CL_Directory::create(options_path))
+            {
+              // Now we can create the file
+              try
+              {
+                 CL_OutputSource_File file(options_file);
+                 create_options_file(&file);
+              }
+              catch(CL_Error e)
+              {
+                std::cout << "Can't create " << options_file <<".\n";
+              }
+              
+            }
+            else
+            {
+              std::cout << "Can't access to " << options_path << ".\n";
+            }
+          }
+          else
+          {
+            std::cout << "Can't access to " << options_file <<".\n";
+          }
+          
+        }
+
+      }
+    }
+
+  void read_options_file(CL_InputSource_File *file)
+    {
+      file->open();
+      int revision = file -> read_uint8();
+      if(revision == 1)
+      {
+      }
+      bool use_opengl = file  -> read_bool8();
+      if(use_opengl)
+      {
+        render = RENDER_OPENGL;
+      }
+      else
+      {
+        render = RENDER_SDL;
+      }
+      file -> close();
+    }
+
+  void create_options_file(CL_OutputSource_File *file)
+    {
+      file -> open();
+      // File revision
+      file -> write_uint8(OPTIONS_FILE_REVISION);
+      // Use OpenGL
+      file -> write_bool8(false);
+      
+      file -> close();
+    }
+ 
 
 
 } app;
