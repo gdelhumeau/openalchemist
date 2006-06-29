@@ -41,6 +41,7 @@
 #define GAME_MODE_DETECTING_WHAT_FALL 5
 #define GAME_MODE_GAME_OVER 6
 
+#define NUMBER_OF_DIFFICULTIES 3
 
 /**
  * This is the main class witch contains all the game
@@ -50,7 +51,6 @@ class Game{
   // Context
   CL_DisplayWindow  * window;
   CL_GraphicContext * gc;
-
 
   // Sprites
   CL_Surface * background, *game_over;
@@ -81,13 +81,17 @@ class Game{
   int pieces_width, pieces_height;
   int score_top, score_left;
   int bonus_top, bonus_left;
+  int hightscore_top, hightscore_left;
   int combo;
+
+  u_int hightscores[NUMBER_OF_DIFFICULTIES];
   
   // Game mode
   int game_mode;
-  int global_score;
-  int global_bonus;
-  int undo_global_bonus;
+  short current_difficulty;
+  u_int global_score;
+  u_int global_bonus;
+  u_int undo_global_bonus;
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
@@ -155,10 +159,12 @@ class Game{
   void Game::draw_game_over();
 
   void Game::calc_score();
-  
-  
+ 
+
+  void Game::read_scores();
+  void Game::save_scores();
   void Game::key_events();
-  void Game::new_game();
+  void Game::new_game(short difficulty);
   void Game::fall();
   void Game::detect_to_destroy();
   void Game::detect_to_fall();

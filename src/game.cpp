@@ -44,6 +44,7 @@ inline float get_time_interval(int fps)
 Game::Game(CL_DisplayWindow *window)
 {
   this->window = window;
+ 
   gc = window->get_gc(); 
   is_gfx_loaded = false;   
 
@@ -72,6 +73,8 @@ Game::Game(CL_DisplayWindow *window)
   
   // We initalize the randomized-numbers generator
   srand(CL_System::get_time());
+
+  read_scores();
 
 }
 
@@ -108,8 +111,10 @@ Game::~Game()
 /**
  * This method start a new game
  */
-void Game::new_game()
+void Game::new_game(short difficulty)
 {
+
+  current_difficulty = difficulty;
 
   // We have to delete the pieces in the body
   for(int i=0; i<NUMBER_OF_COLS; ++i)
@@ -289,6 +294,8 @@ void Game::load_gfx()
   score_left = CL_Integer_to_int("score_left", &gfx);
   bonus_left = CL_Integer_to_int("bonus_score_left", &gfx);
   bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
+  hightscore_left = CL_Integer_to_int("hight_score_left", &gfx);
+  hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
 
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
@@ -389,7 +396,7 @@ void Game::main_loop()
 
   end = false;
   choose_skin();
-  new_game();
+  new_game(0);
   load_gfx();
   
 

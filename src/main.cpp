@@ -23,8 +23,7 @@
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
 
-#include "piece.h"
-#include "game.h"
+#include "headers.h"
 
 #define RENDER_SDL 0
 #define RENDER_OPENGL 1
@@ -44,7 +43,7 @@ public:
 
   CL_DisplayWindow *window;
   CL_Slot quit_event;
-  short render;
+  short render;  
 
   Game *game;
 
@@ -117,7 +116,7 @@ public:
       bool dont_run_game = false;
 
      
-      //get_informations_from_options_file();
+      get_informations_from_options_file();
       
 
       render = RENDER_SDL;
@@ -210,17 +209,12 @@ public:
 
   void get_informations_from_options_file()
     {
-#ifdef _WINDOWS_
-      std::string options_path =  CL_System:get_exe_path() + "/savedata";
-#else
-      std::string options_path =  ((std::string)getenv("HOME")) + "/.openalchemist";
-#endif
+      std::string options_path = get_save_path();
       std::string options_file = options_path + "/options";
 
       try
       {
         CL_InputSource_File file(options_file);
-
         read_options_file(&file);
       }
       catch(CL_Error e)

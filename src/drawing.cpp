@@ -38,6 +38,7 @@ void Game::draw_game()
   font_a->draw(580,550,to_string(fps));  
   font_a->draw(score_left, score_top, to_string(global_score));
   font_a->draw(bonus_left, bonus_top, to_string(global_bonus));
+  font_a->draw(hightscore_left, hightscore_top, to_string(hightscores[current_difficulty]));
 
   /* We draw unlocked pieces */
   for(int i=NUMBER_OF_PIECES-1; i>=visible_pieces; --i)
@@ -45,6 +46,8 @@ void Game::draw_game()
     pieces_hidder[i-3] -> draw(pieces_progress_x[i-3], pieces_progress_y[i-3], 0);
   }
 
+  
+  /* Drawing the body */
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
     {
@@ -150,6 +153,10 @@ void Game::draw_falling()
           if(body[i][j] != NULL)
           {
             game_mode = GAME_MODE_GAME_OVER;
+            if(global_score + global_bonus > hightscores[current_difficulty])
+            {
+              save_scores();
+            }
             return;
           }
         }
@@ -236,6 +243,10 @@ void Game::draw_to_playing()
     {
       if(body[i][j] != NULL)
       {
+        if(global_score + global_bonus > hightscores[current_difficulty])
+        {
+          save_scores();
+        }
         game_mode = GAME_MODE_GAME_OVER;
         return;
       }

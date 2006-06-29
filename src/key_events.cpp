@@ -38,7 +38,7 @@ void Game::key_events()
   // New game
   if(key_retry->get())
   {
-    new_game();
+    new_game(0);
   }
 
 
