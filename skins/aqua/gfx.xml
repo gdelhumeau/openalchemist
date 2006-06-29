@@ -5,6 +5,8 @@
   <integer name = "score_left" value = "600" />
   <integer name = "bonus_score_top" value = "150" />
 	<integer name = "bonus_score_left" value ="600" />
+	<integer name = "hight_score_top" value = "250" />
+	<integer name = "hight_score_left" value ="600" />
 
   <section name = "game">
     <integer name = "top" value = "231" />
