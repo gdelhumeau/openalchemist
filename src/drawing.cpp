@@ -86,6 +86,10 @@ void Game::draw_game()
   {
     draw_game_over();
   }
+  else if(GAME_MODE_NEW_HIGHTSCORE == game_mode)
+  {
+    draw_new_hightscore();
+  }
 
   
 }
@@ -147,19 +151,24 @@ void Game::draw_falling()
     /* Only the second time */
     if(combo == 2)
     {
+      if(game_mode != GAME_MODE_GAME_OVER && game_mode != GAME_MODE_NEW_HIGHTSCORE)
+      {
       for(int i=0; i<NUMBER_OF_COLS; ++i)
         for(int j=0; j<2; ++j)
         {
+    
           if(body[i][j] != NULL)
           {
             game_mode = GAME_MODE_GAME_OVER;
             if(global_score + global_bonus > hightscores[current_difficulty])
             {
+              game_mode = GAME_MODE_NEW_HIGHTSCORE;
               save_scores();
             }
             return;
           }
         }
+      }
     }
     detect_to_destroy();     
   
@@ -238,19 +247,27 @@ void Game::draw_destroying()
  */
 void Game::draw_to_playing()
 {
-  for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=0; j<2; ++j)
-    {
-      if(body[i][j] != NULL)
+  if(game_mode != GAME_MODE_GAME_OVER && game_mode != GAME_MODE_NEW_HIGHTSCORE)
+  {
+    for(int i=0; i<NUMBER_OF_COLS; ++i)
+      for(int j=0; j<2; ++j)
       {
-        if(global_score + global_bonus > hightscores[current_difficulty])
+      
+        if(body[i][j] != NULL)
         {
-          save_scores();
+          game_mode = GAME_MODE_GAME_OVER;
+          if(global_score + global_bonus > hightscores[current_difficulty])
+          {
+            game_mode = GAME_MODE_NEW_HIGHTSCORE;
+            save_scores();
+          }
+        
+          return;
         }
-        game_mode = GAME_MODE_GAME_OVER;
-        return;
+      
+      
       }
-    }
+  }
 
   if(undo_next_next_piece1 > 0)
   {
@@ -285,9 +302,29 @@ void Game::draw_to_playing()
  */
 void Game::draw_game_over()
 {
-  current_piece1 -> draw();
-  current_piece2 -> draw();
+  //current_piece1 -> draw();
+  //current_piece2 -> draw();
     
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
     game_over -> draw(400-game_over->get_width()/2, 300-game_over->get_height()/2);
+}
+
+/**
+ * Draw the game when the game is over
+ */
+void Game::draw_new_hightscore()
+{
+  //current_piece1 -> draw();
+  //current_piece2 -> draw();
+
+  if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
+  {
+    new_hightscore -> draw(400-new_hightscore -> get_width()/2, 300-new_hightscore -> get_height()/2);
+    new_hightscore -> update();
+    font_a->draw(400-font_a->get_width(to_string(global_score+global_bonus))/2, 
+                 new_score_top, to_string(global_score+global_bonus));
+    font_a->draw(400-font_a->get_width(to_string(last_hightscore))/2,
+                 old_score_top, to_string(last_hightscore));
+  }
+
 }

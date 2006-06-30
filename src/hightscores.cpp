@@ -53,6 +53,7 @@ void Game::save_scores()
 
   if(global_score + global_bonus > hightscores[current_difficulty])
   {
+    last_hightscore =  hightscores[current_difficulty];
     hightscores[current_difficulty] = global_score + global_bonus;
   }
 

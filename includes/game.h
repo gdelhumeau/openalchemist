@@ -40,6 +40,7 @@
 #define GAME_MODE_DESTROYING 4
 #define GAME_MODE_DETECTING_WHAT_FALL 5
 #define GAME_MODE_GAME_OVER 6
+#define GAME_MODE_NEW_HIGHTSCORE 7
 
 #define NUMBER_OF_DIFFICULTIES 3
 
@@ -65,6 +66,11 @@ class Game{
 
   int pieces_progress_x[NUMBER_OF_PIECES-3];
   int pieces_progress_y[NUMBER_OF_PIECES-3];
+
+
+  // Menus
+  CL_Sprite *new_hightscore;
+  int new_score_top, old_score_top;
   
   // TODO bidule
   int unlocked_pieces;
@@ -92,6 +98,7 @@ class Game{
   u_int global_score;
   u_int global_bonus;
   u_int undo_global_bonus;
+  u_int last_hightscore;
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
@@ -157,6 +164,7 @@ class Game{
   void Game::draw_destroying();
   void Game::draw_to_playing();
   void Game::draw_game_over();
+  void Game::draw_new_hightscore();
 
   void Game::calc_score();
  

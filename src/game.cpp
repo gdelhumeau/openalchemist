@@ -232,6 +232,7 @@ void Game::load_gfx()
 
   background = new CL_Surface("background", &gfx);
   game_over = new CL_Surface("gameover", &gfx);
+  new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
 
   for(int i=1; i<=NUMBER_OF_PIECES; ++i)
   {
@@ -296,15 +297,14 @@ void Game::load_gfx()
   bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
   hightscore_left = CL_Integer_to_int("hight_score_left", &gfx);
   hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
+  new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
+  old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
+  
 
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
   next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
-  
-  /*current_piece1 -> set_position(100.0,100.0);
-    current_piece2 -> set_position(152.0,100.0);*/
-  
-  
+ 
   // c² = a²+b³
   current_pieces_r = pieces_width/2;
      
