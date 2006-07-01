@@ -91,6 +91,11 @@ void Game::draw_game()
     draw_new_hightscore();
   }
 
+  if(pause)
+  {
+    draw_pause();
+  }
+
   
 }
 
@@ -116,6 +121,10 @@ void Game::draw_playing()
  */
 void Game::draw_falling()
 {
+
+  if(pause)
+    return;
+
   bool all_pieces_are_placed = true;
   for(u_int i=0; i<falling_list.size(); ++i)
   {
@@ -180,6 +189,9 @@ void Game::draw_falling()
  */
 void Game::draw_destroying()
 {
+
+  if(pause)return;
+
   bool end = true;
   for(u_int i=0; i<list_to_destroy.size(); i++)
   {    
@@ -302,9 +314,6 @@ void Game::draw_to_playing()
  */
 void Game::draw_game_over()
 {
-  //current_piece1 -> draw();
-  //current_piece2 -> draw();
-    
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
     game_over -> draw(400-game_over->get_width()/2, 300-game_over->get_height()/2);
 }
@@ -314,9 +323,6 @@ void Game::draw_game_over()
  */
 void Game::draw_new_hightscore()
 {
-  //current_piece1 -> draw();
-  //current_piece2 -> draw();
-
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
   {
     new_hightscore -> draw(400-new_hightscore -> get_width()/2, 300-new_hightscore -> get_height()/2);

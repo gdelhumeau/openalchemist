@@ -61,13 +61,17 @@ Game::Game(CL_DisplayWindow *window)
   current_piece2 = NULL;
 
   // We create all the usefull KeyboardKeys
-  key_fullscreen   = new KeyboardKey(CL_KEY_F11  , false);
-  key_retry        = new KeyboardKey(CL_KEY_F2   , false);
-  key_change_angle = new KeyboardKey(CL_KEY_UP   , true );
-  key_left         = new KeyboardKey(CL_KEY_LEFT , true );
-  key_right        = new KeyboardKey(CL_KEY_RIGHT, true );
-  key_falling      = new KeyboardKey(CL_KEY_DOWN , false);
-  key_undo         = new KeyboardKey(CL_KEY_F5,    false);
+  key_fullscreen   = new KeyboardKey(CL_KEY_F11   , false);
+  key_retry        = new KeyboardKey(CL_KEY_F2    , false);
+  key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
+  key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
+  key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
+  key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
+  key_undo         = new KeyboardKey(CL_KEY_F5    , false);
+  key_echap        = new KeyboardKey(CL_KEY_ESCAPE, false);
+  key_up           = new KeyboardKey(CL_KEY_UP    , true );
+  key_down         = new KeyboardKey(CL_KEY_DOWN  , true );
+  key_enter        = new KeyboardKey(CL_KEY_ENTER , false);
   
   time_interval = 0;
   
@@ -105,6 +109,10 @@ Game::~Game()
   delete key_right; 
   delete key_falling; 
   delete key_undo;
+  delete key_echap;
+  delete key_up;
+  delete key_down;
+  delete key_enter;
   
 }
 
@@ -189,7 +197,6 @@ void Game::new_game(short difficulty)
   undo = false;
   undo_next_next_piece1 = 0;
   undo_next_next_piece2 = 0;
-
   
   falling_requested = false;
 
@@ -232,7 +239,31 @@ void Game::load_gfx()
 
   background = new CL_Surface("background", &gfx);
   game_over = new CL_Surface("gameover", &gfx);
+  
   new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
+  pause_background = new CL_Sprite("menu/pause/background", &gfx);
+
+  pause_resume = new CL_Sprite("menu/pause/resume/unselected", &gfx);
+  pause_resume_selected = new CL_Sprite("menu/pause/resume/selected", &gfx);
+
+  pause_undo = new CL_Sprite("menu/pause/undo/unselected", &gfx);
+  pause_undo_selected = new CL_Sprite("menu/pause/undo/selected", &gfx);
+  pause_undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", &gfx);
+
+  pause_retry = new CL_Sprite("menu/pause/retry/unselected", &gfx);
+  pause_retry_selected = new CL_Sprite("menu/pause/retry/selected", &gfx);
+
+  pause_changeskin = new CL_Sprite("menu/pause/changeskin/unselected", &gfx);
+  pause_changeskin_selected = new CL_Sprite("menu/pause/changeskin/selected", &gfx);
+
+  pause_fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", &gfx);
+  pause_fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", &gfx);
+
+  pause_backmain = new CL_Sprite("menu/pause/backmain/unselected", &gfx);
+  pause_backmain_selected = new CL_Sprite("menu/pause/backmain/selected", &gfx);
+
+  pause_quit = new CL_Sprite("menu/pause/quit/unselected", &gfx);
+  pause_quit_selected = new CL_Sprite("menu/pause/quit/selected", &gfx);
 
   for(int i=1; i<=NUMBER_OF_PIECES; ++i)
   {
@@ -299,7 +330,29 @@ void Game::load_gfx()
   hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
   new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
   old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
+
+  pause_resume_left = CL_Integer_to_int("menu/pause/resume/left", &gfx);
+  pause_resume_top = CL_Integer_to_int("menu/pause/resume/top", &gfx);
+
+  pause_undo_left = CL_Integer_to_int("menu/pause/undo/left", &gfx);
+  pause_undo_top = CL_Integer_to_int("menu/pause/undo/top", &gfx);
+
+  pause_retry_left = CL_Integer_to_int("menu/pause/retry/left", &gfx);
+  pause_retry_top = CL_Integer_to_int("menu/pause/retry/top", &gfx);
+
+  pause_changeskin_left = CL_Integer_to_int("menu/pause/changeskin/left", &gfx);
+  pause_changeskin_top = CL_Integer_to_int("menu/pause/changeskin/top", &gfx);
+
+  pause_fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", &gfx);
+  pause_fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", &gfx);
   
+  pause_backmain_left = CL_Integer_to_int("menu/pause/backmain/left", &gfx);
+  pause_backmain_top = CL_Integer_to_int("menu/pause/backmain/top", &gfx);
+
+  pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx);
+  pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx);
+  
+  pause_appearing = false;
 
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
@@ -335,6 +388,31 @@ void Game::unload_gfx()
 
   delete background;
   delete font_a;
+
+  delete new_hightscore;
+  delete pause_background;
+
+  delete pause_resume;
+  delete pause_resume_selected;
+
+  delete pause_undo;
+  delete pause_undo_selected;
+  delete pause_undo_unavailable;
+
+  delete pause_retry;
+  delete pause_retry_selected;
+
+  delete pause_changeskin;
+  delete pause_changeskin_selected;
+
+  delete pause_fullscreen;
+  delete pause_fullscreen_selected;
+
+  delete pause_backmain;
+  delete pause_backmain_selected;
+
+  delete pause_quit;
+  delete pause_quit_selected;
 
  
   is_gfx_loaded = false;

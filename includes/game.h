@@ -42,6 +42,9 @@
 #define GAME_MODE_GAME_OVER 6
 #define GAME_MODE_NEW_HIGHTSCORE 7
 
+#define PAUSE_STEP_APPEARING 1
+#define PAUSE_STEP_MENU 2
+
 #define NUMBER_OF_DIFFICULTIES 3
 
 /**
@@ -64,6 +67,30 @@ class Game{
   CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
   CL_Sprite *pieces_hidder[NUMBER_OF_PIECES-3];
 
+  // Sprites for pause
+  CL_Sprite *pause_background;
+  CL_Sprite *pause_resume, *pause_resume_selected;
+  CL_Sprite *pause_undo, *pause_undo_selected, *pause_undo_unavailable;
+  CL_Sprite *pause_retry, *pause_retry_selected;
+  CL_Sprite *pause_changeskin, *pause_changeskin_selected;
+  CL_Sprite *pause_fullscreen, *pause_fullscreen_selected;
+  CL_Sprite *pause_backmain, *pause_backmain_selected;
+  CL_Sprite *pause_quit, *pause_quit_selected;
+  
+  // Pause
+  bool pause;
+  bool pause_appearing;
+  int pause_step;
+  int pause_selection;
+
+  int pause_resume_left, pause_resume_top;
+  int pause_retry_left, pause_retry_top;
+  int pause_undo_left, pause_undo_top;
+  int pause_changeskin_left, pause_changeskin_top;
+  int pause_fullscreen_left, pause_fullscreen_top;
+  int pause_backmain_left, pause_backmain_top;
+  int pause_quit_left, pause_quit_top;
+
   int pieces_progress_x[NUMBER_OF_PIECES-3];
   int pieces_progress_y[NUMBER_OF_PIECES-3];
 
@@ -80,6 +107,7 @@ class Game{
   bool is_gfx_loaded;
   
   bool falling_requested;
+
 
   int fps;
 
@@ -142,6 +170,10 @@ class Game{
   KeyboardKey * key_falling;
   KeyboardKey * key_retry;
   KeyboardKey * key_undo;
+  KeyboardKey * key_echap;
+  KeyboardKey * key_up;
+  KeyboardKey * key_down;
+  KeyboardKey * key_enter;
 
   public:
 
@@ -165,6 +197,7 @@ class Game{
   void Game::draw_to_playing();
   void Game::draw_game_over();
   void Game::draw_new_hightscore();
+  void Game::draw_pause();
 
   void Game::calc_score();
  
@@ -172,6 +205,9 @@ class Game{
   void Game::read_scores();
   void Game::save_scores();
   void Game::key_events();
+  void Game::key_events_playing();
+  void Game::key_events_pause();
+  void Game::undo_last();
   void Game::new_game(short difficulty);
   void Game::fall();
   void Game::detect_to_destroy();
