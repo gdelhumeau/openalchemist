@@ -484,7 +484,7 @@ void Game::main_loop()
    
 
   // Run until someone presses escape
-  while (!CL_Keyboard::get_keycode(CL_KEY_Q) && !end)
+  while (!end)
   {
     
     draw_game();
