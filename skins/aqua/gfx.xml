@@ -24,7 +24,7 @@
     <integer name = "space_v" value = "2" />
 
     <section name = "piece_1">
-		  <sprite name = "normal">
+                  <sprite name = "normal">
 		    <image file = "piece1/normal.png" />
 		  </sprite>
 		  <sprite name = "appear">
@@ -519,6 +519,9 @@
   
   <section name="menu">
   	<section name="pause">
+
+                <boolean name = "alpha_appearing" value = "true" />        
+
   		<sprite name="background">
   			<image file="dialogs/pause/pause.png">
   				<grid pos="0,0" size="500,550" />

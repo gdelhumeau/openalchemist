@@ -44,6 +44,7 @@
 
 #define PAUSE_STEP_APPEARING 1
 #define PAUSE_STEP_MENU 2
+#define PAUSE_STEP_DISAPPEARING 3
 
 #define NUMBER_OF_DIFFICULTIES 3
 
@@ -55,6 +56,7 @@ class Game{
   // Context
   CL_DisplayWindow  * window;
   CL_GraphicContext * gc;
+  bool opengl;
 
   // Sprites
   CL_Surface * background, *game_over;
@@ -82,6 +84,7 @@ class Game{
   bool pause_appearing;
   int pause_step;
   int pause_selection;
+  float pause_alpha;
 
   int pause_resume_left, pause_resume_top;
   int pause_retry_left, pause_retry_top;
@@ -178,7 +181,7 @@ class Game{
   public:
 
   //Constructor
-  Game::Game(CL_DisplayWindow *window);
+  Game::Game(CL_DisplayWindow *window, bool opengl);
   //Destructor
   Game::~Game();
 

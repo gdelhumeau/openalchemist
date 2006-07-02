@@ -61,6 +61,7 @@ void Game::key_events_playing()
   {
     pause = true;
     pause_selection = 0;
+    pause_alpha = 0.0;
     if(pause_appearing)
       pause_step = PAUSE_STEP_APPEARING;
     else

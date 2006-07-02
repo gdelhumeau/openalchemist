@@ -25,8 +25,8 @@
 
 #include "headers.h"
 
-#define RENDER_SDL 0
-#define RENDER_OPENGL 1
+#define RENDER_SDL false
+#define RENDER_OPENGL true
 
 #define OPTIONS_FILE_REVISION 1
 
@@ -43,7 +43,7 @@ public:
 
   CL_DisplayWindow *window;
   CL_Slot quit_event;
-  short render;  
+  bool render;  
 
   Game *game;
 
@@ -68,7 +68,7 @@ public:
 
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
-      game = new Game(window);
+      game = new Game(window, render);
   
     }
 
@@ -115,20 +115,38 @@ public:
               
       bool dont_run_game = false;
 
-     
-      get_informations_from_options_file();
-      
-
       render = RENDER_SDL;
+      get_informations_from_options_file();      
+
+      
       for(int i = 0; i < argc; ++i)
       {
-        if(strcmp(argv[i], "--sdl")==0)
+        if(strcmp(argv[i], "--sdl")==0 && render != RENDER_SDL)
         {
           render = RENDER_SDL;
+          /*try
+          {
+            CL_OutputSource_File file(get_save_path()+"/options");
+            create_options_file(&file);
+          }
+          catch(CL_Error e)
+          {
+            std::cout << "Can't create options file. \n";
+            }*/
         }
-        if(strcmp(argv[i], "--opengl")==0)
+        if(strcmp(argv[i], "--opengl")==0 && render != RENDER_OPENGL)
         {
           render = RENDER_OPENGL;
+          /*try
+          {
+            CL_OutputSource_File file(get_save_path()+"/options");
+            create_options_file(&file);
+          }
+          catch(CL_Error e)
+          {
+            std::cout << "Can't create options file. \n";
+            }*/
+          
         }
         if(strcmp(argv[i], "--help")==0)
         {
@@ -179,7 +197,7 @@ public:
                 << "\t--license : Show the license of this program\n"
                 << "\t--opengl : Use OpenGL as render target\n"
                 << "\t--sdl : Use SDL as render target (default)\n"
-                     ;
+        ;
     }
 
   /**
@@ -221,10 +239,10 @@ public:
       {
         // File doesn't exist
         try
-          {
-            CL_OutputSource_File file(options_file);
-            create_options_file(&file);
-          }
+        {
+          CL_OutputSource_File file(options_file);
+          create_options_file(&file);
+        }
         catch(CL_Error e)
         {
           // Directory may doesn't exist
@@ -235,8 +253,8 @@ public:
               // Now we can create the file
               try
               {
-                 CL_OutputSource_File file(options_file);
-                 create_options_file(&file);
+                CL_OutputSource_File file(options_file);
+                create_options_file(&file);
               }
               catch(CL_Error e)
               {
@@ -284,7 +302,7 @@ public:
       // File revision
       file -> write_uint8(OPTIONS_FILE_REVISION);
       // Use OpenGL
-      file -> write_bool8(false);
+      file -> write_bool8(render);
       
       file -> close();
     }

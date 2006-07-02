@@ -41,9 +41,10 @@ inline float get_time_interval(int fps)
 /**
  * Game constructor
  */
-Game::Game(CL_DisplayWindow *window)
+Game::Game(CL_DisplayWindow *window, bool opengl)
 {
   this->window = window;
+  this->opengl = opengl;
  
   gc = window->get_gc(); 
   is_gfx_loaded = false;   
@@ -192,7 +193,7 @@ void Game::new_game(short difficulty)
   old_position = 0;
   position_bis = 1;
   old_position_bis = 0;
-  position_x = position*pieces_width;
+  position_x = position*pieces_width+pieces_width/2;
 
   undo = false;
   undo_next_next_piece1 = 0;
@@ -204,6 +205,8 @@ void Game::new_game(short difficulty)
   global_score = 0;
   global_bonus = 0;
   combo = 0;
+
+  pause = false;
 
 }
 
@@ -223,6 +226,17 @@ int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx
   CL_Integer *cl_int = new CL_Integer(ressource_name, gfx);
   int to_return = (int)*cl_int;
   delete cl_int;
+  return to_return;
+}
+
+/**
+ * Convert a CL_Boolean to a boolean
+ */
+int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
+{    
+  CL_Boolean *cl_bool = new CL_Boolean(ressource_name, gfx);
+  bool to_return = (bool)*cl_bool;
+  delete cl_bool;
   return to_return;
 }
 
@@ -352,7 +366,10 @@ void Game::load_gfx()
   pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx);
   pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx);
   
-  pause_appearing = false;
+  if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
+    pause_appearing = true;
+  else
+    pause_appearing = false;
 
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
