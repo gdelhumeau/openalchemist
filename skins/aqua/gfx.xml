@@ -1,32 +1,46 @@
 <resources>
 
+  <!-- Zone top represents the zone where are the pieces you control -->
   <integer name = "zone_top" value = "110" />
+
+  <!-- Coords for score displaying -->
   <integer name = "score_top" value = "50" />
   <integer name = "score_left" value = "600" />
   <integer name = "bonus_score_top" value = "150" />
-	<integer name = "bonus_score_left" value ="600" />
-	<integer name = "hight_score_top" value = "250" />
-	<integer name = "hight_score_left" value ="600" />
+  <integer name = "bonus_score_left" value ="600" />
+  <integer name = "hight_score_top" value = "250" />
+  <integer name = "hight_score_left" value ="600" />
 
+  
+  <!-- Coords of the body -->
   <section name = "game">
     <integer name = "top" value = "231" />
     <integer name = "left" value = "245" />
+
+    <!-- Coords of the two next pieces -->
     <integer name = "next_top" value = "38" />
     <integer name = "next_left" value = "395" />
   </section>
 
+  <!-- This section contains pieces informations -->
   <section name = "pieces">
 
+    <!-- Size of the pieces -->
     <integer name = "width" value = "52" />
     <integer name = "height" value = "52" />
 
     <integer name = "space_h" value = "2" />
     <integer name = "space_v" value = "2" />
 
+    <!-- About the piece 1 -->
     <section name = "piece_1">
+
+                  <!-- Normal sprite, which you see the most of the time -->
                   <sprite name = "normal">
 		    <image file = "piece1/normal.png" />
 		  </sprite>
+
+                  <!-- Appearing sprite, when you create one -->
 		  <sprite name = "appear">
 		    <image file="piece1/appear.png">
 		      <grid pos="0,0" size="50,50" />
@@ -39,6 +53,8 @@
 		   	</image>
 		     <animation speed="50" />
 		  </sprite>
+
+                  <!-- Disappearing sprite, when you brokes three or more -->
 		  <sprite name = "disappear">
 		    <image file="piece1/disappear.png">
 		      <grid pos="0,0" size="50,50" />
@@ -477,12 +493,16 @@
 
   </section>
   
+  
+  <!-- background image -->
   <surface name = "background" file = "misc/landscape.png"/>
 
+  <!-- game over message -->
   <surface name = "gameover" file = "misc/gameover.png" />
   <integer name = "gameover_x" value = "0" />
   <integer name = "gameover_y" value = "0" />
 
+  <!-- font to display score -->
   <sprite name="font_glyph">
     <image file="misc/font4.png">
       <grid pos="1,0" size="14,40" />
@@ -520,7 +540,8 @@
   <section name="menu">
   	<section name="pause">
 
-                <boolean name = "alpha_appearing" value = "true" />        
+                <boolean name = "alpha_appearing" value = "true" />       
+                <integer name = "apha_max" value = "65" /> 
 
   		<sprite name="background">
   			<image file="dialogs/pause/pause.png">

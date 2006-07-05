@@ -1,5 +1,2 @@
 #!/bin/sh
-
-cd $1
-rm gfx.xml~
-zip -r ../$1 *
+zip -q -r $1 $1/* -x *svn*
