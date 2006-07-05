@@ -1,2 +1,4 @@
 #!/bin/sh
-zip -q -r $1 $1/* -x *svn*
+cd $1
+zip -q -r ../$1 * -x *svn*
+
