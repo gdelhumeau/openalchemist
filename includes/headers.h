@@ -9,6 +9,6 @@
 #include "piece.h"
 #include "game.h"
 #include "misc.h"
-
+#include "preferences.h"
 
 #endif

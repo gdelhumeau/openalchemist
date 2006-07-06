@@ -367,7 +367,10 @@ void Game::load_gfx()
   pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx);
   
   if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
+  {
     pause_appearing = true;
+    pause_max_alpha =(float)CL_Integer_to_int("menu/pause/alpha_max", &gfx) / 100.0;
+  }
   else
     pause_appearing = false;
 

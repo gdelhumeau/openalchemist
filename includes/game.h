@@ -82,9 +82,10 @@ class Game{
   // Pause
   bool pause;
   bool pause_appearing;
+
   int pause_step;
   int pause_selection;
-  float pause_alpha;
+  float pause_alpha, pause_max_alpha;
 
   int pause_resume_left, pause_resume_top;
   int pause_retry_left, pause_retry_top;

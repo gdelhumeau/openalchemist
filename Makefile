@@ -3,9 +3,9 @@ LIBS = `pkg-config --libs $(PACKAGES)`
 OPTIONS =  -I/usr/local/include/ClanLib-0.8 -Iincludes -Wall -g
 LINKER_OPTIONS =  #-u malloc #-lefence
 
-all: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o skins/aqua.zip
+all: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o skins/aqua.zip skins/temp.zip
 	@echo "On assemble le fichier final"
-	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
+	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) 
@@ -31,10 +31,15 @@ bin/hightscores.o: includes/*.h src/hightscores.cpp
 bin/pause.o : includes/*.h src/pause.cpp
 	g++ -c -o bin/pause.o src/pause.cpp $(OPTIONS)
 
-skins:
+bin/preferences.o : includes/*.h src/pause.cpp
+	g++ -c -o bin/preferences.o src/preferences.cpp $(OPTIONS)
+
 skins/aqua.zip : skins/aqua/*
 	@echo "On zip les thèmes"
 	cd skins/aqua && zip -q -r ../aqua * -x *svn*
+skins/temp.zip : skins/temp/*
+	@echo "On zip les thèmes"
+	cd skins/temp && zip -q -r ../temp * -x *svn*
 
 clean:
 	-rm bin/*.o
