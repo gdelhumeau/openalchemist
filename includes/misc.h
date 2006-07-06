@@ -25,16 +25,6 @@
 #include <sstream>  
 #include <iostream>
 
-inline std::string get_save_path()
-{
-#ifdef _WINDOWS_
-  return CL_System::get_exe_path() + "/savedata";
-#else
-  return ((std::string)getenv("HOME")) + "/.openalchemist";
-#endif
-
-}
-
 template<typename T>
 inline std::string to_string( const T & Value )
 {

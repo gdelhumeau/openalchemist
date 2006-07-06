@@ -28,12 +28,6 @@
 #define RENDER_SDL false
 #define RENDER_OPENGL true
 
-#define OPTIONS_FILE_REVISION 1
-
-/** ! Windows user ! Uncomment this to compile for windows: */
-
-//#define _WINDOWS_
-
 /**
  * Main application
  */
@@ -65,6 +59,10 @@ public:
       }
 
       window = new CL_DisplayWindow("OpenAlchemist",800,600);
+
+      Preferences *pref = pref_get_instance();
+      if(pref -> fullscreen)
+        window -> set_fullscreen(800,600,0,0);
 
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
@@ -124,28 +122,17 @@ public:
         if(strcmp(argv[i], "--sdl")==0 && render != RENDER_SDL)
         {
           render = RENDER_SDL;
-          /*try
-          {
-            CL_OutputSource_File file(get_save_path()+"/options");
-            create_options_file(&file);
-          }
-          catch(CL_Error e)
-          {
-            std::cout << "Can't create options file. \n";
-            }*/
+          Preferences *pref = pref_get_instance();
+          pref -> render_opengl = false;
+          pref -> write();
+         
         }
         if(strcmp(argv[i], "--opengl")==0 && render != RENDER_OPENGL)
         {
           render = RENDER_OPENGL;
-          /*try
-          {
-            CL_OutputSource_File file(get_save_path()+"/options");
-            create_options_file(&file);
-          }
-          catch(CL_Error e)
-          {
-            std::cout << "Can't create options file. \n";
-            }*/
+          Preferences *pref = pref_get_instance();
+          pref -> render_opengl = true;
+          pref -> write();
           
         }
         if(strcmp(argv[i], "--help")==0)
@@ -227,86 +214,8 @@ public:
 
   void get_informations_from_options_file()
     {
-      std::string options_path = get_save_path();
-      std::string options_file = options_path + "/options";
-
-      try
-      {
-        CL_InputSource_File file(options_file);
-        read_options_file(&file);
-      }
-      catch(CL_Error e)
-      {
-        // File doesn't exist
-        try
-        {
-          CL_OutputSource_File file(options_file);
-          create_options_file(&file);
-        }
-        catch(CL_Error e)
-        {
-          // Directory may doesn't exist
-          if(!CL_Directory::change_to(options_path))
-          {
-            if(CL_Directory::create(options_path))
-            {
-              // Now we can create the file
-              try
-              {
-                CL_OutputSource_File file(options_file);
-                create_options_file(&file);
-              }
-              catch(CL_Error e)
-              {
-                std::cout << "Can't create " << options_file <<".\n";
-              }
-              
-            }
-            else
-            {
-              std::cout << "Can't access to " << options_path << ".\n";
-            }
-          }
-          else
-          {
-            std::cout << "Can't access to " << options_file <<".\n";
-          }
-          
-        }
-
-      }
+      Preferences *pref = pref_get_instance();
+      render = pref -> render_opengl;
     }
-
-  void read_options_file(CL_InputSource_File *file)
-    {
-      file->open();
-      int revision = file -> read_uint8();
-      if(revision == 1)
-      {
-      }
-      bool use_opengl = file  -> read_bool8();
-      if(use_opengl)
-      {
-        render = RENDER_OPENGL;
-      }
-      else
-      {
-        render = RENDER_SDL;
-      }
-      file -> close();
-    }
-
-  void create_options_file(CL_OutputSource_File *file)
-    {
-      file -> open();
-      // File revision
-      file -> write_uint8(OPTIONS_FILE_REVISION);
-      // Use OpenGL
-      file -> write_bool8(render);
-      
-      file -> close();
-    }
- 
-
 
 } app;

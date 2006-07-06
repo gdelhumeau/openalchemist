@@ -1,6 +1,11 @@
 #ifndef _HEADERS_H_
 #define _HEADERS_H_
 
+/** ! Windows user ! Uncomment this to compile for windows: */
+
+//#define _WINDOWS_
+
+
 #include <ClanLib/gl.h>
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>

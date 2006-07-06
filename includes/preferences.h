@@ -26,6 +26,9 @@
 class Preferences
 {
 
+  public:
+  short revision;
+
   // Render
   bool render_opengl;
   
@@ -36,9 +39,20 @@ class Preferences
   // Fullscreen
   bool fullscreen;
 
+  Preferences();
+  void read();
+  void write();
+
+  private:
+  void read_options_file(CL_InputSource_File *file);
+  void write_options_file(CL_OutputSource_File *file);
+  void set_default();
+
 
 };
 
+
+std::string get_save_path();
 Preferences* pref_get_instance();
 
 #endif

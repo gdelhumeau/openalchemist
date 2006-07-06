@@ -18,13 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <math.h>
-#include <stdlib.h>
-#include <ClanLib/core.h>
-#include <ClanLib/display.h>
-#include "piece.h"
-#include "game.h"
-#include "misc.h"
+#include "headers.h"
 
 
 /**
@@ -444,9 +438,9 @@ void Game::unload_gfx()
  */
 void Game::toggle_screen()
 {
-  static bool fullscreen = false;
-  fullscreen = !fullscreen;
-  if(fullscreen)
+  Preferences *pref = pref_get_instance();
+  pref -> fullscreen = !pref -> fullscreen;
+  if(pref -> fullscreen)
   {
     window->set_fullscreen(800,600,0,0);
     CL_Mouse::hide();
@@ -456,6 +450,8 @@ void Game::toggle_screen()
     window->set_windowed();
     CL_Mouse::show();
   }
+  
+  pref -> write();
         
 }  
 

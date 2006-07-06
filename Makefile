@@ -31,7 +31,7 @@ bin/hightscores.o: includes/*.h src/hightscores.cpp
 bin/pause.o : includes/*.h src/pause.cpp
 	g++ -c -o bin/pause.o src/pause.cpp $(OPTIONS)
 
-bin/preferences.o : includes/*.h src/pause.cpp
+bin/preferences.o : includes/*.h src/preferences.cpp
 	g++ -c -o bin/preferences.o src/preferences.cpp $(OPTIONS)
 
 skins/aqua.zip : skins/aqua/*
