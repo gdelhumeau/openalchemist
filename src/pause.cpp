@@ -315,11 +315,6 @@ void Game::key_events_pause()
       pause = false;
       break;
     case PAUSE_ITEM_RETRY:
-      if(pause_appearing && opengl)
-        pause_step = PAUSE_STEP_DISAPPEARING;
-      else
-        pause = false;
-      pause = false;
       new_game(0);
       break;
     case PAUSE_ITEM_CHANGESKIN:
