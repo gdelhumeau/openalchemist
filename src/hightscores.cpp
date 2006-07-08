@@ -27,7 +27,12 @@ void Game::read_scores()
 
   try
   {
-    CL_InputSource_File file(path+"/hightscores");
+#ifdef WIN32
+     CL_InputSource_File file(path+"\hightscores");
+#else
+     CL_InputSource_File file(path+"/hightscores");
+#endif
+
     file.open();
     for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
     {
@@ -59,8 +64,12 @@ void Game::save_scores()
 
   try
   {
-    
+#ifdef WIN32
+    CL_OutputSource_File file(path+"\hightscores");
+#else
     CL_OutputSource_File file(path+"/hightscores");
+#endif
+    
     file.open();
     for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
     {

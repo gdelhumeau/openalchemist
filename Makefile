@@ -44,3 +44,5 @@ skins/temp.zip : skins/temp/*
 clean:
 	-rm bin/*.o
 	-rm openalchemist
+	-rm skins/aqua.zip
+	-rm skins/temp.zip

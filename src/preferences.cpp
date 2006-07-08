@@ -38,7 +38,11 @@ Preferences::Preferences()
 void Preferences::read()
 {
   std::string options_path = get_save_path();
+#ifdef WIN32
+  std::string options_file = options_path + "\options";
+#else
   std::string options_file = options_path + "/options";
+#endif
 
   try
   {
@@ -92,7 +96,13 @@ void Preferences::read()
 void Preferences::write()
 {
 
-  std::string options_file = get_save_path() + "/options";
+  std::string options_path = get_save_path();
+#ifdef WIN32
+  std::string options_file = options_path + "\options";
+#else
+  std::string options_file = options_path + "/options";
+#endif
+
 
   try
   {
@@ -148,7 +158,7 @@ void Preferences::set_default()
 std::string get_save_path()
 {
 #ifdef WIN32
-  return CL_System::get_exe_path() + "/savedata";
+  return CL_System::get_exe_path() + "\savedata";
 #else
   return ((std::string)getenv("HOME")) + "/.openalchemist";
 #endif
