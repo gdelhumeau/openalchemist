@@ -28,7 +28,7 @@ void Game::read_scores()
   try
   {
 #ifdef WIN32
-     CL_InputSource_File file(path+"\hightscores");
+     CL_InputSource_File file(path+"\\hightscores");
 #else
      CL_InputSource_File file(path+"/hightscores");
 #endif
@@ -65,7 +65,7 @@ void Game::save_scores()
   try
   {
 #ifdef WIN32
-    CL_OutputSource_File file(path+"\hightscores");
+    CL_OutputSource_File file(path+"\\hightscores");
 #else
     CL_OutputSource_File file(path+"/hightscores");
 #endif
