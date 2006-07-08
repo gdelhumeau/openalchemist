@@ -25,8 +25,10 @@
 #define PAUSE_ITEM_RETRY 2
 #define PAUSE_ITEM_CHANGESKIN 3
 #define PAUSE_ITEM_FULLSCREEN 4
-#define PAUSE_ITEM_BACKMAIN 5
-#define PAUSE_ITEM_QUIT 6
+#define PAUSE_ITEM_SOUND 5
+#define PAUSE_ITEM_MUSIC 6
+#define PAUSE_ITEM_BACKMAIN 7
+#define PAUSE_ITEM_QUIT 8
 
 
 
@@ -87,6 +89,10 @@ void Game::draw_pause()
     pause_changeskin_selected -> set_alpha(pause_alpha);
     pause_fullscreen -> set_alpha(pause_alpha);
     pause_fullscreen_selected -> set_alpha(pause_alpha);
+    pause_sound -> set_alpha(pause_alpha);
+    pause_sound_selected -> set_alpha(pause_alpha);
+    pause_music -> set_alpha(pause_alpha);
+    pause_music_selected -> set_alpha(pause_alpha);
     pause_backmain -> set_alpha(pause_alpha);
     pause_backmain_selected -> set_alpha(pause_alpha);
     pause_quit -> set_alpha(pause_alpha);
@@ -163,6 +169,28 @@ void Game::draw_pause()
       pause_fullscreen -> update();
     }
 
+    if(PAUSE_ITEM_SOUND == pause_selection)
+    {
+      pause_sound_selected -> draw(x + pause_sound_left, y + pause_sound_top);
+      pause_sound_selected -> update();
+    }
+    else
+    {
+      pause_sound -> draw(x + pause_sound_left, y + pause_sound_top);
+      pause_sound -> update();
+    }
+
+    if(PAUSE_ITEM_MUSIC == pause_selection)
+    {
+      pause_music_selected -> draw(x + pause_music_left, y + pause_music_top);
+      pause_music_selected -> update();
+    }
+    else
+    {
+      pause_music -> draw(x + pause_music_left, y + pause_music_top);
+      pause_music -> update();
+    }
+
     if(PAUSE_ITEM_BACKMAIN == pause_selection)
     {
       pause_backmain_selected -> draw(x + pause_backmain_left, y + pause_backmain_top);
@@ -184,6 +212,11 @@ void Game::draw_pause()
       pause_quit -> draw(x + pause_quit_left, y + pause_quit_top);
       pause_quit -> update();
     }    
+
+    pause_sound_level[sound_level] -> draw(x + pause_sound_level_left, y + pause_sound_top);
+    pause_sound_level[music_level] -> draw(x + pause_sound_level_left, y + pause_music_top);
+    pause_sound_level[sound_level] -> update();
+    pause_sound_level[music_level] -> update();
 
   }
 }
@@ -214,6 +247,30 @@ void Game::key_events_pause()
         pause_selection --;
       }
     }
+  }
+
+  if(pause_selection == PAUSE_ITEM_SOUND && key_left -> get())
+  {
+    if(sound_level > 0)
+      sound_level--;
+  }
+
+  if(pause_selection == PAUSE_ITEM_SOUND && key_right -> get())
+  {
+    if(sound_level < 10)
+      sound_level++;
+  }
+
+  if(pause_selection == PAUSE_ITEM_MUSIC && key_left -> get())
+  {
+    if(music_level > 0)
+      music_level--;
+  }
+
+  if(pause_selection == PAUSE_ITEM_MUSIC && key_right -> get())
+  {
+    if(music_level < 10)
+      music_level++;
   }
 
   if(key_down -> get())

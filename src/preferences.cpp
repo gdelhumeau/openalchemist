@@ -47,7 +47,7 @@ void Preferences::read()
   try
   {
     CL_InputSource_File file(options_file);
-    read();
+    read_options_file(&file);
   }
   catch(CL_Error e)
   {
@@ -75,17 +75,20 @@ void Preferences::read()
           catch(CL_Error e)
           {
             std::cout << "Can't create " << options_file <<".\n";
+            set_default();
           }
               
         }
         else
         {
           std::cout << "Can't access to " << options_path << ".\n";
+          set_default();
         }
       }
       else
       {
         std::cout << "Can't access to " << options_file <<".\n";
+        set_default();
       }
           
     }
@@ -119,16 +122,25 @@ void Preferences::write()
 
 void Preferences::read_options_file(CL_InputSource_File *file)
 {
-  file->open();
+  try{
 
+  file->open();
   revision = file -> read_uint8();
   if(revision == 1)
   {
     render_opengl = file  -> read_bool8();
     fullscreen = file -> read_bool8();
+    sound_level = file -> read_int32();
+    music_level = file -> read_int32();
   }
       
   file -> close();
+
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "DJ Shadow \n";
+  }
 }
 
 void Preferences::write_options_file(CL_OutputSource_File *file)
@@ -140,6 +152,10 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   file -> write_bool8(render_opengl);
   // Fullscreen
   file -> write_bool8(fullscreen);
+  // Sound level
+  file -> write_int32(sound_level);
+  // Music level
+  file -> write_int32(music_level);
 
   file -> close();
 }
@@ -151,6 +167,22 @@ void Preferences::set_default()
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
+}
+
+void Game::load_preferences()
+{
+  Preferences *pref = pref_get_instance();
+  sound_level = pref -> sound_level;
+  music_level = pref -> music_level;
+}
+
+void Game::save_preferences()
+{
+  Preferences *pref = pref_get_instance();
+  pref -> render_opengl = opengl;
+  pref -> sound_level = sound_level;
+  pref -> music_level = music_level;
+  pref -> write();
 }
 
 

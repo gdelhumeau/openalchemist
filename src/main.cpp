@@ -101,6 +101,8 @@ public:
       CL_SetupDisplay::deinit();
       CL_SetupCore::deinit();
 
+      delete pref_get_instance();
+
       exit(0);
     }
 

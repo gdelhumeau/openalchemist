@@ -616,6 +616,32 @@
   			<integer name="left" value="100" />
   			
   		</section>
+		
+		<section name="sound">
+  			<sprite name="selected">
+  				<image file="dialogs/pause/sound-selected.png" />  					
+  			</sprite>
+  			<sprite name="unselected">
+  				<image file="dialogs/pause/sound-unselected.png" />  					
+  			</sprite>
+  			
+  			<integer name="top" value="350" />
+  			<integer name="left" value="100" />
+  			
+  		</section>
+		
+		<section name="music">
+  			<sprite name="selected">
+  				<image file="dialogs/pause/music-selected.png" />  					
+  			</sprite>
+  			<sprite name="unselected">
+  				<image file="dialogs/pause/music-unselected.png" />  					
+  			</sprite>
+  			
+  			<integer name="top" value="400" />
+  			<integer name="left" value="100" />
+  			
+  		</section>
   		
   		<section name="backmain">
   			<sprite name="selected">
@@ -642,6 +668,54 @@
   			<integer name="left" value="100" />
   			
   		</section>
+		
+		<section name="sound-level">
+			<integer name="left" value="300" />
+		
+			<sprite name="0">
+				<image file="dialogs/pause/level-0.png" />
+			</sprite>
+			
+			<sprite name="1">
+				<image file="dialogs/pause/level-1.png" />
+			</sprite>
+			
+			<sprite name="2">
+				<image file="dialogs/pause/level-2.png" />
+			</sprite>
+			
+			<sprite name="3">
+				<image file="dialogs/pause/level-3.png" />
+			</sprite>
+			
+			<sprite name="4">
+				<image file="dialogs/pause/level-4.png" />
+			</sprite>
+			
+			<sprite name="5">
+				<image file="dialogs/pause/level-5.png" />
+			</sprite>
+			
+			<sprite name="6">
+				<image file="dialogs/pause/level-6.png" />
+			</sprite>
+			
+			<sprite name="7">
+				<image file="dialogs/pause/level-7.png" />
+			</sprite>
+			
+			<sprite name="8">
+				<image file="dialogs/pause/level-8.png" />
+			</sprite>
+			
+			<sprite name="9">
+				<image file="dialogs/pause/level-9.png" />
+			</sprite>
+			
+			<sprite name="10">
+				<image file="dialogs/pause/level-10.png" />
+			</sprite>
+		</section>
   	
   	
   	</section> 

@@ -76,8 +76,12 @@ class Game{
   CL_Sprite *pause_retry, *pause_retry_selected;
   CL_Sprite *pause_changeskin, *pause_changeskin_selected;
   CL_Sprite *pause_fullscreen, *pause_fullscreen_selected;
+  CL_Sprite *pause_sound, *pause_sound_selected;
+  CL_Sprite *pause_music, *pause_music_selected;
   CL_Sprite *pause_backmain, *pause_backmain_selected;
   CL_Sprite *pause_quit, *pause_quit_selected;
+  
+  CL_Sprite *pause_sound_level[11];
   
   // Pause
   bool pause;
@@ -92,11 +96,17 @@ class Game{
   int pause_undo_left, pause_undo_top;
   int pause_changeskin_left, pause_changeskin_top;
   int pause_fullscreen_left, pause_fullscreen_top;
+  int pause_sound_left, pause_sound_top;
+  int pause_music_left, pause_music_top;
   int pause_backmain_left, pause_backmain_top;
   int pause_quit_left, pause_quit_top;
+  int pause_sound_level_left;
 
   int pieces_progress_x[NUMBER_OF_PIECES-3];
   int pieces_progress_y[NUMBER_OF_PIECES-3];
+
+  // Sounds
+  int sound_level, music_level;
 
 
   // Menus
@@ -205,7 +215,8 @@ class Game{
 
   void Game::calc_score();
  
-
+  void Game::load_preferences();
+  void Game::save_preferences();
   void Game::read_scores();
   void Game::save_scores();
   void Game::key_events();

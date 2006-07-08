@@ -69,7 +69,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
   key_enter        = new KeyboardKey(CL_KEY_ENTER , false);
   
   time_interval = 0;
-  
+
   // We initalize the randomized-numbers generator
   srand(CL_System::get_time());
 
@@ -267,6 +267,12 @@ void Game::load_gfx()
   pause_fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", &gfx);
   pause_fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", &gfx);
 
+  pause_sound = new CL_Sprite("menu/pause/sound/unselected", &gfx);
+  pause_sound_selected = new CL_Sprite("menu/pause/sound/selected", &gfx);
+
+  pause_music = new CL_Sprite("menu/pause/music/unselected", &gfx);
+  pause_music_selected = new CL_Sprite("menu/pause/music/selected", &gfx);
+
   pause_backmain = new CL_Sprite("menu/pause/backmain/unselected", &gfx);
   pause_backmain_selected = new CL_Sprite("menu/pause/backmain/selected", &gfx);
 
@@ -300,6 +306,11 @@ void Game::load_gfx()
                                   pieces_disappearing[value], pieces_mini[value]);
       }
     }
+
+  for(int i=0; i<=10; i++)
+  {
+    pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx);
+  }
   
   // Here too
   int value;
@@ -353,12 +364,21 @@ void Game::load_gfx()
 
   pause_fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", &gfx);
   pause_fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", &gfx);
+
+  pause_sound_left = CL_Integer_to_int("menu/pause/sound/left", &gfx);
+  pause_sound_top = CL_Integer_to_int("menu/pause/sound/top", &gfx);
+
+  pause_music_left = CL_Integer_to_int("menu/pause/music/left", &gfx);
+  pause_music_top = CL_Integer_to_int("menu/pause/music/top", &gfx);
   
   pause_backmain_left = CL_Integer_to_int("menu/pause/backmain/left", &gfx);
   pause_backmain_top = CL_Integer_to_int("menu/pause/backmain/top", &gfx);
 
   pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx);
   pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx);
+
+  pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx);
+
   
   if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
   {
@@ -399,6 +419,11 @@ void Game::unload_gfx()
     delete pieces_disappearing[i];
   }
 
+  for(int i=0; i<=10; i++)
+  {
+    delete pause_sound_level[i];
+  }
+
 
   delete background;
   delete font_a;
@@ -421,6 +446,12 @@ void Game::unload_gfx()
 
   delete pause_fullscreen;
   delete pause_fullscreen_selected;
+
+  delete pause_sound;
+  delete pause_sound_selected;
+
+  delete pause_music;
+  delete pause_music_selected;
 
   delete pause_backmain;
   delete pause_backmain_selected;
@@ -492,7 +523,7 @@ void Game::main_loop()
   choose_skin();
   new_game(0);
   load_gfx();
-  
+  load_preferences();
 
   CL_FramerateCounter fps_getter; 
 
@@ -520,4 +551,6 @@ void Game::main_loop()
   }
 
   unload_gfx();
+
+  save_preferences();
 }
