@@ -60,10 +60,16 @@ void Game::draw_pause()
     pause_changeskin_selected -> set_alpha(pause_alpha);
     pause_fullscreen -> set_alpha(pause_alpha);
     pause_fullscreen_selected -> set_alpha(pause_alpha);
+    pause_sound -> set_alpha(pause_alpha);
+    pause_sound_selected -> set_alpha(pause_alpha);
+    pause_music -> set_alpha(pause_alpha);
+    pause_music_selected -> set_alpha(pause_alpha);
     pause_backmain -> set_alpha(pause_alpha);
     pause_backmain_selected -> set_alpha(pause_alpha);
     pause_quit -> set_alpha(pause_alpha);
     pause_quit_selected -> set_alpha(pause_alpha);
+    pause_sound_level[sound_level] -> set_alpha(pause_alpha);
+    pause_sound_level[music_level] -> set_alpha(pause_alpha);
 
 
   }
@@ -97,6 +103,9 @@ void Game::draw_pause()
     pause_backmain_selected -> set_alpha(pause_alpha);
     pause_quit -> set_alpha(pause_alpha);
     pause_quit_selected -> set_alpha(pause_alpha);
+    pause_sound_level[sound_level] -> set_alpha(pause_alpha);
+    pause_sound_level[music_level] -> set_alpha(pause_alpha);
+    
     
   }
 
