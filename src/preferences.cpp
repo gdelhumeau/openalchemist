@@ -110,6 +110,7 @@ void Preferences::write()
 void Preferences::read_options_file(CL_InputSource_File *file)
 {
   file->open();
+
   revision = file -> read_uint8();
   if(revision == 1)
   {
@@ -146,7 +147,7 @@ void Preferences::set_default()
 
 std::string get_save_path()
 {
-#ifdef _WINDOWS_
+#ifdef WIN32
   return CL_System::get_exe_path() + "/savedata";
 #else
   return ((std::string)getenv("HOME")) + "/.openalchemist";

@@ -3,7 +3,7 @@
 
 /** ! Windows user ! Uncomment this to compile for windows: */
 
-//#define _WINDOWS_
+//#define WIN32
 
 
 #include <ClanLib/gl.h>
