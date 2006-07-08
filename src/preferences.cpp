@@ -43,7 +43,7 @@ void Preferences::read()
   try
   {
     CL_InputSource_File file(options_file);
-    read_options_file(&file);
+    read();
   }
   catch(CL_Error e)
   {
@@ -52,7 +52,7 @@ void Preferences::read()
     {
       CL_OutputSource_File file(options_file);
       set_default();
-      write_options_file(&file);
+      write();
     }
     catch(CL_Error e)
     {
@@ -66,7 +66,7 @@ void Preferences::read()
           {
             CL_OutputSource_File file(options_file);
             set_default();
-            write_options_file(&file);
+            write();
           }
           catch(CL_Error e)
           {
