@@ -47,6 +47,7 @@ void Game::read_scores()
     {
       hightscores[i] = 0;
     }
+    save_scores();
   }
   
 }

@@ -311,6 +311,11 @@ void Game::load_gfx()
   {
     pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx);
   }
+
+  for(int i=0; i<10; i++)
+  {
+    progress_bar[i] = new CL_Sprite("progress-bar/" + to_string(i+1), &gfx);
+  }
   
   // Here too
   int value;
@@ -379,6 +384,9 @@ void Game::load_gfx()
 
   pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx);
 
+  progress_bar_left =  CL_Integer_to_int("progress-bar/left", &gfx);
+  progress_bar_top  =  CL_Integer_to_int("progress-bar/top" , &gfx);
+
   
   if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
   {
@@ -422,6 +430,11 @@ void Game::unload_gfx()
   for(int i=0; i<=10; i++)
   {
     delete pause_sound_level[i];
+  }
+
+  for(int i=0; i<10; i++)
+  {
+    delete progress_bar[i];
   }
 
 

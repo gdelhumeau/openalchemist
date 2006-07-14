@@ -57,6 +57,18 @@ void Game::draw_game()
       }
     }
 
+  /* Drawing the progress bar */
+  int v;
+  if(hightscores[current_difficulty]>0)
+    v = 9 * (global_score + global_bonus) / hightscores[current_difficulty];
+  else
+    v = 9;
+
+  if(v > 9)
+    v = 9;
+
+  progress_bar[v] -> draw(progress_bar_left, progress_bar_top);
+  progress_bar[v] -> update();
   
 
   next_piece1 -> draw_mini();

@@ -1,7 +1,7 @@
 PACKAGES = clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8
 LIBS = `pkg-config --libs $(PACKAGES)`
 OPTIONS =  -I/usr/local/include/ClanLib-0.8 -Iincludes -Wall -g
-LINKER_OPTIONS =  #-u malloc #-lefence
+LINKER_OPTIONS =  #-u malloc -lefence
 
 all: openalchemist
 	@echo "OK"

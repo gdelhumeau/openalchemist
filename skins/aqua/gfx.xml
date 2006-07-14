@@ -537,6 +537,52 @@
 
   </sprite>
   
+  <section name="progress-bar">
+  
+  	<integer name="left" value="669" />
+	 	<integer name="top" value="305" />
+  
+  	<sprite name="1">
+  		<image file="misc/bar-1.png" />
+  	</sprite>
+  	
+  	<sprite name="2">
+  		<image file="misc/bar-2.png" />
+  	</sprite>
+  	
+  	<sprite name="3">
+  		<image file="misc/bar-3.png" />
+  	</sprite>
+  	
+  	<sprite name="4">
+  		<image file="misc/bar-4.png" />
+  	</sprite>
+  	
+  	<sprite name="5">
+  		<image file="misc/bar-5.png" />
+  	</sprite>
+  	
+  	<sprite name="6">
+  		<image file="misc/bar-6.png" />
+  	</sprite>
+  	
+  	<sprite name="7">
+  		<image file="misc/bar-7.png" />
+  	</sprite>
+  	
+  	<sprite name="8">
+  		<image file="misc/bar-8.png" />
+  	</sprite>
+  	
+  	<sprite name="9">
+  		<image file="misc/bar-9.png" />
+  	</sprite>
+  	
+  	<sprite name="10">
+  		<image file="misc/bar-10.png" />
+  	</sprite>
+  </section>
+  
   <section name="menu">
   	<section name="pause">
 

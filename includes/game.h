@@ -82,6 +82,10 @@ class Game{
   CL_Sprite *pause_quit, *pause_quit_selected;
   
   CL_Sprite *pause_sound_level[11];
+
+  // Sprites for progress bar
+  CL_Sprite *progress_bar[10];
+  int progress_bar_left, progress_bar_top;
   
   // Pause
   bool pause;
@@ -137,6 +141,8 @@ class Game{
   // Game mode
   int game_mode;
   short current_difficulty;
+
+  // Score
   u_int global_score;
   u_int global_bonus;
   u_int undo_global_bonus;
