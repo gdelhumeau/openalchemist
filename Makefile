@@ -3,7 +3,10 @@ LIBS = `pkg-config --libs $(PACKAGES)`
 OPTIONS =  -I/usr/local/include/ClanLib-0.8 -Iincludes -Wall -g
 LINKER_OPTIONS =  #-u malloc #-lefence
 
-all: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o skins/aqua.zip skins/temp.zip
+all: openalchemist
+	@echo "OK"
+
+openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o skins/aqua.zip skins/temp.zip
 	@echo "On assemble le fichier final"
 	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
 
