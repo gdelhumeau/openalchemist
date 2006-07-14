@@ -350,12 +350,12 @@ void Game::draw_progress_bar()
     v = progress_bar_height * (global_score + global_bonus) / hightscores[current_difficulty];
   if(v > progress_bar_height) v = progress_bar_height;
 
-  for(int i=0; i<progress_bar_height; ++i)
+  for(int i=0; i<=progress_bar_height; ++i)
   {
     if(progress_bar_height - i < v)
-      progress_bar_item_ok -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i);
+      progress_bar_item_ok -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i-1);
     else
-      progress_bar_item -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i);
+      progress_bar_item -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i-1);
   }
   progress_bar_item -> update();
   progress_bar_item_ok -> update();
