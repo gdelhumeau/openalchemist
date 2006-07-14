@@ -84,8 +84,11 @@ class Game{
   CL_Sprite *pause_sound_level[11];
 
   // Sprites for progress bar
-  CL_Sprite *progress_bar[10];
-  int progress_bar_left, progress_bar_top;
+  CL_Sprite *progress_bar_head, *progress_bar_head_ok;
+  CL_Sprite *progress_bar_foot;
+  CL_Sprite *progress_bar_item, *progress_bar_item_ok;
+  int progress_bar_left, progress_bar_head_top, progress_bar_foot_top;
+  
   
   // Pause
   bool pause;
@@ -222,6 +225,8 @@ class Game{
   void Game::draw_game_over();
   void Game::draw_new_hightscore();
   void Game::draw_pause();
+  
+  void Game::draw_progress_bar();
 
   void Game::calc_score();
  

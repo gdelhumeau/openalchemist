@@ -279,6 +279,12 @@ void Game::load_gfx()
   pause_quit = new CL_Sprite("menu/pause/quit/unselected", &gfx);
   pause_quit_selected = new CL_Sprite("menu/pause/quit/selected", &gfx);
 
+  progress_bar_head = new CL_Sprite("progress-bar/head/sprite", &gfx);
+  progress_bar_head_ok = new CL_Sprite("progress-bar/head/sprite-ok", &gfx);
+  progress_bar_foot = new CL_Sprite("progress-bar/foot/sprite", &gfx);
+  progress_bar_item = new CL_Sprite("progress-bar/item/sprite", &gfx);
+  progress_bar_item_ok = new CL_Sprite("progress-bar/item/sprite-ok", &gfx);
+
   for(int i=1; i<=NUMBER_OF_PIECES; ++i)
   {
     pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx);
@@ -312,11 +318,7 @@ void Game::load_gfx()
   {
     pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx);
   }
-
-  for(int i=0; i<10; i++)
-  {
-    progress_bar[i] = new CL_Sprite("progress-bar/" + to_string(i+1), &gfx);
-  }
+ 
   
   // Here too
   int value;
@@ -385,8 +387,10 @@ void Game::load_gfx()
 
   pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx);
 
-  progress_bar_left =  CL_Integer_to_int("progress-bar/left", &gfx);
-  progress_bar_top  =  CL_Integer_to_int("progress-bar/top" , &gfx);
+  progress_bar_left = CL_Integer_to_int("progress-bar/left", &gfx);
+  progress_bar_head_top = CL_Integer_to_int("progress-bar/head/top", &gfx);
+  progress_bar_foot_top = CL_Integer_to_int("progress-bar/foot/top", &gfx);
+
 
   
   if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
@@ -436,10 +440,7 @@ void Game::unload_gfx()
     delete pause_sound_level[i];
   }
 
-  for(int i=0; i<10; i++)
-  {
-    delete progress_bar[i];
-  }
+
 
 
   delete background;
@@ -475,6 +476,12 @@ void Game::unload_gfx()
 
   delete pause_quit;
   delete pause_quit_selected;
+
+  delete progress_bar_head;
+  delete progress_bar_head_ok;
+  delete progress_bar_foot;
+  delete progress_bar_item;
+  delete progress_bar_item_ok;
 
  
   is_gfx_loaded = false;

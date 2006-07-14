@@ -61,18 +61,8 @@ void Game::draw_game()
     }
 
   /* Drawing the progress bar */
-  int v;
-  if(hightscores[current_difficulty]>0)
-    v = 9 * (global_score + global_bonus) / hightscores[current_difficulty];
-  else
-    v = 9;
+  draw_progress_bar();  
 
-  if(v > 9)
-    v = 9;
-
-  progress_bar[v] -> draw(progress_bar_left, progress_bar_top);
-  progress_bar[v] -> update();
-  
 
   next_piece1 -> draw_mini();
   next_piece2 -> draw_mini();
@@ -348,4 +338,38 @@ void Game::draw_new_hightscore()
                  old_score_top, to_string(last_hightscore));
   }
 
+}
+
+void Game::draw_progress_bar()
+{
+  int progress_bar_head_height = progress_bar_head -> get_height();
+  int progress_bar_height = progress_bar_foot_top - (progress_bar_head_top + progress_bar_head_height);
+
+  int v = 0;
+  if(hightscores[current_difficulty])
+    v = progress_bar_height * (global_score + global_bonus) / hightscores[current_difficulty];
+  if(v > progress_bar_height) v = progress_bar_height;
+
+  for(int i=0; i<progress_bar_height; ++i)
+  {
+    if(progress_bar_height - i < v)
+      progress_bar_item_ok -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i);
+    else
+      progress_bar_item -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i);
+  }
+  progress_bar_item -> update();
+  progress_bar_item_ok -> update();
+
+  if(hightscores[current_difficulty] > global_score + global_bonus)
+  {
+    progress_bar_head -> draw(progress_bar_left, progress_bar_head_top);
+    progress_bar_head -> update();
+  }
+  else
+  {
+    progress_bar_head_ok -> draw(progress_bar_left, progress_bar_head_top);
+    progress_bar_head_ok -> update();
+  }
+  progress_bar_foot -> draw(progress_bar_left, progress_bar_foot_top);
+  progress_bar_foot -> update();
 }
