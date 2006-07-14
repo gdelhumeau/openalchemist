@@ -286,12 +286,13 @@ void Game::load_gfx()
     pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx);
     pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx);
 
-    if(i > 3)
-    {
-      pieces_progress_x[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx);
-      pieces_progress_y[i-4] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx);
+   
+    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx);
+    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx);
+
+    if(i>3)
       pieces_hidder[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx);
-    }
+    
 
   }
 
@@ -425,6 +426,9 @@ void Game::unload_gfx()
     delete pieces_normal[i];
     delete pieces_appearing[i];
     delete pieces_disappearing[i];
+
+    if(i < NUMBER_OF_PIECES - 4)
+      delete pieces_hidder[i];
   }
 
   for(int i=0; i<=10; i++)

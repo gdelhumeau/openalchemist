@@ -69,7 +69,11 @@
 		  </sprite> 
 		  <sprite name = "little">
 		    <image file = "piece1/little.png" />
-		  </sprite>		
+		  </sprite>
+		  
+		  <integer name = "progress-x" value = "17" />
+			<integer name = "progress-y" value = "60" />
+		  
 		</section>
 		
 		<section name = "piece_2">
@@ -103,6 +107,10 @@
 		  <sprite name = "little">
 		    <image file = "piece2/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "17" />
+			<integer name = "progress-y" value = "105" />
+		  
 		</section>
 		
 		<section name = "piece_3">
@@ -136,6 +144,10 @@
 		  <sprite name = "little">
 		    <image file = "piece3/little.png" />
 		  </sprite>
+		  
+		  <integer name = "progress-x" value = "17" />
+			<integer name = "progress-y" value = "150" />
+		  
 		</section>
 		
 		<section name = "piece_4">
@@ -212,7 +224,7 @@
 				<image file ="piece5/hidder.png" />
 			</sprite>	
 		  
-		  <integer name = "progress-x" value = "18" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "239" />
 		  
 		</section>
@@ -251,7 +263,7 @@
 				<image file ="piece6/hidder.png" />
 			</sprite>
 		  
-		  <integer name = "progress-x" value = "18" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "285" />
 		  
 		</section>
@@ -290,7 +302,7 @@
 				<image file ="piece7/hidder.png" />
 			</sprite>
 		  
-		  <integer name = "progress-x" value = "18" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "331" />
 		  
 		</section>
@@ -329,7 +341,7 @@
 				<image file ="piece8/hidder.png" />
 			</sprite>
 
-			<integer name = "progress-x" value = "18" />
+			<integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "375" />
 
 		</section>
@@ -368,7 +380,7 @@
 				<image file ="piece9/hidder.png" />
 			</sprite>
 		  
-		  <integer name = "progress-x" value = "18" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "421" />
 		  
 		</section>
@@ -407,7 +419,7 @@
 				<image file ="piece10/hidder.png" />
 			</sprite>
 		  
-		  <integer name = "progress-x" value = "18" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "466" />
 		  
 		</section>
@@ -485,7 +497,7 @@
 				<image file ="piece12/hidder.png" />
 			</sprite>
 		  
-		  <integer name = "progress-x" value = "16" />
+		  <integer name = "progress-x" value = "17" />
 			<integer name = "progress-y" value = "556" />
 		  
 		</section>

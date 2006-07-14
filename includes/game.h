@@ -106,8 +106,8 @@ class Game{
   int pause_quit_left, pause_quit_top;
   int pause_sound_level_left;
 
-  int pieces_progress_x[NUMBER_OF_PIECES-3];
-  int pieces_progress_y[NUMBER_OF_PIECES-3];
+  int pieces_progress_x[NUMBER_OF_PIECES];
+  int pieces_progress_y[NUMBER_OF_PIECES];
 
   // Sounds
   int sound_level, music_level;

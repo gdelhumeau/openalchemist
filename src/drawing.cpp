@@ -41,9 +41,12 @@ void Game::draw_game()
   font_a->draw(hightscore_left, hightscore_top, to_string(hightscores[current_difficulty]));
 
   /* We draw unlocked pieces */
-  for(int i=NUMBER_OF_PIECES-1; i>=visible_pieces; --i)
+  for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
-    pieces_hidder[i-3] -> draw(pieces_progress_x[i-3], pieces_progress_y[i-3], 0);
+    if(i >= visible_pieces)
+      pieces_hidder[i-3] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+    else
+      pieces_mini[i] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
   }
 
   
