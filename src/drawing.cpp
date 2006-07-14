@@ -345,8 +345,8 @@ void Game::draw_progress_bar()
   int progress_bar_head_height = progress_bar_head -> get_height();
   int progress_bar_height = progress_bar_foot_top - (progress_bar_head_top + progress_bar_head_height);
 
-  int v = 0;
-  if(hightscores[current_difficulty])
+  int v = progress_bar_height;
+  if(hightscores[current_difficulty] > 0)
     v = progress_bar_height * (global_score + global_bonus) / hightscores[current_difficulty];
   if(v > progress_bar_height) v = progress_bar_height;
 
