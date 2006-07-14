@@ -175,6 +175,7 @@ void Game::key_events_playing()
       falling_requested = false;
 
       undo = true;
+      
       // Copy to the undo body
       for(int i=0; i<NUMBER_OF_COLS; ++i)
         for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -195,6 +196,8 @@ void Game::key_events_playing()
       undo_piece1_score = current_piece1 -> get_score_value();
       undo_piece2_score = current_piece2 -> get_score_value();
       undo_angle = current_pieces_next_angle;
+      undo_unlocked_pieces = unlocked_pieces;
+      undo_visible_pieces = visible_pieces;
         
 
       current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
@@ -338,6 +341,9 @@ void Game::undo_last()
 
     current_pieces_angle = undo_angle;
     current_pieces_next_angle = undo_angle;
+
+    unlocked_pieces = undo_unlocked_pieces;
+    visible_pieces =  undo_visible_pieces;
         
   }
 }

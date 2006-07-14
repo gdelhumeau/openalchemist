@@ -117,7 +117,7 @@ class Game{
   CL_Sprite *new_hightscore;
   int new_score_top, old_score_top;
   
-  // TODO bidule
+  // Available pieces
   int unlocked_pieces;
   int visible_pieces;
   
@@ -150,11 +150,15 @@ class Game{
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
+
+  // UNDO
   int body_undo[NUMBER_OF_COLS][NUMBER_OF_LINES];
   int undo_position, undo_angle, undo_position_bis;
   int undo_piece1_score, undo_piece2_score;
   int undo_next_next_piece1, undo_next_next_piece2;
   bool undo;
+  int undo_unlocked_pieces;
+  int undo_visible_pieces;
   
   // 4 pieces
   Piece *current_piece1, *current_piece2;
