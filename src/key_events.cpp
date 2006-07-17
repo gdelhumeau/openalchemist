@@ -173,6 +173,7 @@ void Game::key_events_playing()
     if(falling_requested && current_pieces_placed && (current_pieces_angle >= current_pieces_next_angle))
     {
       falling_requested = false;
+      undo_global_bonus = 0;
 
       undo = true;
       
@@ -344,6 +345,8 @@ void Game::undo_last()
 
     unlocked_pieces = undo_unlocked_pieces;
     visible_pieces =  undo_visible_pieces;
+
+    calc_score();
         
   }
 }

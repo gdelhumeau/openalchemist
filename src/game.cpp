@@ -19,6 +19,7 @@
  */
 
 #include "headers.h"
+#include "math.h"
 
 
 /**
@@ -517,14 +518,11 @@ void Game::calc_score()
 {
   global_score = 0;
   for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=0; j<NUMBER_OF_LINES; ++j)
+    for(int j=1; j<NUMBER_OF_LINES; ++j)
     {
       if(body[i][j])
       {
-        if(body[i][j]->get_score_value() > 1)
-          global_score += (body[i][j]->get_score_value()-1)*3;
-        else
-          global_score += 1;
+        global_score += (u_int)pow(3,body[i][j]->get_score_value()-1);                           
       }
     }
 }

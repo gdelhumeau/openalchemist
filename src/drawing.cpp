@@ -264,6 +264,7 @@ void Game::draw_destroying()
  */
 void Game::draw_to_playing()
 {
+  calc_score();
   if(game_mode != GAME_MODE_GAME_OVER && game_mode != GAME_MODE_NEW_HIGHTSCORE)
   {
     for(int i=0; i<NUMBER_OF_COLS; ++i)
@@ -308,8 +309,7 @@ void Game::draw_to_playing()
                              pieces_disappearing[value], pieces_mini[value]);
           
   game_mode = GAME_MODE_PLAYING;
-  calc_score();
-
+  
   combo = 0;
 
 }

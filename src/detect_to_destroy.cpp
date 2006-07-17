@@ -81,18 +81,10 @@ void Game::detect_to_destroy()
         }
         if(counter >= 3)
         {
-          if(body[i][j]->get_score_value() > 1)
-          {
-            undo_global_bonus = (counter - 3)*(body[i][j]->get_score_value()-1)*3;
-            global_bonus += (counter - 3)*(body[i][j]->get_score_value()-1)*3;
-          }
-          else
-          {
-            undo_global_bonus = (counter - 3);
-            global_bonus += (counter - 3);
-          }
-
           
+          undo_global_bonus += (counter - 3)*(u_int)pow(3,body[i][j]->get_score_value()-1);
+          global_bonus += (counter - 3)*(u_int)pow(3,body[i][j]->get_score_value()-1);
+                   
           Coords new_piece(NUMBER_OF_COLS+1,-1);
           
           std::vector<Coords*>::iterator it = list.begin();
