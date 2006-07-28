@@ -44,7 +44,8 @@
 
 #define PAUSE_STEP_APPEARING 1
 #define PAUSE_STEP_MENU 2
-#define PAUSE_STEP_DISAPPEARING 3
+#define PAUSE_STEP_SKINS 3
+#define PAUSE_STEP_DISAPPEARING 4
 
 #define NUMBER_OF_DIFFICULTIES 3
 
@@ -83,16 +84,27 @@ class Game{
   
   CL_Sprite *pause_sound_level[11];
 
+  // Sprites for skins-selector
+  CL_Sprite *skins_selector;
+
   // Sprites for progress bar
   CL_Sprite *progress_bar_head, *progress_bar_head_ok;
   CL_Sprite *progress_bar_foot;
   CL_Sprite *progress_bar_item, *progress_bar_item_ok;
   int progress_bar_left, progress_bar_head_top, progress_bar_foot_top;
   
+
+  // Skins selector
+  std::vector<std::string> skins_list;
+  std::vector<CL_Surface*> skins_logo_list;
+  int skins_number;
+  int skins_current_selection;
+  int skins_list_index_top;
   
   // Pause
   bool pause;
   bool pause_appearing;
+  bool pause_requested;
 
   int pause_step;
   int pause_selection;
@@ -227,6 +239,7 @@ class Game{
   void Game::draw_pause();
   
   void Game::draw_progress_bar();
+  void Game::draw_skins_selector();
 
   void Game::calc_score();
  
@@ -237,6 +250,7 @@ class Game{
   void Game::key_events();
   void Game::key_events_playing();
   void Game::key_events_pause();
+  void Game::key_events_skins_selector();
   void Game::undo_last();
   void Game::new_game(short difficulty);
   void Game::fall();

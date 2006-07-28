@@ -43,8 +43,11 @@ void Game::key_events()
 
   if(CL_Keyboard::get_keycode(CL_KEY_F9))
   {
-    skin = CL_System::get_exe_path() + "/skins/temp.zip";
-    load_gfx();
+    pause = true;
+    pause_step = PAUSE_STEP_SKINS;
+    choose_skin();
+    pause_background -> set_alpha(1.0);
+    pause_requested = false;
   }
     
   if(pause)
@@ -62,21 +65,26 @@ void Game::key_events_playing()
     pause = true;
     pause_selection = 0;
     pause_alpha = 0.0;
+    pause_requested = true;
+
     if(pause_appearing)
       pause_step = PAUSE_STEP_APPEARING;
     else
       pause_step = PAUSE_STEP_MENU;
   }
-
-  // Key entries are for the playing mode only 
-  if(GAME_MODE_PLAYING == game_mode)
-  { 
-
-    // Undo the last move
+  
+  if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode)
+  {
+   // Undo the last move
     if(key_undo -> get())
     {
       undo_last();
     }
+  }
+
+  // Key entries are for the playing mode only 
+  if(GAME_MODE_PLAYING == game_mode)
+  { 
     
     // Change the order of the pieces 
     if(key_change_angle->get() && current_pieces_next_angle<=current_pieces_angle+90)
@@ -295,6 +303,7 @@ void Game::undo_last()
   if(undo)
   {
     undo = false;
+
     // Delete the pieces in the body and replace by new ones
     for(int i=0; i<NUMBER_OF_COLS; ++i)
       for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -347,6 +356,8 @@ void Game::undo_last()
     visible_pieces =  undo_visible_pieces;
 
     calc_score();
+
+    game_mode = GAME_MODE_TO_PLAYING;
         
   }
 }

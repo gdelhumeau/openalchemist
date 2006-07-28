@@ -56,6 +56,8 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
   current_piece1 = NULL;
   current_piece2 = NULL;
 
+  pause_requested = false;
+
   // We create all the usefull KeyboardKeys
   key_fullscreen   = new KeyboardKey(CL_KEY_F11   , false);
   key_retry        = new KeyboardKey(CL_KEY_F2    , false);
@@ -92,6 +94,7 @@ Game::~Game()
       if(body[i][j]) delete body[i][j];
       body[i][j] = NULL;
     } 
+
   
   delete next_piece1;
   delete next_piece2;
@@ -205,13 +208,6 @@ void Game::new_game(short difficulty)
 
 }
 
-/**
- * This method runs the skin-selector
- */
-void Game::choose_skin()
-{
-  skin = CL_System::get_exe_path() + "/skins/aqua.zip";
-}
 
 /**
  * Convert a CL_Integer to a int
@@ -303,6 +299,8 @@ void Game::load_gfx()
 
   }
 
+  skins_selector = new CL_Sprite("skins-selector/cursor", &gfx);
+
   // We have to change the sprite references in the Pieces...
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -391,7 +389,6 @@ void Game::load_gfx()
   progress_bar_left = CL_Integer_to_int("progress-bar/left", &gfx);
   progress_bar_head_top = CL_Integer_to_int("progress-bar/head/top", &gfx);
   progress_bar_foot_top = CL_Integer_to_int("progress-bar/foot/top", &gfx);
-
 
   
   if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
@@ -484,6 +481,8 @@ void Game::unload_gfx()
   delete progress_bar_item;
   delete progress_bar_item_ok;
 
+  delete skins_selector;
+
  
   is_gfx_loaded = false;
 
@@ -542,7 +541,8 @@ void Game::main_loop()
 {
 
   end = false;
-  choose_skin();
+  skin = CL_System::get_exe_path() + "skins/aqua.zip";
+  
   new_game(0);
   load_gfx();
   load_preferences();

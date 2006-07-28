@@ -6,9 +6,9 @@ LINKER_OPTIONS =  #-u malloc -lefence
 all: openalchemist
 	@echo "OK"
 
-openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o skins/aqua.zip skins/temp.zip
+openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/temp.zip
 	@echo "On assemble le fichier final"
-	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
+	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) 
@@ -36,6 +36,9 @@ bin/pause.o : includes/*.h src/pause.cpp
 
 bin/preferences.o : includes/*.h src/preferences.cpp
 	g++ -c -o bin/preferences.o src/preferences.cpp $(OPTIONS)
+
+bin/skins-selector.o : includes/*.h src/skins-selector.cpp
+	g++ -c -o bin/skins-selector.o src/skins-selector.cpp $(OPTIONS)
 
 skins/aqua.zip : skins/aqua/*
 	@echo "On zip les thèmes"

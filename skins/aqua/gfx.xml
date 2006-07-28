@@ -1,5 +1,8 @@
 <resources>
 
+	<!-- Logo -->
+	<surface name = "logo" file = "misc/logo.png"/>
+
   <!-- Zone top represents the zone where are the pieces you control -->
   <integer name = "zone_top" value = "110" />
 
@@ -548,6 +551,12 @@
     </image>
 
   </sprite>
+
+ 	<section name="skins-selector">
+ 		<sprite name="cursor">
+ 			<image file="misc/skin-cursor.png" />
+ 		</sprite>
+ 	</section>
   
   <section name="progress-bar">
   	<integer name="left" value="669" />

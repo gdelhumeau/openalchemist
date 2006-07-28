@@ -37,12 +37,12 @@ void Game::draw_pause()
 {
   if(PAUSE_STEP_APPEARING == pause_step)
   {
-    pause_alpha += 0.007*time_interval;
-    if(pause_alpha >= pause_max_alpha)
+    if(pause_alpha+0.007*time_interval >= pause_max_alpha)
     {
       pause_step = PAUSE_STEP_MENU;
       pause_alpha = 1.0;
     }
+    pause_alpha += 0.007*time_interval;
 
     int x = 400 - pause_background -> get_width()/2;
     int y = 300 - pause_background -> get_height()/2;
@@ -109,7 +109,15 @@ void Game::draw_pause()
     
   }
 
-  //else if(PAUSE_STEP_MENU == pause_step)
+  if(PAUSE_STEP_SKINS == pause_step)
+  {
+    int x = 400 - pause_background -> get_width()/2;
+    int y = 300 - pause_background -> get_height()/2;
+    pause_background -> draw(x,y);
+    pause_background -> update();
+    draw_skins_selector();
+  }
+  else
   {
     int x = 400 - pause_background -> get_width()/2;
     int y = 300 - pause_background -> get_height()/2;
@@ -235,13 +243,20 @@ void Game::key_events_pause()
   if(pause_step == PAUSE_STEP_APPEARING)
     return;
 
+  if(pause_step == PAUSE_STEP_SKINS)
+  {
+    key_events_skins_selector();
+    return;
+  }
+
    
   if(key_echap->get())
-  {
+  {   
     if(pause_appearing && opengl)
       pause_step = PAUSE_STEP_DISAPPEARING;
     else
       pause = false;
+    
   }
 
   if(key_up -> get())
@@ -318,6 +333,7 @@ void Game::key_events_pause()
       new_game(0);
       break;
     case PAUSE_ITEM_CHANGESKIN:
+      choose_skin();
       break;
     case PAUSE_ITEM_FULLSCREEN:
       toggle_screen();
