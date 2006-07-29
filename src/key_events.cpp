@@ -34,6 +34,11 @@ void Game::key_events()
   {
     toggle_screen();
   }
+
+  if(CL_Keyboard::get_keycode(CL_KEY_F1))
+  {
+    game_mode = GAME_MODE_NEW_HIGHTSCORE;
+  }
     
   // New game
   if(key_retry->get())
