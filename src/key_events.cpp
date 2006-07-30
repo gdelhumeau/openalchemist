@@ -328,7 +328,8 @@ void Game::undo_last()
 
     undo_next_next_piece1 = next_piece1 -> get_score_value();
     undo_next_next_piece2 = next_piece2 -> get_score_value();
-        
+  
+    
     int value = current_piece1 -> get_score_value() - 1;
     next_piece1 -> set_score_value(value+1);
     next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
@@ -362,7 +363,7 @@ void Game::undo_last()
 
     calc_score();
 
-    game_mode = GAME_MODE_TO_PLAYING;
+    game_mode = GAME_MODE_PLAYING;
         
   }
 }

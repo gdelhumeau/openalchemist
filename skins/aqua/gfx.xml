@@ -22,7 +22,7 @@
 
     <!-- Coords of the two next pieces -->
     <integer name = "next_top" value = "38" />
-    <integer name = "next_left" value = "395" />
+    <integer name = "next_left" value = "375" />
   </section>
 
   <!-- This section contains pieces informations -->
@@ -568,7 +568,7 @@
 			
 			<sprite name="sprite-ok">
 				<image file="misc/bar-head-ok.png" />
-			</sprite>
+			</sprite>next
 			
 			<integer name="top" value="305" />	
 			

@@ -41,14 +41,14 @@ bin/skins-selector.o : includes/*.h src/skins-selector.cpp
 	g++ -c -o bin/skins-selector.o src/skins-selector.cpp $(OPTIONS)
 
 skins/aqua.zip : skins/aqua/*
-	@echo "On zip les thèmes"
+	@echo "On zip le thème aqua"
 	cd skins/aqua && zip -q -r ../aqua * -x *svn*
 skins/brushed.zip : skins/brushed/*
-	@echo "On zip les thèmes"
+	@echo "On zip le thème brushed"
 	cd skins/brushed && zip -q -r ../brushed * -x *svn*
 
 clean:
 	-rm bin/*.o
 	-rm openalchemist
 	-rm skins/aqua.zip
-	-rm skins/temp.zip
+	-rm skins/brushed.zip

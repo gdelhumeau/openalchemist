@@ -25,6 +25,11 @@ void Game::read_scores()
 
   std::string path = get_save_path();
 
+  for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
+  {
+    hightscores[i] = 0;
+  }
+
   try
   {
 #ifdef WIN32
