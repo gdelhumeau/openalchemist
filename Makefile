@@ -6,7 +6,7 @@ LINKER_OPTIONS =  #-u malloc -lefence
 all: openalchemist
 	@echo "OK"
 
-openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/temp.zip
+openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
 	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
 
@@ -43,9 +43,9 @@ bin/skins-selector.o : includes/*.h src/skins-selector.cpp
 skins/aqua.zip : skins/aqua/*
 	@echo "On zip les thèmes"
 	cd skins/aqua && zip -q -r ../aqua * -x *svn*
-skins/temp.zip : skins/temp/*
+skins/brushed.zip : skins/brushed/*
 	@echo "On zip les thèmes"
-	cd skins/temp && zip -q -r ../temp * -x *svn*
+	cd skins/brushed && zip -q -r ../brushed * -x *svn*
 
 clean:
 	-rm bin/*.o
