@@ -52,3 +52,7 @@ clean:
 	-rm openalchemist
 	-rm skins/aqua.zip
 	-rm skins/brushed.zip
+
+static: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
+	@echo "On assemble le fichier final"
+	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist -static -static-libgcc
