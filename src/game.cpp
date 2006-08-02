@@ -517,7 +517,7 @@ void Game::calc_score()
 {
   global_score = 0;
   for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=1; j<NUMBER_OF_LINES; ++j)
+    for(int j=2; j<NUMBER_OF_LINES; ++j)
     {
       if(body[i][j])
       {
