@@ -70,6 +70,10 @@ class App:
                 self.window.mainbox.pack_start(self.window.step_directory, fill=True, expand=True, padding=10)
                 self.window.step_directory.hide()
 
+                self.window.step_install = StepInstall(self)
+                self.window.mainbox.pack_start(self.window.step_install, fill=True, expand=True, padding=10)
+                self.window.step_install.hide()
+
                 # Show the window
 		self.window.show()
 
@@ -85,6 +89,7 @@ class App:
         def hide_all_steps(self):
                 self.window.step_welcome.hide()
                 self.window.step_directory.hide()
+                self.window.step_install.hide()
 
         def show_step_welcome(self):
                 self.hide_all_steps()
@@ -94,12 +99,16 @@ class App:
                 self.hide_all_steps()
                 self.window.step_directory.show()
 
+        def show_step_install(self):                
+                self.hide_all_steps()
+                self.window.step_install.show()
+
         # Event when you close the window
         def _event_quit(self, event):
                 self.running = False
                 gtk.gdk.threads_leave()
                 if self.tarExporter:
-                        self.tarExporter.st()        
+                        self.tarExporter.stop()        
                         self.tarExporter.join()
                 gtk.gdk.threads_enter()
                 
@@ -253,9 +262,9 @@ class StepChooseDirectory(gtk.VBox):
                 self.img_before = gtk.Image()
                 self.img_before.set_from_stock(gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON)
 
-                # Next Button
+                # Before Button
                 self.bt_before = gtk.Button("Previous")
-                self.bt_before.connect("clicked", self._event_next)
+                self.bt_before.connect("clicked", self._event_before)
                 self.table_bottom.attach(self.bt_before, 0,1,0,1, ypadding=0)
                 self.bt_before.set_image(self.img_before)                
 
@@ -268,7 +277,7 @@ class StepChooseDirectory(gtk.VBox):
         def init_paths(self):
                 if os.access("/usr/local/games/", os.W_OK):
                         self.entry_path.set_text("/usr/local/games/openalchemist")
-                elif os.access(sys.path[0]+"/openalchemist", os.W_OK):
+                elif os.access(sys.path[0], os.W_OK):
                         self.entry_path.set_text(sys.path[0]+"/openalchemist")
 
                 if os.access("/usr/local/bin", os.W_OK):
@@ -290,7 +299,8 @@ class StepChooseDirectory(gtk.VBox):
 
         # Events when next button is clicked
         def _event_next(self, event):
-                self.app.show_step_welcome()
+                self.app.show_step_install()
+                self.app.window.step_install.install(self.entry_path.get_text())
 
         # Events when before button is clicked
         def _event_before(self, event):
@@ -321,6 +331,86 @@ class StepChooseDirectory(gtk.VBox):
                                 self.error_rights.run()
                                 return
                         self.entry_bin_path.set_text(self.path_selector.get_filename())
+
+
+
+class StepInstall(gtk.VBox):
+
+        def __init__(self, app):
+                gtk.VBox.__init__(self)
+                self.app = app
+                
+                self.frame_copy = gtk.Frame("Installation")
+                self.pack_start(self.frame_copy, fill=True, expand=False, padding=10)
+
+                self.copy_box = gtk.VBox()
+                self.frame_copy.add(self.copy_box)
+                self.lbl_filename = gtk.Label("Copying ...")
+                self.copy_box.pack_start(self.lbl_filename, fill=True, expand=False, padding=10)
+                self.progress_bar = gtk.ProgressBar()
+                self.copy_box.pack_start(self.progress_bar, padding=10)
+
+                self.frame_uninstall = gtk.Frame("Uninstallation")
+                self.pack_start(self.frame_uninstall, fill=True, expand=False, padding=10)
+                self.uninstall_box = gtk.VBox()
+                self.lbl_uninstall = gtk.Label("To remove openalchemist from your computer, just tip: \n # openalchemist-uninstall")
+                self.frame_uninstall.add(self.uninstall_box)
+                self.uninstall_box.pack_start(self.lbl_uninstall, fill=True, expand=False, padding=10)
+
+                # Separator
+                self.pack_start(gtk.Label())
+
+                # Bottom table for Prec/Next items
+                self.table_bottom = gtk.Table(columns=3, homogeneous=True)
+                self.pack_end(self.table_bottom, fill=True, expand=False, padding=10)               
+
+                # Image for next button
+                self.img_next = gtk.Image()
+                self.img_next.set_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_BUTTON)
+
+                # Next Button
+                self.bt_next = gtk.Button("Run")
+                self.bt_next.connect("clicked", self._event_next)
+                self.table_bottom.attach(self.bt_next, 2,3,0,1, ypadding=0)
+                self.bt_next.set_image(self.img_next)
+                self.bt_next.set_sensitive(False)
+
+                # Image for next button
+                self.img_before = gtk.Image()
+                self.img_before.set_from_stock(gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON)
+
+                # Before Button
+                self.bt_before = gtk.Button("Previous")
+                self.bt_before.connect("clicked", self._event_next)
+                self.table_bottom.attach(self.bt_before, 0,1,0,1, ypadding=0)
+                self.bt_before.set_image(self.img_before)
+
+                self.show_all()
+                self.frame_uninstall.hide()
+
+        def install(self, path):
+                self.path = path
+                self.app.tarExporter = ExportThread(self.app)
+                self.app.tarExporter.export(sys.path[0]+"/openalchemist.tar", path)
+
+        def show_message(self):
+                self.frame_uninstall.show()
+                self.bt_next.set_sensitive(True)
+
+                
+
+        
+        # Events when next button is clicked
+        def _event_next(self, event):
+                print self.path+"/openalchemist"
+                os.system(self.path+"/openalchemist")
+                sys.exit()
+
+        # Events when before button is clicked
+        def _event_before(self, event):
+                self.app.show_step_directory()        
+
+                
                 
                 
 
@@ -351,19 +441,23 @@ class ExportThread(threading.Thread):
                         # Condition to exit the loop
                         if not self.running:
                                 return
-                        
-                        #print f.name
+                        gtk.gdk.threads_enter()
+                        if self.app.running:
+                                self.app.window.step_install.lbl_filename.set_text("Copying "+f.name+"...")
+                        gtk.gdk.threads_leave()
                         tar.extract(f, self.path)
                         f = tar.next()
                         k = k + 1
                         #print str(k) +  " of " +str(n)
-                        frac = k / n
+                        frac = k / nbFiles
                         #time.sleep(1)
                         gtk.gdk.threads_enter()
                         if self.app.running:
-                                self.app.p.set_fraction(frac)
-                                self.app.p.show()
+                                self.app.window.step_install.progress_bar.set_fraction(frac)
+                                self.app.window.step_install.progress_bar.show()
                         gtk.gdk.threads_leave()
+
+                self.app.window.step_install.show_message()
                 
               
         # Stop method
