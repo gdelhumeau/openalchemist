@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2005 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -239,42 +239,45 @@ void Game::load_gfx()
 
   this->unload_gfx();  
 
-  // Load the skin ressource
+  // Load the skin ressources
   CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(skin), true);
+  CL_ResourceManager gfx_pieces("pieces.xml", new CL_Zip_Archive(skin), true);
+  CL_ResourceManager gfx_pause("menu_pause.xml", new CL_Zip_Archive(skin), true);
+  
 
   background = new CL_Surface("background", &gfx);
   game_over = new CL_Surface("gameover", &gfx);
   
   new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
-  pause_background = new CL_Sprite("menu/pause/background", &gfx);
+  pause_background = new CL_Sprite("menu/pause/background", &gfx_pause);
 
-  pause_resume = new CL_Sprite("menu/pause/resume/unselected", &gfx);
-  pause_resume_selected = new CL_Sprite("menu/pause/resume/selected", &gfx);
+  pause_resume = new CL_Sprite("menu/pause/resume/unselected", &gfx_pause);
+  pause_resume_selected = new CL_Sprite("menu/pause/resume/selected", &gfx_pause);
 
-  pause_undo = new CL_Sprite("menu/pause/undo/unselected", &gfx);
-  pause_undo_selected = new CL_Sprite("menu/pause/undo/selected", &gfx);
-  pause_undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", &gfx);
+  pause_undo = new CL_Sprite("menu/pause/undo/unselected", &gfx_pause);
+  pause_undo_selected = new CL_Sprite("menu/pause/undo/selected", &gfx_pause);
+  pause_undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", &gfx_pause);
 
-  pause_retry = new CL_Sprite("menu/pause/retry/unselected", &gfx);
-  pause_retry_selected = new CL_Sprite("menu/pause/retry/selected", &gfx);
+  pause_retry = new CL_Sprite("menu/pause/retry/unselected", &gfx_pause);
+  pause_retry_selected = new CL_Sprite("menu/pause/retry/selected", &gfx_pause);
 
-  pause_changeskin = new CL_Sprite("menu/pause/changeskin/unselected", &gfx);
-  pause_changeskin_selected = new CL_Sprite("menu/pause/changeskin/selected", &gfx);
+  pause_changeskin = new CL_Sprite("menu/pause/changeskin/unselected", &gfx_pause);
+  pause_changeskin_selected = new CL_Sprite("menu/pause/changeskin/selected", &gfx_pause);
 
-  pause_fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", &gfx);
-  pause_fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", &gfx);
+  pause_fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", &gfx_pause);
+  pause_fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", &gfx_pause);
 
-  pause_sound = new CL_Sprite("menu/pause/sound/unselected", &gfx);
-  pause_sound_selected = new CL_Sprite("menu/pause/sound/selected", &gfx);
+  pause_sound = new CL_Sprite("menu/pause/sound/unselected", &gfx_pause);
+  pause_sound_selected = new CL_Sprite("menu/pause/sound/selected", &gfx_pause);
 
-  pause_music = new CL_Sprite("menu/pause/music/unselected", &gfx);
-  pause_music_selected = new CL_Sprite("menu/pause/music/selected", &gfx);
+  pause_music = new CL_Sprite("menu/pause/music/unselected", &gfx_pause);
+  pause_music_selected = new CL_Sprite("menu/pause/music/selected", &gfx_pause);
 
-  pause_backmain = new CL_Sprite("menu/pause/backmain/unselected", &gfx);
-  pause_backmain_selected = new CL_Sprite("menu/pause/backmain/selected", &gfx);
+  pause_backmain = new CL_Sprite("menu/pause/backmain/unselected", &gfx_pause);
+  pause_backmain_selected = new CL_Sprite("menu/pause/backmain/selected", &gfx_pause);
 
-  pause_quit = new CL_Sprite("menu/pause/quit/unselected", &gfx);
-  pause_quit_selected = new CL_Sprite("menu/pause/quit/selected", &gfx);
+  pause_quit = new CL_Sprite("menu/pause/quit/unselected", &gfx_pause);
+  pause_quit_selected = new CL_Sprite("menu/pause/quit/selected", &gfx_pause);
 
   progress_bar_head = new CL_Sprite("progress-bar/head/sprite", &gfx);
   progress_bar_head_ok = new CL_Sprite("progress-bar/head/sprite-ok", &gfx);
@@ -284,18 +287,17 @@ void Game::load_gfx()
 
   for(int i=1; i<=NUMBER_OF_PIECES; ++i)
   {
-    pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx);
-    pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx);
-    pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx);
-    pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx);
+    pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
+    pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
+    pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
+    pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces);
 
    
-    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx);
-    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx);
+    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx_pieces);
+    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx_pieces);
 
     if(i>3)
-      pieces_hidder[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx);
-    
+      pieces_hidder[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx_pieces);    
 
   }
 
@@ -315,7 +317,7 @@ void Game::load_gfx()
 
   for(int i=0; i<=10; i++)
   {
-    pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx);
+    pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx_pause);
   }
  
   
@@ -343,8 +345,10 @@ void Game::load_gfx()
   // Load some var
   game_top = CL_Integer_to_int("game/top", &gfx);
   game_left = CL_Integer_to_int("game/left", &gfx);
-  pieces_width = CL_Integer_to_int("pieces/width", &gfx);
-  pieces_height = CL_Integer_to_int("pieces/height", &gfx);
+
+  pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
+  pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
+
   zone_top = CL_Integer_to_int("zone_top", &gfx);    
   next_left = CL_Integer_to_int("game/next_left", &gfx);
   next_top = CL_Integer_to_int("game/next_top", &gfx);
@@ -357,34 +361,34 @@ void Game::load_gfx()
   new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
   old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
 
-  pause_resume_left = CL_Integer_to_int("menu/pause/resume/left", &gfx);
-  pause_resume_top = CL_Integer_to_int("menu/pause/resume/top", &gfx);
+  pause_resume_left = CL_Integer_to_int("menu/pause/resume/left", &gfx_pause);
+  pause_resume_top = CL_Integer_to_int("menu/pause/resume/top", &gfx_pause);
 
-  pause_undo_left = CL_Integer_to_int("menu/pause/undo/left", &gfx);
-  pause_undo_top = CL_Integer_to_int("menu/pause/undo/top", &gfx);
+  pause_undo_left = CL_Integer_to_int("menu/pause/undo/left", &gfx_pause);
+  pause_undo_top = CL_Integer_to_int("menu/pause/undo/top", &gfx_pause);
 
-  pause_retry_left = CL_Integer_to_int("menu/pause/retry/left", &gfx);
-  pause_retry_top = CL_Integer_to_int("menu/pause/retry/top", &gfx);
+  pause_retry_left = CL_Integer_to_int("menu/pause/retry/left", &gfx_pause);
+  pause_retry_top = CL_Integer_to_int("menu/pause/retry/top", &gfx_pause);
 
-  pause_changeskin_left = CL_Integer_to_int("menu/pause/changeskin/left", &gfx);
-  pause_changeskin_top = CL_Integer_to_int("menu/pause/changeskin/top", &gfx);
+  pause_changeskin_left = CL_Integer_to_int("menu/pause/changeskin/left", &gfx_pause);
+  pause_changeskin_top = CL_Integer_to_int("menu/pause/changeskin/top", &gfx_pause);
 
-  pause_fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", &gfx);
-  pause_fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", &gfx);
+  pause_fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", &gfx_pause);
+  pause_fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", &gfx_pause);
 
-  pause_sound_left = CL_Integer_to_int("menu/pause/sound/left", &gfx);
-  pause_sound_top = CL_Integer_to_int("menu/pause/sound/top", &gfx);
+  pause_sound_left = CL_Integer_to_int("menu/pause/sound/left", &gfx_pause);
+  pause_sound_top = CL_Integer_to_int("menu/pause/sound/top", &gfx_pause);
 
-  pause_music_left = CL_Integer_to_int("menu/pause/music/left", &gfx);
-  pause_music_top = CL_Integer_to_int("menu/pause/music/top", &gfx);
+  pause_music_left = CL_Integer_to_int("menu/pause/music/left", &gfx_pause);
+  pause_music_top = CL_Integer_to_int("menu/pause/music/top", &gfx_pause);
   
-  pause_backmain_left = CL_Integer_to_int("menu/pause/backmain/left", &gfx);
-  pause_backmain_top = CL_Integer_to_int("menu/pause/backmain/top", &gfx);
+  pause_backmain_left = CL_Integer_to_int("menu/pause/backmain/left", &gfx_pause);
+  pause_backmain_top = CL_Integer_to_int("menu/pause/backmain/top", &gfx_pause);
 
-  pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx);
-  pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx);
+  pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx_pause);
+  pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx_pause);
 
-  pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx);
+  pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx_pause);
 
   progress_bar_left = CL_Integer_to_int("progress-bar/left", &gfx);
   progress_bar_head_top = CL_Integer_to_int("progress-bar/head/top", &gfx);
