@@ -39,6 +39,12 @@ void Game::key_events()
   {
     game_mode = GAME_MODE_NEW_HIGHTSCORE;
   }
+
+  if(CL_Keyboard::get_keycode(CL_KEY_A))
+  {
+    unlocked_pieces = NUMBER_OF_PIECES;
+    visible_pieces = NUMBER_OF_PIECES;
+  }
     
   // New game
   if(key_retry->get())
