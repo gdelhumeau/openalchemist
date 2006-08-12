@@ -83,7 +83,11 @@ void Game::detect_to_destroy()
         if(counter >= 3)
         {
           // In the case we destroy the last element
-          if(score_of_root == (u_int)pow(3,(NUMBER_OF_PIECES-1)))
+          std::vector<Coords*>::iterator it = list.begin();
+          Coords *c = (Coords*) *it;                 
+          u_int score_of_root = body[c->x][c->y]->get_score_value(); 
+
+          if(score_of_root == NUMBER_OF_PIECES)
           {
             undo_global_bonus += (counter)*(u_int)pow(3,body[i][j]->get_score_value()-1);
             global_bonus += (counter)*(u_int)pow(3,body[i][j]->get_score_value()-1);
@@ -95,7 +99,7 @@ void Game::detect_to_destroy()
           }      
           Coords new_piece(NUMBER_OF_COLS+1,-1);
           
-          std::vector<Coords*>::iterator it = list.begin();
+          //std::vector<Coords*>::iterator it = list.begin();
           while(it != list.end())
           {
             Coords *c = (Coords*) *it;                 
