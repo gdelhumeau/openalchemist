@@ -2,13 +2,14 @@ PACKAGES = clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8
 LIBS = `pkg-config --libs $(PACKAGES)`
 OPTIONS =  -I/usr/local/include/ClanLib-0.8 -Iincludes -Wall -g
 LINKER_OPTIONS =  #-u malloc -lefence
+STATIC_LIBS = lib/libclanSignals.a lib/libclanCore.a lib/libclanApp.a lib/libclanDisplay.a lib/libclanGL.a lib/libclanSDL.a `sdl-config --cflags` `sdl-config --libs` -lSDL_image -lGL -lGLU -lz -lpng -ljpeg
 
 all: openalchemist
 	@echo "OK"
 
 openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
-	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist 
+	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) 
@@ -55,4 +56,4 @@ clean:
 
 static: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
-	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist -static -static-libgcc
+	g++ $(STATIC_LIBS) bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o -Wall $(LINKER_OPTIONS) -o openalchemist

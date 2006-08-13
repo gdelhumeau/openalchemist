@@ -395,10 +395,10 @@ void Game::load_gfx()
   progress_bar_foot_top = CL_Integer_to_int("progress-bar/foot/top", &gfx);
 
   
-  if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx))
+  if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx_pause))
   {
     pause_appearing = true;
-    pause_max_alpha =(float)CL_Integer_to_int("menu/pause/alpha_max", &gfx) / 100.0;
+    pause_max_alpha =(float)CL_Integer_to_int("menu/pause/alpha_max", &gfx_pause) / 100.0;
   }
   else
     pause_appearing = false;
