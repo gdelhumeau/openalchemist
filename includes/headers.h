@@ -6,7 +6,9 @@
 //#define WIN32
 
 
+
 #include <ClanLib/gl.h>
+#include <ClanLib/sdl.h>
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
 #include <ClanLib/display.h>

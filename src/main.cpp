@@ -18,11 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <ClanLib/gl.h>
-#include <ClanLib/sdl.h>
-#include <ClanLib/core.h>
-#include <ClanLib/application.h>
-
 #include "headers.h"
 
 #define RENDER_SDL false
