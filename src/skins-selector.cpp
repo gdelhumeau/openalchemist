@@ -58,7 +58,7 @@ void Game::choose_skin()
             if(skin == dir+scanner.get_name())
             {
               skins_current_selection = skins_number;
-              skins_list_index_top = skins_number - 2;
+              skins_list_index_top = skins_number - 1;
 
               if(skins_list_index_top < 0)
               {               
@@ -95,12 +95,12 @@ void Game::draw_skins_selector()
   /*int x = 400 - pause_background -> get_width()/2;*/
     int y = 300 - pause_background -> get_height()/2; 
 
-  for(u_int i=0; i<skins_list.size() && i<3; ++i)
+  for(u_int i=0; i<skins_list.size() && i<2; ++i)
   {
     if((int)i+(int)skins_list_index_top == (int)skins_current_selection)
-      skins_selector -> draw(240, y+i*170+40);
+      skins_selector -> draw(240, y+skins_selector_top-10+i*(150+skins_selector_separation));
 
-    skins_logo_list[i+skins_list_index_top] -> draw(250, y+i*170+50);
+    skins_logo_list[i+skins_list_index_top] -> draw(250, y+skins_selector_top+i*(150+skins_selector_separation));
   }
 }
 
@@ -127,7 +127,7 @@ void Game::key_events_skins_selector()
   {
     if((int)skins_current_selection < (int)skins_list.size()-1)
       skins_current_selection++;
-    if(skins_current_selection > skins_list_index_top + 2)
+    if(skins_current_selection > skins_list_index_top + 1)
       skins_list_index_top++;    
   }
 

@@ -174,7 +174,7 @@ public:
    */
   void help()
     {
-      std::cout << "OpenAlchemist v0.xxx -- Help\n"
+      std::cout << "OpenAlchemist vSVN -- Help\n"
                 << "Usage: openalchemist [OPTIONS]\n\n"
                 << "Options:\n"
                 << "\t--help : Show this message\n"

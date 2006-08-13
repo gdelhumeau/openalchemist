@@ -302,6 +302,8 @@ void Game::load_gfx()
   }
 
   skins_selector = new CL_Sprite("skins-selector/cursor", &gfx);
+  skins_selector_top = CL_Integer_to_int("skins-selector/top", &gfx);
+  skins_selector_separation = CL_Integer_to_int("skins-selector/separation", &gfx);
 
   // We have to change the sprite references in the Pieces...
   for(int i=0; i<NUMBER_OF_COLS; ++i)

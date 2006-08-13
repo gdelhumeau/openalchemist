@@ -100,6 +100,8 @@ class Game{
   int skins_number;
   int skins_current_selection;
   int skins_list_index_top;
+  int skins_selector_top;
+  int skins_selector_separation;
   
   // Pause
   bool pause;

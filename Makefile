@@ -1,13 +1,13 @@
 PACKAGES = clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8
 LIBS = `pkg-config --libs $(PACKAGES)`
-OPTIONS =  -Iincludes -Wall -g
+OPTIONS =  -Iincludes -Wall
 LINKER_OPTIONS =  #-u malloc -lefence
 STATIC_LIBS = `pkg-config --libs $(PACKAGES) --static`
 CFLAGS = `pkg-config --cflags $(PACKAGES)`
 
 INSTALL_DIR = /usr/local/games/openalchemist
 
-all: test openalchemist
+all: openalchemist
 	@echo "OK"
 
 test: 
@@ -16,7 +16,7 @@ test:
 
 openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
-	g++ bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
+	cc bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) $(CFLAGS)
@@ -77,4 +77,4 @@ uninstall: $(INSTALL_DIR)
 
 static: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
-	g++ $(STATIC_LIBS) bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o -Wall $(LINKER_OPTIONS) -o openalchemist-static
+	g++ $(STATIC_LIBS) bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o -Wall $(LINKER_OPTIONS) -o openalchemist-static -static
