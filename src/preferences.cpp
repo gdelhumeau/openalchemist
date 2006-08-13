@@ -20,7 +20,7 @@
 
 #include "headers.h"
 
-#define OPTIONS_FILE_REVISION 1
+#define OPTIONS_FILE_REVISION 2
 
 Preferences* pref_get_instance()
 {
@@ -43,6 +43,8 @@ void Preferences::read()
 #else
   std::string options_file = options_path + "/options";
 #endif
+
+  set_default();
 
   try
   {
@@ -126,12 +128,16 @@ void Preferences::read_options_file(CL_InputSource_File *file)
 
   file->open();
   revision = file -> read_uint8();
-  if(revision == 1)
+  if(revision >= 1)
   {
     render_opengl = file  -> read_bool8();
     fullscreen = file -> read_bool8();
     sound_level = file -> read_int32();
     music_level = file -> read_int32();
+  }
+  if(revision >= 2)
+  {
+    skin = file -> read_string();
   }
       
   file -> close();
@@ -139,7 +145,7 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   }
   catch(CL_Error e)
   {
-    std::cout << "DJ Shadow \n";
+    std::cout << "Error while reading options file \n";
   }
 }
 
@@ -156,6 +162,8 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   file -> write_int32(sound_level);
   // Music level
   file -> write_int32(music_level);
+  // Skin
+  file -> write_string(skin);
 
   file -> close();
 }
@@ -167,6 +175,7 @@ void Preferences::set_default()
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
+  skin = CL_System::get_exe_path() + "skins/aqua.zip";
 }
 
 void Game::load_preferences()
@@ -174,6 +183,7 @@ void Game::load_preferences()
   Preferences *pref = pref_get_instance();
   sound_level = pref -> sound_level;
   music_level = pref -> music_level;
+  skin =  pref -> skin;
 }
 
 void Game::save_preferences()

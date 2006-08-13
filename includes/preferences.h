@@ -39,6 +39,9 @@ class Preferences
   // Fullscreen
   bool fullscreen;
 
+  // Skin
+  std::string skin;
+
   Preferences();
   void read();
   void write();

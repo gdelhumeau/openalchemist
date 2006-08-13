@@ -134,6 +134,9 @@ void Game::key_events_skins_selector()
   if(key_enter -> get())
   {
     skin = skins_list[skins_current_selection];
+    Preferences* pref = pref_get_instance();
+    pref -> skin = skin;
+    save_preferences();
     load_gfx();
   }
 }

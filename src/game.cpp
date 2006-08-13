@@ -547,11 +547,11 @@ void Game::main_loop()
 {
 
   end = false;
-  skin = CL_System::get_exe_path() + "skins/aqua.zip";
   
+  load_preferences();
   new_game(0);
   load_gfx();
-  load_preferences();
+  //load_preferences();
 
   CL_FramerateCounter fps_getter; 
 
