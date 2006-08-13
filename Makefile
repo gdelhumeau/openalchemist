@@ -1,6 +1,6 @@
 PACKAGES = clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8
 LIBS = `pkg-config --libs $(PACKAGES)`
-OPTIONS =  -Iincludes -Wall
+OPTIONS =  -Iincludes -Wall -g
 LINKER_OPTIONS =  #-u malloc -lefence
 STATIC_LIBS = `pkg-config --libs $(PACKAGES) --static`
 CFLAGS = `pkg-config --cflags $(PACKAGES)`
@@ -9,7 +9,7 @@ INSTALL_DIR = /usr/local/games/openalchemist
 
 all: openalchemist
 	@echo "OK"
-
+	
 test: 
 	@echo "Test dependances installation"
 	pkg-config --exists $(PACKAGES)
