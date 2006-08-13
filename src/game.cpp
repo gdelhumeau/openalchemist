@@ -549,6 +549,7 @@ void Game::main_loop()
   end = false;
   
   load_preferences();
+
   new_game(0);
   load_gfx();
   //load_preferences();
