@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2005 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,12 +84,20 @@ void Game::key_events_playing()
       pause_step = PAUSE_STEP_MENU;
   }
   
-  if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode)
+  if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode || GAME_MODE_NEW_HIGHTSCORE == game_mode)
   {
    // Undo the last move
     if(key_undo -> get())
     {
       undo_last();
+    }
+  }
+
+  if(GAME_MODE_GAME_OVER == game_mode || GAME_MODE_NEW_HIGHTSCORE == game_mode)
+  {
+    if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
+    {
+      new_game(0);
     }
   }
 
