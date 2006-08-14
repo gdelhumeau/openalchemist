@@ -355,10 +355,10 @@ void Game::load_gfx()
   next_left = CL_Integer_to_int("game/next_left", &gfx);
   next_top = CL_Integer_to_int("game/next_top", &gfx);
   score_top = CL_Integer_to_int("score_top", &gfx);
-  score_left = CL_Integer_to_int("score_left", &gfx);
-  bonus_left = CL_Integer_to_int("bonus_score_left", &gfx);
+  score_right = CL_Integer_to_int("score_right", &gfx);
+  bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
   bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
-  hightscore_left = CL_Integer_to_int("hight_score_left", &gfx);
+  hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
   hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
   new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
   old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);

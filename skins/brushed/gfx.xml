@@ -8,11 +8,11 @@
 
   <!-- Coords for score displaying -->
   <integer name = "score_top" value = "50" />
-  <integer name = "score_left" value = "600" />
+  <integer name = "score_right" value = "750" />
   <integer name = "bonus_score_top" value = "150" />
-  <integer name = "bonus_score_left" value ="600" />
+  <integer name = "bonus_score_right" value ="750" />
   <integer name = "hight_score_top" value = "250" />
-  <integer name = "hight_score_left" value ="600" />
+  <integer name = "hight_score_right" value ="750" />
 
   
   <!-- Coords of the body -->
@@ -65,6 +65,9 @@
     </image>
     <image file="misc/font.png">
       <grid pos="136,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="150,0" size="14,40" />
     </image>
 
   </sprite>
@@ -130,7 +133,7 @@
   
   
   <font name="font">
-    <bitmap glyphs="font_glyph" letters="0123456789" spacelen="35"  />
+    <bitmap glyphs="font_glyph" letters="0123456789 " spacelen="35"  />
   </font>
     
   

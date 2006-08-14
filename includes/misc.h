@@ -36,6 +36,21 @@ inline std::string to_string( const T & Value )
     return oss.str();
 }
 
+inline std::string format_number(const std::string &string)
+{
+  int length = string.length();
+  std::string string_modified = "";
+  for(int i = 0; i<length; ++i)
+  {
+    if((length - i) % 3 == 0 && i>0)
+    {
+      string_modified += " ";
+    }
+    string_modified += string.substr(i,1);
+  }
+  return string_modified;
+}
+
 
 
 

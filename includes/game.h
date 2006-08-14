@@ -148,9 +148,9 @@ class Game{
 
   int game_top, game_left, zone_top, next_top, next_left;
   int pieces_width, pieces_height;
-  int score_top, score_left;
-  int bonus_top, bonus_left;
-  int hightscore_top, hightscore_left;
+  int score_top, score_right;
+  int bonus_top, bonus_right;
+  int hightscore_top, hightscore_right;
   int combo;
 
   u_int hightscores[NUMBER_OF_DIFFICULTIES];

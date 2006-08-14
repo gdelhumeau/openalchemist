@@ -35,10 +35,20 @@ void Game::draw_game()
 {
        
   background->draw(0,0);    
-  font_a->draw(580,550,to_string(fps));  
-  font_a->draw(score_left, score_top, to_string(global_score));
-  font_a->draw(bonus_left, bonus_top, to_string(global_bonus));
-  font_a->draw(hightscore_left, hightscore_top, to_string(hightscores[current_difficulty]));
+  font_a->draw(580,550,to_string(fps)); 
+
+  /* Displaying scores */
+  std::string score = format_number(to_string(global_score));
+  std::string bonus = format_number(to_string(global_bonus));
+  std::string hightscore = format_number(to_string(hightscores[current_difficulty])); 
+
+  int score_width = font_a->get_width(score, CL_Size(0, 0));
+  int bonus_width = font_a->get_width(bonus, CL_Size(0, 0));
+  int hightscore_width = font_a->get_width(hightscore, CL_Size(0, 0));
+
+  font_a->draw(score_right - score_width, score_top, score);
+  font_a->draw(bonus_right - bonus_width, bonus_top, bonus);
+  font_a->draw(hightscore_right - hightscore_width, hightscore_top, hightscore);
 
   /* We draw unlocked pieces */
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
