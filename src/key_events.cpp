@@ -215,7 +215,7 @@ void Game::key_events_playing()
           }
           else
           {
-            body_undo[i][j] = 0;
+            body_undo[i][j] = -1;
           }
         } 
 
@@ -342,7 +342,7 @@ void Game::undo_last()
       {
         if(body[i][j]) delete body[i][j];
         body[i][j] = NULL;
-        if(body_undo[i][j] > 0)
+        if(body_undo[i][j] >= 0)
         {
           body[i][j] = new Piece(body_undo[i][j]);
           body[i][j] -> set_sprites(pieces_normal[body_undo[i][j]], pieces_appearing[body_undo[i][j]],
