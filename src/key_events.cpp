@@ -35,6 +35,8 @@ void Game::key_events()
     toggle_screen();
   }
 
+  // Cheats
+  /*
   if(CL_Keyboard::get_keycode(CL_KEY_F1))
   {
     last_hightscore =  hightscores[current_difficulty];
@@ -45,7 +47,7 @@ void Game::key_events()
   {
     unlocked_pieces = NUMBER_OF_PIECES;
     visible_pieces = NUMBER_OF_PIECES;
-  }
+    }*/
     
   // New game
   if(key_retry->get())

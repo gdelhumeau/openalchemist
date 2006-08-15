@@ -11,20 +11,24 @@ If you understand french, you can read a tutorial here: http://kephpage.free.fr/
 
 II) How to compile it
 
-You should just tape "make" in this folder. If it doesn't work, you should edit the makefile.
+You should just tape "make" in this folder. If it doesn't work, you should edit the makefile. You can install software in /usr/local/games/ by tipping "make install" (and "uninstall" if you want to delete the game)
 
 In the future, OpenAlchemist will have a simplified compilation system with autoconf, automake, ect...
 
-III) How to contact us
+III) How to play with it
+
+After compiling, tip "./openalchemist" or just "openalchemist" if you tip "make install". Option --sdl use SDL , --opengl use OpenGL.
+
+IV) How to contact us
 
 You can contact the coder at kepho.o (at) gmail.com
 You can contact the graphist at guigozz (at) gmail.com
 
-IV) Licensing
+V) Licensing
 
 Code is protected by GNU GPL (see CODE-LICENSE)
 Graphics are protected by http://creativecommons.org/licenses/by-sa/2.0/fr/
 
-V) Derivated projects
+VI) Derivated projects
 
 If you want to make a derivated project with OpenAlchemist code or graphs, you can do it. A message from you to show us your project will  be appreciated (we're curious :)).

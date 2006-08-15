@@ -174,7 +174,7 @@ public:
    */
   void help()
     {
-      std::cout << "OpenAlchemist vSVN -- Help" << std::endl
+      std::cout << "OpenAlchemist v0.2 -- Help" << std::endl
                 << "Usage: openalchemist [OPTIONS]"  << std::endl  << std::endl
                 << "Options:"  << std::endl
                 << "\t--help : Show this message"  << std::endl
@@ -189,7 +189,7 @@ public:
    */
   void license()
     {
-      std::cout << " * OpenAlchemist v0.xxx -- License\n" << std::endl
+      std::cout << " * OpenAlchemist v0.2 -- License\n" << std::endl
                 << " * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>" << std::endl 
                 << " *"  << std::endl
                 << " * This program is free software; you can redistribute it and/or modify " << std::endl
