@@ -305,8 +305,8 @@ void Game::draw_to_playing()
   }
   else
   {
-    next_piece1 -> set_piece_number(1+rand()%(unlocked_pieces));
-    next_piece2 -> set_piece_number(1+rand()%(unlocked_pieces));
+    next_piece1 -> set_piece_number(rand()%(unlocked_pieces));
+    next_piece2 -> set_piece_number(rand()%(unlocked_pieces));
   }
           
   int value;

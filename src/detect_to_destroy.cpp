@@ -125,11 +125,11 @@ void Game::detect_to_destroy()
             {
               new_piece.piece_number = NUMBER_OF_PIECES-1;
             }
-            if(new_piece.piece_number > visible_pieces)
+            if(new_piece.piece_number > visible_pieces - 1)
             {
               ++visible_pieces;
             }
-            if(new_piece.piece_number > unlocked_pieces + 1)
+            if(new_piece.piece_number > unlocked_pieces)
             {
               unlocked_pieces ++;
             }

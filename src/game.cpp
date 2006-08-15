@@ -154,11 +154,11 @@ void Game::new_game(short difficulty)
   unlocked_pieces = 3;
   visible_pieces = 3;
    
-  next_piece1 = new Piece(1+rand()%(unlocked_pieces));
-  next_piece2 = new Piece(1+rand()%(unlocked_pieces));  
+  next_piece1 = new Piece(rand()%(unlocked_pieces));
+  next_piece2 = new Piece(rand()%(unlocked_pieces));  
   
-  current_piece1 = new Piece(1+rand()%(unlocked_pieces));
-  current_piece2 = new Piece(1+rand()%(unlocked_pieces));
+  current_piece1 = new Piece(rand()%(unlocked_pieces));
+  current_piece2 = new Piece(rand()%(unlocked_pieces));
   
 
   
