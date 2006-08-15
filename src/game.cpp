@@ -21,7 +21,7 @@
 #include "headers.h"
 #include "math.h"
 
-const int Piece::score[12] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 10000, 30000, 90000, 300000 };
 
 /**
  * This function return a factor to calcul moving with time
