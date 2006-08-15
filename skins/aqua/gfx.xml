@@ -133,7 +133,7 @@
   
   
   <font name="font">
-    <bitmap glyphs="font_glyph" letters="0123456789 " spacelen="35"  />
+    <bitmap glyphs="font_glyph" letters="0123456789." spacelen="35"  />
   </font>
     
   

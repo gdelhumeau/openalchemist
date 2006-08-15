@@ -37,6 +37,7 @@ void Game::key_events()
 
   if(CL_Keyboard::get_keycode(CL_KEY_F1))
   {
+    last_hightscore =  hightscores[current_difficulty];
     game_mode = GAME_MODE_NEW_HIGHTSCORE;
   }
 
@@ -210,7 +211,7 @@ void Game::key_events_playing()
         {
           if(body[i][j])
           {
-            body_undo[i][j] = body[i][j] -> get_score_value();
+            body_undo[i][j] = body[i][j] -> get_piece_number();
           }
           else
           {
@@ -221,8 +222,8 @@ void Game::key_events_playing()
       undo_global_bonus = 0;
       undo_position = position;
       undo_position_bis = position_bis;
-      undo_piece1_score = current_piece1 -> get_score_value();
-      undo_piece2_score = current_piece2 -> get_score_value();
+      undo_piece1_number = current_piece1 -> get_piece_number();
+      undo_piece2_number = current_piece2 -> get_piece_number();
       undo_angle = current_pieces_next_angle;
       undo_unlocked_pieces = unlocked_pieces;
       undo_visible_pieces = visible_pieces;
@@ -289,18 +290,30 @@ void Game::key_events_playing()
         falling_list.clear();
         falling_list.push_back(piece_on_top);
         falling_list.push_back(piece_on_bottom);
-    
-        current_piece1 = new Piece(next_piece1->get_score_value());
-        current_piece2 = new Piece(next_piece2->get_score_value());
-            
+
+        // We must respect the next piece order (ex: red to the left, blue to the right...)
+        float piece1x = cos(current_pieces_angle*TO_RAD)*current_pieces_r;
+        float piece2x = cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r;
+
+        if(piece1x < piece2x)
+        {        
+          current_piece1 = new Piece(next_piece1->get_piece_number());
+          current_piece2 = new Piece(next_piece2->get_piece_number());
+        }
+        else
+        {
+          current_piece1 = new Piece(next_piece2->get_piece_number());
+          current_piece2 = new Piece(next_piece1->get_piece_number());
+        }
+
       
             
     
-        int value = current_piece1 -> get_score_value() - 1;
+        int value = current_piece1 -> get_piece_number();
         current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                       pieces_disappearing[value], pieces_mini[value]);
       
-        value = current_piece2 -> get_score_value() - 1;
+        value = current_piece2 -> get_piece_number();
         current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                       pieces_disappearing[value], pieces_mini[value]);
             
@@ -340,27 +353,27 @@ void Game::undo_last()
 
     global_bonus -= undo_global_bonus;
 
-    undo_next_next_piece1 = next_piece1 -> get_score_value();
-    undo_next_next_piece2 = next_piece2 -> get_score_value();
+    undo_next_next_piece1 = next_piece1 -> get_piece_number();
+    undo_next_next_piece2 = next_piece2 -> get_piece_number();
   
     
-    int value = current_piece1 -> get_score_value() - 1;
-    next_piece1 -> set_score_value(value+1);
+    int value = current_piece1 -> get_piece_number();
+    next_piece1 -> set_piece_number(value);
     next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                pieces_disappearing[value], pieces_mini[value]);
 
-    value = current_piece2 -> get_score_value() - 1;
-    next_piece2 -> set_score_value(value+1);
+    value = current_piece2 -> get_piece_number();
+    next_piece2 -> set_piece_number(value);
     next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                pieces_disappearing[value], pieces_mini[value]);
 
-    value = undo_piece1_score - 1;
-    current_piece1 -> set_score_value(value+1);
+    value = undo_piece1_number;
+    current_piece1 -> set_piece_number(value);
     current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                   pieces_disappearing[value], pieces_mini[value]);
 
-    value = undo_piece2_score - 1;
-    current_piece2 -> set_score_value(value+1);
+    value = undo_piece2_number;
+    current_piece2 -> set_piece_number(value);
     current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                   pieces_disappearing[value], pieces_mini[value]);
 

@@ -171,7 +171,7 @@ class Game{
   // UNDO
   int body_undo[NUMBER_OF_COLS][NUMBER_OF_LINES];
   int undo_position, undo_angle, undo_position_bis;
-  int undo_piece1_score, undo_piece2_score;
+  int undo_piece1_number, undo_piece2_number;
   int undo_next_next_piece1, undo_next_next_piece2;
   bool undo;
   int undo_unlocked_pieces;

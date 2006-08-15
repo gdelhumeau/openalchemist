@@ -1,3 +1,36 @@
+* 0.2 * - 14/08/2006
+
+#52 : Ajout du changement de skin temporaire (F9) et début de stockage des options dans un fichier
+#53 : Un raté
+#54 : Ajout des premières pièces du second theme
+#59 : Ajout de l'enregistrement des hight scores
+#60 : Hight scores compatible avec le thème "temp"
+#63 : Affichage d'un dialogue quand on bat un record.
+#67 : Premier menu pause
+#68 : Les items du  menu pause peuvent maintenant être animés
+#69 : Apparition avec alpha blending du menu pause (uniquement avec OpenGL)
+#70 : Correction d'un oublie: ajout du fichier pause.cpp, + affichage progressif avec les éléments du menu (cf 69)
+#72 et 73 : Je vire les zip du dépôt, il se feront maintenant via la commande make (valable seulement pour aqua pour le moment)
+#74 : Disparition de temp.zip, le theme est logé à la même enseigne
+#76 : Refonte du stockage des préférences
+#77 : Remplacement de _WINDOWS_ par WIN32
+#80 : Corrections de problèmes pour windows : (/ au lieu de \ dans les URL... sacré billou...)
+#84 : Ajout des items de volume sonore dans le menu
+#97 : AJout des lanceurs run-sdl.bat et run-opengl.bat pour windows
+#102 : Première version de la progress-bar
+#103 : Undo corrigé (prend en compte les pièces débloquées)
+#104 : Aperçu des pieces revu (plus présent dans le landscape.png)
+#107 : Meilleure version de la progress-bar (plus jolie mais moins modulable)
+#108 : Correction du système de points qui était mal pensé
+#114 : Ajout du skin-selector
+#146 : Quand la dernière pièce est détruite, tout va en bonus
+#151 : Eclatement du fichier gfx.xml
+#155 : Amélioration du selecteur de skins (paramétrage via XML + sauvegarde du theme)
+#161 : Meilleur affichage des scores (avec séparation des milliers)
+#163 : La touche entrer quitte le mode game over
+
+
+
 * 0.1 * - 27/06/2006
 
 #10 : Correction du bug carré blanc

@@ -244,13 +244,13 @@ void Game::draw_destroying()
       {
       
 
-        int score = c->score;
+        int score = c->piece_number;
         Piece *p = new Piece(score);  
         p -> set_position(c->x*pieces_width+game_left,
                           game_top+(c->y-2)*pieces_height);
                
-        p -> set_sprites(pieces_normal[score-1], pieces_appearing[score-1],
-                         pieces_disappearing[score-1], pieces_mini[score-1]);
+        p -> set_sprites(pieces_normal[score], pieces_appearing[score],
+                         pieces_disappearing[score], pieces_mini[score]);
 
                         
         p -> start_appear();
@@ -297,24 +297,24 @@ void Game::draw_to_playing()
       }
   }
 
-  if(undo_next_next_piece1 > 0)
+  if(undo_next_next_piece1 >= 0)
   {
-    next_piece1 -> set_score_value(undo_next_next_piece1);
-    next_piece2 -> set_score_value(undo_next_next_piece2);
-    undo_next_next_piece1 = 0;
+    next_piece1 -> set_piece_number(undo_next_next_piece1);
+    next_piece2 -> set_piece_number(undo_next_next_piece2);
+    undo_next_next_piece1 = -1;
   }
   else
   {
-    next_piece1 -> set_score_value(1+rand()%(unlocked_pieces));
-    next_piece2 -> set_score_value(1+rand()%(unlocked_pieces));
+    next_piece1 -> set_piece_number(1+rand()%(unlocked_pieces));
+    next_piece2 -> set_piece_number(1+rand()%(unlocked_pieces));
   }
           
   int value;
-  value = next_piece1 -> get_score_value() - 1;
+  value = next_piece1 -> get_piece_number();
   next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
       
-  value = next_piece2 -> get_score_value() - 1;
+  value = next_piece2 -> get_piece_number();
   next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
           
@@ -342,10 +342,10 @@ void Game::draw_new_hightscore()
   {
     new_hightscore -> draw(400-new_hightscore -> get_width()/2, 300-new_hightscore -> get_height()/2);
     new_hightscore -> update();
-    font_a->draw(400-font_a->get_width(to_string(global_score+global_bonus))/2, 
-                 new_score_top, to_string(global_score+global_bonus));
-    font_a->draw(400-font_a->get_width(to_string(last_hightscore))/2,
-                 old_score_top, to_string(last_hightscore));
+    font_a->draw(400-font_a->get_width(format_number(to_string(global_score+global_bonus)))/2, 
+                 new_score_top, format_number(to_string(global_score+global_bonus)));
+    font_a->draw(400-font_a->get_width(format_number(to_string(last_hightscore)))/2,
+                 old_score_top, format_number(to_string(last_hightscore)));
   }
 
 }

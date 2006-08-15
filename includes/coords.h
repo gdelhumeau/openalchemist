@@ -26,20 +26,20 @@ class Coords
   public:
   int x;
   int y;
-  int score;
+  int piece_number;
       
   Coords(int x, int y)
     {
       this -> x = x;
       this -> y = y;
-      this -> score = 0;
+      this -> piece_number = 0;
     }
       
   Coords(Coords* c)
     {
       this -> x = c->x;
       this -> y = c->y;
-      this -> score = c->score;
+      this -> piece_number = c->piece_number;
     }
 };
 

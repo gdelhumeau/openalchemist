@@ -36,8 +36,13 @@ class Piece
   CL_Sprite *current_sprite;
   CL_Sprite *mini_sprite;
 
+  static const int score[12];
+
   // For scores:
   int score_value;
+
+  // For ...
+  int piece_number;
 
   // Real coords on the screen
   float x, y;
@@ -49,16 +54,17 @@ class Piece
   public:
 
   // Constructor
-  Piece(int score_value)
+  Piece(int piece_number)
   {
 
     normal_sprite = NULL;
     appearing_sprite = NULL;
     disappearing_sprite = NULL;
     mini_sprite = NULL;
-    current_sprite = NULL;    
+    current_sprite = NULL; 
 
-    this -> score_value = score_value;
+    this -> piece_number = piece_number;
+    this -> score_value = score[piece_number];
     x = 0.0;
     y = 0.0;
     target_y = 0;      
@@ -159,6 +165,17 @@ class Piece
   int get_score_value()
     {
       return score_value;
+    }
+
+  void set_piece_number(int _piece_number)
+    {
+      piece_number = _piece_number;
+      this -> score_value = score[piece_number];
+    }
+
+  int get_piece_number()
+    {
+      return piece_number;
     }
 
   // Setters

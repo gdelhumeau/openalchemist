@@ -89,13 +89,13 @@ void Game::detect_to_destroy()
 
           if(score_of_root == NUMBER_OF_PIECES)
           {
-            undo_global_bonus += (counter)*(u_int)pow(3,body[i][j]->get_score_value()-1);
-            global_bonus += (counter)*(u_int)pow(3,body[i][j]->get_score_value()-1);
+            undo_global_bonus += counter*body[i][j]->get_score_value();
+            global_bonus += counter*body[i][j]->get_score_value();
           }
           else
           {
-            undo_global_bonus += (counter - 3)*(u_int)pow(3,body[i][j]->get_score_value()-1);
-            global_bonus += (counter - 3)*(u_int)pow(3,body[i][j]->get_score_value()-1);
+            undo_global_bonus += (counter - 3)*body[i][j]->get_score_value();
+            global_bonus += (counter - 3)*body[i][j]->get_score_value();
           }      
           Coords new_piece(NUMBER_OF_COLS+1,-1);
           
@@ -120,16 +120,16 @@ void Game::detect_to_destroy()
                 new_piece.y = c->y;
               }
             }
-            new_piece.score = body[c->x][c->y]->get_score_value()+1;                          
-            if(new_piece.score > NUMBER_OF_PIECES)
+            new_piece.piece_number = body[c->x][c->y]->get_piece_number()+1;    
+            if(new_piece.piece_number >= NUMBER_OF_PIECES)
             {
-              new_piece.score = NUMBER_OF_PIECES;
+              new_piece.piece_number = NUMBER_OF_PIECES-1;
             }
-            if(new_piece.score > visible_pieces)
+            if(new_piece.piece_number > visible_pieces)
             {
               ++visible_pieces;
             }
-            if(new_piece.score > unlocked_pieces + 1)
+            if(new_piece.piece_number > unlocked_pieces + 1)
             {
               unlocked_pieces ++;
             }

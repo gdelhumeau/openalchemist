@@ -21,6 +21,7 @@
 #include "headers.h"
 #include "math.h"
 
+const int Piece::score[12] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
 /**
  * This function return a factor to calcul moving with time
@@ -58,6 +59,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
 
   pause_requested = false;
 
+  
   // We create all the usefull KeyboardKeys
   key_fullscreen   = new KeyboardKey(CL_KEY_F11   , false);
   key_retry        = new KeyboardKey(CL_KEY_F2    , false);
@@ -162,19 +164,19 @@ void Game::new_game(short difficulty)
   
 
   int value;
-  value = next_piece1 -> get_score_value() - 1;
+  value = next_piece1 -> get_piece_number();
   next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
   
-  value = next_piece2 -> get_score_value() - 1;
+  value = next_piece2 -> get_piece_number();
   next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
   
-  value = current_piece1 -> get_score_value() - 1;
+  value = current_piece1 ->  get_piece_number();
   current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                 pieces_disappearing[value], pieces_mini[value]);
   
-  value = current_piece2 -> get_score_value() - 1;
+  value = current_piece2 ->  get_piece_number();
   current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                 pieces_disappearing[value], pieces_mini[value]);
   
@@ -194,8 +196,8 @@ void Game::new_game(short difficulty)
   position_x = position*pieces_width+pieces_width/2;
 
   undo = false;
-  undo_next_next_piece1 = 0;
-  undo_next_next_piece2 = 0;
+  undo_next_next_piece1 = -1;
+  undo_next_next_piece2 = -1;
   
   falling_requested = false;
 
@@ -311,7 +313,7 @@ void Game::load_gfx()
     {
       if(body[i][j])
       {
-        int value = body[i][j] -> get_score_value() - 1;
+        int value = body[i][j] -> get_piece_number();
         body[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                   pieces_disappearing[value], pieces_mini[value]);
       }
@@ -325,19 +327,19 @@ void Game::load_gfx()
   
   // Here too
   int value;
-  value = next_piece1 -> get_score_value() - 1;
+  value = next_piece1 -> get_piece_number();
   next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
   
-  value = next_piece2 -> get_score_value() - 1;
+  value = next_piece2 -> get_piece_number();
   next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
   
-  value = current_piece1 -> get_score_value() - 1;
+  value = current_piece1 -> get_piece_number();
   current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                 pieces_disappearing[value], pieces_mini[value]);
   
-  value = current_piece2 -> get_score_value() - 1;
+  value = current_piece2 -> get_piece_number();
   current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                                 pieces_disappearing[value], pieces_mini[value]);
 
@@ -527,7 +529,7 @@ void Game::calc_score()
     {
       if(body[i][j])
       {
-        global_score += (u_int)pow(3,body[i][j]->get_score_value()-1);                           
+        global_score += body[i][j]->get_score_value();                           
       }
     }
 }

@@ -44,7 +44,7 @@ inline std::string format_number(const std::string &string)
   {
     if((length - i) % 3 == 0 && i>0)
     {
-      string_modified += " ";
+      string_modified += ".";
     }
     string_modified += string.substr(i,1);
   }
