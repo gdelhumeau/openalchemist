@@ -50,7 +50,7 @@ void Game::detect_to_destroy()
       if(body[i][j] != NULL && !body_mark[i][j])
       {
         int counter = 0;            
-        int score_of_root = body[i][j] -> get_score_value();
+        int score_of_root = body[i][j] -> get_piece_number();
         
         std::vector<Coords*> list;
            
@@ -66,7 +66,7 @@ void Game::detect_to_destroy()
           if(x >= 0 && x < NUMBER_OF_COLS && y >= 0 && y < NUMBER_OF_LINES 
              && body[x][y]!=NULL)
           {
-            if(!body_mark[x][y] && body[x][y]->get_score_value() == score_of_root)
+            if(!body_mark[x][y] && body[x][y]->get_piece_number() == score_of_root)
             {
               list.insert(list.end(),new Coords(x,y));
               body_mark[x][y] = true;
@@ -85,7 +85,7 @@ void Game::detect_to_destroy()
           // In the case we destroy the last element
           std::vector<Coords*>::iterator it = list.begin();
           Coords *c = (Coords*) *it;                 
-          u_int score_of_root = body[c->x][c->y]->get_score_value(); 
+          u_int score_of_root = body[c->x][c->y]->get_piece_number(); 
 
           if(score_of_root == NUMBER_OF_PIECES)
           {
