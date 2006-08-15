@@ -345,8 +345,8 @@ void Game::undo_last()
         if(body_undo[i][j] > 0)
         {
           body[i][j] = new Piece(body_undo[i][j]);
-          body[i][j] -> set_sprites(pieces_normal[body_undo[i][j]-1], pieces_appearing[body_undo[i][j]-1],
-                                    pieces_disappearing[body_undo[i][j]-1], pieces_mini[body_undo[i][j]-1]);
+          body[i][j] -> set_sprites(pieces_normal[body_undo[i][j]], pieces_appearing[body_undo[i][j]],
+                                    pieces_disappearing[body_undo[i][j]], pieces_mini[body_undo[i][j]]);
           body[i][j] -> set_position(i*pieces_width+game_left,game_top+(j-2)*pieces_height);
         }
       } 
