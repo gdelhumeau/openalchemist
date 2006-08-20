@@ -36,7 +36,7 @@ void Game::key_events()
   }
 
   // Cheats
-  /*
+  
   if(CL_Keyboard::get_keycode(CL_KEY_F1))
   {
     last_hightscore =  hightscores[current_difficulty];
@@ -47,7 +47,7 @@ void Game::key_events()
   {
     unlocked_pieces = NUMBER_OF_PIECES;
     visible_pieces = NUMBER_OF_PIECES;
-    }*/
+  }
     
   // New game
   if(key_retry->get())
@@ -57,14 +57,14 @@ void Game::key_events()
 
   if(CL_Keyboard::get_keycode(CL_KEY_F9))
   {
-    pause = true;
-    pause_step = PAUSE_STEP_SKINS;
+    pause.is_paused = true;
+    pause.step = PAUSE_STEP_SKINS;
     choose_skin();
-    pause_background -> set_alpha(1.0);
-    pause_requested = false;
+    pause.background -> set_alpha(1.0);
+    pause.requested = false;
   }
     
-  if(pause)
+  if(pause.is_paused)
     key_events_pause();
   else
     key_events_playing();
@@ -76,15 +76,15 @@ void Game::key_events_playing()
 
   if(key_echap->get())
   {
-    pause = true;
-    pause_selection = 0;
-    pause_alpha = 0.0;
-    pause_requested = true;
+    pause.is_paused = true;
+    pause.selection = 0;
+    pause.alpha = 0.0;
+    pause.requested = true;
 
-    if(pause_appearing)
-      pause_step = PAUSE_STEP_APPEARING;
+    if(pause.appearing)
+      pause.step = PAUSE_STEP_APPEARING;
     else
-      pause_step = PAUSE_STEP_MENU;
+      pause.step = PAUSE_STEP_MENU;
   }
   
   if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode || GAME_MODE_NEW_HIGHTSCORE == game_mode)
@@ -166,12 +166,12 @@ void Game::key_events_playing()
     // Move the pieces to the right
     if(!current_pieces_placed)
     {
-      if(position * pieces_width + position_bis *pieces_width/2 >= position_x)
+      if(position * pieces.width + position_bis *pieces.width/2 >= position_x)
       {
         position_x += time_interval * PIECE_MOVING_SPEED;
-        if(position_x > position * pieces_width + (position_bis )*pieces_width/2)
+        if(position_x > position * pieces.width + (position_bis )*pieces.width/2)
         {
-          position_x = position * pieces_width + (position_bis )*pieces_width/2;
+          position_x = position * pieces.width + (position_bis )*pieces.width/2;
           current_pieces_placed = true;
         }
       }
@@ -180,12 +180,12 @@ void Game::key_events_playing()
     if(!current_pieces_placed) 
     {  
       // Move the pieces to the left
-      if(position * pieces_width + (position_bis )*pieces_width/2 <= position_x)
+      if(position * pieces.width + (position_bis )*pieces.width/2 <= position_x)
       {
         position_x -= time_interval * PIECE_MOVING_SPEED;
-        if(position_x < position * pieces_width + (position_bis)*pieces_width/2)
+        if(position_x < position * pieces.width + (position_bis)*pieces.width/2)
         {
-          position_x = position * pieces_width + (position_bis)*pieces_width/2;
+          position_x = position * pieces.width + (position_bis)*pieces.width/2;
           current_pieces_placed = true;
         }
       }
@@ -203,9 +203,9 @@ void Game::key_events_playing()
     if(falling_requested && current_pieces_placed && (current_pieces_angle >= current_pieces_next_angle))
     {
       falling_requested = false;
-      undo_global_bonus = 0;
+      undo.global_bonus = 0;
 
-      undo = true;
+      undo.possible = true;
       
       // Copy to the undo body
       for(int i=0; i<NUMBER_OF_COLS; ++i)
@@ -213,29 +213,29 @@ void Game::key_events_playing()
         {
           if(body[i][j])
           {
-            body_undo[i][j] = body[i][j] -> get_piece_number();
+            undo.body[i][j] = body[i][j] -> get_piece_number();
           }
           else
           {
-            body_undo[i][j] = -1;
+            undo.body[i][j] = -1;
           }
         } 
 
-      undo_global_bonus = 0;
-      undo_position = position;
-      undo_position_bis = position_bis;
-      undo_piece1_number = current_piece1 -> get_piece_number();
-      undo_piece2_number = current_piece2 -> get_piece_number();
-      undo_angle = current_pieces_next_angle;
-      undo_unlocked_pieces = unlocked_pieces;
-      undo_visible_pieces = visible_pieces;
+      undo.global_bonus = 0;
+      undo.position = position;
+      undo.position_bis = position_bis;
+      undo.piece1_number = current_piece1 -> get_piece_number();
+      undo.piece2_number = current_piece2 -> get_piece_number();
+      undo.angle = current_pieces_next_angle;
+      undo.unlocked_pieces = unlocked_pieces;
+      undo.visible_pieces = visible_pieces;
         
 
       current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                     zone_top+pieces_height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
+                                     zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
       current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
-                                     zone_top+pieces_height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
+                                     zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
       
       Piece *piece_on_top, *piece_on_bottom;
       if(current_piece1 -> get_y() <= current_piece2 -> get_y())
@@ -249,8 +249,8 @@ void Game::key_events_playing()
         piece_on_bottom = current_piece1;
       }
 
-      int piece_top_x = (int)((int)piece_on_top->get_x()-game_left)/(pieces_width);
-      int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(pieces_width);  
+      int piece_top_x = (int)((int)piece_on_top->get_x()-game_left)/(pieces.width);
+      int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(pieces.width);  
         
       int y_bottom = -1;
       while(y_bottom < NUMBER_OF_LINES-1 && !body[piece_bottom_x][y_bottom+1])
@@ -283,8 +283,8 @@ void Game::key_events_playing()
       {          
         body[piece_top_x][y_top] = piece_on_top;
       } 
-      piece_on_bottom -> start_fall(piece_bottom_x*pieces_width+game_left,game_top+(y_bottom-2)*pieces_height);
-      piece_on_top -> start_fall(piece_top_x*pieces_width+game_left,game_top+(y_top-2)*pieces_height);
+      piece_on_bottom -> start_fall(piece_bottom_x*pieces.width+game_left,game_top+(y_bottom-2)*pieces.height);
+      piece_on_top -> start_fall(piece_top_x*pieces.width+game_left,game_top+(y_top-2)*pieces.height);
                
         
       if(game_mode == GAME_MODE_PLAYING)
@@ -312,12 +312,12 @@ void Game::key_events_playing()
             
     
         int value = current_piece1 -> get_piece_number();
-        current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
+        current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                      pieces.disappearing[value], pieces.mini[value]);
       
         value = current_piece2 -> get_piece_number();
-        current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
+        current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                      pieces.disappearing[value], pieces.mini[value]);
             
             
         game_mode = GAME_MODE_FALLING_AND_CREATING;      
@@ -334,9 +334,9 @@ void Game::key_events_playing()
 void Game::undo_last()
 {
   // First verify than the last move is not the first one
-  if(undo)
+  if(undo.possible)
   {
-    undo = false;
+    undo.possible = false;
 
     // Delete the pieces in the body and replace by new ones
     for(int i=0; i<NUMBER_OF_COLS; ++i)
@@ -344,51 +344,51 @@ void Game::undo_last()
       {
         if(body[i][j]) delete body[i][j];
         body[i][j] = NULL;
-        if(body_undo[i][j] >= 0)
+        if(undo.body[i][j] >= 0)
         {
-          body[i][j] = new Piece(body_undo[i][j]);
-          body[i][j] -> set_sprites(pieces_normal[body_undo[i][j]], pieces_appearing[body_undo[i][j]],
-                                    pieces_disappearing[body_undo[i][j]], pieces_mini[body_undo[i][j]]);
-          body[i][j] -> set_position(i*pieces_width+game_left,game_top+(j-2)*pieces_height);
+          body[i][j] = new Piece(undo.body[i][j]);
+          body[i][j] -> set_sprites(pieces.normal[undo.body[i][j]], pieces.appearing[undo.body[i][j]],
+                                    pieces.disappearing[undo.body[i][j]], pieces.mini[undo.body[i][j]]);
+          body[i][j] -> set_position(i*pieces.width+game_left,game_top+(j-2)*pieces.height);
         }
       } 
 
-    global_bonus -= undo_global_bonus;
+    global_bonus -= undo.global_bonus;
 
-    undo_next_next_piece1 = next_piece1 -> get_piece_number();
-    undo_next_next_piece2 = next_piece2 -> get_piece_number();
+    undo.next_next_piece1 = next_piece1 -> get_piece_number();
+    undo.next_next_piece2 = next_piece2 -> get_piece_number();
   
     
     int value = current_piece1 -> get_piece_number();
     next_piece1 -> set_piece_number(value);
-    next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                               pieces.disappearing[value], pieces.mini[value]);
 
     value = current_piece2 -> get_piece_number();
     next_piece2 -> set_piece_number(value);
-    next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                               pieces.disappearing[value], pieces.mini[value]);
 
-    value = undo_piece1_number;
+    value = undo.piece1_number;
     current_piece1 -> set_piece_number(value);
-    current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                  pieces.disappearing[value], pieces.mini[value]);
 
-    value = undo_piece2_number;
+    value = undo.piece2_number;
     current_piece2 -> set_piece_number(value);
-    current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                  pieces.disappearing[value], pieces.mini[value]);
 
         
-    position = undo_position;
-    position_bis = undo_position_bis;
-    position_x = position * pieces_width + position_bis * pieces_width / 2;
+    position = undo.position;
+    position_bis = undo.position_bis;
+    position_x = position * pieces.width + position_bis * pieces.width / 2;
 
-    current_pieces_angle = undo_angle;
-    current_pieces_next_angle = undo_angle;
+    current_pieces_angle = undo.angle;
+    current_pieces_next_angle = undo.angle;
 
-    unlocked_pieces = undo_unlocked_pieces;
-    visible_pieces =  undo_visible_pieces;
+    unlocked_pieces = undo.unlocked_pieces;
+    visible_pieces =  undo.visible_pieces;
 
     calc_score();
 

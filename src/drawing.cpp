@@ -54,9 +54,9 @@ void Game::draw_game()
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
     if(i >= visible_pieces)
-      pieces_hidder[i-3] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+      pieces.hidder[i-3] -> draw(pieces.progress_x[i], pieces.progress_y[i], 0);
     else
-      pieces_mini[i] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+      pieces.mini[i] -> draw(pieces.progress_x[i], pieces.progress_y[i], 0);
   }
 
   
@@ -106,7 +106,7 @@ void Game::draw_game()
     draw_new_hightscore();
   }
 
-  if(pause)
+  if(pause.is_paused)
   {
     draw_pause();
   }
@@ -122,10 +122,10 @@ void Game::draw_playing()
   
 
   current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                 zone_top+pieces_height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
+                                 zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
   current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
-                                 zone_top+pieces_height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
+                                 zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
      
   current_piece1 -> draw();
   current_piece2 -> draw();
@@ -137,7 +137,7 @@ void Game::draw_playing()
 void Game::draw_falling()
 {
 
-  if(pause)
+  if(pause.is_paused)
     return;
 
   bool all_pieces_are_placed = true;
@@ -205,7 +205,7 @@ void Game::draw_falling()
 void Game::draw_destroying()
 {
 
-  if(pause)return;
+  if(pause.is_paused)return;
 
   bool end = true;
   for(u_int i=0; i<list_to_destroy.size(); i++)
@@ -246,11 +246,11 @@ void Game::draw_destroying()
 
         int score = c->piece_number;
         Piece *p = new Piece(score);  
-        p -> set_position(c->x*pieces_width+game_left,
-                          game_top+(c->y-2)*pieces_height);
+        p -> set_position(c->x*pieces.width+game_left,
+                          game_top+(c->y-2)*pieces.height);
                
-        p -> set_sprites(pieces_normal[score], pieces_appearing[score],
-                         pieces_disappearing[score], pieces_mini[score]);
+        p -> set_sprites(pieces.normal[score], pieces.appearing[score],
+                         pieces.disappearing[score], pieces.mini[score]);
 
                         
         p -> start_appear();
@@ -297,11 +297,11 @@ void Game::draw_to_playing()
       }
   }
 
-  if(undo_next_next_piece1 >= 0)
+  if(undo.next_next_piece1 >= 0)
   {
-    next_piece1 -> set_piece_number(undo_next_next_piece1);
-    next_piece2 -> set_piece_number(undo_next_next_piece2);
-    undo_next_next_piece1 = -1;
+    next_piece1 -> set_piece_number(undo.next_next_piece1);
+    next_piece2 -> set_piece_number(undo.next_next_piece2);
+    undo.next_next_piece1 = -1;
   }
   else
   {
@@ -311,12 +311,12 @@ void Game::draw_to_playing()
           
   int value;
   value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
       
   value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
           
   game_mode = GAME_MODE_PLAYING;
   
@@ -352,34 +352,34 @@ void Game::draw_new_hightscore()
 
 void Game::draw_progress_bar()
 {
-  int progress_bar_head_height = progress_bar_head -> get_height();
-  int progress_bar_height = progress_bar_foot_top - (progress_bar_head_top + progress_bar_head_height);
+  int head_height = progress_bar.head -> get_height();
+  int height = progress_bar.foot_top - (progress_bar.head_top + head_height);
 
-  int v = progress_bar_height;
+  int v = height;
   if(hightscores[current_difficulty] > 0)
-    v = progress_bar_height * (global_score + global_bonus) / hightscores[current_difficulty];
-  if(v > progress_bar_height) v = progress_bar_height;
+    v = height * (global_score + global_bonus) / hightscores[current_difficulty];
+  if(v > height) v = height;
 
-  for(int i=0; i<=progress_bar_height; ++i)
+  for(int i=0; i<=height; ++i)
   {
-    if(progress_bar_height - i < v)
-      progress_bar_item_ok -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i-1);
+    if(height - i < v)
+      progress_bar.item_ok -> draw(progress_bar.left, progress_bar.head_top+head_height+i-1);
     else
-      progress_bar_item -> draw(progress_bar_left, progress_bar_head_top+progress_bar_head_height+i-1);
+      progress_bar.item -> draw(progress_bar.left, progress_bar.head_top+head_height+i-1);
   }
-  progress_bar_item -> update();
-  progress_bar_item_ok -> update();
+  progress_bar.item -> update();
+  progress_bar.item_ok -> update();
 
   if(hightscores[current_difficulty] > global_score + global_bonus)
   {
-    progress_bar_head -> draw(progress_bar_left, progress_bar_head_top);
-    progress_bar_head -> update();
+    progress_bar.head -> draw(progress_bar.left, progress_bar.head_top);
+    progress_bar.head -> update();
   }
   else
   {
-    progress_bar_head_ok -> draw(progress_bar_left, progress_bar_head_top);
-    progress_bar_head_ok -> update();
+    progress_bar.head_ok -> draw(progress_bar.left, progress_bar.head_top);
+    progress_bar.head_ok -> update();
   }
-  progress_bar_foot -> draw(progress_bar_left, progress_bar_foot_top);
-  progress_bar_foot -> update();
+  progress_bar.foot -> draw(progress_bar.left, progress_bar.foot_top);
+  progress_bar.foot -> update();
 }

@@ -14,8 +14,8 @@
 #include <ClanLib/display.h>
 
 #include "piece.h"
-#include "game.h"
 #include "misc.h"
+#include "game.h"
 #include "preferences.h"
 
 #endif

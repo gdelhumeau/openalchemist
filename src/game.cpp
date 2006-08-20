@@ -57,7 +57,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
   current_piece1 = NULL;
   current_piece2 = NULL;
 
-  pause_requested = false;
+  pause.requested = false;
 
   
   // We create all the usefull KeyboardKeys
@@ -131,7 +131,7 @@ void Game::new_game(short difficulty)
     {
       if(body[i][j]) delete body[i][j];
       body[i][j] = NULL;   
-      body_undo[i][j] = 0;
+      undo.body[i][j] = 0;
     } 
 
 
@@ -165,24 +165,24 @@ void Game::new_game(short difficulty)
 
   int value;
   value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
   
   value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
   
   value = current_piece1 ->  get_piece_number();
-  current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
   
   value = current_piece2 ->  get_piece_number();
-  current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
   
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
-  next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
+  next_piece2 -> set_position(next_left+(pieces.width)/2,next_top);
 
   // We set some variables
   current_pieces_angle = 0; 
@@ -193,11 +193,11 @@ void Game::new_game(short difficulty)
   old_position = 0;
   position_bis = 1;
   old_position_bis = 0;
-  position_x = position*pieces_width+pieces_width/2;
+  position_x = position*pieces.width+pieces.width/2;
 
-  undo = false;
-  undo_next_next_piece1 = -1;
-  undo_next_next_piece2 = -1;
+  undo.possible = false;
+  undo.next_next_piece1 = -1;
+  undo.next_next_piece2 = -1;
   
   falling_requested = false;
 
@@ -206,32 +206,10 @@ void Game::new_game(short difficulty)
   global_bonus = 0;
   combo = 0;
 
-  pause = false;
+  pause.is_paused = false;
 
 }
 
-
-/**
- * Convert a CL_Integer to a int
- */
-int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
-{    
-  CL_Integer *cl_int = new CL_Integer(ressource_name, gfx);
-  int to_return = (int)*cl_int;
-  delete cl_int;
-  return to_return;
-}
-
-/**
- * Convert a CL_Boolean to a boolean
- */
-int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
-{    
-  CL_Boolean *cl_bool = new CL_Boolean(ressource_name, gfx);
-  bool to_return = (bool)*cl_bool;
-  delete cl_bool;
-  return to_return;
-}
 
 /**
  * Load the selected skin
@@ -246,67 +224,15 @@ void Game::load_gfx()
   CL_ResourceManager gfx_pieces("pieces.xml", new CL_Zip_Archive(skin), true);
   CL_ResourceManager gfx_pause("menu_pause.xml", new CL_Zip_Archive(skin), true);
   
+  pieces.load_gfx(&gfx_pieces);
+  pause.load_gfx(&gfx_pause);
+  progress_bar.load_gfx(&gfx);
+  skins_selector.load_gfx(&gfx);
 
   background = new CL_Surface("background", &gfx);
-  game_over = new CL_Surface("gameover", &gfx);
-  
+  game_over = new CL_Surface("gameover", &gfx);  
   new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
-  pause_background = new CL_Sprite("menu/pause/background", &gfx_pause);
-
-  pause_resume = new CL_Sprite("menu/pause/resume/unselected", &gfx_pause);
-  pause_resume_selected = new CL_Sprite("menu/pause/resume/selected", &gfx_pause);
-
-  pause_undo = new CL_Sprite("menu/pause/undo/unselected", &gfx_pause);
-  pause_undo_selected = new CL_Sprite("menu/pause/undo/selected", &gfx_pause);
-  pause_undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", &gfx_pause);
-
-  pause_retry = new CL_Sprite("menu/pause/retry/unselected", &gfx_pause);
-  pause_retry_selected = new CL_Sprite("menu/pause/retry/selected", &gfx_pause);
-
-  pause_changeskin = new CL_Sprite("menu/pause/changeskin/unselected", &gfx_pause);
-  pause_changeskin_selected = new CL_Sprite("menu/pause/changeskin/selected", &gfx_pause);
-
-  pause_fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", &gfx_pause);
-  pause_fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", &gfx_pause);
-
-  pause_sound = new CL_Sprite("menu/pause/sound/unselected", &gfx_pause);
-  pause_sound_selected = new CL_Sprite("menu/pause/sound/selected", &gfx_pause);
-
-  pause_music = new CL_Sprite("menu/pause/music/unselected", &gfx_pause);
-  pause_music_selected = new CL_Sprite("menu/pause/music/selected", &gfx_pause);
-
-  pause_backmain = new CL_Sprite("menu/pause/backmain/unselected", &gfx_pause);
-  pause_backmain_selected = new CL_Sprite("menu/pause/backmain/selected", &gfx_pause);
-
-  pause_quit = new CL_Sprite("menu/pause/quit/unselected", &gfx_pause);
-  pause_quit_selected = new CL_Sprite("menu/pause/quit/selected", &gfx_pause);
-
-  progress_bar_head = new CL_Sprite("progress-bar/head/sprite", &gfx);
-  progress_bar_head_ok = new CL_Sprite("progress-bar/head/sprite-ok", &gfx);
-  progress_bar_foot = new CL_Sprite("progress-bar/foot/sprite", &gfx);
-  progress_bar_item = new CL_Sprite("progress-bar/item/sprite", &gfx);
-  progress_bar_item_ok = new CL_Sprite("progress-bar/item/sprite-ok", &gfx);
-
-  for(int i=1; i<=NUMBER_OF_PIECES; ++i)
-  {
-    pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
-    pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
-    pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
-    pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces);
-
-   
-    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx_pieces);
-    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx_pieces);
-
-    if(i>3)
-      pieces_hidder[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx_pieces);    
-
-  }
-
-  skins_selector = new CL_Sprite("skins-selector/cursor", &gfx);
-  skins_selector_top = CL_Integer_to_int("skins-selector/top", &gfx);
-  skins_selector_separation = CL_Integer_to_int("skins-selector/separation", &gfx);
-
+  
   // We have to change the sprite references in the Pieces...
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -314,44 +240,37 @@ void Game::load_gfx()
       if(body[i][j])
       {
         int value = body[i][j] -> get_piece_number();
-        body[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+        body[i][j] -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                  pieces.disappearing[value], pieces.mini[value]);
       }
     }
 
-  for(int i=0; i<=10; i++)
-  {
-    pause_sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), &gfx_pause);
-  }
- 
+   
   
   // Here too
   int value;
   value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
   
   value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
   
   value = current_piece1 -> get_piece_number();
-  current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
   
   value = current_piece2 -> get_piece_number();
-  current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
 
   // Load the font, to display score and framerate
   font_a = new CL_Font("font", &gfx);  
 
   // Load some var
   game_top = CL_Integer_to_int("game/top", &gfx);
-  game_left = CL_Integer_to_int("game/left", &gfx);
-
-  pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
-  pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
+  game_left = CL_Integer_to_int("game/left", &gfx); 
 
   zone_top = CL_Integer_to_int("zone_top", &gfx);    
   next_left = CL_Integer_to_int("game/next_left", &gfx);
@@ -364,55 +283,14 @@ void Game::load_gfx()
   hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
   new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
   old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
-
-  pause_resume_left = CL_Integer_to_int("menu/pause/resume/left", &gfx_pause);
-  pause_resume_top = CL_Integer_to_int("menu/pause/resume/top", &gfx_pause);
-
-  pause_undo_left = CL_Integer_to_int("menu/pause/undo/left", &gfx_pause);
-  pause_undo_top = CL_Integer_to_int("menu/pause/undo/top", &gfx_pause);
-
-  pause_retry_left = CL_Integer_to_int("menu/pause/retry/left", &gfx_pause);
-  pause_retry_top = CL_Integer_to_int("menu/pause/retry/top", &gfx_pause);
-
-  pause_changeskin_left = CL_Integer_to_int("menu/pause/changeskin/left", &gfx_pause);
-  pause_changeskin_top = CL_Integer_to_int("menu/pause/changeskin/top", &gfx_pause);
-
-  pause_fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", &gfx_pause);
-  pause_fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", &gfx_pause);
-
-  pause_sound_left = CL_Integer_to_int("menu/pause/sound/left", &gfx_pause);
-  pause_sound_top = CL_Integer_to_int("menu/pause/sound/top", &gfx_pause);
-
-  pause_music_left = CL_Integer_to_int("menu/pause/music/left", &gfx_pause);
-  pause_music_top = CL_Integer_to_int("menu/pause/music/top", &gfx_pause);
   
-  pause_backmain_left = CL_Integer_to_int("menu/pause/backmain/left", &gfx_pause);
-  pause_backmain_top = CL_Integer_to_int("menu/pause/backmain/top", &gfx_pause);
-
-  pause_quit_left = CL_Integer_to_int("menu/pause/quit/left", &gfx_pause);
-  pause_quit_top = CL_Integer_to_int("menu/pause/quit/top", &gfx_pause);
-
-  pause_sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", &gfx_pause);
-
-  progress_bar_left = CL_Integer_to_int("progress-bar/left", &gfx);
-  progress_bar_head_top = CL_Integer_to_int("progress-bar/head/top", &gfx);
-  progress_bar_foot_top = CL_Integer_to_int("progress-bar/foot/top", &gfx);
-
-  
-  if(opengl && CL_Boolean_to_bool("menu/pause/alpha_appearing", &gfx_pause))
-  {
-    pause_appearing = true;
-    pause_max_alpha =(float)CL_Integer_to_int("menu/pause/alpha_max", &gfx_pause) / 100.0;
-  }
-  else
-    pause_appearing = false;
 
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(next_left, next_top);
-  next_piece2 -> set_position(next_left+(pieces_width)/2,next_top);
+  next_piece2 -> set_position(next_left+(pieces.width)/2,next_top);
  
   // c² = a²+b³
-  current_pieces_r = pieces_width/2;
+  current_pieces_r = pieces.width/2;
      
   // So now we can say that the GFX are loaded
   is_gfx_loaded = true;
@@ -429,69 +307,16 @@ void Game::unload_gfx()
     // nothing to do
     return;
   }
-
-  // Delete the pieces sprites
-  for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-  {
-    delete pieces_normal[i];
-    delete pieces_appearing[i];
-    delete pieces_disappearing[i];
-
-    if(i < NUMBER_OF_PIECES - 4)
-      delete pieces_hidder[i];
-  }
-
-  for(int i=0; i<=10; i++)
-  {
-    delete pause_sound_level[i];
-  }
-
-
-
-
+  
+  pieces.unload_gfx();
+  pause.unload_gfx();
+  progress_bar.unload_gfx();
+  skins_selector.unload_gfx();
+  
   delete background;
   delete font_a;
-
   delete new_hightscore;
-  delete pause_background;
-
-  delete pause_resume;
-  delete pause_resume_selected;
-
-  delete pause_undo;
-  delete pause_undo_selected;
-  delete pause_undo_unavailable;
-
-  delete pause_retry;
-  delete pause_retry_selected;
-
-  delete pause_changeskin;
-  delete pause_changeskin_selected;
-
-  delete pause_fullscreen;
-  delete pause_fullscreen_selected;
-
-  delete pause_sound;
-  delete pause_sound_selected;
-
-  delete pause_music;
-  delete pause_music_selected;
-
-  delete pause_backmain;
-  delete pause_backmain_selected;
-
-  delete pause_quit;
-  delete pause_quit_selected;
-
-  delete progress_bar_head;
-  delete progress_bar_head_ok;
-  delete progress_bar_foot;
-  delete progress_bar_item;
-  delete progress_bar_item_ok;
-
-  delete skins_selector;
-
- 
+   
   is_gfx_loaded = false;
 
 }
@@ -558,7 +383,7 @@ void Game::main_loop()
 
   CL_FramerateCounter fps_getter; 
 
-  position_x = position*pieces_width + pieces_width/2;
+  position_x = position*pieces.width + pieces.width/2;
    
 
   // Run until someone presses escape

@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2005 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,11 @@
 #include "piece.h"
 #include "KeyboardKey.h"
 #include "coords.h"
+#include "pieces.h"
+#include "skins_selector.h"
+#include "pause.h"
+#include "undo.h"
+#include "progress_bar.h"
 
 #define GAME_MODE_TO_PLAYING 0
 #define GAME_MODE_PLAYING 1
@@ -63,68 +68,17 @@ class Game{
   CL_Surface * background, *game_over;
   CL_Font *font_a;
 
-  // Sprites
-  CL_Sprite *pieces_normal[NUMBER_OF_PIECES];
-  CL_Sprite *pieces_appearing[NUMBER_OF_PIECES];
-  CL_Sprite *pieces_disappearing[NUMBER_OF_PIECES];
-  CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
-  CL_Sprite *pieces_hidder[NUMBER_OF_PIECES-3];
+  // Pieces Sprites
+  Pieces pieces;
 
-  // Sprites for pause
-  CL_Sprite *pause_background;
-  CL_Sprite *pause_resume, *pause_resume_selected;
-  CL_Sprite *pause_undo, *pause_undo_selected, *pause_undo_unavailable;
-  CL_Sprite *pause_retry, *pause_retry_selected;
-  CL_Sprite *pause_changeskin, *pause_changeskin_selected;
-  CL_Sprite *pause_fullscreen, *pause_fullscreen_selected;
-  CL_Sprite *pause_sound, *pause_sound_selected;
-  CL_Sprite *pause_music, *pause_music_selected;
-  CL_Sprite *pause_backmain, *pause_backmain_selected;
-  CL_Sprite *pause_quit, *pause_quit_selected;
+  // Progress Bar
+  ProgressBar progress_bar;
   
-  CL_Sprite *pause_sound_level[11];
-
-  // Sprites for skins-selector
-  CL_Sprite *skins_selector;
-
-  // Sprites for progress bar
-  CL_Sprite *progress_bar_head, *progress_bar_head_ok;
-  CL_Sprite *progress_bar_foot;
-  CL_Sprite *progress_bar_item, *progress_bar_item_ok;
-  int progress_bar_left, progress_bar_head_top, progress_bar_foot_top;
-  
-
   // Skins selector
-  std::vector<std::string> skins_list;
-  std::vector<CL_Surface*> skins_logo_list;
-  int skins_number;
-  int skins_current_selection;
-  int skins_list_index_top;
-  int skins_selector_top;
-  int skins_selector_separation;
+  SkinsSelector skins_selector;
   
   // Pause
-  bool pause;
-  bool pause_appearing;
-  bool pause_requested;
-
-  int pause_step;
-  int pause_selection;
-  float pause_alpha, pause_max_alpha;
-
-  int pause_resume_left, pause_resume_top;
-  int pause_retry_left, pause_retry_top;
-  int pause_undo_left, pause_undo_top;
-  int pause_changeskin_left, pause_changeskin_top;
-  int pause_fullscreen_left, pause_fullscreen_top;
-  int pause_sound_left, pause_sound_top;
-  int pause_music_left, pause_music_top;
-  int pause_backmain_left, pause_backmain_top;
-  int pause_quit_left, pause_quit_top;
-  int pause_sound_level_left;
-
-  int pieces_progress_x[NUMBER_OF_PIECES];
-  int pieces_progress_y[NUMBER_OF_PIECES];
+  Pause pause;
 
   // Sounds
   int sound_level, music_level;
@@ -147,7 +101,7 @@ class Game{
   int fps;
 
   int game_top, game_left, zone_top, next_top, next_left;
-  int pieces_width, pieces_height;
+  
   int score_top, score_right;
   int bonus_top, bonus_right;
   int hightscore_top, hightscore_right;
@@ -162,20 +116,13 @@ class Game{
   // Score
   u_int global_score;
   u_int global_bonus;
-  u_int undo_global_bonus;
   u_int last_hightscore;
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
   // UNDO
-  int body_undo[NUMBER_OF_COLS][NUMBER_OF_LINES];
-  int undo_position, undo_angle, undo_position_bis;
-  int undo_piece1_number, undo_piece2_number;
-  int undo_next_next_piece1, undo_next_next_piece2;
-  bool undo;
-  int undo_unlocked_pieces;
-  int undo_visible_pieces;
+  Undo undo;
   
   // 4 pieces
   Piece *current_piece1, *current_piece2;

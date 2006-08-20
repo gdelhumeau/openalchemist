@@ -89,12 +89,12 @@ void Game::detect_to_destroy()
 
           if(score_of_root == NUMBER_OF_PIECES)
           {
-            undo_global_bonus += counter*body[i][j]->get_score_value();
+            undo.global_bonus += counter*body[i][j]->get_score_value();
             global_bonus += counter*body[i][j]->get_score_value();
           }
           else
           {
-            undo_global_bonus += (counter - 3)*body[i][j]->get_score_value();
+            undo.global_bonus += (counter - 3)*body[i][j]->get_score_value();
             global_bonus += (counter - 3)*body[i][j]->get_score_value();
           }      
           Coords new_piece(NUMBER_OF_COLS+1,-1);

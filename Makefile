@@ -7,19 +7,22 @@ CFLAGS = `pkg-config --cflags $(PACKAGES)`
 
 INSTALL_DIR = /usr/local/games/openalchemist
 
-all: openalchemist
+all: openalchemist skins/aqua.zip skins/brushed.zip
 	@echo "OK"
-	
+
 test: 
 	@echo "Test dependances installation"
 	pkg-config --exists $(PACKAGES)
 
-openalchemist: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
+openalchemist: includes/*.h bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o
 	@echo "On assemble le fichier final"
-	cc bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
+	cc bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) $(CFLAGS)
+
+bin/misc.o : includes/*.h src/misc.cpp
+	g++ -c -o bin/misc.o src/misc.cpp $(OPTIONS) $(CFLAGS)
 
 bin/game.o: includes/*.h src/game.cpp
 	g++ -c -o bin/game.o src/game.cpp $(OPTIONS) $(CFLAGS)
@@ -60,7 +63,7 @@ clean:
 	-rm openalchemist
 	-rm skins/aqua.zip
 	-rm skins/brushed.zip
-	
+
 install: openalchemist
 	mkdir $(INSTALL_DIR)
 	mkdir $(INSTALL_DIR)/skins
@@ -73,8 +76,8 @@ uninstall: $(INSTALL_DIR)
 	rm $(INSTALL_DIR)/* -R
 	rmdir $(INSTALL_DIR)
 	rm /usr/local/bin/openalchemist
-	
 
-static: includes/*.h bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
+
+static: includes/*.h bin/misc.o bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o skins/aqua.zip skins/brushed.zip
 	@echo "On assemble le fichier final"
-	g++ $(STATIC_LIBS) bin/main.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o -Wall $(LINKER_OPTIONS) -o openalchemist-static -static
+	g++ $(STATIC_LIBS) bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o -Wall $(LINKER_OPTIONS) -o openalchemist-static -static

@@ -52,6 +52,16 @@ inline std::string format_number(const std::string &string)
 }
 
 
+/**
+ * Convert a CL_Integer to a int
+ */
+int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx);
+
+/**
+ * Convert a CL_Boolean to a boolean
+ */
+int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx);
+
 
 
 

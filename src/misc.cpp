@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,37 +17,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "headers.h"
-#include <vector> 
 
 /**
- * Detect the pieces to fall
- */ 
-void Game::detect_to_fall()
-{
-  falling_list.clear();
-  for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=NUMBER_OF_LINES-2; j>=0; --j)
-    {
-      if(body[i][j] != NULL)
-      {
-        int k = 1;
-        while(j+k < NUMBER_OF_LINES && body[i][j+k] == NULL)
-        {
-          body[i][j+k] = body[i][j+k-1];
-          body[i][j+k-1] = NULL;
-          body[i][j+k] -> start_fall((int)(body[i][j+k]->get_x()),
-                                     (int)(game_top+(j+k-2)*pieces.height));
-          k++;
-        }
-        if(k>1)
-        {
-          falling_list.insert(falling_list.end(), body[i][j+k-1]);
-        }
-      }
-    }
-    
-  game_mode = GAME_MODE_FALLING_AND_CREATING;
-    
+ * Convert a CL_Integer to a int
+ */
+int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
+{    
+  CL_Integer *cl_int = new CL_Integer(ressource_name, gfx);
+  int to_return = (int)*cl_int;
+  delete cl_int;
+  return to_return;
+}
+
+/**
+ * Convert a CL_Boolean to a boolean
+ */
+int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
+{    
+  CL_Boolean *cl_bool = new CL_Boolean(ressource_name, gfx);
+  bool to_return = (bool)*cl_bool;
+  delete cl_bool;
+  return to_return;
 }

@@ -20,19 +20,34 @@
 
 #include "headers.h"
 
+
+void SkinsSelector::load_gfx(CL_ResourceManager *gfx)
+{
+  menu = new CL_Sprite("skins-selector/cursor", gfx);
+  top = CL_Integer_to_int("skins-selector/top", gfx);
+  separation = CL_Integer_to_int("skins-selector/separation", gfx);
+}
+
+void SkinsSelector::unload_gfx()
+{
+  delete menu;
+}
+
+
+
 /**
  * This method runs the skin-selector
  */
 void Game::choose_skin()
 {
 
-  pause_step = PAUSE_STEP_SKINS;
+  pause.step = PAUSE_STEP_SKINS;
 
-  skins_list.clear();
-  skins_logo_list.clear();
+  skins_selector.list.clear();
+  skins_selector.logo_list.clear();
 
-  skins_current_selection = 0;
-  skins_list_index_top = 0;
+  skins_selector.current_selection = 0;
+  skins_selector.list_index_top = 0;
 
 #ifdef WIN32
   std::string dir = CL_System::get_exe_path() + "skins\\";
@@ -40,7 +55,7 @@ void Game::choose_skin()
   std::string dir = CL_System::get_exe_path() + "skins/";
 #endif
 
-  skins_number = 0;
+  skins_selector.number = 0;
   CL_DirectoryScanner scanner;
   if (scanner.scan(dir, "*.zip"))
   {
@@ -52,20 +67,20 @@ void Game::choose_skin()
           {
             CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(dir+scanner.get_name()), true);
             CL_Surface *logo = new CL_Surface("logo", &gfx);
-            skins_logo_list.insert(skins_logo_list.end(), logo);
-            skins_list.insert(skins_list.end(), dir+scanner.get_name());
+            skins_selector.logo_list.insert(skins_selector.logo_list.end(), logo);
+            skins_selector.list.insert(skins_selector.list.end(), dir+scanner.get_name());
             
             if(skin == dir+scanner.get_name())
             {
-              skins_current_selection = skins_number;
-              skins_list_index_top = skins_number - 1;
+              skins_selector.current_selection = skins_selector.number;
+              skins_selector.list_index_top = skins_selector.number - 1;
 
-              if(skins_list_index_top < 0)
+              if(skins_selector.list_index_top < 0)
               {               
-                skins_list_index_top = 0;
+                skins_selector.list_index_top = 0;
               }
             }         
-            skins_number++;
+            skins_selector.number++;
           }
         catch(CL_Error e)
           {
@@ -75,32 +90,21 @@ void Game::choose_skin()
        
     }
   }
-
-  
-  
-
-  /*std::list<std::string>::iterator it = skins_list.begin();
-  while(it != skins_list.end())
-  {
-    std::string name = (std::string)*it;
-    std::cout << name << "\n";
-    it++;
-    }*/ 
   
 }
 
 void Game::draw_skins_selector()
 {
 
-  /*int x = 400 - pause_background -> get_width()/2;*/
-    int y = 300 - pause_background -> get_height()/2; 
+  int y = 300 - pause.background -> get_height()/2; 
 
-  for(u_int i=0; i<skins_list.size() && i<2; ++i)
+  for(u_int i=0; i<skins_selector.list.size() && i<2; ++i)
   {
-    if((int)i+(int)skins_list_index_top == (int)skins_current_selection)
-      skins_selector -> draw(240, y+skins_selector_top-10+i*(150+skins_selector_separation));
+    if((int)i+(int)skins_selector.list_index_top == (int)skins_selector.current_selection)
+      skins_selector.menu -> draw(240, y+skins_selector.top-10+i*(150+skins_selector.separation));
 
-    skins_logo_list[i+skins_list_index_top] -> draw(250, y+skins_selector_top+i*(150+skins_selector_separation));
+    skins_selector.logo_list[i+skins_selector.list_index_top] -> 
+      draw(250, y+skins_selector.top+i*(150+skins_selector.separation));
   }
 }
 
@@ -108,32 +112,32 @@ void Game::key_events_skins_selector()
 {
   if(key_echap->get())
   {   
-    if(pause_requested)
-      pause_step = PAUSE_STEP_MENU;    
+    if(pause.requested)
+      pause.step = PAUSE_STEP_MENU;    
     else
-      pause = false;
+      pause.is_paused = false;
   }
   
   if(key_up -> get())
   {
-    skins_current_selection--;
-    if(skins_current_selection < 0)
-      skins_current_selection = 0;
-    if(skins_current_selection < skins_list_index_top)
-      skins_list_index_top = skins_current_selection;
+    skins_selector.current_selection--;
+    if(skins_selector.current_selection < 0)
+      skins_selector.current_selection = 0;
+    if(skins_selector.current_selection < skins_selector.list_index_top)
+      skins_selector.list_index_top = skins_selector.current_selection;
   }
 
   if(key_down -> get())
   {
-    if((int)skins_current_selection < (int)skins_list.size()-1)
-      skins_current_selection++;
-    if(skins_current_selection > skins_list_index_top + 1)
-      skins_list_index_top++;    
+    if((int)skins_selector.current_selection < (int)skins_selector.list.size()-1)
+      skins_selector.current_selection++;
+    if(skins_selector.current_selection > skins_selector.list_index_top + 1)
+      skins_selector.list_index_top++;    
   }
 
   if(key_enter -> get())
   {
-    skin = skins_list[skins_current_selection];
+    skin = skins_selector.list[skins_selector.current_selection];
     Preferences* pref = pref_get_instance();
     pref -> skin = skin;
     save_preferences();
