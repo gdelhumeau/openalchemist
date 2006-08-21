@@ -41,3 +41,5 @@ int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gf
   delete cl_bool;
   return to_return;
 }
+
+

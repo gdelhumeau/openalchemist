@@ -18,30 +18,31 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _PIECES_H_
-#define _PIECES_H_
+#ifndef _KEY_H_
+#define _KEY_H_
 
-#include "misc.h"
-
-class Pieces{
+class Key{
 
   public:
-  CL_Sprite *normal[NUMBER_OF_PIECES];
-  CL_Sprite *appearing[NUMBER_OF_PIECES];
-  CL_Sprite *disappearing[NUMBER_OF_PIECES];
-  CL_Sprite *mini[NUMBER_OF_PIECES];
-  CL_Sprite *hidder[NUMBER_OF_PIECES-3];
+  KeyboardKey * fullscreen;
+  KeyboardKey * change_angle;
+  KeyboardKey * left;
+  KeyboardKey * right;
+  KeyboardKey * falling;
+  KeyboardKey * retry;
+  KeyboardKey * undo;
+  KeyboardKey * echap;
+  KeyboardKey * up;
+  KeyboardKey * down;
+  KeyboardKey * enter;
 
-  int width, height;
+  // Constructor
+  Key::Key();
 
-  // Mini Sprite coords  
-  int progress_x[NUMBER_OF_PIECES];
-  int progress_y[NUMBER_OF_PIECES];
+  // Destructor
+  Key::~Key();
 
-  // Methods
-  void Pieces::load_gfx(CL_ResourceManager *gfx_pieces);
-  void Pieces::unload_gfx();
-  
+
 };
 
 #endif

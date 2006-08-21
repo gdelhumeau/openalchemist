@@ -25,6 +25,17 @@
 #include <sstream>  
 #include <iostream>
 
+/**
+ * This function return a factor to calcul moving with time
+ */
+inline float get_time_interval(int fps)
+{
+  
+  if(!fps)return 0;
+  return 1000.0/((float)fps);
+  
+}
+
 template<typename T>
 inline std::string to_string( const T & Value )
 {

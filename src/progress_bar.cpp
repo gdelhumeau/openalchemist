@@ -18,30 +18,27 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _PIECES_H_
-#define _PIECES_H_
+#include "headers.h"
 
-#include "misc.h"
+void ProgressBar::load_gfx(CL_ResourceManager *gfx)
+{
+  head = new CL_Sprite("progress-bar/head/sprite", gfx);
+  head_ok = new CL_Sprite("progress-bar/head/sprite-ok", gfx);
+  foot = new CL_Sprite("progress-bar/foot/sprite", gfx);
+  item = new CL_Sprite("progress-bar/item/sprite", gfx);
+  item_ok = new CL_Sprite("progress-bar/item/sprite-ok", gfx);
 
-class Pieces{
+  left = CL_Integer_to_int("progress-bar/left", gfx);
+  head_top = CL_Integer_to_int("progress-bar/head/top", gfx);
+  foot_top = CL_Integer_to_int("progress-bar/foot/top", gfx);
 
-  public:
-  CL_Sprite *normal[NUMBER_OF_PIECES];
-  CL_Sprite *appearing[NUMBER_OF_PIECES];
-  CL_Sprite *disappearing[NUMBER_OF_PIECES];
-  CL_Sprite *mini[NUMBER_OF_PIECES];
-  CL_Sprite *hidder[NUMBER_OF_PIECES-3];
+}
 
-  int width, height;
-
-  // Mini Sprite coords  
-  int progress_x[NUMBER_OF_PIECES];
-  int progress_y[NUMBER_OF_PIECES];
-
-  // Methods
-  void Pieces::load_gfx(CL_ResourceManager *gfx_pieces);
-  void Pieces::unload_gfx();
-  
-};
-
-#endif
+void ProgressBar::unload_gfx()
+{
+  delete head;
+  delete head_ok;
+  delete foot;
+  delete item;
+  delete item_ok;
+}

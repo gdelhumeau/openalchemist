@@ -368,7 +368,7 @@ void Game::key_events_pause()
   }
 
    
-  if(key_echap->get())
+  if(key.echap->get())
   {   
     if(pause.appearing && opengl)
       pause.step = PAUSE_STEP_DISAPPEARING;
@@ -377,7 +377,7 @@ void Game::key_events_pause()
     
   }
 
-  if(key_up -> get())
+  if(key.up -> get())
   {
     if(pause.selection == 0)
       pause.selection = PAUSE_ITEM_QUIT;
@@ -391,31 +391,31 @@ void Game::key_events_pause()
     }
   }
 
-  if(pause.selection == PAUSE_ITEM_SOUND && key_left -> get())
+  if(pause.selection == PAUSE_ITEM_SOUND && key.left -> get())
   {
     if(sound_level > 0)
       sound_level--;
   }
 
-  if(pause.selection == PAUSE_ITEM_SOUND && key_right -> get())
+  if(pause.selection == PAUSE_ITEM_SOUND && key.right -> get())
   {
     if(sound_level < 10)
       sound_level++;
   }
 
-  if(pause.selection == PAUSE_ITEM_MUSIC && key_left -> get())
+  if(pause.selection == PAUSE_ITEM_MUSIC && key.left -> get())
   {
     if(music_level > 0)
       music_level--;
   }
 
-  if(pause.selection == PAUSE_ITEM_MUSIC && key_right -> get())
+  if(pause.selection == PAUSE_ITEM_MUSIC && key.right -> get())
   {
     if(music_level < 10)
       music_level++;
   }
 
-  if(key_down -> get())
+  if(key.down -> get())
   {
     if(pause.selection == PAUSE_ITEM_QUIT)
       pause.selection = 0;
@@ -429,7 +429,7 @@ void Game::key_events_pause()
     }
   }
 
-  if(key_enter -> get())
+  if(key.enter -> get())
   {
     switch(pause.selection)
     {

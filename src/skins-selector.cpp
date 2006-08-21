@@ -110,7 +110,7 @@ void Game::draw_skins_selector()
 
 void Game::key_events_skins_selector()
 {
-  if(key_echap->get())
+  if(key.echap->get())
   {   
     if(pause.requested)
       pause.step = PAUSE_STEP_MENU;    
@@ -118,7 +118,7 @@ void Game::key_events_skins_selector()
       pause.is_paused = false;
   }
   
-  if(key_up -> get())
+  if(key.up -> get())
   {
     skins_selector.current_selection--;
     if(skins_selector.current_selection < 0)
@@ -127,7 +127,7 @@ void Game::key_events_skins_selector()
       skins_selector.list_index_top = skins_selector.current_selection;
   }
 
-  if(key_down -> get())
+  if(key.down -> get())
   {
     if((int)skins_selector.current_selection < (int)skins_selector.list.size()-1)
       skins_selector.current_selection++;
@@ -135,7 +135,7 @@ void Game::key_events_skins_selector()
       skins_selector.list_index_top++;    
   }
 
-  if(key_enter -> get())
+  if(key.enter -> get())
   {
     skin = skins_selector.list[skins_selector.current_selection];
     Preferences* pref = pref_get_instance();

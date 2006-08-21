@@ -30,29 +30,8 @@ class ProgressBar{
   CL_Sprite *item, *item_ok;
   int left, head_top, foot_top;
 
-  void load_gfx(CL_ResourceManager *gfx)
-    {
-      head = new CL_Sprite("progress-bar/head/sprite", gfx);
-      head_ok = new CL_Sprite("progress-bar/head/sprite-ok", gfx);
-      foot = new CL_Sprite("progress-bar/foot/sprite", gfx);
-      item = new CL_Sprite("progress-bar/item/sprite", gfx);
-      item_ok = new CL_Sprite("progress-bar/item/sprite-ok", gfx);
-
-      left = CL_Integer_to_int("progress-bar/left", gfx);
-      head_top = CL_Integer_to_int("progress-bar/head/top", gfx);
-      foot_top = CL_Integer_to_int("progress-bar/foot/top", gfx);
-
-    }
-
-  void unload_gfx()
-    {
-      delete head;
-      delete head_ok;
-      delete foot;
-      delete item;
-      delete item_ok;
-    }
-
+  void ProgressBar::load_gfx(CL_ResourceManager *gfx);
+  void ProgressBar::unload_gfx();
   
 
 };

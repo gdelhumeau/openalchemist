@@ -23,16 +23,6 @@
 
 const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
-/**
- * This function return a factor to calcul moving with time
- */
-inline float get_time_interval(int fps)
-{
-  
-  if(!fps)return 0;
-  return 1000.0/((float)fps);
-  
-}
 
 /**
  * Game constructor
@@ -59,20 +49,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
 
   pause.requested = false;
 
-  
-  // We create all the usefull KeyboardKeys
-  key_fullscreen   = new KeyboardKey(CL_KEY_F11   , false);
-  key_retry        = new KeyboardKey(CL_KEY_F2    , false);
-  key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
-  key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
-  key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
-  key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
-  key_undo         = new KeyboardKey(CL_KEY_F5    , false);
-  key_echap        = new KeyboardKey(CL_KEY_ESCAPE, false);
-  key_up           = new KeyboardKey(CL_KEY_UP    , true );
-  key_down         = new KeyboardKey(CL_KEY_DOWN  , true );
-  key_enter        = new KeyboardKey(CL_KEY_ENTER , false);
-  
+   
   time_interval = 0;
 
   // We initalize the randomized-numbers generator
@@ -103,17 +80,6 @@ Game::~Game()
   delete current_piece1;
   delete current_piece2; 
 
-  delete key_fullscreen;
-  delete key_retry;
-  delete key_change_angle;
-  delete key_left;
-  delete key_right; 
-  delete key_falling; 
-  delete key_undo;
-  delete key_echap;
-  delete key_up;
-  delete key_down;
-  delete key_enter;
   
 }
 

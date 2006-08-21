@@ -31,12 +31,14 @@
 #include <list>
 #include "piece.h"
 #include "KeyboardKey.h"
+#include "key.h"
 #include "coords.h"
 #include "pieces.h"
 #include "skins_selector.h"
 #include "pause.h"
 #include "undo.h"
 #include "progress_bar.h"
+
 
 #define GAME_MODE_TO_PLAYING 0
 #define GAME_MODE_PLAYING 1
@@ -80,9 +82,14 @@ class Game{
   // Pause
   Pause pause;
 
+  // Keys
+  Key key;
+
+  // UNDO
+  Undo undo;
+
   // Sounds
   int sound_level, music_level;
-
 
   // Menus
   CL_Sprite *new_hightscore;
@@ -121,8 +128,6 @@ class Game{
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
-  // UNDO
-  Undo undo;
   
   // 4 pieces
   Piece *current_piece1, *current_piece2;
@@ -150,19 +155,6 @@ class Game{
   
   float time_interval;
  
-  // Keys
-  KeyboardKey * key_fullscreen;
-  KeyboardKey * key_change_angle;
-  KeyboardKey * key_left;
-  KeyboardKey * key_right;
-  KeyboardKey * key_falling;
-  KeyboardKey * key_retry;
-  KeyboardKey * key_undo;
-  KeyboardKey * key_echap;
-  KeyboardKey * key_up;
-  KeyboardKey * key_down;
-  KeyboardKey * key_enter;
-
   public:
 
   //Constructor
@@ -176,6 +168,7 @@ class Game{
   void Game::unload_gfx();
   void Game::toggle_screen();
   void Game::main_loop();
+  void Game::calc_score();
 
   // Methods to draw the game
   void Game::draw_game();  
@@ -185,13 +178,11 @@ class Game{
   void Game::draw_to_playing();
   void Game::draw_game_over();
   void Game::draw_new_hightscore();
-  void Game::draw_pause();
-  
+  void Game::draw_pause();  
   void Game::draw_progress_bar();
   void Game::draw_skins_selector();
 
-  void Game::calc_score();
- 
+  // Methods...
   void Game::load_preferences();
   void Game::save_preferences();
   void Game::read_scores();

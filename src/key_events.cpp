@@ -30,7 +30,7 @@
 void Game::key_events()
 {
   // Switch to fullscreen/windowed mode
-  if(key_fullscreen->get())
+  if(key.fullscreen->get())
   {
     toggle_screen();
   }
@@ -50,7 +50,7 @@ void Game::key_events()
   }
     
   // New game
-  if(key_retry->get())
+  if(key.retry->get())
   {
     new_game(0);
   }
@@ -74,7 +74,7 @@ void Game::key_events()
 void Game::key_events_playing()
 {
 
-  if(key_echap->get())
+  if(key.echap->get())
   {
     pause.is_paused = true;
     pause.selection = 0;
@@ -90,7 +90,7 @@ void Game::key_events_playing()
   if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode || GAME_MODE_NEW_HIGHTSCORE == game_mode)
   {
    // Undo the last move
-    if(key_undo -> get())
+    if(key.undo -> get())
     {
       undo_last();
     }
@@ -109,7 +109,7 @@ void Game::key_events_playing()
   { 
     
     // Change the order of the pieces 
-    if(key_change_angle->get() && current_pieces_next_angle<=current_pieces_angle+90)
+    if(key.change_angle->get() && current_pieces_next_angle<=current_pieces_angle+90)
     {     
       current_pieces_next_angle += 90;
       current_pieces_placed = false;
@@ -129,7 +129,7 @@ void Game::key_events_playing()
     }
 
     // Look the key to know if we have to move the pieces to the left
-    if(key_left->get() && position > 0)
+    if(key.left->get() && position > 0)
     {
       old_position = position;
       old_position_bis = position_bis;
@@ -138,7 +138,7 @@ void Game::key_events_playing()
     }
 
     // Look the key to know if we have to move the pieces to the right
-    if(key_right->get() && position < NUMBER_OF_COLS - 1)
+    if(key.right->get() && position < NUMBER_OF_COLS - 1)
     {
       if(!(position == NUMBER_OF_COLS - 2 && position_bis))
       {
@@ -195,7 +195,7 @@ void Game::key_events_playing()
     
 
     // It's time for the pieces to fall
-    if(key_falling -> get())
+    if(key.falling -> get())
     {
       falling_requested = true; 
     } 
