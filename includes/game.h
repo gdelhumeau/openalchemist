@@ -169,6 +169,7 @@ class Game{
   void Game::toggle_screen();
   void Game::main_loop();
   void Game::calc_score();
+  void Game::apply_skin();
 
   // Methods to draw the game
   void Game::draw_game();  

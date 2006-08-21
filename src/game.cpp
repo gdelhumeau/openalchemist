@@ -129,26 +129,9 @@ void Game::new_game(short difficulty)
 
   
 
-  int value;
-  value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                             pieces.disappearing[value], pieces.mini[value]);
+  apply_skin();
   
-  value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                             pieces.disappearing[value], pieces.mini[value]);
   
-  value = current_piece1 ->  get_piece_number();
-  current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                                pieces.disappearing[value], pieces.mini[value]);
-  
-  value = current_piece2 ->  get_piece_number();
-  current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                                pieces.disappearing[value], pieces.mini[value]);
-  
-  // The next_pieces depends on the skin, so:
-  next_piece1 -> set_position(next_left, next_top);
-  next_piece2 -> set_position(next_left+(pieces.width)/2,next_top);
 
   // We set some variables
   current_pieces_angle = 0; 
@@ -199,37 +182,6 @@ void Game::load_gfx()
   game_over = new CL_Surface("gameover", &gfx);  
   new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
   
-  // We have to change the sprite references in the Pieces...
-  for(int i=0; i<NUMBER_OF_COLS; ++i)
-    for(int j=0; j<NUMBER_OF_LINES; ++j)
-    {
-      if(body[i][j])
-      {
-        int value = body[i][j] -> get_piece_number();
-        body[i][j] -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                                  pieces.disappearing[value], pieces.mini[value]);
-      }
-    }
-
-   
-  
-  // Here too
-  int value;
-  value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                             pieces.disappearing[value], pieces.mini[value]);
-  
-  value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                             pieces.disappearing[value], pieces.mini[value]);
-  
-  value = current_piece1 -> get_piece_number();
-  current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                                pieces.disappearing[value], pieces.mini[value]);
-  
-  value = current_piece2 -> get_piece_number();
-  current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
-                                pieces.disappearing[value], pieces.mini[value]);
 
   // Load the font, to display score and framerate
   font_a = new CL_Font("font", &gfx);  
@@ -250,13 +202,11 @@ void Game::load_gfx()
   new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
   old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
   
-
-  // The next_pieces depends on the skin, so:
-  next_piece1 -> set_position(next_left, next_top);
-  next_piece2 -> set_position(next_left+(pieces.width)/2,next_top);
  
   // c² = a²+b³
   current_pieces_r = pieces.width/2;
+
+  apply_skin();
      
   // So now we can say that the GFX are loaded
   is_gfx_loaded = true;

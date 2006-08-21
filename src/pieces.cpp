@@ -59,3 +59,42 @@ void Pieces::unload_gfx()
       delete hidder[i];
   }
 }
+
+void Game::apply_skin()
+{
+
+  // We have to change the sprite references in the Pieces...
+  for(int i=0; i<NUMBER_OF_COLS; ++i)
+    for(int j=0; j<NUMBER_OF_LINES; ++j)
+    {
+      if(body[i][j])
+      {
+        int value = body[i][j] -> get_piece_number();
+        body[i][j] -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                  pieces.disappearing[value], pieces.mini[value]);
+      }
+    }
+
+  int value;
+  value = next_piece1 -> get_piece_number();
+  next_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
+  
+  value = next_piece2 -> get_piece_number();
+  next_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                             pieces.disappearing[value], pieces.mini[value]);
+  
+  value = current_piece1 ->  get_piece_number();
+  current_piece1 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
+  
+  value = current_piece2 ->  get_piece_number();
+  current_piece2 -> set_sprites(pieces.normal[value], pieces.appearing[value],
+                                pieces.disappearing[value], pieces.mini[value]);
+
+  // The next_pieces depends on the skin, so:
+  next_piece1 -> set_position(next_left, next_top);
+  next_piece2 -> set_position(next_left+(pieces.width)/2,next_top);
+  
+
+}
