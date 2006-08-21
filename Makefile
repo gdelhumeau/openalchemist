@@ -14,9 +14,9 @@ test:
 	@echo "Test dependances installation"
 	pkg-config --exists $(PACKAGES)
 
-openalchemist: includes/*.h bin/main.o bin/misc.o bin/game.o bin/pieces.o bin/key.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o 
+openalchemist: includes/*.h bin/main.o bin/misc.o bin/game.o bin/pieces.o bin/key.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o 
 	@echo "On assemble le fichier final"
-	cc bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/pieces.o bin/key.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
+	cc bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/pieces.o bin/key.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) $(CFLAGS)
@@ -59,6 +59,9 @@ bin/pieces.o : includes/*.h src/pieces.cpp
 
 bin/key.o : includes/*.h src/key.cpp
 	g++ -c -o bin/key.o src/key.cpp $(OPTIONS) $(CFLAGS)
+
+bin/undo.o : includes/*.h src/undo.cpp
+	g++ -c -o bin/undo.o src/undo.cpp $(OPTIONS) $(CFLAGS)
 
 skins/aqua.zip : skins/aqua/*
 	@echo "On zip le thème aqua"
