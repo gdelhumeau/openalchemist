@@ -35,6 +35,7 @@ void Game::key_events()
     toggle_screen();
   }
 
+
   // Cheats
   
   if(CL_Keyboard::get_keycode(CL_KEY_F1))
