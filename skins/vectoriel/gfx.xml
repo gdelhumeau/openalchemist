@@ -1,0 +1,140 @@
+<resources>
+
+  <!-- Logo -->
+  <surface name = "logo" file = "misc/logo.png"/>
+                
+  <!-- Zone top represents the zone where are the pieces you control -->
+  <integer name = "zone_top" value = "110" />
+
+  <!-- Coords for score displaying -->
+  <integer name = "score_top" value = "50" />
+  <integer name = "score_right" value = "750" />
+  <integer name = "bonus_score_top" value = "150" />
+  <integer name = "bonus_score_right" value ="750" />
+  <integer name = "hight_score_top" value = "250" />
+  <integer name = "hight_score_right" value ="750" />
+
+  
+  <!-- Coords of the body -->
+  <section name = "game">
+    <integer name = "top" value = "231" />
+    <integer name = "left" value = "245" />
+
+    <!-- Coords of the two next pieces -->
+    <integer name = "next_top" value = "38" />
+    <integer name = "next_left" value = "375" />
+  </section>
+
+  
+  <!-- background image -->
+  <surface name = "background" file = "misc/landscape.png"/>
+
+  <!-- game over message -->
+  <surface name = "gameover" file = "misc/gameover.png" />
+  <integer name = "gameover_x" value = "0" />
+  <integer name = "gameover_y" value = "0" />
+
+  <!-- font to display score -->
+  <sprite name="font_glyph">
+    <image file="misc/font.png">
+      <grid pos="1,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="16,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="31,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="46,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="61,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="76,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="92,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="107,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="121,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="136,0" size="14,40" />
+    </image>
+    <image file="misc/font.png">
+      <grid pos="150,0" size="14,40" />
+    </image>
+
+  </sprite>
+
+ <section name="skins-selector">
+ 	<integer name="top" value="120" />
+        <integer name="separation" value="30" />
+ 	<sprite name="cursor">
+ 		<image file="misc/skin-cursor.png" />
+ 	</sprite>
+ </section>
+  
+  <section name="progress-bar">
+  	<integer name="left" value="669" />
+  
+		<section name = "head">
+			<sprite name="sprite">
+				<image file="misc/bar-head.png" />
+			</sprite>
+			
+			<sprite name="sprite-ok">
+				<image file="misc/bar-head-ok.png" />
+			</sprite>next
+			
+			<integer name="top" value="305" />	
+			
+		</section>
+		
+		<section name="foot">
+			<sprite name="sprite">
+				<image file="misc/bar-foot.png" />
+			</sprite>
+			
+			<integer name="top" value="515" />
+			
+		</section>
+		
+		<section name="item">
+			<sprite name="sprite">
+				<image file="misc/bar-item.png" />
+			</sprite>
+			
+			<sprite name="sprite-ok">
+				<image file="misc/bar-item-ok.png" />
+			</sprite>
+		</section>  
+  	
+  </section>
+  
+  <section name="menu"> 
+  
+  	<section name="new-hightscore">
+  		<sprite name="dialog">
+  			<image file="dialogs/hightscores/new-hightscore.png">
+  				<grid pos="0,0" size="500,300" />
+  			</image>
+  		</sprite>
+
+  		<integer name = "new-score-top" value = "270" />
+  		<integer name = "old-score-top" value = "370" />  		
+  	</section>
+  </section>
+  
+  
+  <font name="font">
+    <bitmap glyphs="font_glyph" letters="0123456789." spacelen="35"  />
+  </font>
+    
+  
+</resources>      

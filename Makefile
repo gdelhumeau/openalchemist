@@ -7,7 +7,7 @@ CFLAGS = `pkg-config --cflags $(PACKAGES)`
 
 INSTALL_DIR = /usr/local/games/openalchemist
 
-all: openalchemist skins/aqua.zip skins/brushed.zip
+all: openalchemist skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 	@echo "OK"
 
 test: 
@@ -69,6 +69,9 @@ skins/aqua.zip : skins/aqua/*
 skins/brushed.zip : skins/brushed/*
 	@echo "On zip le thème brushed"
 	cd skins/brushed && zip -q -r ../brushed * -x *svn*
+skins/vectoriel.zip : skins/vectoriel/*
+	@echo "On zip le thème vectoriel"
+	cd skins/vectoriel && zip -q -r ../vectoriel * -x *svn*
 
 clean:
 	-rm bin/*.o
