@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

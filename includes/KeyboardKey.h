@@ -38,7 +38,7 @@ public:
   /**
    * Constructor
    */
-  KeyboardKey::KeyboardKey(int key, bool repeat = false)
+  KeyboardKey(int key, bool repeat = false)
   {
     this->key = key;
     this->repeat = repeat;

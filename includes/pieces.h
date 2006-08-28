@@ -39,8 +39,8 @@ class Pieces{
   int progress_y[NUMBER_OF_PIECES];
 
   // Methods
-  void Pieces::load_gfx(CL_ResourceManager *gfx_pieces);
-  void Pieces::unload_gfx();
+  void load_gfx(CL_ResourceManager *gfx_pieces);
+  void unload_gfx();
   
 };
 

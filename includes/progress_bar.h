@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,8 @@ class ProgressBar{
   CL_Sprite *item, *item_ok;
   int left, head_top, foot_top;
 
-  void ProgressBar::load_gfx(CL_ResourceManager *gfx);
-  void ProgressBar::unload_gfx();
+  void load_gfx(CL_ResourceManager *gfx);
+  void unload_gfx();
   
 
 };
