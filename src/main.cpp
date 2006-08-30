@@ -142,6 +142,24 @@ public:
           license();
           dont_run_game = true;
         }
+        if(strcmp(argv[i], "--maxfps")==0 && i < argc-1)
+        {
+          std::string arg(argv[i+1]); 
+          int maxfps;
+          std::istringstream istr(arg); 
+
+          if(istr>>maxfps)
+          {
+             Preferences *pref = pref_get_instance();
+             pref -> maxfps = maxfps;   
+          }
+          else
+          {
+            dont_run_game = true;
+            std::cout << "Option maxfps must be followed by a number." << std::endl;
+          }
+          
+        }
         
         
       }
@@ -179,6 +197,7 @@ public:
                 << "Options:"  << std::endl
                 << "\t--help : Show this message"  << std::endl
                 << "\t--license : Show the license of this program"  << std::endl
+                << "\t--maxfps X : Limit framerate to X"  << std::endl        
                 << "\t--opengl : Use OpenGL as render target" << std::endl
                 << "\t--sdl : Use SDL as render target (default)" << std::endl
         ;

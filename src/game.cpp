@@ -295,9 +295,12 @@ void Game::main_loop()
 
   new_game(0);
   load_gfx();
-  //load_preferences();
 
+
+  Preferences *pref = pref_get_instance();
   CL_FramerateCounter fps_getter; 
+  fps_getter.set_fps_limit(pref -> maxfps);
+
 
   position_x = position*pieces.width + pieces.width/2;
    
@@ -319,7 +322,7 @@ void Game::main_loop()
     // This call updates input and performs other "housekeeping"
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
-    CL_System::keep_alive();
+    CL_System::keep_alive(1);
   }
 
   unload_gfx();

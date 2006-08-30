@@ -31,6 +31,9 @@ class Preferences
 
   // Render
   bool render_opengl;
+
+  // FPS
+  int maxfps;
   
   // Sounds
   int sound_level;

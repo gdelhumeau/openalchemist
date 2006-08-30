@@ -20,7 +20,7 @@
 
 #include "headers.h"
 
-#define OPTIONS_FILE_REVISION 2
+#define OPTIONS_FILE_REVISION 3
 
 Preferences* pref_get_instance()
 {
@@ -139,6 +139,10 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   {
     skin = file -> read_string();
   }
+  if(revision >= 3)
+  {
+    maxfps = file -> read_int16();
+  }
       
   file -> close();
 
@@ -164,6 +168,8 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   file -> write_int32(music_level);
   // Skin
   file -> write_string(skin);
+  // Maxfps
+  file -> write_int16(maxfps);
 
   file -> close();
 }
@@ -172,6 +178,7 @@ void Preferences::set_default()
 {
   revision = 1;
   render_opengl = false;
+  maxfps = 250;
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
