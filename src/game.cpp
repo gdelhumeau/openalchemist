@@ -322,7 +322,7 @@ void Game::main_loop()
     // This call updates input and performs other "housekeeping"
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
-    CL_System::keep_alive(1);
+    CL_System::keep_alive();
   }
 
   unload_gfx();
