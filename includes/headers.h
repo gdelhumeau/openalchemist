@@ -5,6 +5,9 @@
 
 //#define WIN32
 
+/** If you're using SVN version, please uncomment this : */
+
+#define SVN
 
 
 #include <ClanLib/gl.h>
