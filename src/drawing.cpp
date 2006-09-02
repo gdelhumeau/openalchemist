@@ -70,6 +70,10 @@ void Game::draw_game()
       }
     }
 
+  /* Draw the front layer */
+  if(front_layer.enabled)
+    front_layer.draw();
+
   /* Drawing the progress bar */
   draw_progress_bar();  
 

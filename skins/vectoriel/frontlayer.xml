@@ -1,0 +1,18 @@
+<resources>
+
+	<!-- Front Layer : could needs more GPU ressources -->
+	<section name="frontlayer">
+		<integer name = "number_of_sprites" value = "1" />
+
+		<!-- Sprite number 1 -->
+		<section name="1">
+			<sprite name="sprite">
+				<image file="misc/gameover.png" />
+			</sprite>
+
+			<integer name="left" value="10" />
+			<integer name="top" value="10" />
+		</section>
+	
+	</section>
+</resources>

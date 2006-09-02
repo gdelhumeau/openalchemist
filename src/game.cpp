@@ -168,10 +168,29 @@ void Game::load_gfx()
 
   this->unload_gfx();  
 
+  CL_Zip_Archive zip(skin);
+
   // Load the skin ressources
-  CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(skin), true);
-  CL_ResourceManager gfx_pieces("pieces.xml", new CL_Zip_Archive(skin), true);
-  CL_ResourceManager gfx_pause("menu_pause.xml", new CL_Zip_Archive(skin), true);
+  CL_ResourceManager gfx("gfx.xml",&zip, false);
+  CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
+  CL_ResourceManager gfx_pause("menu_pause.xml", &zip, false);
+  
+  // Look if frontlayer.xml is existing
+  front_layer.enabled = false;
+  std::vector<CL_Zip_FileEntry> file_list = zip.get_file_list();
+  for(u_int i=0; i<file_list.size(); ++i)
+  {
+    if(file_list[i].get_filename() == "frontlayer.xml")
+      front_layer.enabled = true;      
+  }
+
+  if(front_layer.enabled)
+  {   
+    CL_ResourceManager gfx_frontlayer("frontlayer.xml", &zip, false);
+    front_layer.load_gfx(&gfx_frontlayer);
+  } 
+
+
   
   pieces.load_gfx(&gfx_pieces);
   pause.load_gfx(&gfx_pause);
@@ -228,6 +247,9 @@ void Game::unload_gfx()
   pause.unload_gfx();
   progress_bar.unload_gfx();
   skins_selector.unload_gfx();
+
+  if(front_layer.enabled)
+    front_layer.unload_gfx();
   
   delete background;
   delete font_a;

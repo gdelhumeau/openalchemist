@@ -38,6 +38,7 @@
 #include "pause.h"
 #include "undo.h"
 #include "progress_bar.h"
+#include "frontlayer.h"
 
 
 #define GAME_MODE_TO_PLAYING 0
@@ -87,6 +88,9 @@ class Game{
 
   // UNDO
   Undo undo;
+
+  // FrontLayer
+  FrontLayer front_layer;
 
   // Sounds
   int sound_level, music_level;

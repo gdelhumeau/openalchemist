@@ -18,32 +18,27 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _KEY_H_
-#define _KEY_H_
+#ifndef _FRONTLAYER_H_
+#define _FRONTLAYER_H_
 
-#include "KeyboardKey.h"
-
-class Key{
+class FrontLayerSprite{
 
   public:
-  KeyboardKey * fullscreen;
-  KeyboardKey * change_angle;
-  KeyboardKey * left;
-  KeyboardKey * right;
-  KeyboardKey * falling;
-  KeyboardKey * retry;
-  KeyboardKey * undo;
-  KeyboardKey * echap;
-  KeyboardKey * up;
-  KeyboardKey * down;
-  KeyboardKey * enter;
+  CL_Sprite *sprite;
+  u_int left, top;
 
-  // Constructor
-  Key();
+};
 
-  // Destructor
-  ~Key();
 
+class FrontLayer{
+
+  public:
+  bool enabled;
+  
+  std::list<FrontLayerSprite*> list;
+  void load_gfx(CL_ResourceManager *gfx_frontlayer);
+  void unload_gfx();
+  void draw();
 
 };
 
