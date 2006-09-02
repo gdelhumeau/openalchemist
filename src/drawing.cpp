@@ -70,9 +70,6 @@ void Game::draw_game()
       }
     }
 
-  /* Draw the front layer */
-  if(front_layer.enabled)
-    front_layer.draw();
 
   /* Drawing the progress bar */
   draw_progress_bar();  
@@ -100,8 +97,13 @@ void Game::draw_game()
   else if(GAME_MODE_TO_PLAYING == game_mode)
   {          
     draw_to_playing();
-  }
-  else if(GAME_MODE_GAME_OVER == game_mode)
+  }  
+    
+  /* Draw the front layer */
+  if(front_layer.enabled)
+    front_layer.draw();
+
+  if(GAME_MODE_GAME_OVER == game_mode)
   {
     draw_game_over();
   }
@@ -114,6 +116,7 @@ void Game::draw_game()
   {
     draw_pause();
   }
+
 
   
 }

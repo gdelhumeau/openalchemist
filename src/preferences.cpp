@@ -109,7 +109,11 @@ void Preferences::write()
 #ifdef WIN32
   std::string options_file = options_path + "\\options";
 #else
+#ifdef SVN
+  std::string options_file = options_path + "/options-svn";
+#else
   std::string options_file = options_path + "/options";
+#endif
 #endif
 
 
