@@ -7,11 +7,11 @@
 		<!-- Sprite number 1 -->
 		<section name="1">
 			<sprite name="sprite">
-				<image file="misc/gameover.png" />
+				<image file="misc/branche1.png" />
 			</sprite>
 
-			<integer name="left" value="10" />
-			<integer name="top" value="10" />
+			<integer name="left" value="538" />
+			<integer name="top" value="159" />
 		</section>
 	
 	</section>
