@@ -145,7 +145,15 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   }
   if(revision >= 2)
   {
-    skin = file -> read_string();
+    std::string skin_file = file -> read_string();
+    try{
+      CL_Zip_Archive zip_test(skin_file);
+      skin = skin_file;
+    }
+    catch(CL_Error e)
+    {
+      std::cout << "Skin " << skin_file << " was not found or is not a zip file, we use " << skin << " instead."  << std::endl;
+    }
   }
   if(revision >= 3)
   {
@@ -184,7 +192,7 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
 
 void Preferences::set_default()
 {
-  revision = 1;
+  revision = OPTIONS_FILE_REVISION;
   render_opengl = false;
   maxfps = 250;
   sound_level = 10;
@@ -197,9 +205,9 @@ void Game::load_preferences()
 {
   Preferences *pref = pref_get_instance();
   sound_level = pref -> sound_level;
-  music_level = pref -> music_level;
+  music_level = pref -> music_level;  
   skin =  pref -> skin;
-}
+ }
 
 void Game::save_preferences()
 {
