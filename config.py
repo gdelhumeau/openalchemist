@@ -23,13 +23,18 @@
 
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
-import gtk, os, sys
+import gtk, os, sys, struct
 
 class App:
-	def __init__(self):        
+	def __init__(self):
+                self.readfile()
                 self.init_GUI()                
                 gtk.main()
 
+        def readfile(self):
+                print "OK"
+                
+                
 	def init_GUI(self):
 		# Window creation
 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -40,9 +45,6 @@ class App:
 
                 self.window.mainbox = gtk.VBox(homogeneous = False, spacing=10)
                 self.window.add(self.window.mainbox)
-
-                #self.window.table = gtk.Table(columns = 2)
-                #self.window.mainbox.pack_start(self.window.table)
 
                 self.window.render_frame = gtk.Frame("Render")
                 self.window.mainbox.pack_start(self.window.render_frame, fill=False, expand=False)
@@ -66,7 +68,6 @@ class App:
 
 
 		# Show the window and start the main loop.
-                #self.window.set_default_size(300,200)
                 self.window.set_position(gtk.WIN_POS_CENTER)
 		self.window.show_all()
 
@@ -76,10 +77,13 @@ class App:
 
         def _event_ok(self, event):
                 os.system("cd " + sys.path[0])
+                options = ""
                 if self.window.rbt_opengl.get_active():
-                        os.system("./openalchemist --opengl")
+                        options = " --opengl"
                 else:
-                        os.system("./openalchemist --sdl")
+                        options = " --sdl"
+                options = options + " --maxfps " + self.window.txt_fps.get_text()
+                os.system("./openalchemist" + options)
                         
                 
 
