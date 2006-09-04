@@ -27,22 +27,35 @@ class SkinsPropreties{
   u_int element; 
 };
 
+/**
+ * This class represent the skin selector menu
+ */
 class SkinsSelector{
 
   public:
+  /** Sprite witch contains the menu background */
   CL_Sprite *menu;
+  /** Dialogs when you can't change the skin */
   CL_Sprite *cant_change_skin;
+  /** Skins filename list */
   std::vector<std::string> list;
+  /** Logos of the skin list */
   std::vector<CL_Surface*> logo_list;
+  /** Number of skins scanning in the /skins folder */
   int number;
+  /** Current skin index */
   int current_selection;
+  /** Top index of the list displaying (english to correct)*/
   int list_index_top;
+  /** Y coord of the menu */
   int top;
+  /** Y seperatation between the skin logos */
   int separation;
 
+  /** To know if we have to show the "can't change skin" message */
   bool display_cant_change;
 
-  /* About limitations */
+  /** Skins propreties list (read in the .openalchemist/skins file) */
   std::vector<SkinsPropreties*> propreties_list;
 
   void read_file();

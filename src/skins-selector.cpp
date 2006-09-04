@@ -64,14 +64,13 @@ void SkinsSelector::set_skin_value(std::string skin, int value)
   // First, looking if skin is already knew in the skin propreties list...
   for(u_int i=0; i<propreties_list.size(); ++i)
   {
-    // If True, we juste have to change the value
     if(propreties_list[i]->filename == skin)
     {
       // If the value have to be changed, we do it
       if((int)propreties_list[i]->element < value)
         propreties_list[i]->element = value;
      
-      // We can say the value is setted
+      // We know that skin is already in the list
       is_listed = true;
     }
   }
@@ -105,6 +104,7 @@ void SkinsSelector::write_file()
   {
     CL_OutputSource_File file(file_path);
     std::vector<SkinsPropreties*>::iterator it = propreties_list.begin();
+    // In the same time we write the file, we delete propreties object and clear the list
     while(!propreties_list.empty())
     {
       SkinsPropreties *sp = (SkinsPropreties*)*it;
@@ -174,13 +174,18 @@ void Game::choose_skin()
       {
         try
           {
+            // We load the logo sprite in the gfx ressources file
             CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(dir+scanner.get_name()), true);
             CL_Surface *logo = new CL_Surface("logo", &gfx);
+            // We had the logo in the logos list
             skins_selector.logo_list.insert(skins_selector.logo_list.end(), logo);
+            // And the skin in the skins list
             skins_selector.list.insert(skins_selector.list.end(), dir+scanner.get_name());
             
+            // If current skin is the skin we're looking
             if(skin == dir+scanner.get_name())
             {
+              // We set the selection variable to it (and selector menu will show this skin)
               skins_selector.current_selection = skins_selector.number;
               skins_selector.list_index_top = skins_selector.number - 1;
 
@@ -219,11 +224,14 @@ void Game::draw_skins_selector()
       draw(250, y+skins_selector.top+i*(150+skins_selector.separation));
   }
 
+  // Displaying the "Can't change skin" message if needed...
   if(skins_selector.display_cant_change)
   {
+    // We stop displaying message when enter key is pressed
      if(key.enter -> get())
        skins_selector.display_cant_change = false;
 
+     // Displaying the sprite in the middle of the screen
      int x = 400 - skins_selector.cant_change_skin -> get_width()/2;
      int y = 300 - skins_selector.cant_change_skin -> get_height()/2;
      skins_selector.cant_change_skin -> draw(x,y);
@@ -265,7 +273,7 @@ void Game::draw_skins_selector()
    {
      std::string requested_skin = skins_selector.list[skins_selector.current_selection];
 
-     /* We llook if last element is unlocked with the requested skin */
+     /* We look if last element is unlocked with the requested skin */
      bool skin_enabled = false;
      if(visible_pieces > 3)
      {

@@ -63,8 +63,11 @@
 class Game{
 
   // Context
+  
+  /** Window of the game */
   CL_DisplayWindow  * window;
-  CL_GraphicContext * gc;
+  
+  /** True if OpenGL is used, false is it's SDL */
   bool opengl;
 
   // Sprites
