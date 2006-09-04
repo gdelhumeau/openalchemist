@@ -38,15 +38,28 @@ class App:
                 # Add events
                 self.window.connect("destroy", self._event_quit)
 
-                self.window.mainbox = gtk.VBox(homogeneous = False, spacing=0)
+                self.window.mainbox = gtk.VBox(homogeneous = False, spacing=10)
                 self.window.add(self.window.mainbox)
 
                 #self.window.table = gtk.Table(columns = 2)
                 #self.window.mainbox.pack_start(self.window.table)
 
-                self.window.use_opengl = gtk.CheckButton(label="Use 3D Acceleration (OpenGL)")
-                self.window.mainbox.pack_start(self.window.use_opengl, fill=False, expand=False)
+                self.window.render_frame = gtk.Frame("Render")
+                self.window.mainbox.pack_start(self.window.render_frame, fill=False, expand=False)
+                self.window.render_box = gtk.VBox(homogeneous = True, spacing = 0)
+                self.window.render_frame.add(self.window.render_box)
+                self.window.rbt_sdl = gtk.RadioButton(label="SDL")
+                self.window.render_box.pack_start(self.window.rbt_sdl, fill=False, expand=False)
+                self.window.rbt_opengl = gtk.RadioButton(label="OpenGL", group=self.window.rbt_sdl)
+                self.window.render_box.pack_start(self.window.rbt_opengl, fill=False, expand=False)
 
+                self.window.fps_frame = gtk.Frame("Limit framerate to :")
+                self.window.mainbox.pack_start(self.window.fps_frame, fill=False, expand=False)
+                self.window.txt_fps = gtk.Entry()
+                self.window.txt_fps.set_text("200")
+                self.window.fps_frame.add(self.window.txt_fps)
+
+               
                 self.window.bt_start = gtk.Button("Run game")
                 self.window.mainbox.pack_start(self.window.bt_start, fill=False, expand=False)
                 self.window.bt_start.connect("clicked", self._event_ok)
@@ -63,7 +76,7 @@ class App:
 
         def _event_ok(self, event):
                 os.system("cd " + sys.path[0])
-                if self.window.use_opengl.get_active():
+                if self.window.rbt_opengl.get_active():
                         os.system("./openalchemist --opengl")
                 else:
                         os.system("./openalchemist --sdl")
