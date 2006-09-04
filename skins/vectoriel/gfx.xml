@@ -78,6 +78,10 @@
  	<sprite name="cursor">
  		<image file="misc/skin-cursor.png" />
  	</sprite>
+ 	
+ 	<sprite name="cant_change">
+ 		<image file="dialogs/nochangeskin.png" />
+ 	</sprite>
  </section>
   
   <section name="progress-bar">

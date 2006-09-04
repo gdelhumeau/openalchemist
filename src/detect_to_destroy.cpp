@@ -128,6 +128,7 @@ void Game::detect_to_destroy()
             if(new_piece.piece_number > visible_pieces - 1)
             {
               ++visible_pieces;
+              skins_selector.set_skin_value(skin, visible_pieces);
             }
             if(new_piece.piece_number > unlocked_pieces)
             {

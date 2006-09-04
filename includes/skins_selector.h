@@ -21,10 +21,17 @@
 #ifndef _SKINS_SELECTOR_H_
 #define _SKINS_SELECTOR_H_
 
+class SkinsPropreties{
+  public:
+  std::string filename;
+  u_int element; 
+};
+
 class SkinsSelector{
 
   public:
   CL_Sprite *menu;
+  CL_Sprite *cant_change_skin;
   std::vector<std::string> list;
   std::vector<CL_Surface*> logo_list;
   int number;
@@ -33,6 +40,14 @@ class SkinsSelector{
   int top;
   int separation;
 
+  bool display_cant_change;
+
+  /* About limitations */
+  std::vector<SkinsPropreties*> propreties_list;
+  
+  void read_file();
+  void set_skin_value(std::string skin, int value);
+  void write_file();
   void load_gfx(CL_ResourceManager *gfx);
   void unload_gfx();
 

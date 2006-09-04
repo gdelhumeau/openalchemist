@@ -44,6 +44,7 @@ void FrontLayer::unload_gfx()
   std::list<FrontLayerSprite*>::iterator it = list.begin();
   while(!list.empty())
   {
+    delete *it;
     it = list.erase(it);
   }
 

@@ -20,12 +20,94 @@
 
 #include "headers.h"
 
+void SkinsSelector::read_file()
+{
+
+  std::string path = get_save_path();
+#ifdef WIN32
+  std::string file_path = path + "\\skins";
+#else
+  std::string file_path = path + "/skins";
+#endif
+
+  propreties_list.clear();
+  try
+  {
+    CL_InputSource_File file(file_path);
+    while(file.tell() != file.size())
+    {
+      SkinsPropreties *sp = new SkinsPropreties();
+      sp -> filename = file.read_string();
+      sp -> element = file.read_uint8();
+      propreties_list.insert(propreties_list.end(), sp);
+    }
+    file.close();
+    
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "Error while reading " << file_path << " file, probably doesn't exist yet." << std::endl;
+  }
+}
+
+void SkinsSelector::set_skin_value(std::string skin, int value)
+{
+  bool is_setted = false;
+  for(u_int i=0; i<propreties_list.size(); ++i)
+  {
+    if(propreties_list[i]->filename == skin && (int)propreties_list[i]->element < value)
+    {
+      propreties_list[i]->element = value;
+      is_setted = true;
+    }
+  }
+
+  if(!is_setted)
+  {
+    SkinsPropreties *sp = new SkinsPropreties();
+    sp -> filename = skin;
+    sp -> element = value;
+    propreties_list.insert(propreties_list.end(), sp);
+  }
+}
+
+void SkinsSelector::write_file()
+{
+  std::string path = get_save_path();
+#ifdef WIN32
+  std::string file_path = path + "\\skins";
+#else
+  std::string file_path = path + "/skins";
+#endif
+
+  try
+  {
+    CL_OutputSource_File file(file_path);
+    std::vector<SkinsPropreties*>::iterator it = propreties_list.begin();
+    while(!propreties_list.empty())
+    {
+      SkinsPropreties *sp = (SkinsPropreties*)*it;
+      file.write_string(sp->filename);
+      file.write_uint8(sp->element);
+      delete sp;
+      it = propreties_list.erase(it);
+    }
+    file.close();
+        
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "Error reading " << file_path << "file, probably doesn't exist yet." << std::endl;
+  }
+}
+
 
 void SkinsSelector::load_gfx(CL_ResourceManager *gfx)
 {
   menu = new CL_Sprite("skins-selector/cursor", gfx);
   top = CL_Integer_to_int("skins-selector/top", gfx);
   separation = CL_Integer_to_int("skins-selector/separation", gfx);
+  cant_change_skin = new CL_Sprite("skins-selector/cant_change", gfx);
 }
 
 void SkinsSelector::unload_gfx()
@@ -106,42 +188,79 @@ void Game::draw_skins_selector()
     skins_selector.logo_list[i+skins_selector.list_index_top] -> 
       draw(250, y+skins_selector.top+i*(150+skins_selector.separation));
   }
-}
 
-void Game::key_events_skins_selector()
-{
-  if(key.echap->get())
-  {   
-    if(pause.requested)
-      pause.step = PAUSE_STEP_MENU;    
-    else
-      pause.is_paused = false;
-  }
-  
-  if(key.up -> get())
+  if(skins_selector.display_cant_change)
   {
-    skins_selector.current_selection--;
-    if(skins_selector.current_selection < 0)
-      skins_selector.current_selection = 0;
-    if(skins_selector.current_selection < skins_selector.list_index_top)
-      skins_selector.list_index_top = skins_selector.current_selection;
-  }
+     if(key.enter -> get())
+       skins_selector.display_cant_change = false;
 
-  if(key.down -> get())
-  {
-    if((int)skins_selector.current_selection < (int)skins_selector.list.size()-1)
-      skins_selector.current_selection++;
-    if(skins_selector.current_selection > skins_selector.list_index_top + 1)
-      skins_selector.list_index_top++;    
-  }
+     int x = 400 - skins_selector.cant_change_skin -> get_width()/2;
+     int y = 300 - skins_selector.cant_change_skin -> get_height()/2;
+     skins_selector.cant_change_skin -> draw(x,y);
 
-  if(key.enter -> get())
-  {
-    skin = skins_selector.list[skins_selector.current_selection];
-    Preferences* pref = pref_get_instance();
-    pref -> skin = skin;
-    save_preferences();
-    load_gfx();
+   }
+ }
+
+ void Game::key_events_skins_selector()
+ {
+   if(key.echap->get())
+   {   
+     if(pause.requested)
+       pause.step = PAUSE_STEP_MENU;    
+     else
+       pause.is_paused = false;
+   }
+
+   if(key.up -> get())
+   {
+     skins_selector.current_selection--;
+     if(skins_selector.current_selection < 0)
+       skins_selector.current_selection = 0;
+     if(skins_selector.current_selection < skins_selector.list_index_top)
+       skins_selector.list_index_top = skins_selector.current_selection;
+   }
+
+   if(key.down -> get())
+   {
+     if((int)skins_selector.current_selection < (int)skins_selector.list.size()-1)
+       skins_selector.current_selection++;
+     if(skins_selector.current_selection > skins_selector.list_index_top + 1)
+       skins_selector.list_index_top++;    
+   }
+
+   if(key.enter -> get())
+   {
+     std::string requested_skin = skins_selector.list[skins_selector.current_selection];
+
+     /* We llook if last element is unlocked with the requested skin */
+     bool skin_enabled = false;
+     if(visible_pieces > 3)
+     {
+       for(u_int i=0; i<skins_selector.propreties_list.size(); ++i)
+       {
+         if(skins_selector.propreties_list[i]->filename == requested_skin && 
+            (int)skins_selector.propreties_list[i]->element >= visible_pieces )
+           skin_enabled = true;
+
+       }
+     }
+     else
+     {
+       skin_enabled = true;
+     }
+
+     if(skin_enabled)
+     {
+       skin = requested_skin;
+       Preferences* pref = pref_get_instance();
+       pref -> skin = skin;
+       save_preferences();
+       load_gfx();
+     }
+     else
+     {
+       skins_selector.display_cant_change = true;
+     }
   }
 }
 

@@ -155,12 +155,12 @@ void Game::draw_pause()
 {
   if(PAUSE_STEP_APPEARING == pause.step)
   {
-    if(pause.alpha+0.007*time_interval >= pause.max_alpha)
+    if(pause.alpha+0.003*time_interval >= pause.max_alpha)
     {
       pause.step = PAUSE_STEP_MENU;
       pause.alpha = 1.0;
     }
-    pause.alpha += 0.007*time_interval;
+    pause.alpha += 0.003*time_interval;
 
     int x = 400 - pause.background -> get_width()/2;
     int y = 300 - pause.background -> get_height()/2;

@@ -56,6 +56,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
   srand(CL_System::get_time());
 
   read_scores();
+  skins_selector.read_file();
 
 }
 
@@ -79,6 +80,8 @@ Game::~Game()
   delete next_piece2;
   delete current_piece1;
   delete current_piece2; 
+
+  skins_selector.write_file();
 
   
 }

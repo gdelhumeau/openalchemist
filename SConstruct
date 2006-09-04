@@ -9,6 +9,9 @@ CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 c
 CPPPATH = "includes"
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
 
+INCLUDES_TO_CHECK = "vector list ClanLib/core.h ClanLib/application.h ClanLib/gl.h ClanLib/display.h"
+LIBS_TO_CHECK = "clanCore clanDisplay clanSignals clanApp clanGL clanSDL"
+
 
 # CONFIGURING ENVIRONNEMENT
 env = Environment()
@@ -16,15 +19,17 @@ env.ParseConfig(LIBS)
 conf = Configure(env)
 
 # CHECKING LIBRAIRIES
-if not conf.CheckCXXHeader('ClanLib/application.h'):
-	print 'Clanlib must be installed!'
-	Exit(1)        
-if not conf.CheckLib('clanCore'):
-	print "Clanlib must be installed!"
-	Exit(1)
-if not conf.CheckLib('clanDisplay'):
-	print "Clanlib must be installed!"
-	Exit(1)
+for h in Split(INCLUDES_TO_CHECK):
+        if not conf.CheckCXXHeader(h):
+                print h+' must be installed!'
+                Exit(1)
+
+# CHECKING LIBRAIRIES
+for l in Split(LIBS_TO_CHECK):
+        if not conf.CheckLib(l):
+                print "lib: "+l+' must be installed!'
+                Exit(1)
+
 
 env = conf.Finish()
 
