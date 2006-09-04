@@ -84,6 +84,7 @@ clean:
 	-rm openalchemist
 	-rm skins/aqua.zip
 	-rm skins/brushed.zip
+	-rm skins/vectoriel.zip
 
 install: openalchemist
 	mkdir $(INSTALL_DIR)

@@ -180,29 +180,11 @@ void Game::load_gfx()
   
 
   gfx_misc.load_gfx(&gfx);
-
-  // Look if frontlayer.xml is existing
-  front_layer.enabled = false;
-  std::vector<CL_Zip_FileEntry> file_list = zip.get_file_list();
-  for(u_int i=0; i<file_list.size(); ++i)
-  {
-    if(file_list[i].get_filename() == "frontlayer.xml")
-      front_layer.enabled = true;      
-  }
-
-  if(front_layer.enabled)
-  {   
-    CL_ResourceManager gfx_frontlayer("frontlayer.xml", &zip, false);
-    front_layer.load_gfx(&gfx_frontlayer);
-  } 
-
-
-  
   pieces.load_gfx(&gfx_pieces);
   pause.load_gfx(&gfx_pause);
   progress_bar.load_gfx(&gfx);
   skins_selector.load_gfx(&gfx);
-  
+  front_layer.load_gfx(&zip);
  
   // c² = a²+b³
   current_pieces_r = pieces.width/2;

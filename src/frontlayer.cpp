@@ -20,6 +20,24 @@
 
 #include "headers.h"
 
+void FrontLayer::load_gfx(CL_Zip_Archive *zip)
+{
+  // Look if frontlayer.xml is existing
+  enabled = false;
+  std::vector<CL_Zip_FileEntry> file_list = zip -> get_file_list();
+  for(u_int i=0; i<file_list.size(); ++i)
+  {
+    if(file_list[i].get_filename() == "frontlayer.xml")
+      enabled = true;      
+  }
+
+  if(enabled)
+  {   
+    CL_ResourceManager gfx_frontlayer("frontlayer.xml", zip, false);
+    load_gfx(&gfx_frontlayer);
+  } 
+}
+
 
 void FrontLayer::load_gfx(CL_ResourceManager *gfx_frontlayer)
 {

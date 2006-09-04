@@ -36,6 +36,7 @@ class FrontLayer{
   bool enabled;
   
   std::list<FrontLayerSprite*> list;
+  void load_gfx(CL_Zip_Archive *zip);
   void load_gfx(CL_ResourceManager *gfx_frontlayer);
   void unload_gfx();
   void draw();

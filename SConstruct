@@ -65,6 +65,7 @@ def zipFile(dir):
 # SKINS GENERATION
 zipFile('skins/aqua')
 zipFile('skins/brushed')
+zipFile('skins/vectoriel')
 
 
 
