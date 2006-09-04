@@ -30,6 +30,7 @@
 #include <vector>
 #include <list>
 #include "piece.h"
+#include "gfx_misc.h"
 #include "KeyboardKey.h"
 #include "key.h"
 #include "coords.h"
