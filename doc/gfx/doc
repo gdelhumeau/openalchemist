@@ -1,0 +1,25 @@
+How to make a new skin for OpenAlchemist
+----------------------------------------
+
+
+OpenAlchemist lets a lot of freedoms for gfx artists. Many things like elements positions are setted in a XML file and so you can make a completely different game appearance. This flexibilty makes that you must know how to edit the XML file to use of all the possibilities this game offers. Of course, you could also change an existing skin by editing PNG files if you don't want to learn the system, but you'll miss a lot of things and some of them could not work again.
+
+How to make a new XML File ?
+----------------------------
+
+XML use a strict language syntax but easy to understand. An XML file looks like that:
+
+<xml>
+        <sprite>
+                <image name = "background.png" />
+        </sprite>
+</xml>
+
+As you can see, XML is based on tags (witch begins with "<" and ends by ">") openings and closings. A tag between too others is a child of thoses others. For example: here <sprite> is a children of <xml> and <image> is the children of <sprite>. A tag could contains many childs. But when a tag doesn't contain a children, you have to write <tag /> whereas you wrote <tag> </tag> before. 
+
+This system is usefull to sort datas with logics associations.
+
+What are the tags I have to learn ?
+-----------------------------------
+
+A gfx.xml file begins with the tag <resources>. This tags contains some "integers" tags. 
