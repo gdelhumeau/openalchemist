@@ -178,6 +178,9 @@ void Game::load_gfx()
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
   CL_ResourceManager gfx_pause("menu_pause.xml", &zip, false);
   
+
+  gfx_misc.load_gfx(&gfx);
+
   // Look if frontlayer.xml is existing
   front_layer.enabled = false;
   std::vector<CL_Zip_FileEntry> file_list = zip.get_file_list();
@@ -199,30 +202,6 @@ void Game::load_gfx()
   pause.load_gfx(&gfx_pause);
   progress_bar.load_gfx(&gfx);
   skins_selector.load_gfx(&gfx);
-
-  background = new CL_Surface("background", &gfx);
-  game_over = new CL_Surface("gameover", &gfx);  
-  new_hightscore = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
-  
-
-  // Load the font, to display score and framerate
-  font_a = new CL_Font("font", &gfx);  
-
-  // Load some var
-  game_top = CL_Integer_to_int("game/top", &gfx);
-  game_left = CL_Integer_to_int("game/left", &gfx); 
-
-  zone_top = CL_Integer_to_int("zone_top", &gfx);    
-  next_left = CL_Integer_to_int("game/next_left", &gfx);
-  next_top = CL_Integer_to_int("game/next_top", &gfx);
-  score_top = CL_Integer_to_int("score_top", &gfx);
-  score_right = CL_Integer_to_int("score_right", &gfx);
-  bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
-  bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
-  hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
-  hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
-  new_score_top = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
-  old_score_top = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
   
  
   // c² = a²+b³
@@ -246,6 +225,7 @@ void Game::unload_gfx()
     return;
   }
   
+  gfx_misc.unload_gfx();
   pieces.unload_gfx();
   pause.unload_gfx();
   progress_bar.unload_gfx();
@@ -254,9 +234,6 @@ void Game::unload_gfx()
   if(front_layer.enabled)
     front_layer.unload_gfx();
   
-  delete background;
-  delete font_a;
-  delete new_hightscore;
    
   is_gfx_loaded = false;
 

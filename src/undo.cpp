@@ -39,7 +39,7 @@ void Game::undo_last()
           body[i][j] = new Piece(undo.body[i][j]);
           body[i][j] -> set_sprites(pieces.normal[undo.body[i][j]], pieces.appearing[undo.body[i][j]],
                                     pieces.disappearing[undo.body[i][j]], pieces.mini[undo.body[i][j]]);
-          body[i][j] -> set_position(i*pieces.width+game_left,game_top+(j-2)*pieces.height);
+          body[i][j] -> set_position(i*pieces.width+gfx_misc.game_left,gfx_misc.game_top+(j-2)*pieces.height);
         }
       } 
 

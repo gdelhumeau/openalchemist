@@ -25,6 +25,23 @@
 
 class GfxMisc{
 
+  public:
+  
+  // Sprites
+  CL_Surface * background, *game_over;
+  CL_Sprite *new_hightscore;
+  CL_Font *font_a;
+
+  int game_top, game_left, zone_top, next_top, next_left;
+  
+  int score_top, score_right;
+  int bonus_top, bonus_right;
+  int hightscore_top, hightscore_right;
+  int new_score_top, old_score_top;
+
+  void load_gfx(CL_ResourceManager *gfx);
+  void unload_gfx();
+   
 };
 
 #endif

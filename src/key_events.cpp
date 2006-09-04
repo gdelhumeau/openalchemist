@@ -231,11 +231,11 @@ void Game::key_events_playing()
       undo.visible_pieces = visible_pieces;
         
 
-      current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                     zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
+      current_piece1 -> set_position(gfx_misc.game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
+                                     gfx_misc.zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
-      current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
-                                     zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
+      current_piece2 -> set_position(gfx_misc.game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
+                                     gfx_misc.zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
       
       Piece *piece_on_top, *piece_on_bottom;
       if(current_piece1 -> get_y() <= current_piece2 -> get_y())
@@ -249,8 +249,8 @@ void Game::key_events_playing()
         piece_on_bottom = current_piece1;
       }
 
-      int piece_top_x = (int)((int)piece_on_top->get_x()-game_left)/(pieces.width);
-      int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(pieces.width);  
+      int piece_top_x = (int)((int)piece_on_top->get_x()-gfx_misc.game_left)/(pieces.width);
+      int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-gfx_misc.game_left)/(pieces.width);  
         
       int y_bottom = -1;
       while(y_bottom < NUMBER_OF_LINES-1 && !body[piece_bottom_x][y_bottom+1])
@@ -283,8 +283,10 @@ void Game::key_events_playing()
       {          
         body[piece_top_x][y_top] = piece_on_top;
       } 
-      piece_on_bottom -> start_fall(piece_bottom_x*pieces.width+game_left,game_top+(y_bottom-2)*pieces.height);
-      piece_on_top -> start_fall(piece_top_x*pieces.width+game_left,game_top+(y_top-2)*pieces.height);
+      piece_on_bottom -> start_fall(piece_bottom_x*pieces.width+gfx_misc.game_left,
+                                    gfx_misc.game_top+(y_bottom-2)*pieces.height);
+      piece_on_top -> start_fall(piece_top_x*pieces.width+gfx_misc.game_left,
+                                 gfx_misc.game_top+(y_top-2)*pieces.height);
                
         
       if(game_mode == GAME_MODE_PLAYING)

@@ -38,7 +38,7 @@ void Game::detect_to_fall()
           body[i][j+k] = body[i][j+k-1];
           body[i][j+k-1] = NULL;
           body[i][j+k] -> start_fall((int)(body[i][j+k]->get_x()),
-                                     (int)(game_top+(j+k-2)*pieces.height));
+                                     (int)(gfx_misc.game_top+(j+k-2)*pieces.height));
           k++;
         }
         if(k>1)

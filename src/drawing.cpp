@@ -34,21 +34,21 @@
 void Game::draw_game()
 {
        
-  background->draw(0,0);    
-  font_a->draw(580,550,to_string(fps)); 
+  gfx_misc.background->draw(0,0);    
+  gfx_misc.font_a->draw(580,550,to_string(fps)); 
 
   /* Displaying scores */
   std::string score = format_number(to_string(global_score));
   std::string bonus = format_number(to_string(global_bonus));
   std::string hightscore = format_number(to_string(hightscores[current_difficulty])); 
 
-  int score_width = font_a->get_width(score, CL_Size(0, 0));
-  int bonus_width = font_a->get_width(bonus, CL_Size(0, 0));
-  int hightscore_width = font_a->get_width(hightscore, CL_Size(0, 0));
+  int score_width = gfx_misc.font_a->get_width(score, CL_Size(0, 0));
+  int bonus_width = gfx_misc.font_a->get_width(bonus, CL_Size(0, 0));
+  int hightscore_width = gfx_misc.font_a->get_width(hightscore, CL_Size(0, 0));
 
-  font_a->draw(score_right - score_width, score_top, score);
-  font_a->draw(bonus_right - bonus_width, bonus_top, bonus);
-  font_a->draw(hightscore_right - hightscore_width, hightscore_top, hightscore);
+  gfx_misc.font_a->draw(gfx_misc.score_right - score_width, gfx_misc.score_top, score);
+  gfx_misc.font_a->draw(gfx_misc.bonus_right - bonus_width, gfx_misc.bonus_top, bonus);
+  gfx_misc.font_a->draw(gfx_misc.hightscore_right - hightscore_width, gfx_misc.hightscore_top, hightscore);
 
   /* We draw unlocked pieces */
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
@@ -128,11 +128,11 @@ void Game::draw_playing()
 {
   
 
-  current_piece1 -> set_position(game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
-                                 zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
+  current_piece1 -> set_position(gfx_misc.game_left+position_x+cos(current_pieces_angle*TO_RAD)*current_pieces_r,
+                                 gfx_misc.zone_top+pieces.height/2+sin((current_pieces_angle)*TO_RAD)*current_pieces_r);
 
-  current_piece2 -> set_position(game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
-                                 zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
+  current_piece2 -> set_position(gfx_misc.game_left+position_x+cos((current_pieces_angle+180)*TO_RAD)*current_pieces_r,
+                                 gfx_misc.zone_top+pieces.height/2+sin((current_pieces_angle+180)*TO_RAD)*current_pieces_r);
      
   current_piece1 -> draw();
   current_piece2 -> draw();
@@ -253,8 +253,8 @@ void Game::draw_destroying()
 
         int score = c->piece_number;
         Piece *p = new Piece(score);  
-        p -> set_position(c->x*pieces.width+game_left,
-                          game_top+(c->y-2)*pieces.height);
+        p -> set_position(c->x*pieces.width+gfx_misc.game_left,
+                          gfx_misc.game_top+(c->y-2)*pieces.height);
                
         p -> set_sprites(pieces.normal[score], pieces.appearing[score],
                          pieces.disappearing[score], pieces.mini[score]);
@@ -337,7 +337,7 @@ void Game::draw_to_playing()
 void Game::draw_game_over()
 {
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
-    game_over -> draw(400-game_over->get_width()/2, 300-game_over->get_height()/2);
+    gfx_misc.game_over -> draw(400-gfx_misc.game_over->get_width()/2, 300-gfx_misc.game_over->get_height()/2);
 }
 
 /**
@@ -347,12 +347,13 @@ void Game::draw_new_hightscore()
 {
   if(current_piece1 -> fall(time_interval) & current_piece2 -> fall(time_interval))
   {
-    new_hightscore -> draw(400-new_hightscore -> get_width()/2, 300-new_hightscore -> get_height()/2);
-    new_hightscore -> update();
-    font_a->draw(400-font_a->get_width(format_number(to_string(global_score+global_bonus)))/2, 
-                 new_score_top, format_number(to_string(global_score+global_bonus)));
-    font_a->draw(400-font_a->get_width(format_number(to_string(last_hightscore)))/2,
-                 old_score_top, format_number(to_string(last_hightscore)));
+    gfx_misc.new_hightscore -> draw(400-gfx_misc.new_hightscore -> get_width()/2,
+                                    300-gfx_misc.new_hightscore -> get_height()/2);
+    gfx_misc.new_hightscore -> update();
+    gfx_misc.font_a->draw(400-gfx_misc.font_a->get_width(format_number(to_string(global_score+global_bonus)))/2, 
+                 gfx_misc.new_score_top, format_number(to_string(global_score+global_bonus)));
+    gfx_misc.font_a->draw(400-gfx_misc.font_a->get_width(format_number(to_string(last_hightscore)))/2,
+                 gfx_misc.old_score_top, format_number(to_string(last_hightscore)));
   }
 
 }

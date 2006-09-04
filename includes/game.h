@@ -71,9 +71,11 @@ class Game{
   /** True if OpenGL is used, false is it's SDL */
   bool opengl;
 
-  // Sprites
-  CL_Surface * background, *game_over;
-  CL_Font *font_a;
+  // Skin
+  std::string skin;
+
+  // Gfx Misc
+  GfxMisc gfx_misc;
 
   // Pieces Sprites
   Pieces pieces;
@@ -99,27 +101,16 @@ class Game{
   // Sounds
   int sound_level, music_level;
 
-  // Menus
-  CL_Sprite *new_hightscore;
-  int new_score_top, old_score_top;
-  
+    
   // Available pieces
   int unlocked_pieces;
   int visible_pieces;
   
-  std::string skin;
   bool is_gfx_loaded;
-  
   bool falling_requested;
 
 
   int fps;
-
-  int game_top, game_left, zone_top, next_top, next_left;
-  
-  int score_top, score_right;
-  int bonus_top, bonus_right;
-  int hightscore_top, hightscore_right;
   int combo;
 
   u_int hightscores[NUMBER_OF_DIFFICULTIES];

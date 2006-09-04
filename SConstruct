@@ -4,7 +4,7 @@
 import zipfile, os
 
 # CONFIGURATION
-FILES = "bin/main.cpp bin/game.cpp bin/detect_to_destroy.cpp bin/detect_to_fall.cpp bin/drawing.cpp bin/hightscores.cpp bin/key_events.cpp bin/preferences.cpp bin/skins-selector.cpp bin/pause.cpp bin/misc.cpp bin/progress_bar.cpp bin/undo.cpp bin/pieces.cpp bin/key.cpp bin/frontlayer.cpp"
+FILES = "bin/main.cpp bin/game.cpp bin/detect_to_destroy.cpp bin/detect_to_fall.cpp bin/drawing.cpp bin/hightscores.cpp bin/key_events.cpp bin/preferences.cpp bin/skins-selector.cpp bin/pause.cpp bin/misc.cpp bin/progress_bar.cpp bin/undo.cpp bin/pieces.cpp bin/key.cpp bin/frontlayer.cpp bin/gfx_misc.cpp"
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
 CPPPATH = "includes"
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
