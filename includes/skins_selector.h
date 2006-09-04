@@ -44,7 +44,7 @@ class SkinsSelector{
 
   /* About limitations */
   std::vector<SkinsPropreties*> propreties_list;
-  
+
   void read_file();
   void set_skin_value(std::string skin, int value);
   void write_file();

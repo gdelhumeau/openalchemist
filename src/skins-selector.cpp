@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,9 @@
 
 #include "headers.h"
 
+/**
+ *  This method read the ~/.openalchemist/skins file. This file contains the number of the last unlocked pieces with each skin.
+*/
 void SkinsSelector::read_file()
 {
 
@@ -50,27 +53,45 @@ void SkinsSelector::read_file()
   }
 }
 
+/**
+ * This method saves the last element you have discovered with the current skin.
+ */
 void SkinsSelector::set_skin_value(std::string skin, int value)
 {
-  bool is_setted = false;
+  // To know if we have to create a new propreties object, see below.
+  bool is_listed = false;
+  
+  // First, looking if skin is already knew in the skin propreties list...
   for(u_int i=0; i<propreties_list.size(); ++i)
   {
-    if(propreties_list[i]->filename == skin && (int)propreties_list[i]->element < value)
+    // If True, we juste have to change the value
+    if(propreties_list[i]->filename == skin)
     {
-      propreties_list[i]->element = value;
-      is_setted = true;
+      // If the value have to be changed, we do it
+      if((int)propreties_list[i]->element < value)
+        propreties_list[i]->element = value;
+     
+      // We can say the value is setted
+      is_listed = true;
     }
   }
 
-  if(!is_setted)
+  // Here, skin isn't in the list yet
+  if(!is_listed)
   {
+    // So we create the propreties object
     SkinsPropreties *sp = new SkinsPropreties();
+    // And set the values
     sp -> filename = skin;
     sp -> element = value;
+    // Finally, we put the propreties object in the list
     propreties_list.insert(propreties_list.end(), sp);
   }
 }
 
+/**
+ * Write the file witch contains the last pieces discovred with each skin.
+ */
 void SkinsSelector::write_file()
 {
   std::string path = get_save_path();
@@ -102,6 +123,9 @@ void SkinsSelector::write_file()
 }
 
 
+/**
+ * This method loads the sprites needeed by the skin selector in the gfx ressource file.
+ */
 void SkinsSelector::load_gfx(CL_ResourceManager *gfx)
 {
   menu = new CL_Sprite("skins-selector/cursor", gfx);
@@ -110,15 +134,18 @@ void SkinsSelector::load_gfx(CL_ResourceManager *gfx)
   cant_change_skin = new CL_Sprite("skins-selector/cant_change", gfx);
 }
 
+/**
+ * This method delete sprites used by the skin selector.
+ */
 void SkinsSelector::unload_gfx()
 {
   delete menu;
+  delete cant_change_skin;
 }
 
 
-
 /**
- * This method runs the skin-selector
+ * This method runs the skin-selector (scanning /skins folder).
  */
 void Game::choose_skin()
 {
@@ -175,6 +202,9 @@ void Game::choose_skin()
   
 }
 
+/**
+ * Draws the skin selector menu.
+ */
 void Game::draw_skins_selector()
 {
 
@@ -201,6 +231,9 @@ void Game::draw_skins_selector()
    }
  }
 
+/**
+ * Looks the key events witch are used by the skin selector.
+ */
  void Game::key_events_skins_selector()
  {
    if(key.echap->get())
