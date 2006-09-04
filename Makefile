@@ -1,6 +1,6 @@
 PACKAGES = clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8
 LIBS = `pkg-config --libs $(PACKAGES)`
-OPTIONS =  -Iincludes -Wall -g
+OPTIONS =  -Iincludes -Wall #-g
 LINKER_OPTIONS =  #-u malloc -lefence
 STATIC_LIBS = `pkg-config --libs $(PACKAGES) --static`
 CFLAGS = `pkg-config --cflags $(PACKAGES)`

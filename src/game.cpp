@@ -190,7 +190,9 @@ void Game::load_gfx()
   current_pieces_r = pieces.width/2;
 
   apply_skin();
-     
+  calc_score();
+ 
+
   // So now we can say that the GFX are loaded
   is_gfx_loaded = true;
   
@@ -257,6 +259,18 @@ void Game::calc_score()
         global_score += body[i][j]->get_score_value();                           
       }
     }
+
+  str_score = format_number(to_string(global_score));
+  str_bonus = format_number(to_string(global_bonus));
+  str_hightscore = format_number(to_string(hightscores[current_difficulty])); 
+
+  int score_width = gfx_misc.font_a->get_width(str_score, CL_Size(0, 0));
+  int bonus_width = gfx_misc.font_a->get_width(str_bonus, CL_Size(0, 0));
+  int hightscore_width = gfx_misc.font_a->get_width(str_hightscore, CL_Size(0, 0));
+
+  score_left = gfx_misc.score_right - score_width;
+  bonus_left = gfx_misc.bonus_right - bonus_width;
+  hightscore_left = gfx_misc.hightscore_right - hightscore_width;
 }
 
 /**

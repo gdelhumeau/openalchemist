@@ -38,17 +38,10 @@ void Game::draw_game()
   gfx_misc.font_a->draw(580,550,to_string(fps)); 
 
   /* Displaying scores */
-  std::string score = format_number(to_string(global_score));
-  std::string bonus = format_number(to_string(global_bonus));
-  std::string hightscore = format_number(to_string(hightscores[current_difficulty])); 
-
-  int score_width = gfx_misc.font_a->get_width(score, CL_Size(0, 0));
-  int bonus_width = gfx_misc.font_a->get_width(bonus, CL_Size(0, 0));
-  int hightscore_width = gfx_misc.font_a->get_width(hightscore, CL_Size(0, 0));
-
-  gfx_misc.font_a->draw(gfx_misc.score_right - score_width, gfx_misc.score_top, score);
-  gfx_misc.font_a->draw(gfx_misc.bonus_right - bonus_width, gfx_misc.bonus_top, bonus);
-  gfx_misc.font_a->draw(gfx_misc.hightscore_right - hightscore_width, gfx_misc.hightscore_top, hightscore);
+  
+  gfx_misc.font_a->draw(score_left, gfx_misc.score_top, str_score);
+  gfx_misc.font_a->draw(bonus_left, gfx_misc.bonus_top, str_bonus);
+  gfx_misc.font_a->draw(hightscore_left, gfx_misc.hightscore_top, str_hightscore);
 
   /* We draw unlocked pieces */
   for(int i=0; i<NUMBER_OF_PIECES; ++i)

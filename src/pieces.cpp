@@ -95,6 +95,6 @@ void Game::apply_skin()
   // The next_pieces depends on the skin, so:
   next_piece1 -> set_position(gfx_misc.next_left, gfx_misc.next_top);
   next_piece2 -> set_position(gfx_misc.next_left+(pieces.width)/2,gfx_misc.next_top);
-  
+
 
 }

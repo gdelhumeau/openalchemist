@@ -123,6 +123,15 @@ class Game{
   u_int global_score;
   u_int global_bonus;
   u_int last_hightscore;
+  // The same in string format
+  std::string str_score;
+  std::string str_bonus;
+  std::string str_hightscore;
+  // Displaying...
+  int score_left;
+  int bonus_left;
+  int hightscore_left;
+
 
   // Game Table
   Piece *body[NUMBER_OF_COLS][NUMBER_OF_LINES];
