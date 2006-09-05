@@ -20,7 +20,7 @@
 
 #include "headers.h"
 
-#define OPTIONS_FILE_REVISION 3
+#define OPTIONS_FILE_REVISION 4
 
 Preferences* pref_get_instance()
 {
@@ -159,6 +159,10 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   {
     maxfps = file -> read_int16();
   }
+  if(revision >= 4)
+  {
+    colorblind = file -> read_bool8();
+  }
       
   file -> close();
 
@@ -186,6 +190,8 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   file -> write_string(skin);
   // Maxfps
   file -> write_int16(maxfps);
+  // ColorBlind mode
+  file -> write_bool8(colorblind);
 
   file -> close();
 }
@@ -198,6 +204,7 @@ void Preferences::set_default()
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
+  colorblind = false;
   skin = CL_System::get_exe_path() + "skins/aqua.zip";
 }
 
@@ -207,6 +214,7 @@ void Game::load_preferences()
   sound_level = pref -> sound_level;
   music_level = pref -> music_level;  
   skin =  pref -> skin;
+  colorblind = pref -> colorblind;
  }
 
 void Game::save_preferences()

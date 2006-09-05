@@ -42,6 +42,9 @@ class Preferences
   // Fullscreen
   bool fullscreen;
 
+  // Color Blind
+  bool colorblind;
+
   // Skin
   std::string skin;
 

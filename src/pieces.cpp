@@ -20,16 +20,24 @@
 
 #include "headers.h"
 
-void Pieces::load_gfx(CL_ResourceManager *gfx_pieces)
+void Pieces::load_gfx(CL_ResourceManager *gfx_pieces, bool colorblind)
 {
 
   // First we load the sprites
   for(int i=1; i<=NUMBER_OF_PIECES; ++i)
   {
-    normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", gfx_pieces);
+    if(colorblind)
+      normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal-color-blind", gfx_pieces);
+    else
+      normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", gfx_pieces);
+
     appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", gfx_pieces);
     disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", gfx_pieces);
-    mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", gfx_pieces);
+    
+    if(colorblind)
+      mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little-color-blind", gfx_pieces);
+    else
+      mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", gfx_pieces);
 
    
     progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", gfx_pieces);

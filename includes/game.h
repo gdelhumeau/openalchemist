@@ -98,6 +98,9 @@ class Game{
   // FrontLayer
   FrontLayer front_layer;
 
+  // Color Blind
+  bool colorblind;
+
   // Sounds
   int sound_level, music_level;
 

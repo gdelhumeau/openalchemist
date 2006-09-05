@@ -39,7 +39,7 @@ class Pieces{
   int progress_y[NUMBER_OF_PIECES];
 
   // Methods
-  void load_gfx(CL_ResourceManager *gfx_pieces);
+  void load_gfx(CL_ResourceManager *gfx_pieces, bool colorblind);
   void unload_gfx();
   
 };

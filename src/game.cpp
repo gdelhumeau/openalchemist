@@ -180,7 +180,7 @@ void Game::load_gfx()
   
 
   gfx_misc.load_gfx(&gfx);
-  pieces.load_gfx(&gfx_pieces);
+  pieces.load_gfx(&gfx_pieces, colorblind);
   pause.load_gfx(&gfx_pause);
   progress_bar.load_gfx(&gfx);
   skins_selector.load_gfx(&gfx);

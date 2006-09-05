@@ -160,6 +160,20 @@ public:
           }
           
         }
+        if(strcmp(argv[i], "--cb")==0)
+        {
+          Preferences *pref = pref_get_instance();
+          pref -> colorblind = true;
+          pref -> write();
+         
+        }
+        if(strcmp(argv[i], "--nocb")==0)
+        {
+          Preferences *pref = pref_get_instance();
+          pref -> colorblind = false;
+          pref -> write();
+         
+        }
         
         
       }
@@ -195,9 +209,11 @@ public:
       std::cout << "OpenAlchemist v0.2 -- Help" << std::endl
                 << "Usage: openalchemist [OPTIONS]"  << std::endl  << std::endl
                 << "Options:"  << std::endl
+                << "\t--cb : Active colorblind mode"  << std::endl
                 << "\t--help : Show this message"  << std::endl
                 << "\t--license : Show the license of this program"  << std::endl
-                << "\t--maxfps X : Limit framerate to X"  << std::endl        
+                << "\t--maxfps X : Limit framerate to X"  << std::endl   
+                << "\t--nocb : Unactive colorblind mode"  << std::endl
                 << "\t--opengl : Use OpenGL as render target" << std::endl
                 << "\t--sdl : Use SDL as render target (default)" << std::endl
         ;

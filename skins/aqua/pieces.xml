@@ -12,6 +12,11 @@
 		<sprite name = "normal">
 			<image file = "piece1/normal.png" />
 		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
+			<image file = "piece1/normal-cb.png" />
+		</sprite>
 
 		<!-- Appearing sprite, when you create one -->
 		<sprite name = "appear">
@@ -51,6 +56,11 @@
 		<sprite name = "little">
 			<image file = "piece1/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece1/little-cb.png" />
+		</sprite>
 
 		<!-- Coords of the sprite in the preview area -->
 		<integer name = "progress-x" value = "17" />
@@ -65,6 +75,11 @@
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
 			<image file = "piece2/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
+			<image file = "piece2/normal-cb.png" />
 		</sprite>
 
 		<!-- Appearing sprite, when you create one -->
@@ -105,6 +120,11 @@
 		<sprite name = "little">
 			<image file = "piece2/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece2/little-cb.png" />
+		</sprite>
 
 		<!-- Coords of the sprite in the preview area -->
 		<integer name = "progress-x" value = "17" />
@@ -119,6 +139,11 @@
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
 			<image file = "piece3/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
+			<image file = "piece3/normal-cb.png" />
 		</sprite>
 
 		<!-- Appearing sprite, when you create one -->
@@ -159,6 +184,11 @@
 		<sprite name = "little">
 			<image file = "piece3/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece3/little-cb.png" />
+		</sprite>
 
 		<!-- Coords of the sprite in the preview area -->
 		<integer name = "progress-x" value = "17" />
@@ -173,6 +203,11 @@
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
 			<image file = "piece4/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
+			<image file = "piece4/normal-cb.png" />
 		</sprite>
 
 		<!-- Appearing sprite, when you create one -->
@@ -213,6 +248,11 @@
 		<sprite name = "little">
 			<image file = "piece4/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece4/little-cb.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece4/hidder.png" />
@@ -230,6 +270,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece5/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece5/normal.png" />
 		</sprite>
 
@@ -271,6 +316,11 @@
 		<sprite name = "little">
 			<image file = "piece5/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece5/little.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece5/hidder.png" />
@@ -288,6 +338,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece6/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece6/normal.png" />
 		</sprite>
 
@@ -330,6 +385,11 @@
 			<image file = "piece6/little.png" />
 		</sprite>
 
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece6/little.png" />
+		</sprite>
+
 		<sprite name= "hidder">
 			<image file ="piece6/hidder.png" />
 		</sprite>
@@ -346,6 +406,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece7/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece7/normal.png" />
 		</sprite>
 
@@ -388,6 +453,11 @@
 			<image file = "piece7/little.png" />
 		</sprite>
 
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece7/little.png" />
+		</sprite>
+
 		<sprite name= "hidder">
 			<image file ="piece7/hidder.png" />
 		</sprite>
@@ -404,6 +474,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece8/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece8/normal.png" />
 		</sprite>
 
@@ -445,6 +520,11 @@
 		<sprite name = "little">
 			<image file = "piece8/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece8/little.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece8/hidder.png" />
@@ -462,6 +542,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece9/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece9/normal.png" />
 		</sprite>
 
@@ -503,6 +588,11 @@
 		<sprite name = "little">
 			<image file = "piece9/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece9/little.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece9/hidder.png" />
@@ -520,6 +610,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece10/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece10/normal.png" />
 		</sprite>
 
@@ -561,6 +656,11 @@
 		<sprite name = "little">
 			<image file = "piece10/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece10/little.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece10/hidder.png" />
@@ -578,6 +678,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece11/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece11/normal.png" />
 		</sprite>
 
@@ -619,6 +724,11 @@
 		<sprite name = "little">
 			<image file = "piece11/little.png" />
 		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece11/little.png" />
+		</sprite>
 
 		<sprite name= "hidder">
 			<image file ="piece11/hidder.png" />
@@ -636,6 +746,11 @@
 
 		<!-- Normal sprite, which you see the most of the time -->
 		<sprite name = "normal">
+			<image file = "piece12/normal.png" />
+		</sprite>
+		
+		<!-- Color Blind sprite -->
+		<sprite name = "normal-color-blind">
 			<image file = "piece12/normal.png" />
 		</sprite>
 
@@ -676,6 +791,11 @@
 		<!-- Little sprite, that you see in the next step or in the preview -->
 		<sprite name = "little">
 			<image file = "piece12/little.png" />
+		</sprite>
+		
+		<!-- Little sprite, but for color blind -->
+		<sprite name = "little-color-blind">
+			<image file = "piece5/little.png" />
 		</sprite>
 
 		<sprite name= "hidder">
