@@ -27,7 +27,7 @@ import gtk, os, sys, struct
 
 class App:
 	def __init__(self):
-                self.readfile()
+                #self.readfile()
                 self.init_GUI()                
                 gtk.main()
 
@@ -44,11 +44,13 @@ class App:
                 self.window.connect("destroy", self._event_quit)
 
                 self.window.mainbox = gtk.VBox(homogeneous = False, spacing=10)
+                self.window.mainbox.set_border_width(10)
                 self.window.add(self.window.mainbox)
 
                 self.window.render_frame = gtk.Frame("Render")
                 self.window.mainbox.pack_start(self.window.render_frame, fill=False, expand=False)
                 self.window.render_box = gtk.VBox(homogeneous = True, spacing = 0)
+                self.window.render_box.set_border_width(10)
                 self.window.render_frame.add(self.window.render_box)
                 self.window.rbt_sdl = gtk.RadioButton(label="SDL")
                 self.window.render_box.pack_start(self.window.rbt_sdl, fill=False, expand=False)
@@ -57,10 +59,20 @@ class App:
 
                 self.window.fps_frame = gtk.Frame("Limit framerate to :")
                 self.window.mainbox.pack_start(self.window.fps_frame, fill=False, expand=False)
+                self.window.fps_box = gtk.VBox()
+                self.window.fps_frame.add(self.window.fps_box)
+                self.window.fps_box.set_border_width(10)
                 self.window.txt_fps = gtk.Entry()
                 self.window.txt_fps.set_text("200")
-                self.window.fps_frame.add(self.window.txt_fps)
+                self.window.fps_box.pack_start(self.window.txt_fps, fill=False, expand=False)
 
+                self.window.options_frame = gtk.Frame("Options")
+                self.window.mainbox.pack_start(self.window.options_frame, fill=False, expand=False)
+                self.window.options_box = gtk.VBox()
+                self.window.options_box.set_border_width(10)
+                self.window.options_frame.add(self.window.options_box)
+                self.window.cb_colorblind = gtk.CheckButton(label="Active color blind mode")
+                self.window.options_box.pack_start(self.window.cb_colorblind, fill=False, expand=False)
                
                 self.window.bt_start = gtk.Button("Run game")
                 self.window.mainbox.pack_start(self.window.bt_start, fill=False, expand=False)
@@ -82,6 +94,10 @@ class App:
                         options = " --opengl"
                 else:
                         options = " --sdl"
+                if self.window.cb_colorblind.get_active():
+                        options = options + " --cb"
+                else:
+                        options = options + " --nocb"
                 options = options + " --maxfps " + self.window.txt_fps.get_text()
                 os.system("./openalchemist" + options)
                         
