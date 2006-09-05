@@ -58,6 +58,7 @@ class SkinsSelector{
   /** Skins propreties list (read in the .openalchemist/skins file) */
   std::vector<SkinsPropreties*> propreties_list;
 
+  SkinsSelector();
   void read_file();
   void set_skin_value(std::string skin, int value);
   void write_file();

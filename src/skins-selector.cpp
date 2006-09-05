@@ -21,6 +21,13 @@
 #include "headers.h"
 
 /**
+ * Constructor
+ */
+SkinsSelector::SkinsSelector(){
+  display_cant_change = false;
+}
+
+/**
  *  This method read the ~/.openalchemist/skins file. This file contains the number of the last unlocked pieces with each skin.
 */
 void SkinsSelector::read_file()
