@@ -81,12 +81,12 @@ class Piece
   }
  
   // Methods to display - be carefull, if current_prite is not initialized
-  void Piece::draw(CL_GraphicContext* context = 0)
+  void draw(CL_GraphicContext* context = 0)
     {
       current_sprite -> draw(x, y, context);
     }
 
-  void Piece::draw_mini(CL_GraphicContext* context = 0)
+  void draw_mini(CL_GraphicContext* context = 0)
     {
       mini_sprite -> draw(x, y, context); 
     }
