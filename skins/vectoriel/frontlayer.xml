@@ -10,7 +10,7 @@
 				<image file="misc/branche1.png" />
 			</sprite>
 
-			<integer name="left" value="538" />
+			<integer name="left" value="537" />
 			<integer name="top" value="159" />
 		</section>
 	
