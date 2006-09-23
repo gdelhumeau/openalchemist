@@ -39,12 +39,12 @@ void Preferences::read()
 {
   std::string options_path = get_save_path();
 #ifdef WIN32
-  std::string options_file = options_path + "\\options";
+  std::string options_file = options_path + "\\preferences";
 #else
 #ifdef SVN
-  std::string options_file = options_path + "/options-svn";
+  std::string options_file = options_path + "/preferences-svn";
 #else
-  std::string options_file = options_path + "/options";
+  std::string options_file = options_path + "/preferences";
 #endif
 #endif
 
@@ -107,12 +107,12 @@ void Preferences::write()
 
   std::string options_path = get_save_path();
 #ifdef WIN32
-  std::string options_file = options_path + "\\options";
+  std::string options_file = options_path + "\\preferences";
 #else
 #ifdef SVN
-  std::string options_file = options_path + "/options-svn";
+  std::string options_file = options_path + "/preferences-svn";
 #else
-  std::string options_file = options_path + "/options";
+  std::string options_file = options_path + "/preferences";
 #endif
 #endif
 
@@ -135,7 +135,30 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   try{
 
   file->open();
-  revision = file -> read_uint8();
+  
+  IniFile ini;
+  ini.read(file);
+  
+  render_opengl = ini.get("OpenGL", render_opengl);
+  fullscreen = ini.get("Fullscreen", fullscreen);
+  sound_level = ini.get("Sound Level", sound_level);
+  music_level = ini.get("Music Level", music_level);
+  maxfps = ini.get("MaxFPS", maxfps);
+  colorblind = ini.get("Colorblind", colorblind);
+  
+  std::string skin_file = ini.get("Skin", skin);
+    try{
+      CL_Zip_Archive zip_test(skin_file);
+      skin = skin_file;
+    }
+    catch(CL_Error e)
+    {
+      std::cout << "Skin " << skin_file << " was not found or is not a zip file, we use " << skin << " instead."  << std::endl;
+    }
+
+
+
+  /*revision = file -> read_uint8();
   if(revision >= 1)
   {
     render_opengl = file  -> read_bool8();
@@ -162,7 +185,7 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   if(revision >= 4)
   {
     colorblind = file -> read_bool8();
-  }
+    }*/
       
   file -> close();
 
@@ -176,6 +199,22 @@ void Preferences::read_options_file(CL_InputSource_File *file)
 void Preferences::write_options_file(CL_OutputSource_File *file)
 {
   file -> open();
+
+  IniFile ini;
+  ini.clear();
+  ini.add("OpenGL", render_opengl);
+  ini.add("Fullscreen", fullscreen);
+  ini.add("Sound Level", sound_level);
+  ini.add("Music Level", music_level);
+  ini.add("MaxFPS", maxfps);
+  ini.add("Colorblind", colorblind);
+  ini.add("Skin", skin);
+  
+  ini.write(file);
+
+  
+
+  /*
   // File revision
   file -> write_uint8(OPTIONS_FILE_REVISION);
   // Use OpenGL
@@ -192,6 +231,7 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   file -> write_int16(maxfps);
   // ColorBlind mode
   file -> write_bool8(colorblind);
+  */
 
   file -> close();
 }

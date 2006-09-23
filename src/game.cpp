@@ -33,7 +33,7 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
   this->opengl = opengl;
  
   //gc = window->get_gc(); 
-  is_gfx_loaded = false;   
+  is_gfx_loaded = false;
 
   // Setting all pointers to NULL
   for(int i=0; i<NUMBER_OF_COLS; ++i)

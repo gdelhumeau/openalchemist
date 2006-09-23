@@ -23,12 +23,12 @@
 void Game::read_scores()
 {
 
-  std::string path = get_save_path();
-
   for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
   {
     hightscores[i] = 0;
   }
+
+  std::string path = get_save_path();
 
   try
   {
@@ -52,7 +52,7 @@ void Game::read_scores()
     {
       hightscores[i] = 0;
     }
-    save_scores();
+    
   }
   
 }

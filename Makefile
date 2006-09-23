@@ -14,9 +14,9 @@ test:
 	@echo "Test dependances installation"
 	pkg-config --exists $(PACKAGES)
 
-openalchemist: includes/*.h bin/main.o bin/misc.o bin/game.o bin/pieces.o bin/key.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o bin/frontlayer.o bin/gfx_misc.o
+openalchemist: includes/*.h bin/main.o bin/misc.o bin/game.o bin/pieces.o bin/key.o bin/key_events.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/inifile.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o bin/frontlayer.o bin/gfx_misc.o
 	@echo "On assemble le fichier final"
-	cc bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/pieces.o bin/key.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o bin/frontlayer.o bin/gfx_misc.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
+	cc bin/main.o bin/misc.o bin/game.o bin/key_events.o bin/pieces.o bin/key.o bin/detect_to_destroy.o bin/detect_to_fall.o bin/drawing.o bin/hightscores.o bin/pause.o bin/inifile.o bin/preferences.o bin/skins-selector.o bin/progress_bar.o bin/undo.o bin/frontlayer.o bin/gfx_misc.o $(LIBS) -Wall $(LINKER_OPTIONS) -o openalchemist
 
 bin/main.o : includes/*.h src/main.cpp
 	g++ -c -o bin/main.o src/main.cpp $(OPTIONS) $(CFLAGS)
@@ -44,6 +44,9 @@ bin/hightscores.o: includes/*.h src/hightscores.cpp
 
 bin/pause.o : includes/*.h src/pause.cpp
 	g++ -c -o bin/pause.o src/pause.cpp $(OPTIONS) $(CFLAGS)
+
+bin/inifile.o : includes/*.h src/inifile.cpp
+	g++ -c -o bin/inifile.o src/inifile.cpp $(OPTIONS) $(CFLAGS)
 
 bin/preferences.o : includes/*.h src/preferences.cpp
 	g++ -c -o bin/preferences.o src/preferences.cpp $(OPTIONS) $(CFLAGS)
