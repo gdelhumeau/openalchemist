@@ -39,7 +39,7 @@ void Preferences::read()
 {
   std::string options_path = get_save_path();
 #ifdef WIN32
-  std::string options_file = options_path + "\\preferences";
+  std::string options_file = options_path + "\\preferences.ini";
 #else
 #ifdef SVN
   std::string options_file = options_path + "/preferences-svn";
@@ -107,7 +107,7 @@ void Preferences::write()
 
   std::string options_path = get_save_path();
 #ifdef WIN32
-  std::string options_file = options_path + "\\preferences";
+  std::string options_file = options_path + "\\preferences.ini";
 #else
 #ifdef SVN
   std::string options_file = options_path + "/preferences-svn";

@@ -22,6 +22,7 @@
 
 void write_ln(CL_OutputSource_File *file, std::string string)
 {
+  string += "\n";
   for(u_int i=0; i<string.length(); ++i)
   {
     char c = *string.substr(i,i+1).c_str();
@@ -56,10 +57,13 @@ void IniFile::read(CL_InputSource_File *file)
 
     if(line.length() >1)
     {
-    int separator = line.find(" : ", 0);
-    e -> name = line.substr(0, separator);
-    e -> value = line.substr(separator + 3, line.length());
-    list.insert(list.end(), e);
+      int separator = line.find(" : ", 0);
+      if(separator)
+      {
+        e -> name = line.substr(0, separator);
+        e -> value = line.substr(separator + 3, line.length());
+        list.insert(list.end(), e);
+      }
     }
 
   }
@@ -70,11 +74,13 @@ void IniFile::write(CL_OutputSource_File *file)
 
   try
   {
+    std::string section = "[Preferences]";
+    write_ln(file, section);
     std::list<IniElement*>::iterator it = list.begin();
     while(it != list.end())
     {
       IniElement *e = (IniElement*)*it;
-      std::string line = e -> name + " : " + e -> value + "\n";
+      std::string line = e -> name + " : " + e -> value;
       write_ln(file, line);
       it++;
     }
@@ -85,17 +91,18 @@ void IniFile::write(CL_OutputSource_File *file)
     std::cout << "Error while writing Ini." << std::endl;
   }
 }
-      
+     
 
 
 
 void IniFile::clear()
 {
+  std::list<IniElement*>::iterator it = list.begin();
   while(!list.empty())
   {
-    std::list<IniElement*>::iterator it = list.begin();
     IniElement *e = (IniElement*) *it;
     delete e;
+    it = list.erase(it);
   }
 }
 

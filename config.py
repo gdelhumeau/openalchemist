@@ -24,21 +24,36 @@
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
 import gtk, os, sys, struct
+from ConfigParser import SafeConfigParser
 
 class App:
 	def __init__(self):
-                #self.readfile()
-                self.init_GUI()                
+                self.init_GUI()
+                self.readfile()
                 gtk.main()
 
         def readfile(self):
                 print "OK"
+                ini = SafeConfigParser()
+                try:
+                        ini.read("/home/keph/.openalchemist/preferences-svn")
+                        self.window.txt_fps.set_text(ini.get("Preferences", "Maxfps"))
+                        if ini.get("Preferences", "OpenGL")=="True":
+                                self.window.rbt_opengl.set_active(True)
+                                self.window.rbt_sdl.set_active(False)
+                        else:
+                                self.window.rbt_opengl.set_active(False)
+                                self.window.rbt_sdl.set_active(True)
+                        if ini.get("Preferences", "Colorblind")=="True":
+                                self.window.cb_colorblind.set_active(True)
+                except:
+                        print "Error while reading ini file"
                 
                 
 	def init_GUI(self):
 		# Window creation
 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-		self.window.set_title('OpenAlchemist Louncher')
+		self.window.set_title('OpenAlchemist Config')
 
                 # Add events
                 self.window.connect("destroy", self._event_quit)
