@@ -20,7 +20,7 @@
 
 #include "headers.h"
 
-void write_string(CL_OutputSource_File *file, std::string string)
+void write_ln(CL_OutputSource_File *file, std::string string)
 {
   for(u_int i=0; i<string.length(); ++i)
   {
@@ -29,7 +29,7 @@ void write_string(CL_OutputSource_File *file, std::string string)
   }
 }
 
-std::string read_string(CL_InputSource_File *file)
+std::string read_ln(CL_InputSource_File *file)
 {
 
   std::string s = "";
@@ -52,7 +52,7 @@ void IniFile::read(CL_InputSource_File *file)
   while(file -> tell() != file -> size())
   {
     IniElement *e = new IniElement();
-    std::string line = read_string(file);
+    std::string line = read_ln(file);
 
     if(line.length() >1)
     {
@@ -75,7 +75,7 @@ void IniFile::write(CL_OutputSource_File *file)
     {
       IniElement *e = (IniElement*)*it;
       std::string line = e -> name + " : " + e -> value + "\n";
-      write_string(file, line);
+      write_ln(file, line);
       it++;
     }
 
