@@ -22,7 +22,11 @@
 
 void write_ln(CL_OutputSource_File *file, std::string string)
 {
+#ifdef WIN32
+  string += "\r\n";
+#else
   string += "\n";
+#endif
   for(u_int i=0; i<string.length(); ++i)
   {
     char c = *string.substr(i,i+1).c_str();
@@ -35,7 +39,7 @@ std::string read_ln(CL_InputSource_File *file)
 
   std::string s = "";
   char c = file -> read_char8();
-  while(c != '\n' && file -> tell() != file->size())
+  while((c != '\n' || c != '\r') && file -> tell() != file->size())
   {
     s += c;
     c = file -> read_char8();
