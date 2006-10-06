@@ -2,17 +2,29 @@
 
 	<!-- Front Layer : could needs more GPU ressources -->
 	<section name="frontlayer">
-		<integer name = "number_of_sprites" value = "0" />
+		<integer name = "number_of_sprites" value = "2" />
 
-		<!-- Sprite number 1 
+<!-- Sprite number 1 -->
 		<section name="1">
 			<sprite name="sprite">
-				<image file="misc/branche1.png" />
+				<image file="misc/plante_bas_droite.png" />
 			</sprite>
 
-			<integer name="left" value="537" />
-			<integer name="top" value="159" />
+			<integer name="left" value="516" />
+			<integer name="top" value="436" />
 		</section>
-	 -->
+
+<!-- Sprite number 2 -->
+		<section name="2">
+			<sprite name="sprite">
+				<image file="misc/herbe.png" />
+			</sprite>
+
+			<integer name="left" value="210" />
+			<integer name="top" value="572" />
+		</section>
+
+<!-- Next -->
+
 	</section>
 </resources>
