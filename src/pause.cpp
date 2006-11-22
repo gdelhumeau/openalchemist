@@ -36,67 +36,67 @@ void Pause::load_gfx(CL_ResourceManager *gfx_pause)
   // First, the sprites
   background = new CL_Sprite("menu/pause/background", gfx_pause); 
 
-  resume = new CL_Sprite("menu/pause/resume/unselected", gfx_pause);
-  resume_selected = new CL_Sprite("menu/pause/resume/selected", gfx_pause);
+  items[PAUSE_ITEM_RESUME] = new CL_Sprite("menu/pause/resume/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_RESUME] = new CL_Sprite("menu/pause/resume/selected", gfx_pause);
 
-  undo = new CL_Sprite("menu/pause/undo/unselected", gfx_pause);
-  undo_selected = new CL_Sprite("menu/pause/undo/selected", gfx_pause);
+  items[PAUSE_ITEM_UNDO] = new CL_Sprite("menu/pause/undo/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_UNDO] = new CL_Sprite("menu/pause/undo/selected", gfx_pause);
   undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", gfx_pause);
 
-  retry = new CL_Sprite("menu/pause/retry/unselected", gfx_pause);
-  retry_selected = new CL_Sprite("menu/pause/retry/selected", gfx_pause);
+  items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/selected", gfx_pause);
 
-  changeskin = new CL_Sprite("menu/pause/changeskin/unselected", gfx_pause);
-  changeskin_selected = new CL_Sprite("menu/pause/changeskin/selected", gfx_pause);
+  items[PAUSE_ITEM_CHANGESKIN] = new CL_Sprite("menu/pause/changeskin/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_CHANGESKIN] = new CL_Sprite("menu/pause/changeskin/selected", gfx_pause);
 
-  fullscreen = new CL_Sprite("menu/pause/fullscreen/unselected", gfx_pause);
-  fullscreen_selected = new CL_Sprite("menu/pause/fullscreen/selected", gfx_pause);
+  items[PAUSE_ITEM_FULLSCREEN] = new CL_Sprite("menu/pause/fullscreen/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_FULLSCREEN] = new CL_Sprite("menu/pause/fullscreen/selected", gfx_pause);
 
-  sound = new CL_Sprite("menu/pause/sound/unselected", gfx_pause);
-  sound_selected = new CL_Sprite("menu/pause/sound/selected", gfx_pause);
+  items[PAUSE_ITEM_SOUND] = new CL_Sprite("menu/pause/sound/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_SOUND] = new CL_Sprite("menu/pause/sound/selected", gfx_pause);
 
-  music = new CL_Sprite("menu/pause/music/unselected", gfx_pause);
-  music_selected = new CL_Sprite("menu/pause/music/selected", gfx_pause);
+  items[PAUSE_ITEM_MUSIC] = new CL_Sprite("menu/pause/music/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_MUSIC] = new CL_Sprite("menu/pause/music/selected", gfx_pause);
 
-  backmain = new CL_Sprite("menu/pause/backmain/unselected", gfx_pause);
-  backmain_selected = new CL_Sprite("menu/pause/backmain/selected", gfx_pause);
+  items[PAUSE_ITEM_BACKMAIN] = new CL_Sprite("menu/pause/backmain/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_BACKMAIN] = new CL_Sprite("menu/pause/backmain/selected", gfx_pause);
 
-  quit = new CL_Sprite("menu/pause/quit/unselected", gfx_pause);
-  quit_selected = new CL_Sprite("menu/pause/quit/selected", gfx_pause);
+  items[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/unselected", gfx_pause);
+  items_selected[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/selected", gfx_pause);
 
-  for(int i=0; i<=10; i++)
+  for(int i=0; i<=10; ++i)
   {
     sound_level[i] = new CL_Sprite("menu/pause/sound-level/"+to_string(i), gfx_pause);
   }
 
 
   // Then, propreties
-  resume_left = CL_Integer_to_int("menu/pause/resume/left", gfx_pause);
-  resume_top = CL_Integer_to_int("menu/pause/resume/top", gfx_pause);
+  items_left[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu/pause/resume/left", gfx_pause);
+  items_top[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu/pause/resume/top", gfx_pause);
 
-  undo_left = CL_Integer_to_int("menu/pause/undo/left", gfx_pause);
-  undo_top = CL_Integer_to_int("menu/pause/undo/top", gfx_pause);
+  items_left[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu/pause/undo/left", gfx_pause);
+  items_top[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu/pause/undo/top", gfx_pause);
 
-  retry_left = CL_Integer_to_int("menu/pause/retry/left", gfx_pause);
-  retry_top = CL_Integer_to_int("menu/pause/retry/top", gfx_pause);
+  items_left[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/left", gfx_pause);
+  items_top[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/top", gfx_pause);
 
-  changeskin_left = CL_Integer_to_int("menu/pause/changeskin/left", gfx_pause);
-  changeskin_top = CL_Integer_to_int("menu/pause/changeskin/top", gfx_pause);
+  items_left[PAUSE_ITEM_CHANGESKIN] = CL_Integer_to_int("menu/pause/changeskin/left", gfx_pause);
+  items_top[PAUSE_ITEM_CHANGESKIN] = CL_Integer_to_int("menu/pause/changeskin/top", gfx_pause);
 
-  fullscreen_left = CL_Integer_to_int("menu/pause/fullscreen/left", gfx_pause);
-  fullscreen_top = CL_Integer_to_int("menu/pause/fullscreen/top", gfx_pause);
+  items_left[PAUSE_ITEM_FULLSCREEN] = CL_Integer_to_int("menu/pause/fullscreen/left", gfx_pause);
+  items_top[PAUSE_ITEM_FULLSCREEN] = CL_Integer_to_int("menu/pause/fullscreen/top", gfx_pause);
 
-  sound_left = CL_Integer_to_int("menu/pause/sound/left", gfx_pause);
-  sound_top = CL_Integer_to_int("menu/pause/sound/top", gfx_pause);
+  items_left[PAUSE_ITEM_SOUND] = CL_Integer_to_int("menu/pause/sound/left", gfx_pause);
+  items_top[PAUSE_ITEM_SOUND] = CL_Integer_to_int("menu/pause/sound/top", gfx_pause);
 
-  music_left = CL_Integer_to_int("menu/pause/music/left", gfx_pause);
-  music_top = CL_Integer_to_int("menu/pause/music/top", gfx_pause);
+  items_left[PAUSE_ITEM_MUSIC] = CL_Integer_to_int("menu/pause/music/left", gfx_pause);
+  items_top[PAUSE_ITEM_MUSIC] = CL_Integer_to_int("menu/pause/music/top", gfx_pause);
   
-  backmain_left = CL_Integer_to_int("menu/pause/backmain/left", gfx_pause);
-  backmain_top = CL_Integer_to_int("menu/pause/backmain/top", gfx_pause);
+  items_left[PAUSE_ITEM_BACKMAIN] = CL_Integer_to_int("menu/pause/backmain/left", gfx_pause);
+  items_top[PAUSE_ITEM_BACKMAIN] = CL_Integer_to_int("menu/pause/backmain/top", gfx_pause);
 
-  quit_left = CL_Integer_to_int("menu/pause/quit/left", gfx_pause);
-  quit_top = CL_Integer_to_int("menu/pause/quit/top", gfx_pause);
+  items_left[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/left", gfx_pause);
+  items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/top", gfx_pause);
 
   sound_level_left = CL_Integer_to_int("menu/pause/sound-level/left", gfx_pause);
 
@@ -115,33 +115,12 @@ void Pause::unload_gfx()
 {
   delete background;
 
-  delete resume;
-  delete resume_selected;
-
-  delete undo;
   delete undo_selected;
-  delete undo_unavailable;
-
-  delete retry;
-  delete retry_selected;
-
-  delete changeskin;
-  delete changeskin_selected;
-
-  delete fullscreen;
-  delete fullscreen_selected;
-
-  delete sound;
-  delete sound_selected;
-
-  delete music;
-  delete music_selected;
-
-  delete backmain;
-  delete backmain_selected;
-
-  delete quit;
-  delete quit_selected;
+  for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
+  {
+    delete items[i];
+    delete items_selected[i];
+  }
 
   for(int i=0; i<=10; i++)
   {
@@ -167,25 +146,14 @@ void Game::draw_pause()
     pause.background -> set_alpha(pause.alpha);
     pause.background -> draw(x,y);
 
-    pause.resume -> set_alpha(pause.alpha);
-    pause.resume_selected -> set_alpha(pause.alpha);
-    pause.undo -> set_alpha(pause.alpha);
-    pause.undo_selected -> set_alpha(pause.alpha);
+    for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
+    {
+      pause.items[i] -> set_alpha(pause.alpha);
+      pause.items_selected[i] -> set_alpha(pause.alpha);
+    }
+
     pause.undo_unavailable -> set_alpha(pause.alpha);
-    pause.retry -> set_alpha(pause.alpha);
-    pause.retry_selected -> set_alpha(pause.alpha);
-    pause.changeskin -> set_alpha(pause.alpha);
-    pause.changeskin_selected -> set_alpha(pause.alpha);
-    pause.fullscreen -> set_alpha(pause.alpha);
-    pause.fullscreen_selected -> set_alpha(pause.alpha);
-    pause.sound -> set_alpha(pause.alpha);
-    pause.sound_selected -> set_alpha(pause.alpha);
-    pause.music -> set_alpha(pause.alpha);
-    pause.music_selected -> set_alpha(pause.alpha);
-    pause.backmain -> set_alpha(pause.alpha);
-    pause.backmain_selected -> set_alpha(pause.alpha);
-    pause.quit -> set_alpha(pause.alpha);
-    pause.quit_selected -> set_alpha(pause.alpha);
+  
     pause.sound_level[sound_level] -> set_alpha(pause.alpha);
     pause.sound_level[music_level] -> set_alpha(pause.alpha);
 
@@ -202,25 +170,14 @@ void Game::draw_pause()
     pause.background -> set_alpha(pause.alpha);
     pause.background -> draw(x,y);    
 
-    pause.resume -> set_alpha(pause.alpha);
-    pause.resume_selected -> set_alpha(pause.alpha);
-    pause.undo -> set_alpha(pause.alpha);
-    pause.undo_selected -> set_alpha(pause.alpha);
+    for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
+    {
+      pause.items[i] -> set_alpha(pause.alpha);
+      pause.items_selected[i] -> set_alpha(pause.alpha);
+    }
+   
     pause.undo_unavailable -> set_alpha(pause.alpha);
-    pause.retry -> set_alpha(pause.alpha);
-    pause.retry_selected -> set_alpha(pause.alpha);
-    pause.changeskin -> set_alpha(pause.alpha);
-    pause.changeskin_selected -> set_alpha(pause.alpha);
-    pause.fullscreen -> set_alpha(pause.alpha);
-    pause.fullscreen_selected -> set_alpha(pause.alpha);
-    pause.sound -> set_alpha(pause.alpha);
-    pause.sound_selected -> set_alpha(pause.alpha);
-    pause.music -> set_alpha(pause.alpha);
-    pause.music_selected -> set_alpha(pause.alpha);
-    pause.backmain -> set_alpha(pause.alpha);
-    pause.backmain_selected -> set_alpha(pause.alpha);
-    pause.quit -> set_alpha(pause.alpha);
-    pause.quit_selected -> set_alpha(pause.alpha);
+   
     pause.sound_level[sound_level] -> set_alpha(pause.alpha);
     pause.sound_level[music_level] -> set_alpha(pause.alpha);
     
@@ -244,112 +201,36 @@ void Game::draw_pause()
 
 
     // Drawing 
-    if(PAUSE_ITEM_RESUME == pause.selection)
+    for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
     {
-      pause.resume_selected -> draw(x + pause.resume_left, y + pause.resume_top);
-      pause.resume_selected -> update();
-    }
-    else
-    {
-      pause.resume -> draw(x + pause.resume_left, y + pause.resume_top);
-      pause.resume -> update();
-    }
 
-    if(PAUSE_ITEM_UNDO == pause.selection)
-    {
-      pause.undo_selected -> draw(x + pause.undo_left, y + pause.undo_top);
-      pause.undo_selected -> update();
+      if(i == pause.selection)
+      {
+        pause.items_selected[i] -> draw(x + pause.items_left[i], y + pause.items_top[i]);
+        pause.items_selected[i] -> update();
+     
+      }
+      else
+      {
+        if(i != PAUSE_ITEM_UNDO || undo.possible)
+        {
+          pause.items[i] -> draw(x + pause.items_left[i], y + pause.items_top[i]);
+          pause.items[i] -> update();
+        }
+        else
+        {
+          pause.undo_unavailable -> draw(x + pause.items_left[i], y + pause.items_top[i]);
+          pause.undo_unavailable -> update();
+        }
+      }
     }
-    else if(undo.possible)
-    {
-      pause.undo -> draw(x + pause.undo_left, y + pause.undo_top);
-      pause.undo -> update();
-    }
-    else
-    {
-      pause.undo_unavailable -> draw(x + pause.undo_left, y + pause.undo_top);
-      pause.undo_unavailable -> update();
-    }
+    
 
-    if(PAUSE_ITEM_RETRY == pause.selection)
-    {
-      pause.retry_selected -> draw(x + pause.retry_left, y + pause.retry_top);
-      pause.retry_selected -> update();
-    }
-    else
-    {
-      pause.retry -> draw(x + pause.retry_left, y + pause.retry_top);
-      pause.retry -> update();
-    }
 
-    if(PAUSE_ITEM_CHANGESKIN == pause.selection)
-    {
-      pause.changeskin_selected -> draw(x + pause.changeskin_left, y + pause.changeskin_top);
-      pause.changeskin_selected -> update();
-    }
-    else
-    {
-      pause.changeskin -> draw(x + pause.changeskin_left, y + pause.changeskin_top);
-      pause.changeskin -> update();
-    }
-
-    if(PAUSE_ITEM_FULLSCREEN == pause.selection)
-    {
-      pause.fullscreen_selected -> draw(x + pause.fullscreen_left, y + pause.fullscreen_top);
-      pause.fullscreen_selected -> update();
-    }
-    else
-    {
-      pause.fullscreen -> draw(x + pause.fullscreen_left, y + pause.fullscreen_top);
-      pause.fullscreen -> update();
-    }
-
-    if(PAUSE_ITEM_SOUND == pause.selection)
-    {
-      pause.sound_selected -> draw(x + pause.sound_left, y + pause.sound_top);
-      pause.sound_selected -> update();
-    }
-    else
-    {
-      pause.sound -> draw(x + pause.sound_left, y + pause.sound_top);
-      pause.sound -> update();
-    }
-
-    if(PAUSE_ITEM_MUSIC == pause.selection)
-    {
-      pause.music_selected -> draw(x + pause.music_left, y + pause.music_top);
-      pause.music_selected -> update();
-    }
-    else
-    {
-      pause.music -> draw(x + pause.music_left, y + pause.music_top);
-      pause.music -> update();
-    }
-
-    if(PAUSE_ITEM_BACKMAIN == pause.selection)
-    {
-      pause.backmain_selected -> draw(x + pause.backmain_left, y + pause.backmain_top);
-      pause.backmain_selected -> update();
-    }
-    else
-    {
-      pause.backmain -> draw(x + pause.backmain_left, y + pause.backmain_top);
-      pause.backmain_selected -> update();
-    }
-
-    if(PAUSE_ITEM_QUIT == pause.selection)
-    {
-      pause.quit_selected -> draw(x + pause.quit_left, y + pause.quit_top);
-      pause.quit_selected -> update();
-    }
-    else
-    {       
-      pause.quit -> draw(x + pause.quit_left, y + pause.quit_top);
-      pause.quit -> update();
-    }    
-
-    pause.sound_level[sound_level] -> draw(x + pause.sound_level_left, y + pause.sound_top);
-    pause.sound_level[music_level] -> draw(x + pause.sound_level_left, y + pause.music_top);
+    pause.sound_level[sound_level] -> draw(x + pause.sound_level_left, y 
+                                           + pause.items_top[PAUSE_ITEM_SOUND]);
+    pause.sound_level[music_level] -> draw(x + pause.sound_level_left, y 
+                                           + pause.items_top[PAUSE_ITEM_MUSIC]);
     pause.sound_level[sound_level] -> update();
     pause.sound_level[music_level] -> update();
 

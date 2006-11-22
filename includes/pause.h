@@ -21,6 +21,8 @@
 #ifndef _PAUSE_H_
 #define _PAUSE_H_
 
+#define PAUSE_NUMBER_OF_ITEMS 9
+
 class Pause{
 
   public:
@@ -45,6 +47,11 @@ class Pause{
 
 
   /* Sprites */
+  CL_Sprite *items[PAUSE_NUMBER_OF_ITEMS];
+  CL_Sprite *items_selected[PAUSE_NUMBER_OF_ITEMS];
+  int items_left[PAUSE_NUMBER_OF_ITEMS];
+  int items_top[PAUSE_NUMBER_OF_ITEMS];
+
   CL_Sprite *background;
   CL_Sprite *resume, *resume_selected;
   CL_Sprite *undo, *undo_selected, *undo_unavailable;
