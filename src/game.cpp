@@ -31,6 +31,13 @@ Game::Game(CL_DisplayWindow *window, bool opengl)
 {
   this->window = window;
   this->opengl = opengl;
+
+  CL_Surface loading("./data/loading.png");
+  CL_Display::clear(CL_Color(0, 0, 0));
+  loading.draw(400-loading.get_width()/2,300-loading.get_height()/2);
+  CL_Display::flip();
+  
+  
  
   //gc = window->get_gc(); 
   is_gfx_loaded = false;
@@ -159,6 +166,7 @@ void Game::new_game(short difficulty)
   combo = 0;
 
   pause.is_paused = false;
+  playable = true;
 
 }
 

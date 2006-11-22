@@ -64,7 +64,7 @@ void Game::key_events()
     pause.requested = false;
   }
     
-  if(pause.is_paused)
+  if(pause.is_paused && playable)
     key_events_pause();
   else
     key_events_playing();

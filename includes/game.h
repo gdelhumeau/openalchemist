@@ -68,7 +68,7 @@ class Game{
   /** Window of the game */
   CL_DisplayWindow  * window;
   
-  /** True if OpenGL is used, false is it's SDL */
+  /** True if OpenGL is used, false it is SDL */
   bool opengl;
 
   // Skin
@@ -85,6 +85,9 @@ class Game{
   
   // Skins selector
   SkinsSelector skins_selector;
+  
+  // Playable
+  bool playable;
   
   // Pause
   Pause pause;
