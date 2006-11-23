@@ -115,7 +115,7 @@ void Pause::unload_gfx()
 {
   delete background;
 
-  delete undo_selected;
+  delete undo_unavailable;
   for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
   {
     delete items[i];
