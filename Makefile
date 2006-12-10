@@ -42,8 +42,8 @@ bin/drawing.o : includes/*.h src/drawing.cpp
 bin/hightscores.o: includes/*.h src/hightscores.cpp
 	g++ -c -o bin/hightscores.o src/hightscores.cpp $(OPTIONS) $(CFLAGS)
 
-bin/pause.o : includes/*.h src/pause.cpp
-	g++ -c -o bin/pause.o src/pause.cpp $(OPTIONS) $(CFLAGS)
+bin/pause.o : includes/*.h src/menus/pause.cpp
+	g++ -c -o bin/pause.o src/menus/pause.cpp $(OPTIONS) $(CFLAGS)
 
 bin/inifile.o : includes/*.h src/inifile.cpp
 	g++ -c -o bin/inifile.o src/inifile.cpp $(OPTIONS) $(CFLAGS)

@@ -52,16 +52,8 @@ class Pause{
   int items_left[PAUSE_NUMBER_OF_ITEMS];
   int items_top[PAUSE_NUMBER_OF_ITEMS];
 
-  CL_Sprite *background;
-  CL_Sprite *resume, *resume_selected;
-  CL_Sprite *undo, *undo_selected, *undo_unavailable;
-  CL_Sprite *retry, *retry_selected;
-  CL_Sprite *changeskin, *changeskin_selected;
-  CL_Sprite *fullscreen, *fullscreen_selected;
-  CL_Sprite *sound, *sound_selected;
-  CL_Sprite *music, *music_selected;
-  CL_Sprite *backmain, *backmain_selected;
-  CL_Sprite *quit, *quit_selected;
+  CL_Sprite *background;  
+  CL_Sprite *undo_unavailable;  
   
   CL_Sprite *sound_level[11];
 

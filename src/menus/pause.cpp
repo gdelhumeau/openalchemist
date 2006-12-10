@@ -163,7 +163,10 @@ void Game::draw_pause()
   {
     pause.alpha -= 0.007*time_interval;
     if(pause.alpha <= 0.0)
+    {
       pause.is_paused = false;
+      playable = true;
+    }
 
     int x = 400 - pause.background -> get_width()/2;
     int y = 300 - pause.background -> get_height()/2;
@@ -254,7 +257,10 @@ void Game::key_events_pause()
     if(pause.appearing && opengl)
       pause.step = PAUSE_STEP_DISAPPEARING;
     else
+    {
       pause.is_paused = false;
+      playable = true;
+    }
     
   }
 
@@ -319,14 +325,18 @@ void Game::key_events_pause()
         pause.step = PAUSE_STEP_DISAPPEARING;
       else
         pause.is_paused = false;
+        playable = true;
       break;
     case PAUSE_ITEM_UNDO:
       undo_last();
       if(pause.appearing && opengl)
         pause.step = PAUSE_STEP_DISAPPEARING;
       else
+      {
         pause.is_paused = false;
-      pause.is_paused = false;
+        playable = true;
+      }
+      //pause.is_paused = false;
       break;
     case PAUSE_ITEM_RETRY:
       new_game(0);

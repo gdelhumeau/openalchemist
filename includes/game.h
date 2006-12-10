@@ -36,7 +36,7 @@
 #include "coords.h"
 #include "pieces.h"
 #include "skins_selector.h"
-#include "pause.h"
+#include "menus/pause.h"
 #include "undo.h"
 #include "progress_bar.h"
 #include "frontlayer.h"

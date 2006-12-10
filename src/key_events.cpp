@@ -1,7 +1,7 @@
 /* OpenAlchemist - just a simple game 
  * ----------------------------------
  *
- * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>
+ * Copyright (C) 2005, 2006 Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,10 +64,16 @@ void Game::key_events()
     pause.requested = false;
   }
     
-  if(pause.is_paused && playable)
-    key_events_pause();
-  else
+  if(playable)
+  {
     key_events_playing();
+  }
+  else
+  {
+    if(pause.is_paused)
+        key_events_pause();
+
+  }
   
 }
 
@@ -76,6 +82,7 @@ void Game::key_events_playing()
 
   if(key.echap->get())
   {
+    playable = false;
     pause.is_paused = true;
     pause.selection = 0;
     pause.alpha = 0.0;
