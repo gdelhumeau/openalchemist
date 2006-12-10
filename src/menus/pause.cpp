@@ -132,11 +132,11 @@ void Pause::unload_gfx()
 
 void Game::draw_pause()
 {
-  if(PAUSE_STEP_APPEARING == pause.step)
+  if(MENU_STEP_APPEARING == pause.step)
   {
     if(pause.alpha+0.003*time_interval >= pause.max_alpha)
     {
-      pause.step = PAUSE_STEP_MENU;
+      pause.step = MENU_STEP_MENU;
       pause.alpha = 1.0;
     }
     pause.alpha += 0.003*time_interval;
@@ -159,7 +159,7 @@ void Game::draw_pause()
 
 
   }
-  else if(PAUSE_STEP_DISAPPEARING == pause.step)
+  else if(MENU_STEP_DISAPPEARING == pause.step)
   {
     pause.alpha -= 0.007*time_interval;
     if(pause.alpha <= 0.0)
@@ -242,7 +242,7 @@ void Game::draw_pause()
 
 void Game::key_events_pause()
 {
-  if(pause.step == PAUSE_STEP_APPEARING)
+  if(pause.step == MENU_STEP_APPEARING)
     return;
 
   if(pause.step == PAUSE_STEP_SKINS)
@@ -255,7 +255,7 @@ void Game::key_events_pause()
   if(key.echap->get())
   {   
     if(pause.appearing && opengl)
-      pause.step = PAUSE_STEP_DISAPPEARING;
+      pause.step = MENU_STEP_DISAPPEARING;
     else
     {
       pause.is_paused = false;
@@ -322,7 +322,7 @@ void Game::key_events_pause()
     {
     case PAUSE_ITEM_RESUME:
       if(pause.appearing && opengl)
-        pause.step = PAUSE_STEP_DISAPPEARING;
+        pause.step = MENU_STEP_DISAPPEARING;
       else
         pause.is_paused = false;
         playable = true;
@@ -330,7 +330,7 @@ void Game::key_events_pause()
     case PAUSE_ITEM_UNDO:
       undo_last();
       if(pause.appearing && opengl)
-        pause.step = PAUSE_STEP_DISAPPEARING;
+        pause.step = MENU_STEP_DISAPPEARING;
       else
       {
         pause.is_paused = false;

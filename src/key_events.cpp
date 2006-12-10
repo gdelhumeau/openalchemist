@@ -72,6 +72,8 @@ void Game::key_events()
   {
     if(pause.is_paused)
         key_events_pause();
+    if(options.is_optionsd)
+        key_events_options_menu();
 
   }
   
@@ -89,9 +91,23 @@ void Game::key_events_playing()
     pause.requested = true;
 
     if(pause.appearing)
-      pause.step = PAUSE_STEP_APPEARING;
+      pause.step = MENU_STEP_APPEARING;
     else
-      pause.step = PAUSE_STEP_MENU;
+      pause.step = MENU_STEP_MENU;
+  }
+  
+  if(key.options->get())
+  {
+    playable = false;
+    options.is_optionsd = true;
+    options.selection = 0;
+    options.alpha = 0.0;
+    options.requested = true;
+
+    if(options.appearing)
+      options.step = MENU_STEP_APPEARING;
+    else
+      options.step = MENU_STEP_MENU;
   }
   
   if(GAME_MODE_PLAYING == game_mode || GAME_MODE_GAME_OVER == game_mode || GAME_MODE_NEW_HIGHTSCORE == game_mode)

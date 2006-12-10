@@ -35,6 +35,7 @@ Key::Key()
   up           = new KeyboardKey(CL_KEY_UP    , true );
   down         = new KeyboardKey(CL_KEY_DOWN  , true );
   enter        = new KeyboardKey(CL_KEY_ENTER , false);
+  options      = new KeyboardKey(CL_KEY_F3    , false);
   
 }
 

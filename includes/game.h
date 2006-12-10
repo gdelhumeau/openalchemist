@@ -37,6 +37,7 @@
 #include "pieces.h"
 #include "skins_selector.h"
 #include "menus/pause.h"
+#include "menus/options.h"
 #include "undo.h"
 #include "progress_bar.h"
 #include "frontlayer.h"
@@ -51,10 +52,10 @@
 #define GAME_MODE_GAME_OVER 6
 #define GAME_MODE_NEW_HIGHTSCORE 7
 
-#define PAUSE_STEP_APPEARING 1
-#define PAUSE_STEP_MENU 2
+#define MENU_STEP_APPEARING 1
+#define MENU_STEP_MENU 2
 #define PAUSE_STEP_SKINS 3
-#define PAUSE_STEP_DISAPPEARING 4
+#define MENU_STEP_DISAPPEARING 4
 
 #define NUMBER_OF_DIFFICULTIES 3
 
@@ -91,6 +92,8 @@ class Game{
   
   // Pause
   Pause pause;
+  // Options Menu
+  OptionsMenu options;
 
   // Keys
   Key key;
@@ -194,6 +197,7 @@ class Game{
   void draw_game_over();
   void draw_new_hightscore();
   void draw_pause();  
+  void draw_options_menu();  
   void draw_progress_bar();
   void draw_skins_selector();
 
@@ -205,6 +209,7 @@ class Game{
   void key_events();
   void key_events_playing();
   void key_events_pause();
+  void key_events_options_menu();
   void key_events_skins_selector();
   void undo_last();
   void new_game(short difficulty);

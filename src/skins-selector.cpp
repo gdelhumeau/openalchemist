@@ -254,7 +254,7 @@ void Game::draw_skins_selector()
    if(key.echap->get())
    {   
      if(pause.requested)
-       pause.step = PAUSE_STEP_MENU;    
+       pause.step = MENU_STEP_MENU;    
      else
        pause.is_paused = false;
    }

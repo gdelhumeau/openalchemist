@@ -109,6 +109,11 @@ void Game::draw_game()
   {
     draw_pause();
   }
+  
+  if(options.is_optionsd)
+  {
+    draw_options_menu();
+  }
 
 
   

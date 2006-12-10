@@ -172,6 +172,7 @@ void Game::new_game(short difficulty)
   combo = 0;
 
   pause.is_paused = false;
+  options.is_optionsd = false;
   playable = true;
 
 }
@@ -191,11 +192,13 @@ void Game::load_gfx()
   CL_ResourceManager gfx("gfx.xml",&zip, false);
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
   CL_ResourceManager gfx_pause("menu_pause.xml", &zip, false);
+  CL_ResourceManager gfx_options("menu_options.xml", &zip, false);
   
 
   gfx_misc.load_gfx(&gfx);
   pieces.load_gfx(&gfx_pieces, colorblind);
   pause.load_gfx(&gfx_pause);
+  options.load_gfx(&gfx_options);
   progress_bar.load_gfx(&gfx);
   skins_selector.load_gfx(&gfx);
   front_layer.load_gfx(&zip);
@@ -226,6 +229,7 @@ void Game::unload_gfx()
   gfx_misc.unload_gfx();
   pieces.unload_gfx();
   pause.unload_gfx();
+  options.unload_gfx();
   progress_bar.unload_gfx();
   skins_selector.unload_gfx();
 

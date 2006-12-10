@@ -37,6 +37,7 @@ class Key{
   KeyboardKey * up;
   KeyboardKey * down;
   KeyboardKey * enter;
+  KeyboardKey * options;
 
   // Constructor
   Key();
