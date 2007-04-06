@@ -1,0 +1,12 @@
+189
+
+distortions> déplacer
+etape1:
+	canevas:100
+	déplacer:50
+etape2:
+  canevas:100
+	déplacer:25
+etape3:
+	canevas:100
+	déplacer:5
