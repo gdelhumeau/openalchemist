@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<title>Code Design</title>
+	
+	<link id="style" rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1>Code Design</h1>
+<p>Ce document a pour but de modéliser les différentes parties du jeu <em>OpenAlchemist</em> dans le but de trouver une structure de programmation cohérente, claire et évolutive.</p>
+<h2>Différents "Etats"</h2>
+<p>Le programme est constitué d'une phase de jeu mais également de différents menus. Ces phases permettent de distinguer plusieurs "états" dans lesquels peut se trouver le programme. Le diagramme suivant montre les différents états et leurs intéractions. Les flèches signifient "passer de l'état A à l'état B".</p>
+<p class="figure"><img src="figures/etats_interaction.png" alt="Intéractions entre états" /><br />Figure : Intéractions entre états</p>
+<p>Selon ce diagramme, il ne peut y avoir, à un instant donné, qu'un seul et unique état actif. Or, il est voulu que les menus permettent de voir l'avancement du jeu (les menus ne recouvrent pas entièrement la fenetre, ils sont transparants, l'écran titre présente une partie gérée par l'ordinateur...). En fait, chaque état partage une chose en commun : on voit le même fond d'écran et l'état du plateau en permanence. Ainsi, les informations concernant le plateau et les méthodes qui permettent de l'afficher doivent se trouver dans une partie commune. Nous avons pris le parti de placer cette partie du programme dans un etat distinct, actif en permanence.</p>
+<p>On voit aussi que la succession des états n'est pas du tout linéaire. On ne peut donc pas la prédire.</p>
+
+<h2>Gestion des états</h2>
+<p>La partie du programme qui sera chargée de s'occuper des différents états sera appelée le <em>State Engine</em>.
+<p>Les états seront representés à l'aide de classes héritant d'une classe abstraite <em>GameState</em>. Chaque état s'occupera de ses événements clavier, de son affichage et de son comportement. La figure suivante présente la description de la classe <em>GameState</em>.</p>
+<p class="figure"><img src="figures/GameState.png" alt="La classe abstraite GameState" /><br />Figure : La classe abstraite <em>GameState</em></p>
+<p>Le StateEngine sera constitué d'unez boucle, la boucle principale du programme, qui appelera les méthodes des GameState. Il aura pour ca une référence vers le State en cours. En parallèle, il appelera les méthodes de l'état permanent, appelé <em>CommunState</em>, qui affichera les décors, les pièces, et tout ce qui sera communs aux différents états.</p>
+<p>La succession des états se fera via les états eux-mêmes, qui décideront quel état doit prendre leur place. Le <em>StateEngine</em> possèdera une pile d'états. Cela permet de revenir à l'état précédant celui qui est en cours, si besoin. Le sommet de la pile désignera l'état courant.</p>
+<p>Voici la liste des états, reprennant le diagramme d'intéractions, suivi de la classe <em>StateEngine</em>.</p>
+<p class="figure"><img src="figures/states.png" alt="Nom des états" /><br />Figure : Nom des états</p>
+<p class="figure"><img src="figures/StateEngine.png" alt="Classe StateEngine" /><br />Figure : Classe <em>StateEngine</em></p>
+
+</body>
