@@ -2,7 +2,7 @@
                           OpenAlchemist
 
   File : Application.cpp
-  Description : implement the begining of the software
+  Description : implements the begining of the software
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
 
@@ -16,6 +16,7 @@
 #include <ClanLib/sdl.h>
 
 #include "Preferences.h"
+#include "StateEngine.h"
 
 #define RENDER_SDL false
 #define RENDER_OPENGL true
