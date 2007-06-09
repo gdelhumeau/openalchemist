@@ -12,6 +12,8 @@
 #ifndef _GAME_STATE_H_
 #define _GAME_STATE_H_
 
+#include <string>
+
 /**
  * Generic (Abstract) State Class 
  */
@@ -25,6 +27,8 @@ class GameState{
   virtual void draw();
   virtual void update();
   virtual void events();
+
+  GameState();
   virtual ~GameState();
 
 

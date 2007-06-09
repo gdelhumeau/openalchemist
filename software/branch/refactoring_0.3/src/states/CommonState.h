@@ -12,12 +12,21 @@
 #ifndef _COMMON_STATE_H_
 #define _COMMON_STATE_H_
 
+#include <ClanLib/display.h>
+
 #include "GameState.h"
+
 
 /**
  * Common State
  */
 class CommonState : public GameState{
+
+  public:
+  /** Window */
+  CL_DisplayWindow *window;
+  /** To know if OpenGL is used */
+  bool opengl;
 
   public:
   void init();
@@ -28,7 +37,7 @@ class CommonState : public GameState{
   void update();
   void events();
 
-  CommonState();
+  CommonState(CL_DisplayWindow *window, bool opengl);
   ~CommonState();
 
 
