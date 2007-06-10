@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  
+    <link rel="stylesheet" type="text/css" href="style.css" />    
+    <title>OpenAlchemist - Etat "InGameState"</title>
+  </head>
+<body>
+<h1>OpenAlchemist - Etat InGameState</h1>
+<h2>Diagramme</h2>
+<p>Ce vieux diagramme a été fait à l'époque avec Gnumeric. Je recommande chaudement d'utiliser <a href="http://www.framasoft.net/article1057.html">Dia</a> à la place !</p>
+<p class="img"><img src="figures/ingame.png" alt="Diagramme" /></p>
+<h2>Partie Intéractive</h2>
+<ul>
+  <li>Pourvoir modifier l'angle</li>
+  <li>Choisir sa colonne</li>
+  <li>Demander la chute</li>
+  <ul>
+    <li>Regarder dans quelle colonne les pièces tombent</li>
+    <li>Les placer dans la matrice</li>
+    <li>Déclencher la partie chutte</li>
+  </ul>
+</ul>
+<h2>Chute/Apparition des pièces</h2>
+<p>Dans la méthode <strong>afficher</strong>:
+<ul>
+  <li>Regarder si toutes les pièces sont tombées et à destination et si toutes les pièces à apparaitre sont apparues.</li>
+  <ul>
+    <li>Si oui: passe à la partie détection des éliminations</li>
+    <li>Si non: faire tomber et faire apparaitre...</li>
+  </ul>
+</ul>
+<h2>Détection des éliminations</h2>
+<ul>
+  <li>D'où partir ? Si un coup vient d'être joué, partir de ces 2 pièces nouvelles (sauf si la 2eme est marquée). Sinon, partir de toutes les pièces non marquées (on verra ensuite)</li>
+  <li>Détections par exploration en profondeur ou en largeur. <strong>Pour chaque départ</strong></li>
+  <li>Marquer les pièces visitées (de la même couleur que le départ).</li>
+  <li>Incrémenter un compteur de cases adjacentes de même couleurs</li>
+  <ul>
+    <li>Si compteur < 3, passer à la partie intéractive</li>
+    <li>Si compteur >= 3:</li>
+      <ul>
+        <li>Calculer les points bonus ((compteur-3)*valeur d'une pièce)</li>
+        <li>Déclencher l'animation "élimination" pour les pièces à éliminer</li>
+        <li>Déterminer l'endroit où la nouvelle pièce doit apparaitre (le plus en bas puis le plus à gauche). Stocker cet endroit dans une liste</li>
+        <li>Passer à la partie "élimination" quand tous les départs ont été testés.</li>
+      </ul>
+ </ul>
+</ul>
+<h2>Eliminations (visuelles)</h2>
+<p>Dans la méthode <strong> afficher</strong></p>
+<ul>
+  <li>Regarder si tout est éliminé (et faire des delete au fur et à mesure)</li>
+  <ul>
+    <li>Si oui, Ajouter les pièces à créer et leur mettre l'animation "apparition"</li>
+    <li>Passer à la partie "Délimitation des chuttes"</li>
+  </ul>
+</ul>
+
+<h2>Délimitation des chuttes (non affichage)</h2>
+<ul>
+  <li>Parcourir les cases de bas en haut: chercher les cases vides.</li>
+  <li>Faire tomber la pièce au dessus des cases vides</li>
+  <li>Passer au mode Chutte de pièces</li>
+</ul>
+</body>
+</html>
