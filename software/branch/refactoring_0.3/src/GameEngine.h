@@ -33,7 +33,7 @@ class GameEngine{
   CL_FramerateCounter fps_getter;
 
   /* States */
-  CommonState *common_state;
+  CommonState common_state;
   
   public:
   void init();

@@ -14,26 +14,28 @@
 
 #include "GameEngine.h"
 #include "Preferences.h"
+#include "CommonResources.h"
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
   this -> window = window;
   this -> opengl = opengl;
-
-  common_state = new CommonState(this);
 }
 
 
 GameEngine::~GameEngine()
 {
-  delete common_state;
 }
 
 void GameEngine::init()
 {
+  CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
-  common_state -> init();
-  common_state -> load_gfx(pref -> skin);
+
+  resources -> init(this);
+  resources -> load_gfx(pref -> skin);
+  common_state.init();
+  common_state.load_gfx(pref -> skin);
       
 }
 
@@ -43,9 +45,9 @@ void GameEngine::run()
    
   while (running)
   {
-    common_state -> events();
-    common_state -> update();
-    common_state -> draw();
+    common_state.events();
+    common_state.update();
+    common_state.draw();
 
     //draw_game();
     //key_events(); 

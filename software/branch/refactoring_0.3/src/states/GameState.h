@@ -14,10 +14,15 @@
 
 #include <string>
 
+class CommonResources;
+
 /**
  * Generic (Abstract) State Class 
  */
 class GameState{
+
+  protected:
+  CommonResources *common_resources;
 
   public:
   virtual void init();

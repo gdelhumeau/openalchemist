@@ -11,6 +11,8 @@
 
 
 #include "GameState.h"
+#include "../CommonResources.h"
+
 #include <iostream>
 
 
@@ -27,7 +29,7 @@ GameState::~GameState()
 
 void GameState::init()
 {
-  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
+  common_resources = common_resources_get_instance();
 }
 
 

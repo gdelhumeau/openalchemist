@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : CommonState.h
+  File : CommonResources.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,40 +9,28 @@
 
 *********************************************************************/
 
-#ifndef _COMMON_STATE_H_
-#define _COMMON_STATE_H_
+#ifndef _COMMON_RESOURCES_H_
+#define _COMMON_RESOURCES_H_
 
 #include <ClanLib/display.h>
 
-#include "GameState.h"
-#include "../KeyboardKey.h"
-
 class GameEngine;
 
-
-/**
- * Common State
- */
-class CommonState : public GameState{
-
-  private:
-  CL_Surface *background;
-
-  KeyboardKey *key_fullscreen;
+class CommonResources{
 
   public:
-  void init();
-  void deinit();
+  GameEngine *engine;
+  CL_Font *main_font;
+
+  void init(GameEngine *engine);
   void load_gfx(std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
 
-  CommonState();
-  ~CommonState();
-
+  CommonResources();
+  ~CommonResources();
 
 };
+
+CommonResources* common_resources_get_instance();
 
 #endif

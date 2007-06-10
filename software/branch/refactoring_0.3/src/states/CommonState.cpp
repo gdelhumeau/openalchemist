@@ -14,14 +14,13 @@
 
 #include "CommonState.h"
 #include "../GameEngine.h"
+#include "../CommonResources.h"
 #include "../KeyboardKey.h"
 #include "../misc.h"
 
-CommonState::CommonState(GameEngine* engine)
+CommonState::CommonState()
 {
-  this -> engine = engine;
   background = NULL;
-  main_font = NULL;
   key_fullscreen = NULL;
 }
 
@@ -34,6 +33,7 @@ CommonState::~CommonState()
 
 void CommonState::init()
 {
+  GameState::init();
   key_fullscreen  = new KeyboardKey(CL_KEY_F11, false);
 }
 
@@ -41,7 +41,10 @@ void CommonState::init()
 void CommonState::deinit()
 {
   if(key_fullscreen)
+  {
     delete key_fullscreen;
+    key_fullscreen = NULL;
+  }
 }
 
 
@@ -51,23 +54,24 @@ void CommonState::load_gfx(std::string skin)
   CL_ResourceManager gfx("gfx.xml",&zip, false);
 
   background = new CL_Surface("background", &gfx);
-  main_font = new CL_Font("font", &gfx);
 }
 
 
 void CommonState::unload_gfx()
 {
   if(background)
+  {
     delete background;
-  if(main_font)
-    delete main_font;
+    background = NULL;
+  }
+
 }
 
 
 void CommonState::draw()
 {
   background -> draw(0, 0);
-  main_font -> draw(580,550,to_string(engine -> get_fps()));
+  common_resources -> main_font -> draw(580,550,to_string(common_resources -> engine -> get_fps()));
 }
 
 
@@ -81,7 +85,7 @@ void CommonState::events()
 {
   if(key_fullscreen -> get())
   {
-    engine -> toggle_screen();
+    common_resources -> engine -> toggle_screen();
   }
 }
 
