@@ -22,11 +22,8 @@
  */
 class CommonState : public GameState{
 
-  public:
-  /** Window */
-  CL_DisplayWindow *window;
-  /** To know if OpenGL is used */
-  bool opengl;
+  private:
+  CL_Surface * background;
 
   public:
   void init();
@@ -37,7 +34,7 @@ class CommonState : public GameState{
   void update();
   void events();
 
-  CommonState(CL_DisplayWindow *window, bool opengl);
+  CommonState();
   ~CommonState();
 
 

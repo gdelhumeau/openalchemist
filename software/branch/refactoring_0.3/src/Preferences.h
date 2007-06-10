@@ -14,6 +14,8 @@
 #ifndef _PREFERENCES_H_
 #define _PREFREENCES_H_
 
+#include <ClanLib/core.h>
+
 
 /** Implements the preferences that users can save */
 class Preferences

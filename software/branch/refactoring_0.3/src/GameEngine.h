@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : StateEngine.h
+  File : GameEngine.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,17 +9,29 @@
 
 *********************************************************************/
 
-#ifndef _STATE_ENGINE_H_
-#define _STATE_ENGINE_H_
+#ifndef _GAME_ENGINE_H_
+#define _GAME_ENGINE_H_
 
 #include <stack>
+#include <ClanLib/display.h>
 
 #include "states/GameState.h"
+#include "states/CommonState.h"
 
-class StateEngine{
+class GameEngine{
 
   private:
   std::stack<GameState*> states_stack;
+  
+  /** Window */
+  CL_DisplayWindow *window;
+  /** To know if OpenGL is used */
+  bool opengl;
+  /** */
+  bool running;
+
+  /* States */
+  CommonState common_state;
   
   public:
   void init();
@@ -36,8 +48,8 @@ class StateEngine{
 
   void stop_current_state();
 
-  StateEngine();
-  ~StateEngine();
+  GameEngine(CL_DisplayWindow *window, bool opengl);
+  ~GameEngine();
 
 };
 

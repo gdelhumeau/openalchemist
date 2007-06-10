@@ -16,7 +16,6 @@
 
 GameState::GameState()
 {
-  std::cout << "GameState class may not be instanced cause it is an abstract class" << std::endl;
   return;
 }
 
@@ -28,42 +27,42 @@ GameState::~GameState()
 
 void GameState::init()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::deinit()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::load_gfx(std::string skin)
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::unload_gfx()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::draw()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::update()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
 
 void GameState::events()
 {
-
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 

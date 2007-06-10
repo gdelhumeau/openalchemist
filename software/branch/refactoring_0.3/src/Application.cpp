@@ -16,7 +16,7 @@
 #include <ClanLib/sdl.h>
 
 #include "Preferences.h"
-#include "StateEngine.h"
+#include "GameEngine.h"
 
 #define RENDER_SDL false
 #define RENDER_OPENGL true
@@ -35,7 +35,7 @@ public:
   /** Rendering used - OpenGL or SDL */
   bool render;  
 
-//  Game *game;
+  GameEngine *game;
 
   /**
    * Initialise the game
@@ -64,7 +64,8 @@ public:
       // Add a callback when user close the window
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
-//      game = new Game(window, render);
+      game = new GameEngine(window, render);
+      game -> init();
   
     }
 
@@ -73,7 +74,7 @@ public:
    */
   void stop()
     {
-      //game -> stop();
+      game -> stop();
     }
 
   /**
@@ -83,7 +84,7 @@ public:
     {
       CL_Display::sig_window_close().disconnect(quit_event);
 
-      // delete game;
+      delete game;
       
       delete window;
 
@@ -182,7 +183,7 @@ public:
         {
       
           this->init();
-          // game->main_loop();
+          game->run();
           this->quit();
                
         }
@@ -239,15 +240,6 @@ public:
                 << " * along with this program; if not, write to the Free Software" << std::endl
                 << " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA." <<std::endl
                 << " *" << std::endl << std::endl;
-    }
-
-
-
-  void get_informations_from_options_file()
-    {
-      /*
-      Preferences *pref = pref_get_instance();
-      render = pref -> render_opengl;*/
     }
 
 } app;

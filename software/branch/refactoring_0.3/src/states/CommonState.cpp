@@ -9,13 +9,15 @@
 
 *********************************************************************/
 
+#include <ClanLib/core.h>
+#include <ClanLib/display.h>
+
 #include "CommonState.h"
 
 
-CommonState::CommonState(CL_DisplayWindow *window, bool opengl)
+CommonState::CommonState()
 {
-  this -> window = window;
-  this -> opengl = opengl;
+
 }
 
 
@@ -26,7 +28,7 @@ CommonState::~CommonState()
 
 void CommonState::init()
 {
-
+  
 }
 
 
@@ -38,7 +40,10 @@ void CommonState::deinit()
 
 void CommonState::load_gfx(std::string skin)
 {
+  CL_Zip_Archive zip(skin);
+  CL_ResourceManager gfx("gfx.xml",&zip, false);
 
+  background = new CL_Surface("background", &gfx);
 }
 
 
@@ -50,7 +55,7 @@ void CommonState::unload_gfx()
 
 void CommonState::draw()
 {
-
+  background -> draw(0, 0);
 }
 
 
