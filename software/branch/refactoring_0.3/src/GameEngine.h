@@ -29,9 +29,11 @@ class GameEngine{
   bool opengl;
   /** */
   bool running;
+  /** Fps Getter */
+  CL_FramerateCounter fps_getter;
 
   /* States */
-  CommonState common_state;
+  CommonState *common_state;
   
   public:
   void init();
@@ -47,6 +49,9 @@ class GameEngine{
   void set_state_skin_menu();
 
   void stop_current_state();
+
+  void toggle_screen();
+  int get_fps();
 
   GameEngine(CL_DisplayWindow *window, bool opengl);
   ~GameEngine();

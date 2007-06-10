@@ -19,18 +19,21 @@ GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
   this -> window = window;
   this -> opengl = opengl;
+
+  common_state = new CommonState(this);
 }
 
 
 GameEngine::~GameEngine()
 {
-
+  delete common_state;
 }
 
 void GameEngine::init()
 {
   Preferences *pref = pref_get_instance();
-  common_state.load_gfx(pref -> skin);
+  common_state -> init();
+  common_state -> load_gfx(pref -> skin);
       
 }
 
@@ -40,7 +43,9 @@ void GameEngine::run()
    
   while (running)
   {
-    common_state.draw();
+    common_state -> events();
+    common_state -> update();
+    common_state -> draw();
 
     //draw_game();
     //key_events(); 
@@ -116,3 +121,27 @@ void GameEngine::stop_current_state()
 }
 
 
+
+
+void GameEngine::toggle_screen()
+{
+  Preferences *pref = pref_get_instance();
+  pref -> fullscreen = !pref -> fullscreen;
+  if(pref -> fullscreen)
+  {
+    window->set_fullscreen(800,600,0,0);
+    CL_Mouse::hide();
+  }
+  else
+  {
+    window->set_windowed();
+    CL_Mouse::show();
+  }
+  
+  pref -> write();
+}
+
+int GameEngine::get_fps()
+{
+  return fps_getter.get_fps();
+}

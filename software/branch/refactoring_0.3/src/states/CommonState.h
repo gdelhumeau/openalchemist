@@ -15,6 +15,9 @@
 #include <ClanLib/display.h>
 
 #include "GameState.h"
+#include "../KeyboardKey.h"
+
+class GameEngine;
 
 
 /**
@@ -23,7 +26,11 @@
 class CommonState : public GameState{
 
   private:
+  GameEngine *engine;
   CL_Surface * background;
+  CL_Font *main_font;
+
+  KeyboardKey *key_fullscreen;
 
   public:
   void init();
@@ -34,7 +41,7 @@ class CommonState : public GameState{
   void update();
   void events();
 
-  CommonState();
+  CommonState(GameEngine* engine);
   ~CommonState();
 
 
