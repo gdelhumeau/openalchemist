@@ -34,6 +34,18 @@ class Board{
 
     }
 
+  void draw()
+    {
+      for(int i = 0; i < NUMBER_OF_COLS; ++i)
+        for(int j = 0; j < NUMBER_OF_LINES; ++j)
+        {
+          if(board[i][j])
+          {
+            board[i][j] -> draw(); 
+          }
+        }
+    }
+
 };
 
 #endif
