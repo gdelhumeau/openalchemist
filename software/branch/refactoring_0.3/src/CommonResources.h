@@ -14,6 +14,8 @@
 
 #include <ClanLib/display.h>
 
+#include "Board.h"
+
 class GameEngine;
 
 class CommonResources{
@@ -21,6 +23,18 @@ class CommonResources{
   public:
   GameEngine *engine;
   CL_Font *main_font;
+
+  int score;
+
+  /** GameBoard */
+  Board board;
+
+  /** Sprites */
+  CL_Sprite *pieces_normal[NUMBER_OF_PIECES];
+  CL_Sprite *pieces_appearing[NUMBER_OF_PIECES];
+  CL_Sprite *pieces_disappearing[NUMBER_OF_PIECES];
+  CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
+  int pieces_width, pieces_height;
 
   void init(GameEngine *engine);
   void load_gfx(std::string skin);
