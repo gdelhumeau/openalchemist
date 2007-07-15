@@ -1,0 +1,3 @@
+base referer
+rect $Board_8h.html 168,30 243,54
+rect $Piece_8h.html 292,30 361,54

@@ -2,7 +2,7 @@
                           OpenAlchemist
 
   File : Player.cpp
-  Description : 
+  Description : Player implementation
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
 
@@ -273,7 +273,7 @@ void Player::move_right()
 
 void Player::update()
 {
-  CommonResources *resources = common_resources_get_instance();
+  static CommonResources *resources = common_resources_get_instance();
 
   // Move the pieces if the order has been changed      
   if(angle<target_angle)

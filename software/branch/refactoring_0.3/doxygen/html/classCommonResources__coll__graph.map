@@ -1,0 +1,6 @@
+base referer
+rect $classGameEngine.html 5,250 115,274
+rect $classBoard.html 157,114 219,138
+rect $classPlayer.html 231,250 295,274
+rect $classPiece.html 204,7 260,31
+rect $classKeyboardKey.html 392,114 501,138

@@ -1,0 +1,6 @@
+base referer
+rect $Application_8cpp.html 220,6 370,30
+rect $CommonResources_8cpp.html 194,54 396,78
+rect $GameEngine_8cpp.html 214,102 376,126
+rect $Player_8cpp.html 238,150 352,174
+rect $Preferences_8cpp.html 218,198 372,222

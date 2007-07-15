@@ -1,0 +1,7 @@
+base referer
+rect $CommonResources_8h.html 260,148 423,172
+rect $Piece_8h.html 764,199 833,223
+rect $Preferences_8h.html 284,12 399,36
+rect $misc_8h.html 308,298 375,322
+rect $Board_8h.html 640,199 715,223
+rect $Player_8h.html 495,148 569,172
