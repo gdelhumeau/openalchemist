@@ -149,16 +149,49 @@ class Player{
   Player();
   ~Player();
 
+  /**
+   * Load GFX
+   */
   void load_gfx(std::string skin);
+
+  /**
+   * Unload GFX
+   */
   void unload_gfx();
 
+  /**
+   * Checking key events
+   */
   void events();
+
+  /**
+   * Change angle of playable pieces
+   */
   void change_angle();
+
+  /**
+   * Move playable pieces to the left
+   */
   void move_left();
+
+  /**
+   * Move playable pieces to the right
+   */
   void move_right();
 
+  /**
+   * Make a new party
+   */
   void new_game();
+
+  /**
+   * Draw player (board and playable pieces)
+   */
   void draw();
+
+  /**
+   * Update playable pieces and board
+   */
   void update();
 
 };

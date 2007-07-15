@@ -1,4 +1,0 @@
-base referer
-rect $classBoard.html 155,113 216,137
-rect $classPiece.html 51,7 107,31
-rect $classKeyboardKey.html 240,113 349,137

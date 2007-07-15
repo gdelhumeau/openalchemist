@@ -1,8 +1,0 @@
-base referer
-rect $Player_8h.html 404,255 479,279
-rect $Piece_8h.html 743,255 812,279
-rect $Board_8h.html 571,355 646,379
-rect $Preferences_8h.html 384,80 499,104
-rect $CommonResources_8h.html 172,304 335,328
-rect $misc_8h.html 575,155 642,179
-rect $KeyboardKey_8h.html 548,107 668,131

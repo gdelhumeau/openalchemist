@@ -1,6 +1,0 @@
-base referer
-rect $GameEngine_8h.html 237,229 360,253
-rect $Preferences_8h.html 241,56 356,80
-rect $CommonResources_8h.html 217,423 380,447
-rect $Board_8h.html 687,473 761,497
-rect $Player_8h.html 481,448 556,472
