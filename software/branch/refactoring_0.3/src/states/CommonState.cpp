@@ -73,8 +73,7 @@ void CommonState::draw()
   background -> draw(0, 0);
   common_resources -> main_font -> draw(580,550,to_string(common_resources -> engine -> get_fps()));
 
-  // Drawing the board
-  common_resources -> board.draw();
+  common_resources -> player1.draw();
 }
 
 

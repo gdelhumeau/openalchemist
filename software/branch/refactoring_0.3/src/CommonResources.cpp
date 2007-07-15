@@ -14,16 +14,19 @@
 #include "CommonResources.h"
 #include "Preferences.h"
 #include "misc.h"
+#include "Piece.h"
+
+const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
 CommonResources::CommonResources()
 {
   main_font = NULL;
-  for(int i = 0; i<NUMBER_OF_PIECES; ++i)
+  /*for(int i = 0; i<NUMBER_OF_PIECES; ++i)
   {
     pieces_normal[i] = NULL;
     pieces_appearing[i] = NULL;
     pieces_disappearing[i] = NULL;
-  }
+    }*/
 }
 
 CommonResources::~CommonResources()
@@ -44,29 +47,12 @@ void CommonResources::load_gfx(std::string skin)
 
   main_font = new CL_Font("font", &gfx);
 
-  Preferences *pref = pref_get_instance();
-  
-  // First we load the sprites
-  for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
-  {
-    if(pref -> colorblind)
-      pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal-color-blind", &gfx_pieces);
-    else
-      pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
-
-    pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
-    pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
-    
-    if(pref -> colorblind)
-      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little-color-blind", &gfx_pieces);
-    else
-      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces);
-   
-  }
-
   // Then, propreties
   pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
   pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
+
+  player1.load_gfx(skin);
+
 }
 
 
@@ -78,27 +64,8 @@ void CommonResources::unload_gfx()
     main_font = NULL;
   }
 
-  // Delete the pieces sprites
-  for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-  {
-    if(pieces_normal[i])
-    {
-      delete pieces_normal[i];
-      pieces_normal[i] = NULL;
-    }
-    if(pieces_appearing[i])
-    {
-      delete pieces_appearing[i];
-      pieces_appearing[i] = NULL;
-    }
-    if(pieces_disappearing[i])
-    {
-      delete pieces_disappearing[i];
-      pieces_disappearing[i] = NULL;
-    }
+  player1.unload_gfx();
 
-  }
-  
 }
 
 

@@ -17,6 +17,8 @@
 
 #include "states/GameState.h"
 #include "states/CommonState.h"
+#include "states/InGameState.h"
+
 
 class GameEngine{
 
@@ -34,6 +36,7 @@ class GameEngine{
 
   /* States */
   CommonState common_state;
+  InGameState ingame_state;
   
   public:
   void init();

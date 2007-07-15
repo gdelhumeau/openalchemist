@@ -24,27 +24,11 @@ class Board{
 
   public:
   /** Constructor */
-  Board()
-    {
-    
-      /* Initializing all to NULL */
-      for(int i = 0; i < NUMBER_OF_COLS; ++i)
-        for(int j = 0; j < NUMBER_OF_LINES; ++j)
-          board[i][j] = NULL;
+  Board();
 
-    }
+  void apply_skin(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini);
 
-  void draw()
-    {
-      for(int i = 0; i < NUMBER_OF_COLS; ++i)
-        for(int j = 0; j < NUMBER_OF_LINES; ++j)
-        {
-          if(board[i][j])
-          {
-            board[i][j] -> draw(); 
-          }
-        }
-    }
+  void draw();
 
 };
 
