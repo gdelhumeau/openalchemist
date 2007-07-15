@@ -16,6 +16,17 @@
 #include "Preferences.h"
 #include "CommonResources.h"
 
+/**
+ * This function return a factor to calcul moving with time
+ */
+inline float get_time_interval(int fps)
+{
+  
+  if(!fps)return 0;
+  return 1000.0/((float)fps);
+  
+}
+
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
   this -> window = window;
@@ -67,8 +78,8 @@ void GameEngine::run()
     //key_events(); 
 
     // Get the Framerate
-    //fps = fps_getter.get_fps();
-    //time_interval = get_time_interval(fps);
+    resources -> fps = fps_getter.get_fps();
+    resources -> time_interval = get_time_interval(resources->fps);
 
 
     CL_Display::flip();

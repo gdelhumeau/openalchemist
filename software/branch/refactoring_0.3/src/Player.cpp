@@ -17,8 +17,10 @@
 #include "CommonResources.h"
 #include "misc.h"
 #include <math.h>
+#include "Board.h"
 
 #define TO_RAD PI/180
+#define PIECE_MOVING_SPEED 0.25
 
 Player::Player()
 {
@@ -29,6 +31,17 @@ Player::Player()
   current_piece2 = NULL;
 
   srand(CL_System::get_time());
+
+  key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
+  key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
+  key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
+}
+
+Player::~Player()
+{
+  delete key_change_angle;
+  delete key_left;
+  delete key_right;
 }
 
 void Player::new_game()
@@ -36,7 +49,11 @@ void Player::new_game()
   CommonResources *resources = common_resources_get_instance();
 
   angle = 0.0;
-  x = resources->pieces_width/2 + 2*(resources->pieces_width);
+
+  position = 2;
+  position_bis = 1;
+
+  x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
 
   current_piece1 = new Piece(rand()%3);
   current_piece2 = new Piece(rand()%3);
@@ -183,4 +200,120 @@ void Player::draw()
      
   current_piece1 -> draw();
   current_piece2 -> draw();
+}
+
+void Player::events()
+{
+  // Change the order of the pieces 
+  if(key_change_angle->get())
+  {
+    change_angle();
+  }
+
+  // Look the key to know if we have to move the pieces to the left
+  if(key_left->get())
+  {
+    move_left();
+  }
+
+  // Look the key to know if we have to move the pieces to the right
+  if(key_right->get())
+  {
+    move_right();
+  }
+}
+
+void Player::change_angle()
+{
+   // Change the order of the pieces 
+  if(target_angle<=target_angle+90)
+  {     
+    target_angle += 90;
+    placed = false;
+
+    if((target_angle%180 == 90))
+    {
+      position_bis = 0;
+    }
+    else
+    {
+      if(position == NUMBER_OF_COLS -1)
+        position --;
+        
+      position_bis = 1;
+    }
+
+  }
+}
+
+void Player::move_left()
+{
+  if(position > 0)
+  {
+    old_position = position;
+    old_position_bis = position_bis;
+    position--;
+    placed = false;
+  }
+}
+
+void Player::move_right()
+{
+  if(position < NUMBER_OF_COLS - 1)
+  {
+    if(!(position == NUMBER_OF_COLS - 2 && position_bis))
+    {
+      old_position = position;
+      old_position_bis = position_bis;
+      position++;
+      placed = false;
+    }
+  }
+}
+
+void Player::update()
+{
+  CommonResources *resources = common_resources_get_instance();
+
+  // Move the pieces if the order has been changed      
+  if(angle<target_angle)
+  {
+    angle += resources->time_interval * 0.35;
+    if(angle>=target_angle)
+    {
+      while(target_angle>=360)
+      {
+        target_angle-=360;             
+      }
+      angle = target_angle;
+    }
+  }
+  
+  // Move the pieces to the right
+  if(!placed)
+  {
+    if(position * resources->pieces_width + position_bis *resources->pieces_width/2 >= x)
+    {
+      x += resources->time_interval * PIECE_MOVING_SPEED;
+      if(x > position * resources->pieces_width + (position_bis )*resources->pieces_width/2)
+      {
+        x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
+        placed = true;
+      }
+    }
+  }
+
+  // Move the pieces to the left
+  if(!placed)
+  {  
+    if(position * resources->pieces_width + (position_bis )*resources->pieces_width/2 <= x)
+    {
+      x -= resources->time_interval * PIECE_MOVING_SPEED;
+      if(x < position * resources->pieces_width + (position_bis)*resources->pieces_width/2)
+      {
+        x = position * resources->pieces_width + (position_bis)*resources->pieces_width/2;
+        placed = true;
+      }
+    }
+  }
 }

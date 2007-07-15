@@ -16,6 +16,7 @@
 
 #include "Piece.h"
 #include "Board.h"
+#include "KeyboardKey.h"
 
 class Player{
 
@@ -24,6 +25,12 @@ class Player{
   
   int target_x;
   int target_angle;
+
+  int position;
+  int old_position;
+  int position_bis;
+  int old_position_bis;
+  bool placed;
   
   Piece* next_piece1;
   Piece* next_piece2;
@@ -44,12 +51,22 @@ class Player{
   CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
 
   Board board;
+
+  KeyboardKey *key_change_angle;
+  KeyboardKey *key_left;
+  KeyboardKey *key_right;
   
   public:
   Player();
+  ~Player();
 
   void load_gfx(std::string skin);
   void unload_gfx();
+
+  void events();
+  void change_angle();
+  void move_left();
+  void move_right();
 
   void new_game();
   void draw();

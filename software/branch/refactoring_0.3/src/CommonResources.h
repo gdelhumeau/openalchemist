@@ -35,6 +35,9 @@ class CommonResources{
   /** Sprites */
   int pieces_width, pieces_height;
 
+  float time_interval;
+  int fps;
+
 
   void init(GameEngine *engine);
   void load_gfx(std::string skin);

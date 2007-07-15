@@ -41,12 +41,12 @@ void InGameState::draw()
 
 void InGameState::update()
 {
-
+  common_resources -> player1.update();
 }
 
 void InGameState::events()
 {
-
+  common_resources -> player1.events();
 }
 
 InGameState::InGameState()
