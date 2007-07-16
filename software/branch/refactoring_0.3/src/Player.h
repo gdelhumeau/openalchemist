@@ -20,7 +20,7 @@
 
 #define GAME_MODE_PLAYING 1
 #define GAME_MODE_FALLING_AND_CREATING 2
-#define GAME_MODE_DESTROYING 4
+#define GAME_MODE_DESTROYING 3
 
 /**
  * Implements the player, keys events for going left, right & falling
@@ -130,6 +130,21 @@ class Player{
   CL_Sprite *pieces_mini[NUMBER_OF_PIECES];
 
   /**
+   * Contains the hidden pieces sprites
+   */
+  CL_Sprite *pieces_hidden[NUMBER_OF_PIECES - 3];
+
+  /**
+   * 
+   */
+  int pieces_progress_x[NUMBER_OF_PIECES];
+
+  /**
+   *
+   */
+  int pieces_progress_y[NUMBER_OF_PIECES];
+
+  /**
    * Board game
    */
   Board board;
@@ -213,11 +228,29 @@ class Player{
    */
   void update();
 
+  /**
+   * Update when game_mode = playing
+   */
   void update_playing();
+
+  /**
+   * Update when game_mode = falling & creating
+   */
   void update_falling_and_creating();
+
+  /**
+   * Update when game_mode = destroying
+   */
   void update_destroying();
 
+  /**
+   * Fall playable pieces
+   */
   void fall();
+
+  /**
+   * Prepare game to play (after a fall)
+   */
   void prepare_to_play();
 
 };

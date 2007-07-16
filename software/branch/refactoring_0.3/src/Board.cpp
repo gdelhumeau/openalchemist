@@ -100,8 +100,6 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   falling_list.clear();
   falling_list.push_back(piece_on_top);
   falling_list.push_back(piece_on_bottom);
-
-  combo = 0;
   
 }
 
@@ -238,15 +236,15 @@ bool Board::detect_pieces_to_destroy()
               new_piece.piece_number = NUMBER_OF_PIECES-1;
             }
             
-//             if(new_piece.piece_number > visible_pieces - 1)
-//             {
-//               //++visible_pieces;
-//               //skins_selector.set_skin_value(skin, visible_pieces);
-//             }
-//             if(new_piece.piece_number > unlocked_pieces)
-//             {
-//               //unlocked_pieces ++;
-//             }
+            if(new_piece.piece_number > visible_pieces - 1)
+            {
+              ++visible_pieces;
+              //skins_selector.set_skin_value(skin, visible_pieces);
+            }
+            if(new_piece.piece_number > unlocked_pieces)
+            {
+              unlocked_pieces ++;
+            }
 
             ++it;
           }
@@ -263,6 +261,7 @@ bool Board::detect_pieces_to_destroy()
 
 bool Board::destroy()
 {
+
   bool end = true;
   for(u_int i=0; i<list_to_destroy.size(); i++)
   {    

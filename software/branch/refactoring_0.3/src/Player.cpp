@@ -71,6 +71,9 @@ void Player::new_game()
 
   falling_requested = false;
   game_mode = GAME_MODE_PLAYING;
+
+  board.unlocked_pieces = 3;
+  board.visible_pieces  = 3;
   
   // Applying skin
   int value;
@@ -121,6 +124,12 @@ void Player::load_gfx(std::string skin)
       pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little-color-blind", &gfx_pieces);
     else
       pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces); 
+
+    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx_pieces);
+    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx_pieces);
+
+    if(i>3)
+      pieces_hidden[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx_pieces);
   }
 
   // Getting sprites position
@@ -196,6 +205,15 @@ void Player::unload_gfx()
 
 void Player::draw()
 {
+  // Drawing unlocked pieces
+  for(int i=0; i<NUMBER_OF_PIECES; ++i)
+  {
+    if(i >= board.visible_pieces)
+      pieces_hidden[i-3] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+    else
+      pieces_mini[i] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+  }
+
   // Drawing board
   board.draw();
 
@@ -490,9 +508,8 @@ void Player::prepare_to_play()
 //   else
 //   {
 //     
-  int unlocked_pieces = 4;
-  next_piece1 -> set_piece_number(rand()%(unlocked_pieces));
-  next_piece2 -> set_piece_number(rand()%(unlocked_pieces));
+  next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
+  next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
 //   }
           
   int value;

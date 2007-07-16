@@ -39,7 +39,9 @@ class Board{
    */
   int game_top, game_left, zone_top;
 
-  int combo;
+  int unlocked_pieces;
+  int visible_pieces;
+
 
   /** Constructor */
   Board();
