@@ -18,6 +18,10 @@
 #include "Board.h"
 #include "KeyboardKey.h"
 
+#define GAME_MODE_PLAYING 1
+#define GAME_MODE_FALLING_AND_CREATING 2
+#define GAME_MODE_DESTROYING 4
+
 /**
  * Implements the player, keys events for going left, right & falling
  * and contains his board.
@@ -32,8 +36,7 @@ class Player{
   /**
    * Angle
    */
-  float angle;
-  
+  float angle;  
 
   /**
    * Angle required (for changing)
@@ -64,6 +67,11 @@ class Player{
    * To know if pieces are moving too the left or to the right or not
    */
   bool placed;
+
+  /**
+   * Game Mode
+   */
+  int game_mode;
   
   /**
    * One of the next piece (displaying in top)
@@ -95,10 +103,6 @@ class Player{
    */
   Piece* current_piece2;
 
-  /**
-   * Game Position
-   */
-  int game_top, game_left, zone_top;
 
   /**
    * Rayon of circle which contains playable pieces
@@ -144,9 +148,24 @@ class Player{
    * Key for playing
    */
   KeyboardKey *key_right;
+
+  /**
+   * Key for playing
+   */
+  KeyboardKey *key_falling;
+
+  bool falling_requested;
+
   
   public:
+  /**
+   * Constructor
+   */
   Player();
+
+  /**
+   * Destructor
+   */
   ~Player();
 
   /**
@@ -193,6 +212,13 @@ class Player{
    * Update playable pieces and board
    */
   void update();
+
+  void update_playing();
+  void update_falling_and_creating();
+  void update_destroying();
+
+  void fall();
+  void prepare_to_play();
 
 };
 

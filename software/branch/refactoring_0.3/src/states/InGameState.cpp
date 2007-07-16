@@ -36,7 +36,7 @@ void InGameState::unload_gfx()
 
 void InGameState::draw()
 {
-  common_resources -> main_font -> draw(10,10,"42");
+  
 }
 
 void InGameState::update()

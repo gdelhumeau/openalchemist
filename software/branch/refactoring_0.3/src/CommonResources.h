@@ -29,9 +29,6 @@ class CommonResources{
 
   Player player1;
 
-  /** GameBoard */
-  Board board;
-
   /** Sprites */
   int pieces_width, pieces_height;
 
