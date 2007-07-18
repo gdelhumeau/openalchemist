@@ -43,6 +43,7 @@ Player::Player()
 
 Player::~Player()
 {
+  unload_gfx();
   // Deleting key objects
   delete key_change_angle;
   delete key_left;
@@ -63,8 +64,10 @@ void Player::new_game()
 
   // Setting playable pieces position
   angle = 0.0;
+  target_angle = 0;
   position = 2;
   position_bis = 1;
+  placed = true;
   x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
   next_piece1 -> set_position(next_left, next_top);
   next_piece2 -> set_position(next_left+((resources->pieces_width)/2),next_top);
@@ -72,6 +75,7 @@ void Player::new_game()
   falling_requested = false;
   game_mode = GAME_MODE_PLAYING;
 
+  board.clear();
   board.unlocked_pieces = 3;
   board.visible_pieces  = 3;
   

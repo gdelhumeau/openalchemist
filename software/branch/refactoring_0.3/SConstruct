@@ -5,7 +5,7 @@ import zipfile, os
 
 # CONFIGURATION
 BIN_NAME = "openalchemist"
-FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/Board.cpp bin/states/InGameState.cpp"
+FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/Board.cpp bin/states/InGameState.cpp bin/states/GameOverState.cpp"
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
 CPPPATH = ""
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"

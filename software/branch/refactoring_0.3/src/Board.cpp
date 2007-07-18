@@ -1,6 +1,7 @@
 #include "Board.h"
 
 #include "CommonResources.h"
+#include "GameEngine.h"
 
 Board::Board()
 {
@@ -9,6 +10,24 @@ Board::Board()
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
       board[i][j] = NULL;
+
+}
+
+Board::~Board()
+{
+  clear();
+}
+
+void Board::clear()
+{
+  /* Initializing all to NULL */
+  for(int i = 0; i < NUMBER_OF_COLS; ++i)
+    for(int j = 0; j < NUMBER_OF_LINES; ++j)
+      if(board[i][j])
+        {
+          delete board[i][j];
+          board[i][j] = NULL;
+        }
 
 }
 
@@ -69,6 +88,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   if(y_bottom == -1 && board[piece_bottom_x][0])
   {
     //game_mode = GAME_MODE_GAME_OVER;
+    resources -> engine -> set_state_gameover();
   }
   else
   {
@@ -85,6 +105,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   if(y_top==-1 && board[piece_top_x][0])
   {
     //game_mode = GAME_MODE_GAME_OVER;
+    resources -> engine -> set_state_gameover();
     board[piece_bottom_x][y_bottom] = NULL;
   }
   else

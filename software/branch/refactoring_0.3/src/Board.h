@@ -45,6 +45,9 @@ class Board{
 
   /** Constructor */
   Board();
+  ~Board();
+
+  void clear();
 
   void apply_skin(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini);
 
