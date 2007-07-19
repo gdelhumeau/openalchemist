@@ -54,6 +54,11 @@ void GameEngine::init()
 
   gameover_state.init();
   gameover_state.load_gfx(pref -> skin);
+
+  hightscore_state.init();
+  hightscore_state.load_gfx(pref -> skin);
+
+  
       
 }
 
@@ -129,6 +134,11 @@ void GameEngine::set_state_ingame()
 void GameEngine::set_state_gameover()
 {
   states_stack.push(&gameover_state);
+}
+
+void GameEngine::set_state_hightscore()
+{
+  states_stack.push(&hightscore_state);
 }
 
 

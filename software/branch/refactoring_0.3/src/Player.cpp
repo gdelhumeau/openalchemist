@@ -69,6 +69,9 @@ void Player::new_game()
   position = 2;
   position_bis = 1;
   placed = true;
+  undo_possible = false;
+  next_next_piece1 = 0;
+  next_next_piece2 = 0;
   x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
   next_piece1 -> set_position(next_left, next_top);
   next_piece2 -> set_position(next_left+((resources->pieces_width)/2),next_top);
@@ -243,7 +246,7 @@ void Player::draw()
   // TODO : must work with differents difficulties
   if(resources -> hightscores[0] > 0)
   {
-    int percentage = (int)((double)board.score / (double)resources -> hightscores[0] * 100.0);
+    int percentage = (int)((double)(board.score + board.bonus_score) / (double)resources -> hightscores[0] * 100.0);
     progress_bar.draw(percentage);
   }
   else
@@ -434,33 +437,13 @@ void Player::fall()
   falling_requested = false;
   combo = 0;
 
+  undo_possible = true;  
+  undo_position = position;
+  undo_position_bis = position_bis;
+  undo_piece1_number = current_piece1 -> get_piece_number();
+  undo_piece2_number = current_piece2 -> get_piece_number();
+  undo_angle = target_angle;
 
-  // undo.global_bonus = 0;
-//   undo.possible = true;
-     
-// // Copy to the undo body
-//   for(int i=0; i<NUMBER_OF_COLS; ++i)
-//     for(int j=0; j<NUMBER_OF_LINES; ++j)
-//     {
-//       if(body[i][j])
-//       {
-//         undo.body[i][j] = body[i][j] -> get_piece_number();
-//       }
-//       else
-//       {
-//         undo.body[i][j] = -1;
-//       }
-//     } 
-
-//   undo.global_bonus = 0;
-//   undo.position = position;
-//   undo.position_bis = position_bis;
-//   undo.piece1_number = current_piece1 -> get_piece_number();
-//   undo.piece2_number = current_piece2 -> get_piece_number();
-//   undo.angle = current_pieces_next_angle;
-//   undo.unlocked_pieces = unlocked_pieces;
-//   undo.visible_pieces = visible_pieces;
-     
   
   current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
                                  board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
@@ -530,7 +513,14 @@ void Player::update_falling_and_creating()
     {
       if(board.is_game_over())
       {
-        resources -> engine -> set_state_gameover();
+        if(board.score + board.bonus_score > resources -> hightscores[0])
+        {
+          resources -> engine -> set_state_hightscore();
+          resources -> hightscores[0] = board.score + board.bonus_score;
+          resources -> save_scores();
+        }
+        else
+          resources -> engine -> set_state_gameover();
         return;
       }
       prepare_to_play();
@@ -556,18 +546,17 @@ void Player::update_destroying()
 
 void Player::prepare_to_play()
 {
-//   if(undo.next_next_piece1 >= 0)
-//   {
-//     next_piece1 -> set_piece_number(undo.next_next_piece1);
-//     next_piece2 -> set_piece_number(undo.next_next_piece2);
-//     undo.next_next_piece1 = -1;
-//   }
-//   else
-//   {
-//     
-  next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
-  next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
-//   }
+  if(next_next_piece1 >= 0)
+  {
+    next_piece1 -> set_piece_number(next_next_piece1);
+    next_piece2 -> set_piece_number(next_next_piece2);
+    next_next_piece1 = -1;
+  }
+  else
+  {    
+    next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
+    next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
+  }
           
   int value;
   value = next_piece1 -> get_piece_number();

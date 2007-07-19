@@ -45,6 +45,7 @@ class CommonResources{
   void unload_gfx();
 
   void read_scores();
+  void save_scores();
 
   CommonResources();
   ~CommonResources();

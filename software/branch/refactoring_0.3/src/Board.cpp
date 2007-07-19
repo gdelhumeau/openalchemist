@@ -82,6 +82,24 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 {
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
+
+  // Saving board state for undoing
+  for(int i=0; i<NUMBER_OF_COLS; ++i)
+    for(int j=0; j<NUMBER_OF_LINES; ++j)
+    {
+      if(board[i][j])
+      {
+        undo_board[i][j] = board[i][j] -> get_piece_number();
+      }
+      else
+      {
+        undo_board[i][j] = -1;
+      }
+    } 
+
+  undo_bonus_score = 0;
+  undo_unlocked_pieces = unlocked_pieces;
+  undo_visible_pieces = visible_pieces;
   
   Piece *piece_on_top, *piece_on_bottom;
   if(piece1 -> get_y() <= piece2 -> get_y())
@@ -238,14 +256,14 @@ bool Board::detect_pieces_to_destroy()
           Coords *c = (Coords*) *it;                 
           u_int score_of_root = board[c->x][c->y]->get_piece_number(); 
 
-          if(score_of_root == NUMBER_OF_PIECES)
+          if(score_of_root == NUMBER_OF_PIECES - 1)
           {
-            //undo.global_bonus += counter*board[i][j]->get_score_value();
+            undo_bonus_score  += counter*board[i][j]->get_score_value();
             bonus_score += counter*board[i][j]->get_score_value();
           }
           else
           {
-            //undo.global_bonus += (counter - 3)*board[i][j]->get_score_value();
+            undo_bonus_score  += (counter - 3)*board[i][j]->get_score_value();
             bonus_score += (counter - 3)*board[i][j]->get_score_value();
           }      
           Coords new_piece(NUMBER_OF_COLS+1,-1);

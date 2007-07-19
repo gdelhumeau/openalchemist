@@ -33,6 +33,11 @@ class Board{
   Piece *board[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
   /**
+   * Old Board game (for undoing)
+   */
+  int undo_board[NUMBER_OF_COLS][NUMBER_OF_LINES];
+
+  /**
    * List of pieces which are falling
    */
   std::vector<Piece*> falling_list;
@@ -63,16 +68,26 @@ class Board{
    * Progression - number of unlocked pieces and visible pieces
    */
   int unlocked_pieces, visible_pieces;
+  
+  /**
+   * Progression, but for undoing
+   */
+  int undo_unlocked_pieces, undo_visible_pieces;
 
   /**
    * Score
    */
-  int score;
+  u_int score;
 
   /**
    * Bonus score
    */
-  int bonus_score;
+  u_int bonus_score;
+
+  /**
+   * Old Bonus score
+   */
+  u_int undo_bonus_score;
 
   /**
    * Score in string format

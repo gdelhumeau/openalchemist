@@ -19,6 +19,7 @@
 #include "states/CommonState.h"
 #include "states/InGameState.h"
 #include "states/GameOverState.h"
+#include "states/HightScoreState.h"
 
 /**
  * GameEngine class - controls the states
@@ -62,6 +63,7 @@ class GameEngine{
   CommonState common_state;
   InGameState ingame_state;
   GameOverState gameover_state;
+  HightScoreState hightscore_state;
   
   public:
 
@@ -85,6 +87,7 @@ class GameEngine{
   void set_state_pause_menu();
   void set_state_ingame();
   void set_state_gameover();
+  void set_state_hightscore();
   void set_state_options_menu();
   void set_state_skin_menu();
 

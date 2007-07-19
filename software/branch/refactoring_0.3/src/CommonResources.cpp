@@ -104,6 +104,31 @@ void CommonResources::read_scores()
   }
 }
 
+void CommonResources::save_scores()
+{
+  std::string path = get_save_path();
+
+  try
+  {
+#ifdef WIN32
+    CL_OutputSource_File file(path+"\\hightscores");
+#else
+    CL_OutputSource_File file(path+"/hightscores");
+#endif
+    
+    file.open();
+    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
+    {
+      file.write_uint32(hightscores[i]);
+    }
+    file.close();
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "Can't write hightscores file. \n";
+  }
+}
+
 
 CommonResources* common_resources_get_instance()
 {

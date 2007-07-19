@@ -84,6 +84,9 @@ class Player{
    */
   Piece* next_piece2;
 
+  // TODO comment
+  int next_next_piece1, next_next_piece2;
+
   /**
    * X Position for next items
    */
@@ -184,6 +187,16 @@ class Player{
    * Progress Bar
    */
   ProgressBar progress_bar;
+
+  /**
+   * Undo elements
+   */
+  int undo_position;
+  int undo_position_bis;
+  int undo_piece1_number;
+  int undo_piece2_number;
+  float undo_angle;
+  bool undo_possible;
   
   public:
   /**
