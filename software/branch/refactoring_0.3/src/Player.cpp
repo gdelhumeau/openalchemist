@@ -19,6 +19,7 @@
 #include "CommonResources.h"
 #include "misc.h"
 #include "Board.h"
+#include "GameEngine.h"
 
 #define TO_RAD PI/180
 #define PIECE_MOVING_SPEED 0.25
@@ -395,8 +396,8 @@ void Player::fall()
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
 
-
   falling_requested = false;
+  combo = 0;
 
 
   // undo.global_bonus = 0;
@@ -466,10 +467,22 @@ void Player::fall()
 
 void Player::update_falling_and_creating()
 {
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
   bool placed = board.fall_and_create();
 
   if(placed)
   {
+    
+    combo ++;
+    
+    // Only the second time
+    if(combo == 2 && board.is_game_over())
+    {
+      resources -> engine -> set_state_gameover();
+      return;
+    }
      
     bool to_destroy = board.detect_pieces_to_destroy();
 
@@ -480,6 +493,11 @@ void Player::update_falling_and_creating()
     }
     else
     {
+      if(board.is_game_over())
+      {
+        resources -> engine -> set_state_gameover();
+        return;
+      }
       prepare_to_play();
       game_mode = GAME_MODE_PLAYING;
     }
@@ -489,20 +507,20 @@ void Player::update_falling_and_creating()
 
 void Player::update_destroying()
 {
-  bool destroyed = board.destroy();
+      bool destroyed = board.destroy();
 
-  if(destroyed)
-  {
-    board.create_new_pieces(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+      if(destroyed)
+      {
+        board.create_new_pieces(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
 
-    board.detect_pieces_to_fall();
-    game_mode = GAME_MODE_FALLING_AND_CREATING;
-  }
+        board.detect_pieces_to_fall();
+        game_mode = GAME_MODE_FALLING_AND_CREATING;
+      }
   
-}
+    }
 
-void Player::prepare_to_play()
-{
+  void Player::prepare_to_play()
+    {
 //   if(undo.next_next_piece1 >= 0)
 //   {
 //     next_piece1 -> set_piece_number(undo.next_next_piece1);
@@ -512,18 +530,18 @@ void Player::prepare_to_play()
 //   else
 //   {
 //     
-  next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
-  next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
+      next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
+      next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
 //   }
           
-  int value;
-  value = next_piece1 -> get_piece_number();
-  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+      int value;
+      value = next_piece1 -> get_piece_number();
+      next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                                 pieces_disappearing[value], pieces_mini[value]);
       
-  value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+      value = next_piece2 -> get_piece_number();
+      next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                                 pieces_disappearing[value], pieces_mini[value]);
           
-  //combo = 0;
-}
+      //combo = 0;
+    }

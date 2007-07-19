@@ -73,6 +73,8 @@ class Board{
 
   void detect_pieces_to_fall();
 
+  bool is_game_over();
+
 };
 
 #endif

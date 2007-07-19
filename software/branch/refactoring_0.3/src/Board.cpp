@@ -121,7 +121,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   falling_list.clear();
   falling_list.push_back(piece_on_top);
   falling_list.push_back(piece_on_bottom);
-  
+
 }
 
 bool Board::fall_and_create()
@@ -374,3 +374,24 @@ void Board::detect_pieces_to_fall()
     }
 }
 
+bool Board::is_game_over()
+{
+  for(int i=0; i<NUMBER_OF_COLS; ++i)
+    for(int j=0; j<2; ++j)
+    {
+    
+      if(board[i][j] != NULL)
+      {
+        //game_mode = GAME_MODE_GAME_OVER;
+        /*if(global_score + global_bonus > hightscores[current_difficulty])
+          {
+          game_mode = GAME_MODE_NEW_HIGHTSCORE;
+          save_scores();
+          }*/
+        return true;
+      }
+    }
+
+  return false;
+
+}

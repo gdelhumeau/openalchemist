@@ -171,6 +171,7 @@ class Player{
 
   bool falling_requested;
 
+  int combo;
   
   public:
   /**
