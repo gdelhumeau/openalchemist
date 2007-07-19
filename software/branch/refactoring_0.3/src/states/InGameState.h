@@ -19,7 +19,6 @@
 
 class GameEngine;
 
-
 /**
  * InGame State
  */

@@ -20,29 +20,64 @@
 #include "states/InGameState.h"
 #include "states/GameOverState.h"
 
-
+/**
+ * GameEngine class - controls the states
+ */
 class GameEngine{
 
   private:
+  
+  /**
+   * Stack of states, the current state is on the top
+   */
   std::stack<GameState*> states_stack;
   
-  /** Window */
+  /**
+   * Window
+   */
   CL_DisplayWindow *window;
-  /** To know if OpenGL is used */
+
+
+  /**
+   * To know if OpenGL is used
+   */
+
   bool opengl;
-  /** */
+
+
+  /** 
+   * Controling main loop
+   */
   bool running;
-  /** Fps Getter */
+  
+
+  /**
+   * Fps Getter
+   */
   CL_FramerateCounter fps_getter;
 
-  /* States */
+  /** 
+   * States
+   */
   CommonState common_state;
   InGameState ingame_state;
   GameOverState gameover_state;
   
   public:
+
+  /**
+   * Initializing game engine
+   */
   void init();
+
+  /**
+   * Main loop
+   */
   void run();
+
+  /**
+   * Stoping the game engine
+   */
   void stop();
 
   void set_state_title();
@@ -53,12 +88,29 @@ class GameEngine{
   void set_state_options_menu();
   void set_state_skin_menu();
 
+  /**
+   * Deleting current state of the stack
+   */
   void stop_current_state();
 
+  /**
+   * Switching to full screen mode or windowed mode
+   */
   void toggle_screen();
+
+  /**
+   * Returning Frame Rate
+   */
   int get_fps();
 
+  /**
+   * Constructor
+   */
   GameEngine(CL_DisplayWindow *window, bool opengl);
+
+  /**
+   * Destructor
+   */
   ~GameEngine();
 
 };

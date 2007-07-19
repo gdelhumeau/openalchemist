@@ -169,8 +169,14 @@ class Player{
    */
   KeyboardKey *key_falling;
 
+  /**
+   * True if player press fall button
+   */
   bool falling_requested;
 
+  /**
+   * Combo counter
+   */
   int combo;
   
   public:
