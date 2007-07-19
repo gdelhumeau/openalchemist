@@ -33,3 +33,11 @@ int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gf
   return to_return;
 }
 
+std::string get_save_path()
+{
+#ifdef WIN32
+  return CL_System::get_exe_path() + "\\savedata";
+#else
+  return ((std::string)getenv("HOME")) + "/.openalchemist";
+#endif
+}

@@ -64,6 +64,37 @@ class Board{
    */
   int unlocked_pieces, visible_pieces;
 
+  /**
+   * Score
+   */
+  int score;
+
+  /**
+   * Bonus score
+   */
+  int bonus_score;
+
+  /**
+   * Score in string format
+   */
+  std::string str_score;
+
+  /**
+   * Bonus score in string format
+   */
+  std::string str_bonus;
+
+  /**
+   * Hight score in string format
+   */
+  std::string str_hightscore;
+
+  /**
+   * Score coords
+   */
+  int score_left, score_right, score_top, bonus_left, bonus_right, bonus_top,
+    hightscore_left, hightscore_right, hightscore_top;
+
 
   /** 
    * Constructor
@@ -129,6 +160,11 @@ class Board{
    * Detecting if pieces are upside the limit, so if game is over
    */
   bool is_game_over();
+
+  /**
+   * Calculating score
+   */
+  void calc_score();
 
 };
 

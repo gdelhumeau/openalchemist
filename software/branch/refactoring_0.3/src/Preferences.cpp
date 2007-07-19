@@ -14,11 +14,9 @@
 
 #include "Preferences.h"
 #include "IniFile.h"
-
+#include "misc.h"
 
 #define OPTIONS_FILE_REVISION 4
-
-std::string get_save_path();
 
 /** Implementing a singleton instance of Preference */
 Preferences* pref_get_instance()
@@ -269,13 +267,3 @@ void Preferences::set_default()
   pref -> write();
 }*/
 
-
-
-std::string get_save_path()
-{
-#ifdef WIN32
-  return CL_System::get_exe_path() + "\\savedata";
-#else
-  return ((std::string)getenv("HOME")) + "/.openalchemist";
-#endif
-}

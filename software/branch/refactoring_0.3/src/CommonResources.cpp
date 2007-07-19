@@ -22,7 +22,7 @@ CommonResources::CommonResources()
 {
   main_font = NULL;
   /*for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-  {
+    {
     pieces_normal[i] = NULL;
     pieces_appearing[i] = NULL;
     pieces_disappearing[i] = NULL;
@@ -37,6 +37,7 @@ CommonResources::~CommonResources()
 void CommonResources::init(GameEngine *engine)
 {
   this -> engine = engine;
+  read_scores();
 }
 
 void CommonResources::load_gfx(std::string skin)
@@ -66,6 +67,41 @@ void CommonResources::unload_gfx()
 
   player1.unload_gfx();
 
+}
+
+void CommonResources::read_scores()
+{
+  for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
+  {
+    hightscores[i] = 0;
+  }
+
+  std::string path = get_save_path();
+
+  try
+  {
+#ifdef WIN32
+    CL_InputSource_File file(path+"\\hightscores");
+#else
+    CL_InputSource_File file(path+"/hightscores");
+#endif
+
+    file.open();
+    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
+    {
+      hightscores[i] = file.read_uint32();
+    }
+    file.close();
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
+    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
+    {
+      hightscores[i] = 0;
+    }
+    
+  }
 }
 
 

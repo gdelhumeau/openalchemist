@@ -55,6 +55,11 @@ inline std::string format_number(const std::string &string)
   return string_modified;
 }
 
+/**
+ * Returning save path 
+ */
+std::string get_save_path();
+
 
 /**
  * Convert a CL_Integer to a int

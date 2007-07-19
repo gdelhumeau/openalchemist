@@ -79,6 +79,9 @@ void Player::new_game()
   board.clear();
   board.unlocked_pieces = 3;
   board.visible_pieces  = 3;
+  board.score = 0;
+  board.bonus_score = 0;
+  board.calc_score();
   
   // Applying skin
   int value;
@@ -146,6 +149,13 @@ void Player::load_gfx(std::string skin)
   board.game_left = CL_Integer_to_int("game/left", &gfx); 
   board.zone_top = CL_Integer_to_int("zone_top", &gfx);
 
+  board.score_top = CL_Integer_to_int("score_top", &gfx);
+  board.score_right = CL_Integer_to_int("score_right", &gfx);
+  board.bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
+  board.bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
+  board.hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
+  board.hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
+
   // Calculating c² = a²+b³
   current_pieces_r = resources->pieces_width/2;
 
@@ -177,6 +187,9 @@ void Player::load_gfx(std::string skin)
   // And to the board too
   board.apply_skin(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
 
+  // Loading gfx for progress bar
+  progress_bar.load_gfx(skin);
+
 }
 
 void Player::unload_gfx()
@@ -204,12 +217,16 @@ void Player::unload_gfx()
       delete pieces_mini[i];
       pieces_mini[i] = NULL;
     }
-
   }
+
+  progress_bar.unload_gfx();
 }
 
 void Player::draw()
 {
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
   // Drawing unlocked pieces
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
@@ -222,12 +239,22 @@ void Player::draw()
   // Drawing board
   board.draw();
 
+  // Drawing the progress bar 
+  // TODO : must work with differents difficulties
+  if(resources -> hightscores[0] > 0)
+  {
+    int percentage = (int)((double)board.score / (double)resources -> hightscores[0] * 100.0);
+    progress_bar.draw(percentage);
+  }
+  else
+  {
+    progress_bar.draw(100);
+  }
+
   // Drawing next pieces
   next_piece1 -> draw_mini();
   next_piece2 -> draw_mini();
 
-  // Getting resources
-  CommonResources *resources = common_resources_get_instance();
 
   if(GAME_MODE_PLAYING == game_mode)
   {
@@ -271,6 +298,14 @@ void Player::events()
     {
       falling_requested = true; 
     } 
+    
+    // Cheatting
+    if(CL_Keyboard::get_keycode(CL_KEY_A) && CL_Keyboard::get_keycode(CL_KEY_L))
+    {
+      board.unlocked_pieces = NUMBER_OF_PIECES;
+      board.visible_pieces = NUMBER_OF_PIECES;
+    }
+
   }
 }
 
@@ -507,20 +542,20 @@ void Player::update_falling_and_creating()
 
 void Player::update_destroying()
 {
-      bool destroyed = board.destroy();
+  bool destroyed = board.destroy();
 
-      if(destroyed)
-      {
-        board.create_new_pieces(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+  if(destroyed)
+  {
+    board.create_new_pieces(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
 
-        board.detect_pieces_to_fall();
-        game_mode = GAME_MODE_FALLING_AND_CREATING;
-      }
+    board.detect_pieces_to_fall();
+    game_mode = GAME_MODE_FALLING_AND_CREATING;
+  }
   
-    }
+}
 
-  void Player::prepare_to_play()
-    {
+void Player::prepare_to_play()
+{
 //   if(undo.next_next_piece1 >= 0)
 //   {
 //     next_piece1 -> set_piece_number(undo.next_next_piece1);
@@ -530,18 +565,18 @@ void Player::update_destroying()
 //   else
 //   {
 //     
-      next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
-      next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
+  next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
+  next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
 //   }
           
-      int value;
-      value = next_piece1 -> get_piece_number();
-      next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                 pieces_disappearing[value], pieces_mini[value]);
+  int value;
+  value = next_piece1 -> get_piece_number();
+  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
       
-      value = next_piece2 -> get_piece_number();
-      next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                 pieces_disappearing[value], pieces_mini[value]);
+  value = next_piece2 -> get_piece_number();
+  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                             pieces_disappearing[value], pieces_mini[value]);
           
-      //combo = 0;
-    }
+  board.calc_score();
+}

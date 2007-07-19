@@ -1,7 +1,19 @@
+/********************************************************************
+                          OpenAlchemist
+
+  File : Board.cpp
+  Description : Board implementation
+  License : GNU General Public License 2 or +
+  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+
+
+*********************************************************************/
+
 #include "Board.h"
 
 #include "CommonResources.h"
 #include "GameEngine.h"
+#include "misc.h"
 
 Board::Board()
 {
@@ -48,6 +60,9 @@ void Board::apply_skin(CL_Sprite** pieces_normal, CL_Sprite** pieces_appearing, 
 
 void Board::draw()
 {
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
     {
@@ -56,6 +71,11 @@ void Board::draw()
         board[i][j] -> draw(); 
       }
     }
+
+  // Displaying scores
+  resources -> main_font -> draw(score_left, score_top, str_score);
+  resources -> main_font -> draw(bonus_left, bonus_top, str_bonus);
+  resources -> main_font -> draw(hightscore_left, hightscore_top, str_hightscore);
 }
 
 void Board::add_pieces(Piece* piece1, Piece* piece2)
@@ -221,12 +241,12 @@ bool Board::detect_pieces_to_destroy()
           if(score_of_root == NUMBER_OF_PIECES)
           {
             //undo.global_bonus += counter*board[i][j]->get_score_value();
-            //global_bonus += counter*board[i][j]->get_score_value();
+            bonus_score += counter*board[i][j]->get_score_value();
           }
           else
           {
             //undo.global_bonus += (counter - 3)*board[i][j]->get_score_value();
-            //global_bonus += (counter - 3)*board[i][j]->get_score_value();
+            bonus_score += (counter - 3)*board[i][j]->get_score_value();
           }      
           Coords new_piece(NUMBER_OF_COLS+1,-1);
           
@@ -394,4 +414,33 @@ bool Board::is_game_over()
 
   return false;
 
+}
+
+
+void Board::calc_score()
+{
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
+  score = 0;
+  for(int i=0; i<NUMBER_OF_COLS; ++i)
+    for(int j=2; j<NUMBER_OF_LINES; ++j)
+    {
+      if(board[i][j])
+      {
+        score += board[i][j]->get_score_value();                           
+      }
+    }
+
+  str_score = format_number(to_string(score));
+  str_bonus = format_number(to_string(bonus_score));
+  str_hightscore = format_number(to_string(resources->hightscores[0])); 
+
+  int score_width = resources->main_font->get_width(str_score, CL_Size(0, 0));
+  int bonus_width = resources->main_font->get_width(str_bonus, CL_Size(0, 0));
+  int hightscore_width = resources->main_font->get_width(str_hightscore, CL_Size(0, 0));
+
+  score_left = score_right - score_width;
+  bonus_left = bonus_right - bonus_width;
+  hightscore_left = hightscore_right - hightscore_width;
 }

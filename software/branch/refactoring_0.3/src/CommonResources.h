@@ -17,6 +17,8 @@
 #include "Board.h"
 #include "Player.h"
 
+#define NUMBER_OF_DIFFICULTIES 3
+
 class GameEngine;
 
 class CommonResources{
@@ -35,10 +37,14 @@ class CommonResources{
   float time_interval;
   int fps;
 
+  u_int hightscores[NUMBER_OF_DIFFICULTIES];
+
 
   void init(GameEngine *engine);
   void load_gfx(std::string skin);
   void unload_gfx();
+
+  void read_scores();
 
   CommonResources();
   ~CommonResources();
