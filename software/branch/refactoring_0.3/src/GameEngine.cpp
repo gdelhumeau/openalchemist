@@ -79,21 +79,20 @@ void GameEngine::run()
 
     GameState* current_state = states_stack.top();
     current_state -> events();
+    current_state -> update();
+
+    // Drawing the front layer behind the current state or not
     if(current_state -> front_layer_behind())
     {
-      current_state -> update();
       resources -> front_layer.draw();
-
+      current_state -> draw();
     }
     else
     {
+      current_state -> draw();
       resources -> front_layer.draw();            
-      current_state -> update();
     }
-    current_state -> draw();
 
-    //draw_game();
-    //key_events(); 
 
     // Get the Framerate
     resources -> fps = fps_getter.get_fps();
