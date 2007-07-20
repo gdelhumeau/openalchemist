@@ -36,10 +36,10 @@ void Board::clear()
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
       if(board[i][j])
-        {
-          delete board[i][j];
-          board[i][j] = NULL;
-        }
+      {
+        delete board[i][j];
+        board[i][j] = NULL;
+      }
 
 }
 
@@ -346,7 +346,7 @@ bool Board::destroy()
 }
 
 void Board::create_new_pieces(CL_Sprite **pieces_normal, CL_Sprite **pieces_appearing, CL_Sprite **pieces_disappearing,
-                       CL_Sprite **pieces_mini)
+                              CL_Sprite **pieces_mini)
 {
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
@@ -401,7 +401,7 @@ void Board::detect_pieces_to_fall()
           board[i][j+k] = board[i][j+k-1];
           board[i][j+k-1] = NULL;
           board[i][j+k] -> start_fall((int)(board[i][j+k]->get_x()),
-                                     (int)(game_top+(j+k-2)*resources->pieces_height));
+                                      (int)(game_top+(j+k-2)*resources->pieces_height));
           k++;
         }
         if(k>1)
@@ -461,4 +461,33 @@ void Board::calc_score()
   score_left = score_right - score_width;
   bonus_left = bonus_right - bonus_width;
   hightscore_left = hightscore_right - hightscore_width;
+}
+
+void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini)
+{
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
+  // Delete the pieces in the board and replace by new ones
+  for(int i=0; i<NUMBER_OF_COLS; ++i)
+    for(int j=0; j<NUMBER_OF_LINES; ++j)
+    {
+      if(board[i][j]) delete board[i][j];
+      board[i][j] = NULL;
+      
+      if(undo_board[i][j] >= 0)
+      {
+        board[i][j] = new Piece(undo_board[i][j]);
+        board[i][j] -> set_sprites(pieces_normal[undo_board[i][j]], pieces_appearing[undo_board[i][j]],
+                                   pieces_disappearing[undo_board[i][j]], pieces_mini[undo_board[i][j]]);
+        board[i][j] -> set_position(i*resources->pieces_width+game_left,game_top+(j-2)*resources->pieces_height);
+      }
+    } 
+
+  bonus_score -= undo_bonus_score;
+
+  unlocked_pieces = undo_unlocked_pieces;
+  visible_pieces =  undo_visible_pieces;
+
+  calc_score();
 }

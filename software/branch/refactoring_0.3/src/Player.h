@@ -174,6 +174,12 @@ class Player{
   KeyboardKey *key_falling;
 
   /**
+   * Key for undoing
+   */
+  KeyboardKey *key_undo;
+
+
+  /**
    * True if player press fall button
    */
   bool falling_requested;
@@ -278,6 +284,11 @@ class Player{
    * Prepare game to play (after a fall)
    */
   void prepare_to_play();
+
+  /**
+   * Undoing last action
+   */
+  void undo();
 
 };
 

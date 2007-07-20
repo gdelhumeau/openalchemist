@@ -40,6 +40,7 @@ Player::Player()
   key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
   key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
   key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
+  key_undo         = new KeyboardKey(CL_KEY_F5    , false);
 }
 
 Player::~Player()
@@ -50,6 +51,7 @@ Player::~Player()
   delete key_left;
   delete key_right;
   delete key_falling;
+  delete key_undo;
 }
 
 void Player::new_game()
@@ -308,8 +310,14 @@ void Player::events()
       board.unlocked_pieces = NUMBER_OF_PIECES;
       board.visible_pieces = NUMBER_OF_PIECES;
     }
-
   }
+
+  // Undo the last move
+  if(key_undo -> get())
+  {
+    undo();
+  }
+
 }
 
 void Player::change_angle()
@@ -568,4 +576,53 @@ void Player::prepare_to_play()
                              pieces_disappearing[value], pieces_mini[value]);
           
   board.calc_score();
+}
+
+void Player::undo()
+{
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+  
+  // First verify than the last move is not the first one
+  if(undo_possible)
+  {
+    undo_possible = false;
+
+    board.undo(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+
+    next_next_piece1 = next_piece1 -> get_piece_number();
+    next_next_piece2 = next_piece2 -> get_piece_number();
+  
+    
+    int value = current_piece1 -> get_piece_number();
+    next_piece1 -> set_piece_number(value);
+    next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                               pieces_disappearing[value], pieces_mini[value]);
+
+    value = current_piece2 -> get_piece_number();
+    next_piece2 -> set_piece_number(value);
+    next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                               pieces_disappearing[value], pieces_mini[value]);
+
+    value = undo_piece1_number;
+    current_piece1 -> set_piece_number(value);
+    current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                                  pieces_disappearing[value], pieces_mini[value]);
+
+    value = undo_piece2_number;
+    current_piece2 -> set_piece_number(value);
+    current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
+                                  pieces_disappearing[value], pieces_mini[value]);
+    
+        
+    position = undo_position;
+    position_bis = undo_position_bis;
+    x = position * resources->pieces_width + position_bis * resources->pieces_width / 2;
+
+    angle = undo_angle;
+    target_angle = (int)undo_angle;
+
+
+    game_mode = GAME_MODE_PLAYING;
+  }
 }
