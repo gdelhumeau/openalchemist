@@ -39,6 +39,8 @@ class GameOverState : public GameState{
   void update();
   void events();
 
+  bool front_layer_behind();
+
   GameOverState();
   ~GameOverState();
 

@@ -49,6 +49,11 @@ void InGameState::events()
   common_resources -> player1.events();
 }
 
+bool InGameState::front_layer_behind()
+{
+  return false;
+}
+
 InGameState::InGameState()
 {
 

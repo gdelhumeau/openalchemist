@@ -68,6 +68,11 @@ void GameOverState::events()
   }
 }
 
+bool GameOverState::front_layer_behind()
+{
+  return true;
+}
+
 GameOverState::GameOverState()
 {
 
@@ -77,6 +82,4 @@ GameOverState::~GameOverState()
 {
   unload_gfx();
 }
-
-
 

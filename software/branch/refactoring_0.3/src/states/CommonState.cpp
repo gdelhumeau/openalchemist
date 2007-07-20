@@ -91,4 +91,7 @@ void CommonState::events()
   }
 }
 
-
+bool CommonState::front_layer_behind()
+{
+  return false;
+}

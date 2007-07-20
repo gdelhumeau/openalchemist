@@ -35,6 +35,8 @@ class InGameState : public GameState{
   void update();
   void events();
 
+  bool front_layer_behind();
+
   InGameState();
   ~InGameState();
 

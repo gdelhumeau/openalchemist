@@ -68,3 +68,8 @@ void GameState::events()
   std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
 }
 
+bool GameState::front_layer_behind()
+{
+  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
+  return true;
+}

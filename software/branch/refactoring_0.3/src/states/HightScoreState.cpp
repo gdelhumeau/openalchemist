@@ -68,6 +68,11 @@ void HightScoreState::events()
   }
 }
 
+bool HightScoreState::front_layer_behind()
+{
+  return true;
+}
+
 HightScoreState::HightScoreState()
 {
 

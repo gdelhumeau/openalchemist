@@ -21,12 +21,6 @@ const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 900
 CommonResources::CommonResources()
 {
   main_font = NULL;
-  /*for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-    {
-    pieces_normal[i] = NULL;
-    pieces_appearing[i] = NULL;
-    pieces_disappearing[i] = NULL;
-    }*/
 }
 
 CommonResources::~CommonResources()
@@ -38,6 +32,7 @@ void CommonResources::init(GameEngine *engine)
 {
   this -> engine = engine;
   read_scores();
+  
 }
 
 void CommonResources::load_gfx(std::string skin)
@@ -53,6 +48,7 @@ void CommonResources::load_gfx(std::string skin)
   pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
 
   player1.load_gfx(skin);
+  front_layer.load_gfx(skin);
 
 }
 
@@ -66,6 +62,7 @@ void CommonResources::unload_gfx()
   }
 
   player1.unload_gfx();
+  front_layer.unload_gfx();
 
 }
 

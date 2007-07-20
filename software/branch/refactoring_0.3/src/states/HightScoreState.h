@@ -38,6 +38,8 @@ class HightScoreState : public GameState{
   void draw();
   void update();
   void events();
+  
+  bool front_layer_behind();
 
   HightScoreState();
   ~HightScoreState();

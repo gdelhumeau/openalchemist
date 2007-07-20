@@ -79,7 +79,17 @@ void GameEngine::run()
 
     GameState* current_state = states_stack.top();
     current_state -> events();
-    current_state -> update();
+    if(current_state -> front_layer_behind())
+    {
+      current_state -> update();
+      resources -> front_layer.draw();
+
+    }
+    else
+    {
+      resources -> front_layer.draw();            
+      current_state -> update();
+    }
     current_state -> draw();
 
     //draw_game();

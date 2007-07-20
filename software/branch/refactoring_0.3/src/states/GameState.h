@@ -33,6 +33,8 @@ class GameState{
   virtual void update();
   virtual void events();
 
+  virtual bool front_layer_behind();
+
   GameState();
   virtual ~GameState();
 
