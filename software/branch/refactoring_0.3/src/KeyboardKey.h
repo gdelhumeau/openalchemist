@@ -35,7 +35,7 @@ public:
   {
     this->key = key;
     this->repeat = repeat;
-    key_active = false;
+    key_active = true;
     next_time = 0;
   }
   

@@ -58,7 +58,8 @@ void GameEngine::init()
   hightscore_state.init();
   hightscore_state.load_gfx(pref -> skin);
 
-  
+  pausemenu_state.init();
+  pausemenu_state.load_gfx(pref -> skin);
       
 }
 
@@ -130,7 +131,8 @@ void GameEngine::set_state_new_game_menu()
 
 void GameEngine::set_state_pause_menu()
 {
-
+  states_stack.push(&pausemenu_state);
+  pausemenu_state.start();
 }
 
 
@@ -166,7 +168,7 @@ void GameEngine::set_state_skin_menu()
 
 void GameEngine::stop_current_state()
 {
-
+  states_stack.pop();
 }
 
 

@@ -626,3 +626,8 @@ void Player::undo()
     game_mode = GAME_MODE_PLAYING;
   }
 }
+
+bool Player::is_undo_available()
+{
+  return undo_possible;
+}

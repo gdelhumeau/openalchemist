@@ -290,6 +290,11 @@ class Player{
    */
   void undo();
 
+  /**
+   * Returning if undo is available
+   */
+  bool is_undo_available();
+
 };
 
 #endif

@@ -25,6 +25,7 @@ class GameEngine;
 class InGameState : public GameState{
 
   private:
+  KeyboardKey *key_echap;
 
   public:
   void init();
