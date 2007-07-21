@@ -19,7 +19,7 @@
 #define PAUSE_ITEM_RESUME 0
 #define PAUSE_ITEM_UNDO 1
 #define PAUSE_ITEM_RETRY 2
-#define PAUSE_ITEM_BACKMAIN 3
+#define PAUSE_ITEM_GIVEUP 3
 #define PAUSE_ITEM_QUIT 4
 
 #define STEP_APPEARING 0
@@ -36,6 +36,7 @@ void PauseMenuState::init()
   key_up     = new KeyboardKey(CL_KEY_UP    , true );
   key_down   = new KeyboardKey(CL_KEY_DOWN  , true );
   key_enter  = new KeyboardKey(CL_KEY_ENTER , false);
+  key_pause  = new KeyboardKey(CL_KEY_PAUSE , false);
 }
 
 void PauseMenuState::deinit()
@@ -44,6 +45,7 @@ void PauseMenuState::deinit()
   delete key_up;
   delete key_down;
   delete key_enter;
+  delete key_pause;
 }
 
 void PauseMenuState::load_gfx(std::string skin)
@@ -65,8 +67,8 @@ void PauseMenuState::load_gfx(std::string skin)
   items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/unselected", &gfx);
   items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/selected", &gfx);
 
-  items[PAUSE_ITEM_BACKMAIN] = new CL_Sprite("menu/pause/backmain/unselected", &gfx);
-  items_selected[PAUSE_ITEM_BACKMAIN] = new CL_Sprite("menu/pause/backmain/selected", &gfx);
+  items[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/unselected", &gfx);
+  items_selected[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/selected", &gfx);
 
   items[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/unselected", &gfx);
   items_selected[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/selected", &gfx);
@@ -82,8 +84,8 @@ void PauseMenuState::load_gfx(std::string skin)
   items_left[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/left", &gfx);
   items_top[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/top", &gfx);
 
-  items_left[PAUSE_ITEM_BACKMAIN] = CL_Integer_to_int("menu/pause/backmain/left", &gfx);
-  items_top[PAUSE_ITEM_BACKMAIN] = CL_Integer_to_int("menu/pause/backmain/top", &gfx);
+  items_left[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/left", &gfx);
+  items_top[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/top", &gfx);
 
   items_left[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/left", &gfx);
   items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/top", &gfx);
@@ -146,7 +148,7 @@ void PauseMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(key_echap->get())
+  if(key_echap->get() || key_pause->get())
   {   
     step = STEP_DISAPPEARING;
     selection = PAUSE_ITEM_RESUME;

@@ -45,6 +45,7 @@ class PauseMenuState : public GameState{
   KeyboardKey *key_up;
   KeyboardKey *key_down;
   KeyboardKey *key_enter;
+  KeyboardKey *key_pause;
 
   void appear();
   void disappear();

@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : InGameState.h
+  File : FrontLayer.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,39 +9,34 @@
 
 *********************************************************************/
 
-#ifndef _INGAME_STATE_H_
-#define _INGAME_STATE_H_
+#ifndef _FRONTLAYER_H_
+#define _FRONTLAYER_H_
 
+#include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
-#include "GameState.h"
-#include "../KeyboardKey.h"
-
-class GameEngine;
-
-/**
- * InGame State
- */
-class InGameState : public GameState{
-
-  private:
-  KeyboardKey *key_echap;
-  KeyboardKey *key_pause;
+class FrontLayerSprite{
 
   public:
-  void init();
-  void deinit();
+  CL_Sprite *sprite;
+  u_int left, top;
+
+};
+
+
+class FrontLayer{
+
+  private:
+  void load_gfx(CL_ResourceManager *gfx_frontlayer);
+
+
+  public:
+  bool enabled;
+  
+  std::list<FrontLayerSprite*> list;
   void load_gfx(std::string skin);
   void unload_gfx();
   void draw();
-  void update();
-  void events();
-
-  bool front_layer_behind();
-
-  InGameState();
-  ~InGameState();
-
 
 };
 
