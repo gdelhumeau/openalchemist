@@ -109,6 +109,11 @@ class GameEngine{
   int get_fps();
 
   /**
+   * Returning if OpenGL is used
+   */
+  bool is_opengl_used();
+
+  /**
    * Constructor
    */
   GameEngine(CL_DisplayWindow *window, bool opengl);

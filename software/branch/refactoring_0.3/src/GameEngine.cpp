@@ -40,6 +40,17 @@ GameEngine::~GameEngine()
 
 void GameEngine::init()
 {
+  // Drawing loading picture
+#ifdef WIN32
+  std::string file_path = CL_System::get_exe_path() + "\\data\\";
+#else
+  std::string file_path = CL_System::get_exe_path() + "/data/";
+#endif
+  CL_Surface loading(file_path+"loading.png");
+  CL_Display::clear(CL_Color(0, 0, 0));
+  loading.draw(400-loading.get_width()/2,300-loading.get_height()/2);
+  CL_Display::flip();
+
   CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
 
@@ -195,4 +206,9 @@ void GameEngine::toggle_screen()
 int GameEngine::get_fps()
 {
   return fps_getter.get_fps();
+}
+
+bool GameEngine::is_opengl_used()
+{
+  return opengl;
 }

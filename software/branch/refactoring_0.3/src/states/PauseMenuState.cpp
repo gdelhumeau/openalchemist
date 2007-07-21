@@ -236,7 +236,7 @@ void PauseMenuState::disappear()
 
   undo_unavailable -> set_alpha(alpha);
 
-  if(alpha <= 0.0)
+  if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
   {
     common_resources -> engine -> stop_current_state();   
   }
@@ -246,9 +246,15 @@ void PauseMenuState::disappear()
 void PauseMenuState::start()
 {
   selection = 0;
-  step = STEP_APPEARING;
-
-  alpha = 0.0;
+  if(common_resources -> engine -> is_opengl_used())
+  {
+    step = STEP_APPEARING;
+    alpha = 0.0;
+  }
+  else
+  {
+    step = STEP_NORMAL;
+  }
 }
 
 bool PauseMenuState::front_layer_behind()
