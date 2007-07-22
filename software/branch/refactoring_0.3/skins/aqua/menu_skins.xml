@@ -35,6 +35,7 @@
 			<integer name = "top"  value="125" />	
  		</section>
   	
+  	<surface name = "logo-unavailable" file = "dialogs/skins/logo-unavailable.png"/>
   	
   </section> 
  

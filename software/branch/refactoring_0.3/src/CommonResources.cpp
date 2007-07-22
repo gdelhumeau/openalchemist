@@ -37,6 +37,10 @@ void CommonResources::init(GameEngine *engine)
 
 void CommonResources::load_gfx(std::string skin)
 {
+  this -> skin = skin;
+
+  unload_gfx();
+
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("gfx.xml",&zip, false);
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);

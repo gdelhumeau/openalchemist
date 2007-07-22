@@ -37,6 +37,8 @@ class CommonResources{
 
   Keys key;
 
+  std::string skin;
+
   /** Sprites */
   int pieces_width, pieces_height;
 

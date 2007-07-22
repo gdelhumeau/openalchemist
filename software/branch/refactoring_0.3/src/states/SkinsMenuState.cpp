@@ -2,7 +2,7 @@
                           OpenAlchemist
 
   File : SkinsMenuState.cpp
-  Description : 
+  Description :Skins Menu Implementation
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
 
@@ -26,6 +26,9 @@ void SkinsMenuState::init()
 {
   GameState::init();
 
+
+// Fist we load Skin propreties saved in the conf file
+
   std::string path = get_save_path();
 #ifdef WIN32
   std::string file_path = path + "\\skins";
@@ -33,16 +36,16 @@ void SkinsMenuState::init()
   std::string file_path = path + "/skins";
 #endif
 
-  propreties_list.clear();
+  skins_list.clear();
   try
   {
     CL_InputSource_File file(file_path);
     while(file.tell() != file.size())
     {     
-      SkinsPropreties *sp = new SkinsPropreties();
+      Skin *sp = new Skin();
       sp -> filename = file.read_string();
       sp -> element = file.read_uint8();
-      propreties_list.insert(propreties_list.end(), sp);
+      skins_list.insert(skins_list.end(), sp);
 
       // We load the logo sprite in the gfx ressources file
       CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(sp -> filename), true);
@@ -56,6 +59,8 @@ void SkinsMenuState::init()
   {
     std::cout << "Error while reading " << file_path << " file, probably doesn't exist yet." << std::endl;
   }
+
+// The, we scan the current ./skins folder
 
 #ifdef WIN32
   std::string dir = CL_System::get_exe_path() + "skins\\";
@@ -78,9 +83,9 @@ void SkinsMenuState::init()
           CL_Surface *logo = new CL_Surface("logo", &gfx);
 
           bool found = false;
-          for(u_int i = 0; i < propreties_list.size(); ++i)
+          for(u_int i = 0; i < skins_list.size(); ++i)
           {
-            if(propreties_list[i] -> filename == filename)
+            if(skins_list[i] -> filename == filename)
             {
               found = true;
               break;
@@ -88,33 +93,13 @@ void SkinsMenuState::init()
           }
           if(!found)
           {
-             SkinsPropreties *sp = new SkinsPropreties();
+             Skin *sp = new Skin();
              sp -> filename = filename;
              sp -> element = 3;
              sp -> logo = logo;
-             propreties_list.insert(propreties_list.end(), sp);
+             skins_list.insert(skins_list.end(), sp);
           }
                
-
-            
-          // // We had the logo in the logos list
-//             //skins_selector.logo_list.insert(skins_selector.logo_list.end, logo);
-//             // And the skin in the skins list
-//             //skins_selector.list.insert(skins_selector.list.end(), dir+scanner.get_name());
-            
-//             // If current skin is the skin we're looking
-//             if(skin == dir+scanner.get_name())
-//             {
-//               // We set the selection variable to it (and selector menu will show this skin)
-//               //skins_selector.current_selection = skins_selector.number;
-//               //skins_selector.list_index_top = skins_selector.number - 1;
-
-//               /*if(skins_selector.list_index_top < 0)
-//               {               
-//                 skins_selector.list_index_top = 0;
-//               }*/
-//             }         
-//             skins_selector.number++;
         }
         catch(CL_Error e)
         {
@@ -125,24 +110,27 @@ void SkinsMenuState::init()
     }
   }
 
-  number_y = propreties_list.size() / 2;
-  if(propreties_list.size() % 2 > 0)
+  // Calculating the lines number needed for the board
+  number_y = skins_list.size() / 2;
+  if(skins_list.size() % 2 > 0)
     number_y += 1;
-  std::cout << "Townshend: "<<number_y<<std::endl;
 
-  skins_board[0] = new SkinsPropreties* [number_y];
-  skins_board[1] = new SkinsPropreties* [number_y];
+  // Making the board
+  skins_board[0] = new Skin* [number_y];
+  skins_board[1] = new Skin* [number_y];
 
+  // Initializing the board
   for(int x=0; x<2; ++x)
     for(int y=0; y<number_y; ++y)
     {
       skins_board[x][y] = NULL;
     }
   
+  // Setting skins to the board
   int x= 0, y = 0;
-  for(u_int i = 0; i < propreties_list.size(); ++i)
+  for(u_int i = 0; i < skins_list.size(); ++i)
   {
-    skins_board[x][y] = propreties_list[i];
+    skins_board[x][y] = skins_list[i];
     x++;
     if(x > 1)
     {
@@ -151,18 +139,19 @@ void SkinsMenuState::init()
     }
   }
 
+  // Initalizing variables
   selection_x = selection_y = 0;
   y_start = 0;
 }
 
 void SkinsMenuState::deinit()
 {
-  for(u_int i = 0; i < propreties_list.size(); ++i)
+  for(u_int i = 0; i < skins_list.size(); ++i)
   {
-    delete propreties_list[i];
+    delete skins_list[i];
   }
 
-  propreties_list.clear();
+  skins_list.clear();
 
   delete skins_board[0];
   delete skins_board[1];
@@ -176,6 +165,7 @@ void SkinsMenuState::load_gfx(std::string skin)
 
   // First, the sprites
   background = new CL_Sprite("menu/skins/background", &gfx); 
+  logo_unavailable = new CL_Surface("menu/skins/logo-unavailable", &gfx); 
 
   cursor = new CL_Sprite("menu/skins/cursor", &gfx);
   arrow_down = new CL_Sprite("menu/skins/arrow-down/sprite", &gfx);
@@ -205,12 +195,22 @@ void SkinsMenuState::draw()
   for(int i=0; i<2; ++i)
     for(int j=0; j<2 && j+y_start<number_y; ++j)
     {
-      if(skins_board[i][j+y_start] && skins_board[i][j] -> logo)
-        skins_board[i][j+y_start] -> logo -> draw(x+i*250, y+j*190);
+      if(skins_board[i][j+y_start])
+      { 
+        if(skins_board[i][j] -> logo)
+          skins_board[i][j+y_start] -> logo -> draw(x+i*250, y+j*190);
+
+        // If the skin is not available, we draw logo_unavailable
+        if(common_resources -> skin != skins_board[i][j+y_start] -> filename
+           && skins_board[i][j] -> element < (u_int) common_resources->player1.get_visible_pieces())
+          logo_unavailable -> draw(x+i*250, y+j*190);
+      }
     }
 
+  // Drawing the cursor
   cursor -> draw(x+selection_x*250+30, y+(selection_y-y_start)*190-10);
 
+  // Drawig arrows, if needed
   if(y_start + 2 < number_y)
   {
     arrow_down -> draw(arrow_down_left, arrow_down_top);
@@ -246,10 +246,13 @@ void SkinsMenuState::events()
     step = STEP_DISAPPEARING;
   }
 
+  // KEY DOWN
   if(common_resources -> key.down -> get())
   {
+    // If we don't go outline
     if(selection_y + 1 < number_y)
     {
+      // If there is a skin in this place
       if(skins_board[selection_x][selection_y + 1])
       {
         selection_y++;
@@ -257,6 +260,7 @@ void SkinsMenuState::events()
         if(selection_y > y_start + 1)
           y_start ++;
       }
+      // Else, we juste increment y_start
       else if(selection_y > y_start && selection_x == 1 && !skins_board[1][selection_y+1] && skins_board[0][selection_y+1])
       {
         y_start ++;
@@ -264,6 +268,7 @@ void SkinsMenuState::events()
     }
   }
 
+  // KEY UP
   if(common_resources -> key.up -> get())
   {
     if(selection_y > 0 && skins_board[selection_x][selection_y-1])
@@ -275,7 +280,7 @@ void SkinsMenuState::events()
     }
   }
 
-
+  // KEY RIGHT
   if(common_resources -> key.right -> get())
   {
     if(selection_x == 0 && skins_board[1][selection_y])
@@ -284,12 +289,21 @@ void SkinsMenuState::events()
     }
   }
 
+  // KEY LEFT
   if(common_resources -> key.left -> get())
   {
     if(selection_x == 1 && skins_board[0][selection_y])
     {
       selection_x = 0;
     }
+  }
+
+  // KEY ENTER
+  if(common_resources -> key.enter -> get())
+  {
+    common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
+
+    step = STEP_DISAPPEARING;
   }
 
 }
@@ -305,10 +319,14 @@ void SkinsMenuState::appear()
     alpha += APPEARING_SPEED * common_resources -> time_interval;
 
   background -> set_alpha(alpha);
+  arrow_up   -> set_alpha(alpha);
+  arrow_down -> set_alpha(alpha);
+  cursor     -> set_alpha(alpha);
+  logo_unavailable -> set_alpha(alpha);
 
-  for(u_int i = 0; i < propreties_list.size(); ++i)
+  for(u_int i = 0; i < skins_list.size(); ++i)
   {
-    propreties_list[i] -> logo -> set_alpha(alpha);
+    skins_list[i] -> logo -> set_alpha(alpha);
   }
 
 
@@ -319,19 +337,23 @@ void SkinsMenuState::disappear()
   alpha -= APPEARING_SPEED * common_resources -> time_interval;
 
   background -> set_alpha(alpha);
+  arrow_up   -> set_alpha(alpha);
+  arrow_down -> set_alpha(alpha);
+  cursor     -> set_alpha(alpha);
+  logo_unavailable -> set_alpha(alpha);
 
-   for(u_int i = 0; i < propreties_list.size(); ++i)
-   {
-     propreties_list[i] -> logo -> set_alpha(alpha);
-   }
+  for(u_int i = 0; i < skins_list.size(); ++i)
+  {
+    skins_list[i] -> logo -> set_alpha(alpha);
+  }
 
-   if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
-   {
-     common_resources -> engine -> stop_current_state(); 
-     start();
-   }
+  if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
+  {
+    common_resources -> engine -> stop_current_state(); 
+    start();
+  }
 
- }
+}
 
 void SkinsMenuState::start()
 {

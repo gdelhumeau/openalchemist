@@ -25,17 +25,54 @@ class GameState{
   CommonResources *common_resources;
 
   public:
+  /**
+   * Initializing the state
+   */
   virtual void init();
+
+  /**
+   * Deleting the initialized values
+   */
   virtual void deinit();
+
+  /**
+   * Loading GFX
+   */
   virtual void load_gfx(std::string skin);
+
+  /**
+   * Unloading GFX
+   */
   virtual void unload_gfx();
+
+  /**
+   * Drawing the state
+   */
   virtual void draw();
+
+  /**
+   * Updating the state
+   */
   virtual void update();
+
+  /**
+   * Looking up key events
+   */
   virtual void events();
 
+  /**
+   * @return true if the front layer should be displayed behind this state
+   */
   virtual bool front_layer_behind();
 
+  /**
+   * Constructor
+   */
   GameState();
+
+  /**
+   * Destructor
+   */
   virtual ~GameState();
 
 

@@ -632,3 +632,8 @@ bool Player::is_undo_available()
 {
   return undo_possible;
 }
+
+int Player::get_visible_pieces()
+{
+  return board.visible_pieces;
+}

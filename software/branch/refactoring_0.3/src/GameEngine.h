@@ -115,6 +115,8 @@ class GameEngine{
    */
   bool is_opengl_used();
 
+  void set_skin(std::string skin);
+
   /**
    * Constructor
    */

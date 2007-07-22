@@ -2,7 +2,7 @@
                           OpenAlchemist
 
   File : SkinsMenuState.h
-  Description : 
+  Description : Skins Menu Implementation
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
 
@@ -15,24 +15,44 @@
 #include <ClanLib/display.h>
 
 #include "GameState.h"
-#include "../KeyboardKey.h"
 
 class GameEngine;
 
-class SkinsPropreties{
+/**
+ * Skin class
+ */
+class Skin{
   public:
+
+  /**
+   * Skin filename
+   */
   std::string filename;
+
+  /**
+   * Unlocked elements
+   */
   u_int element; 
+
+  /**
+   * Skin logo presentation
+   */
   CL_Surface *logo;
 
-  SkinsPropreties()
+  /**
+   * Constructor
+   */
+  Skin()
     {
       filename = "";
       element  = 3;
       logo = NULL;
     }
 
-  ~SkinsPropreties()
+  /**
+   * Destructor
+   */
+  ~Skin()
     {
       if(logo)
         delete logo;
@@ -45,32 +65,81 @@ class SkinsPropreties{
 class SkinsMenuState : public GameState{
 
   private:
+
+  /**
+   * Step (Normal, Appearing, Disappearing)
+   */
   int step;
 
+  /**
+   * Alpha blending
+   */
   float alpha;
 
+  /**
+   * Menu background
+   */
   CL_Sprite *background;  
+
+  /**
+   * Unavaible skin logo
+   */
+  CL_Surface *logo_unavailable;
+
+  /**
+   * Cursor
+   */
   CL_Sprite *cursor;
+
+  /**
+   * Arrow Up (displayed when skin list is more long than a screen)
+   */
   CL_Sprite *arrow_down;
+
+  /**
+   * Arrow down
+   */
   CL_Sprite *arrow_up;
 
+  /**
+   * Arrows coords
+   */
   int arrow_down_left, arrow_down_top;
   int arrow_up_left, arrow_up_top;
 
+  /**
+   * Selection coords
+   */
   int selection_x, selection_y;
 
-  /** Number of skins scanning in the /skins folder */
+  /**
+   * Number of lines in the skins board 
+   */
   int number_y;
-  /** Current skin index */
-  int current_selection;
 
+  /**
+   * Start for drawing in the sin board (scroll)
+   */
   int y_start;
 
-  /** Skins propreties list (read in the .openalchemist/skins file) */
-  std::vector<SkinsPropreties*> propreties_list;
-  SkinsPropreties **skins_board[2];
+  /**
+   * Skins skins list (read in the .openalchemist/skins file) 
+   */
+  std::vector<Skin*> skins_list;
 
+  /**
+   * Skins board. Board which contains skins to draw in the menu
+   */
+  Skin **skins_board[2];
+
+  /**
+   * Makes menu appear
+   */
   void appear();
+
+  /**
+   * Makes menu disappear
+   */
   void disappear();
 
   public:
@@ -82,6 +151,9 @@ class SkinsMenuState : public GameState{
   void update();
   void events();
 
+  /**
+   * Starts appear
+   */
   void start();
 
   bool front_layer_behind();

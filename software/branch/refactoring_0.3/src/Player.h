@@ -290,6 +290,11 @@ class Player{
    */
   bool is_undo_available();
 
+  /**
+   *
+   */
+  int get_visible_pieces();
+
 };
 
 #endif

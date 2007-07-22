@@ -224,3 +224,27 @@ bool GameEngine::is_opengl_used()
 {
   return opengl;
 }
+
+void GameEngine::set_skin(std::string skin)
+{
+  CommonResources *resources = common_resources_get_instance();
+  Preferences *pref = pref_get_instance();
+
+  pref -> skin = skin;
+
+  resources -> load_gfx(pref -> skin);
+
+  common_state.load_gfx(pref -> skin);
+
+  ingame_state.load_gfx(pref -> skin);
+
+  gameover_state.load_gfx(pref -> skin);
+
+  hightscore_state.load_gfx(pref -> skin);
+
+  pausemenu_state.load_gfx(pref -> skin);
+
+  skinsmenu_state.load_gfx(pref -> skin);
+
+  pref -> write();
+}
