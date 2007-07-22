@@ -17,6 +17,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "FrontLayer.h"
+#include "Keys.h"
 
 #define NUMBER_OF_DIFFICULTIES 3
 
@@ -33,6 +34,8 @@ class CommonResources{
   Player player1;
 
   FrontLayer front_layer;
+
+  Keys key;
 
   /** Sprites */
   int pieces_width, pieces_height;

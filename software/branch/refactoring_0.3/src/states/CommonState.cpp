@@ -21,7 +21,6 @@
 CommonState::CommonState()
 {
   background = NULL;
-  key_fullscreen = NULL;
 }
 
 
@@ -34,17 +33,11 @@ CommonState::~CommonState()
 void CommonState::init()
 {
   GameState::init();
-  key_fullscreen  = new KeyboardKey(CL_KEY_F11, false);
 }
 
 
 void CommonState::deinit()
 {
-  if(key_fullscreen)
-  {
-    delete key_fullscreen;
-    key_fullscreen = NULL;
-  }
 }
 
 
@@ -85,7 +78,7 @@ void CommonState::update()
 
 void CommonState::events()
 {
-  if(key_fullscreen -> get())
+  if(common_resources->key.fullscreen -> get())
   {
     common_resources -> engine -> toggle_screen();
   }

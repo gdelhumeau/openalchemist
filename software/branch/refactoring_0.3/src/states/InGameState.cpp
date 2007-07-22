@@ -54,6 +54,12 @@ void InGameState::events()
   {
     common_resources -> engine -> set_state_pause_menu();
   }
+
+  if(common_resources->key.skins -> get())
+  {
+    common_resources -> engine -> set_state_skin_menu();
+  }
+
 }
 
 bool InGameState::front_layer_behind()

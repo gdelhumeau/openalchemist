@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : PauseMenuState.h
+  File : SkinsMenuState.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,37 +9,47 @@
 
 *********************************************************************/
 
-#ifndef _PAUSEMENU_STATE_H_
-#define _PAUSEMENU_STATE_H_
+#ifndef _SKINSMENU_STATE_H_
+#define _SKINSMENU_STATE_H_
 
 #include <ClanLib/display.h>
 
 #include "GameState.h"
 #include "../KeyboardKey.h"
 
-#define PAUSE_NUMBER_OF_ITEMS 6
-
 class GameEngine;
 
+class SkinsPropreties{
+  public:
+  std::string filename;
+  u_int element; 
+};
+
 /**
- * PauseMenu State
+ * SkinsMenu State
  */
-class PauseMenuState : public GameState{
+class SkinsMenuState : public GameState{
 
   private:
   int step;
 
   float alpha;
 
-  CL_Sprite *items[PAUSE_NUMBER_OF_ITEMS];
-  CL_Sprite *items_selected[PAUSE_NUMBER_OF_ITEMS];
-  int items_left[PAUSE_NUMBER_OF_ITEMS];
-  int items_top [PAUSE_NUMBER_OF_ITEMS];
-
   CL_Sprite *background;  
-  CL_Sprite *undo_unavailable;
 
   int selection;
+
+  /** Skins filename list */
+  std::vector<std::string> list;
+  /** Logos of the skin list */
+  std::vector<CL_Surface*> logo_list;
+  /** Number of skins scanning in the /skins folder */
+  int number;
+  /** Current skin index */
+  int current_selection;
+
+  /** Skins propreties list (read in the .openalchemist/skins file) */
+  std::vector<SkinsPropreties*> propreties_list;
 
   void appear();
   void disappear();
@@ -57,8 +67,8 @@ class PauseMenuState : public GameState{
 
   bool front_layer_behind();
 
-  PauseMenuState();
-  ~PauseMenuState();
+  SkinsMenuState();
+  ~SkinsMenuState();
 
 
 };

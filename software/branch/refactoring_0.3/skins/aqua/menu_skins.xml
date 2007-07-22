@@ -1,0 +1,22 @@
+<resources>
+<section name="menu">
+
+	<!-- Section about the pause menu -->
+	<section name="skins">
+	
+		<!-- true if menu appear with alpha apparition -->
+		<boolean name = "alpha_appearing" value = "true" />
+		<integer name = "alpha_max" value = "65" /> 
+
+		<!-- Sprite for thr background -->
+		<sprite name="background">
+			<image file="dialogs/skins/background.png">
+				<grid pos="0,0" size="500,462" />
+			</image>
+		</sprite> 	
+  	
+  	
+  </section> 
+ 
+</section>
+</resources>

@@ -21,6 +21,7 @@
 #include "states/GameOverState.h"
 #include "states/HightScoreState.h"
 #include "states/PauseMenuState.h"
+#include "states/SkinsMenuState.h"
 
 /**
  * GameEngine class - controls the states
@@ -66,6 +67,7 @@ class GameEngine{
   GameOverState gameover_state;
   HightScoreState hightscore_state;
   PauseMenuState pausemenu_state;
+  SkinsMenuState skinsmenu_state;
   
   public:
 

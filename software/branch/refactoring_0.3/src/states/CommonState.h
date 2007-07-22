@@ -28,8 +28,6 @@ class CommonState : public GameState{
   private:
   CL_Surface *background;
 
-  KeyboardKey *key_fullscreen;
-
   public:
   void init();
   void deinit();

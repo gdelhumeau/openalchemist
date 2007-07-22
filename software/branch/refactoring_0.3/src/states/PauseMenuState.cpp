@@ -32,21 +32,10 @@
 void PauseMenuState::init()
 {
   GameState::init();
-
-  key_echap  = new KeyboardKey(CL_KEY_ESCAPE, false);
-  key_up     = new KeyboardKey(CL_KEY_UP    , true );
-  key_down   = new KeyboardKey(CL_KEY_DOWN  , true );
-  key_enter  = new KeyboardKey(CL_KEY_ENTER , false);
-  key_pause  = new KeyboardKey(CL_KEY_PAUSE , false);
 }
 
 void PauseMenuState::deinit()
 {
-  delete key_echap;
-  delete key_up;
-  delete key_down;
-  delete key_enter;
-  delete key_pause;
 }
 
 void PauseMenuState::load_gfx(std::string skin)
@@ -155,13 +144,19 @@ void PauseMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(key_echap->get() || key_pause->get())
+  if(common_resources -> key.echap->get() || common_resources -> key.pause->get())
   {   
     step = STEP_DISAPPEARING;
     selection = PAUSE_ITEM_RESUME;
   }
 
-  if(key_up -> get())
+  if(common_resources -> key.skins->get())
+  {   
+    step = STEP_DISAPPEARING;
+    selection = PAUSE_ITEM_OPTIONS;
+  }
+
+  if(common_resources -> key.up -> get())
   {
     if(selection == 0)
       selection = PAUSE_ITEM_QUIT;
@@ -175,7 +170,7 @@ void PauseMenuState::events()
     }
   }
 
-  if(key_down -> get())
+  if(common_resources -> key.down -> get())
   {
     if(selection == PAUSE_ITEM_QUIT)
       selection = 0;
@@ -189,7 +184,7 @@ void PauseMenuState::events()
     }
   }
 
-  if(key_enter -> get())
+  if(common_resources -> key.enter -> get())
   {    
     step = STEP_DISAPPEARING;
 
@@ -247,7 +242,15 @@ void PauseMenuState::disappear()
 
   if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
   {
-    common_resources -> engine -> stop_current_state();   
+    if(selection == PAUSE_ITEM_OPTIONS)
+    {
+      common_resources -> engine -> set_state_skin_menu(); 
+      start();
+    }
+    else
+    {
+      common_resources -> engine -> stop_current_state(); 
+    }
   }
  
 }
