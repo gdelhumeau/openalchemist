@@ -11,7 +11,7 @@
 		<!-- Sprite for thr background -->
 		<sprite name="background">
 			<image file="dialogs/pause/pause.png">
-				<grid pos="0,0" size="500,400" />
+				<grid pos="0,0" size="500,462" />
 			</image>
 		</sprite>
   		
@@ -59,6 +59,20 @@
   			
   	</section>
   	
+  	<!-- Go to option menu item -->
+  	<section name="options">
+			<sprite name="selected">
+				<image file="dialogs/pause/options-selected.png" />  					
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/pause/options-unselected.png" />  					
+			</sprite>
+			
+			<integer name="top" value="250" />
+			<integer name="left" value="100" />
+			
+		</section>
+  	
   			
 		<!-- Back to main menu item-->
   	<section name="giveup">
@@ -69,7 +83,7 @@
 				<image file="dialogs/pause/giveup-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="250" />
+			<integer name="top" value="300" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -83,7 +97,7 @@
 				<image file="dialogs/pause/quit-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="300" />
+			<integer name="top" value="350" />
 			<integer name="left" value="100" />
 			
 		</section>	

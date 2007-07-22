@@ -19,8 +19,9 @@
 #define PAUSE_ITEM_RESUME 0
 #define PAUSE_ITEM_UNDO 1
 #define PAUSE_ITEM_RETRY 2
-#define PAUSE_ITEM_GIVEUP 3
-#define PAUSE_ITEM_QUIT 4
+#define PAUSE_ITEM_OPTIONS 3
+#define PAUSE_ITEM_GIVEUP 4
+#define PAUSE_ITEM_QUIT 5
 
 #define STEP_APPEARING 0
 #define STEP_NORMAL 1
@@ -67,6 +68,9 @@ void PauseMenuState::load_gfx(std::string skin)
   items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/unselected", &gfx);
   items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/selected", &gfx);
 
+  items[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu/pause/options/unselected", &gfx);
+  items_selected[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu/pause/options/selected", &gfx);
+
   items[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/unselected", &gfx);
   items_selected[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/selected", &gfx);
 
@@ -83,6 +87,9 @@ void PauseMenuState::load_gfx(std::string skin)
 
   items_left[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/left", &gfx);
   items_top[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/top", &gfx);
+
+  items_left[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu/pause/options/left", &gfx);
+  items_top[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu/pause/options/top", &gfx);
 
   items_left[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/left", &gfx);
   items_top[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/top", &gfx);

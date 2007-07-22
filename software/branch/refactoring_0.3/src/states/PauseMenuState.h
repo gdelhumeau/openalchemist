@@ -17,7 +17,7 @@
 #include "GameState.h"
 #include "../KeyboardKey.h"
 
-#define PAUSE_NUMBER_OF_ITEMS 5
+#define PAUSE_NUMBER_OF_ITEMS 6
 
 class GameEngine;
 
