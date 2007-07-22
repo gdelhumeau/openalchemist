@@ -40,7 +40,6 @@ Player::Player()
   key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
   key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
   key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
-  key_undo         = new KeyboardKey(CL_KEY_F5    , false);
 }
 
 Player::~Player()
@@ -51,7 +50,6 @@ Player::~Player()
   delete key_left;
   delete key_right;
   delete key_falling;
-  delete key_undo;
 }
 
 void Player::new_game()
@@ -278,6 +276,9 @@ void Player::draw()
 
 void Player::events()
 {
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
   if(GAME_MODE_PLAYING == game_mode)
   {
     // Change the order of the pieces 
@@ -313,7 +314,7 @@ void Player::events()
   }
 
   // Undo the last move
-  if(key_undo -> get())
+  if(resources->key.undo -> get())
   {
     undo();
   }

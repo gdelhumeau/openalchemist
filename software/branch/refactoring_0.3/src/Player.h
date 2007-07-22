@@ -173,11 +173,6 @@ class Player{
    */
   KeyboardKey *key_falling;
 
-  /**
-   * Key for undoing
-   */
-  KeyboardKey *key_undo;
-
 
   /**
    * True if player press fall button

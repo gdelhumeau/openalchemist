@@ -11,9 +11,29 @@
 		<!-- Sprite for thr background -->
 		<sprite name="background">
 			<image file="dialogs/skins/background.png">
-				<grid pos="0,0" size="500,462" />
+				<grid pos="0,0" size="550,562" />
 			</image>
-		</sprite> 	
+		</sprite> 
+		
+		<sprite name="cursor">
+ 			<image file="dialogs/skins/cursor.png" />
+ 		</sprite>
+ 		
+ 		<section name="arrow-down">
+	 		<sprite name="sprite">
+ 				<image file="dialogs/skins/arrow_down.png" />
+ 			</sprite>		
+ 			<integer name = "left" value="375" />
+			<integer name = "top"  value="510" />	
+ 		</section>
+ 		
+ 		<section name="arrow-up">
+	 		<sprite name="sprite">
+ 				<image file="dialogs/skins/arrow_up.png" />
+ 			</sprite>		
+ 			<integer name = "left" value="375" />
+			<integer name = "top"  value="125" />	
+ 		</section>
   	
   	
   </section> 

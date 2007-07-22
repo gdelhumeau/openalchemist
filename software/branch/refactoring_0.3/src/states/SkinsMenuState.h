@@ -23,6 +23,20 @@ class SkinsPropreties{
   public:
   std::string filename;
   u_int element; 
+  CL_Surface *logo;
+
+  SkinsPropreties()
+    {
+      filename = "";
+      element  = 3;
+      logo = NULL;
+    }
+
+  ~SkinsPropreties()
+    {
+      if(logo)
+        delete logo;
+    }
 };
 
 /**
@@ -36,20 +50,25 @@ class SkinsMenuState : public GameState{
   float alpha;
 
   CL_Sprite *background;  
+  CL_Sprite *cursor;
+  CL_Sprite *arrow_down;
+  CL_Sprite *arrow_up;
 
-  int selection;
+  int arrow_down_left, arrow_down_top;
+  int arrow_up_left, arrow_up_top;
 
-  /** Skins filename list */
-  std::vector<std::string> list;
-  /** Logos of the skin list */
-  std::vector<CL_Surface*> logo_list;
+  int selection_x, selection_y;
+
   /** Number of skins scanning in the /skins folder */
-  int number;
+  int number_y;
   /** Current skin index */
   int current_selection;
 
+  int y_start;
+
   /** Skins propreties list (read in the .openalchemist/skins file) */
   std::vector<SkinsPropreties*> propreties_list;
+  SkinsPropreties **skins_board[2];
 
   void appear();
   void disappear();
