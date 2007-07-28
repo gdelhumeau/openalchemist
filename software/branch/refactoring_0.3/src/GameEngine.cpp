@@ -248,3 +248,8 @@ void GameEngine::set_skin(std::string skin)
 
   pref -> write();
 }
+
+void GameEngine::set_skin_element(u_int element)
+{
+  skinsmenu_state.set_skin_elements(element);
+}

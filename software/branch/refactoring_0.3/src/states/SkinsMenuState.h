@@ -158,6 +158,8 @@ class SkinsMenuState : public GameState{
 
   bool front_layer_behind();
 
+  void set_skin_elements(u_int element);
+
   SkinsMenuState();
   ~SkinsMenuState();
 

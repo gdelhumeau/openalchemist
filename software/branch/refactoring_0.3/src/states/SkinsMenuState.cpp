@@ -93,17 +93,17 @@ void SkinsMenuState::init()
           }
           if(!found)
           {
-             Skin *sp = new Skin();
-             sp -> filename = filename;
-             sp -> element = 3;
-             sp -> logo = logo;
-             skins_list.insert(skins_list.end(), sp);
+            Skin *sp = new Skin();
+            sp -> filename = filename;
+            sp -> element = 3;
+            sp -> logo = logo;
+            skins_list.insert(skins_list.end(), sp);
           }
                
         }
         catch(CL_Error e)
         {
-          std::cout << "Skin " << dir << scanner.get_name() << " is not valid \n"; 
+          std::cout << "Skin " << dir << scanner.get_name() << " is not valid." << std::endl;
         }
       }        
 
@@ -146,6 +146,30 @@ void SkinsMenuState::init()
 
 void SkinsMenuState::deinit()
 {
+  // Saving progression skin file
+  std::string path = get_save_path();
+#ifdef WIN32
+  std::string file_path = path + "\\skins";
+#else
+  std::string file_path = path + "/skins";
+#endif
+
+  try
+  {
+    CL_OutputSource_File file(file_path);
+    for(u_int i = 0; i < skins_list.size(); ++i)
+    {
+      file.write_string(skins_list[i]->filename);
+      file.write_uint8 (skins_list[i]->element);  
+    }
+    file.close();
+       
+  }
+  catch(CL_Error e)
+  {
+    std::cout << "Error while reading " << file_path << "file, probably doesn't exist yet." << std::endl;
+  }
+
   for(u_int i = 0; i < skins_list.size(); ++i)
   {
     delete skins_list[i];
@@ -301,9 +325,11 @@ void SkinsMenuState::events()
   // KEY ENTER
   if(common_resources -> key.enter -> get())
   {
-    common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
-
-    step = STEP_DISAPPEARING;
+    if(skins_board[selection_x][selection_y] -> element >= (u_int) common_resources->player1.get_visible_pieces())
+    {
+      common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
+      step = STEP_DISAPPEARING;
+    }
   }
 
 }
@@ -371,6 +397,18 @@ void SkinsMenuState::start()
 bool SkinsMenuState::front_layer_behind()
 {
   return true;
+}
+
+void SkinsMenuState::set_skin_elements(u_int element)
+{
+  for(u_int i = 0; i < skins_list.size(); ++i)
+  {
+    if(skins_list[i] -> filename == common_resources -> skin)
+    {
+      if(skins_list[i] -> element < element)
+        skins_list[i] -> element = element;
+    }
+  }
 }
 
 SkinsMenuState::SkinsMenuState()

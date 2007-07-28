@@ -522,6 +522,7 @@ void Player::update_falling_and_creating()
     {
       if(board.is_game_over())
       {
+        resources -> engine -> set_skin_element(board.visible_pieces);
         if(board.score + board.bonus_score > resources -> hightscores[0])
         {
           resources -> engine -> set_state_hightscore();

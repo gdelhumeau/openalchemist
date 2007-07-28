@@ -117,6 +117,8 @@ class GameEngine{
 
   void set_skin(std::string skin);
 
+  void set_skin_element(u_int element);
+
   /**
    * Constructor
    */
