@@ -4,9 +4,10 @@
 import zipfile, os
 
 # CONFIGURATION
-FILES = "bin/main.cpp bin/game.cpp bin/detect_to_destroy.cpp bin/detect_to_fall.cpp bin/drawing.cpp bin/hightscores.cpp bin/key_events.cpp bin/preferences.cpp bin/skins-selector.cpp bin/pause.cpp bin/misc.cpp bin/progress_bar.cpp bin/undo.cpp bin/pieces.cpp bin/key.cpp bin/frontlayer.cpp bin/gfx_misc.cpp bin/inifile.cpp"
+BIN_NAME = "openalchemist"
+FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/Board.cpp bin/states/InGameState.cpp bin/states/GameOverState.cpp bin/ProgressBar.cpp bin/states/HightScoreState.cpp bin/FrontLayer.cpp bin/states/PauseMenuState.cpp bin/states/SkinsMenuState.cpp bin/Keys.cpp bin/states/OptionsMenuState.cpp"
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
-CPPPATH = "includes"
+CPPPATH = ""
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
 
 INCLUDES_TO_CHECK = "vector list ClanLib/core.h ClanLib/application.h ClanLib/gl.h ClanLib/display.h"
@@ -33,9 +34,9 @@ for l in Split(LIBS_TO_CHECK):
 
 env = conf.Finish()
 
-# BUILIND THE SOFTWARE
+# BUILDIND THE SOFTWARE
 BuildDir('bin', 'src')
-env.Program('test-scons', Split(FILES), CPPPATH = Split(CPPPATH), CCFLAGS=CCFLAGS)
+env.Program(BIN_NAME, Split(FILES), CPPPATH = Split(CPPPATH), CCFLAGS=CCFLAGS)
 
 
 # FUNCTION TO MAKE ZIP (SKINS)

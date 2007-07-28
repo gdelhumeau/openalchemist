@@ -11,7 +11,7 @@
 		<!-- Sprite for thr background -->
 		<sprite name="background">
 			<image file="dialogs/pause/pause.png">
-				<grid pos="0,0" size="500,550" />
+				<grid pos="0,0" size="500,462" />
 			</image>
 		</sprite>
   		
@@ -59,72 +59,31 @@
   			
   	</section>
   	
-  	<!-- Changeskin item -->  		
- 		<section name="changeskin">
+  	<!-- Go to option menu item -->
+  	<section name="options">
 			<sprite name="selected">
-				<image file="dialogs/pause/changeskin-selected.png" />  					
+				<image file="dialogs/pause/options-selected.png" />  					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/changeskin-unselected.png" />  					
+				<image file="dialogs/pause/options-unselected.png" />  					
 			</sprite>
 			
 			<integer name="top" value="250" />
 			<integer name="left" value="100" />
 			
 		</section>
-  
-  	<!-- Fullscreen item -->
-  	<section name="fullscreen">
+  	
+  			
+		<!-- Back to main menu item-->
+  	<section name="giveup">
 			<sprite name="selected">
-				<image file="dialogs/pause/fullscreen-selected.png" />  					
+				<image file="dialogs/pause/giveup-selected.png" />  					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/fullscreen-unselected.png" />  					
+				<image file="dialogs/pause/giveup-unselected.png" />  					
 			</sprite>
 			
 			<integer name="top" value="300" />
-			<integer name="left" value="100" />
-			
-		</section>
-		
-		<!-- Sound level item -->
-		<section name="sound">
-			<sprite name="selected">
-				<image file="dialogs/pause/sound-selected.png" />  					
-			</sprite>
-			<sprite name="unselected">
-				<image file="dialogs/pause/sound-unselected.png" />  					
-			</sprite>
-			
-			<integer name="top" value="350" />
-			<integer name="left" value="100" />
-			
-		</section>
-		
-		<!-- Music level item -->
-		<section name="music">
-			<sprite name="selected">
-				<image file="dialogs/pause/music-selected.png" />  					
-			</sprite>
-			<sprite name="unselected">
-				<image file="dialogs/pause/music-unselected.png" />  					
-			</sprite>
-			
-			<integer name="top" value="400" />
-			<integer name="left" value="100" />
-			
-		</section>
-		
-		<!-- Back to main menu item-->
-  	<section name="backmain">
-			<sprite name="selected">
-				<image file="dialogs/pause/back-selected.png" />  					
-			</sprite>
-			<sprite name="unselected">
-				<image file="dialogs/pause/back-unselected.png" />  					
-			</sprite>
-			
-			<integer name="top" value="450" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -138,59 +97,10 @@
 				<image file="dialogs/pause/quit-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="500" />
+			<integer name="top" value="350" />
 			<integer name="left" value="100" />
 			
-		</section>
-		
-		<!-- Sound level numbers -->
-		<section name="sound-level">
-			<integer name="left" value="300" />
-		
-			<sprite name="0">
-				<image file="dialogs/pause/level-0.png" />
-			</sprite>
-			
-			<sprite name="1">
-				<image file="dialogs/pause/level-1.png" />
-			</sprite>
-			
-			<sprite name="2">
-				<image file="dialogs/pause/level-2.png" />
-			</sprite>
-			
-			<sprite name="3">
-				<image file="dialogs/pause/level-3.png" />
-			</sprite>
-			
-			<sprite name="4">
-				<image file="dialogs/pause/level-4.png" />
-			</sprite>
-			
-			<sprite name="5">
-				<image file="dialogs/pause/level-5.png" />
-			</sprite>
-			
-			<sprite name="6">
-				<image file="dialogs/pause/level-6.png" />
-			</sprite>
-			
-			<sprite name="7">
-				<image file="dialogs/pause/level-7.png" />
-			</sprite>
-			
-			<sprite name="8">
-				<image file="dialogs/pause/level-8.png" />
-			</sprite>
-			
-			<sprite name="9">
-				<image file="dialogs/pause/level-9.png" />
-			</sprite>
-			
-			<sprite name="10">
-				<image file="dialogs/pause/level-10.png" />
-			</sprite>
-		</section>
+		</section>	
   	
   	
   </section> 

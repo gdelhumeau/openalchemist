@@ -31,8 +31,8 @@
 
   <!-- game over message -->
   <surface name = "gameover" file = "misc/gameover.png" />
-  <integer name = "gameover_x" value = "0" />
-  <integer name = "gameover_y" value = "0" />
+  <integer name = "gameover_x" value = "150" />
+  <integer name = "gameover_y" value = "145" />
 
   <!-- font to display score -->
   <sprite name="font_glyph">
