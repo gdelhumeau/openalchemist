@@ -319,6 +319,11 @@ void Player::events()
     undo();
   }
 
+  if(resources -> key.retry -> get())
+  {
+    new_game();
+  }
+
 }
 
 void Player::change_angle()
