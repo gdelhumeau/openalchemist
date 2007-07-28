@@ -153,7 +153,8 @@ void PauseMenuState::events()
   if(common_resources -> key.skins->get())
   {   
     step = STEP_DISAPPEARING;
-    selection = PAUSE_ITEM_OPTIONS;
+    selection = PAUSE_ITEM_RESUME;
+    common_resources -> engine -> set_state_skin_menu();
   }
 
   if(common_resources -> key.up -> get())
@@ -244,7 +245,7 @@ void PauseMenuState::disappear()
   {
     if(selection == PAUSE_ITEM_OPTIONS)
     {
-      common_resources -> engine -> set_state_skin_menu(); 
+      common_resources -> engine -> set_state_options_menu(); 
       start();
     }
     else

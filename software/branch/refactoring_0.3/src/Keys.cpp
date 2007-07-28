@@ -18,8 +18,8 @@ Keys::Keys()
   up           = new KeyboardKey(CL_KEY_UP    , true );
   down         = new KeyboardKey(CL_KEY_DOWN  , true );
   enter        = new KeyboardKey(CL_KEY_ENTER , false);
-//  options      = new KeyboardKey(CL_KEY_F3    , false);
-  skins        = new KeyboardKey(CL_KEY_F9    , false);
+  options      = new KeyboardKey(CL_KEY_F9    , false);
+  skins        = new KeyboardKey(CL_KEY_F10   , false);
   
 }
 
@@ -38,5 +38,6 @@ Keys::~Keys()
   delete up;
   delete down;
   delete enter;
+  delete options;
   delete skins;
 }

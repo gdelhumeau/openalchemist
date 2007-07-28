@@ -319,6 +319,7 @@ void Player::events()
     undo();
   }
 
+  // Retry current game
   if(resources -> key.retry -> get())
   {
     new_game();

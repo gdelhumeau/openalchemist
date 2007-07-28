@@ -82,6 +82,11 @@ void CommonState::events()
   {
     common_resources -> engine -> toggle_screen();
   }
+
+  if(common_resources->key.options -> get())
+  {
+    common_resources -> engine -> set_state_options_menu();
+  }
 }
 
 bool CommonState::front_layer_behind()

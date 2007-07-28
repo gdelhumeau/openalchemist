@@ -75,6 +75,9 @@ void GameEngine::init()
   skinsmenu_state.init();
   skinsmenu_state.load_gfx(pref -> skin);
 
+  optionsmenu_state.init();
+  optionsmenu_state.load_gfx(pref -> skin);
+
       
 }
 
@@ -173,7 +176,12 @@ void GameEngine::set_state_hightscore()
 
 void GameEngine::set_state_options_menu()
 {
-
+  if(states_stack.top() != &optionsmenu_state)
+  {
+    states_stack.push(&optionsmenu_state);
+    optionsmenu_state.start();
+    pausemenu_state.start();
+  }
 }
 
 
@@ -184,6 +192,7 @@ void GameEngine::set_state_skin_menu()
     states_stack.push(&skinsmenu_state);
     skinsmenu_state.start();
     pausemenu_state.start();
+    optionsmenu_state.start();
   }
 }
 
@@ -245,6 +254,8 @@ void GameEngine::set_skin(std::string skin)
   pausemenu_state.load_gfx(pref -> skin);
 
   skinsmenu_state.load_gfx(pref -> skin);
+
+  optionsmenu_state.load_gfx(pref -> skin);
 
   pref -> write();
 }
