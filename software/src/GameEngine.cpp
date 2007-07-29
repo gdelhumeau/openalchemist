@@ -54,6 +54,8 @@ void GameEngine::init()
   CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
 
+  fps_getter.set_fps_limit(pref -> maxfps);
+
   resources -> init(this);
   resources -> load_gfx(pref -> skin);
 
