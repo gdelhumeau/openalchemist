@@ -29,6 +29,8 @@
  */
 class Player{
 
+  protected:
+
   /**
    * X Position
    */

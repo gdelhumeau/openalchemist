@@ -9,7 +9,7 @@
 
 *********************************************************************/
 
-#ifndef _PROGRESS_BAR_H
+#ifndef _PROGRESS_BAR_H_
 #define _PROGRESS_BAR_H_
 
 #include <ClanLib/core.h>

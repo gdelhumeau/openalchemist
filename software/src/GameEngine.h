@@ -23,6 +23,8 @@
 #include "states/PauseMenuState.h"
 #include "states/SkinsMenuState.h"
 #include "states/OptionsMenuState.h"
+#include "states/TitleState.h"
+
 
 /**
  * GameEngine class - controls the states
@@ -70,6 +72,7 @@ class GameEngine{
   PauseMenuState pausemenu_state;
   SkinsMenuState skinsmenu_state;
   OptionsMenuState optionsmenu_state;
+  TitleState title_state;
   
   public:
 

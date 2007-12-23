@@ -80,12 +80,15 @@ void GameEngine::init()
   optionsmenu_state.init();
   optionsmenu_state.load_gfx(pref -> skin);
 
+  title_state.init();
+  title_state.load_gfx(pref -> skin);
+
       
 }
 
 void GameEngine::run()
 {
-  set_state_ingame();
+  set_state_title();
 
   CommonResources *resources = common_resources_get_instance();
   resources -> player1.new_game();
@@ -139,7 +142,12 @@ void GameEngine::stop()
 
 void GameEngine::set_state_title()
 {
-
+  while(!states_stack.empty())
+    {
+      states_stack.pop();
+    }
+  states_stack.push(&title_state);
+  title_state.start();
 }
 
 
@@ -161,6 +169,8 @@ void GameEngine::set_state_pause_menu()
 
 void GameEngine::set_state_ingame()
 {
+  CommonResources *common_resources = common_resources_get_instance();
+  common_resources -> current_player = &(common_resources -> player1);
   states_stack.push(&ingame_state);
 }
 

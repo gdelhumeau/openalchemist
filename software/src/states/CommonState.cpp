@@ -66,7 +66,8 @@ void CommonState::draw()
   background -> draw(0, 0);
   common_resources -> main_font -> draw(580,550,to_string(common_resources -> engine -> get_fps()));
 
-  common_resources -> player1.draw();
+  if(common_resources -> current_player)
+    common_resources -> current_player -> draw();
 }
 
 

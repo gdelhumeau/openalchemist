@@ -15,7 +15,8 @@
 #include <ClanLib/display.h>
 
 #include "Board.h"
-#include "Player.h"
+#include "HumanPlayer.h"
+#include "DemoPlayer.h"
 #include "FrontLayer.h"
 #include "Keys.h"
 
@@ -31,7 +32,8 @@ class CommonResources{
 
   int score;
 
-  Player player1;
+  HumanPlayer player1;
+  Player *current_player;
 
   FrontLayer front_layer;
 

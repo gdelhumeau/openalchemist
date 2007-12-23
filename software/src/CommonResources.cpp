@@ -21,6 +21,7 @@ const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 900
 CommonResources::CommonResources()
 {
   main_font = NULL;
+  current_player = NULL;
 }
 
 CommonResources::~CommonResources()
