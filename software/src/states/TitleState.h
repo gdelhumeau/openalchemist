@@ -35,6 +35,7 @@ class TitleState : public GameState{
   int start_message_x, start_message_y;
 
   CL_Sprite *keydemo_left, *keydemo_up, *keydemo_right, *keydemo_down;
+  CL_Sprite *keydemo_escape, *keydemo_options;
 
   KeyboardKey *key_echap, *key_pause;
 

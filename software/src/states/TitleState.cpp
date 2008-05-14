@@ -58,10 +58,12 @@ void TitleState::load_gfx(std::string skin)
     sentences_time[i] = CL_Integer_to_int("help/"+to_string(i+1)+"/time", &gfx);
   }
 
-  keydemo_left  = new CL_Sprite("keydemo/left", &gfx);
-  keydemo_up    = new CL_Sprite("keydemo/up", &gfx);
-  keydemo_right = new CL_Sprite("keydemo/right", &gfx);
-  keydemo_down  = new CL_Sprite("keydemo/down", &gfx);
+  keydemo_left    = new CL_Sprite("keydemo/left", &gfx);
+  keydemo_up      = new CL_Sprite("keydemo/up", &gfx);
+  keydemo_right   = new CL_Sprite("keydemo/right", &gfx);
+  keydemo_down    = new CL_Sprite("keydemo/down", &gfx);
+  keydemo_escape  = new CL_Sprite("keydemo/escape", &gfx);
+  keydemo_options = new CL_Sprite("keydemo/options", &gfx);
 
   keyleft_x = 50;
   keyleft_y = keyright_y = keydown_y = 100;
@@ -114,6 +116,18 @@ void TitleState::unload_gfx()
     keydemo_down = NULL;
   }
 
+  if(keydemo_escape)
+  {
+    delete keydemo_escape;
+    keydemo_escape = NULL;
+  }
+
+  if(keydemo_options)
+  {
+    delete keydemo_options;
+    keydemo_options = NULL;
+  }
+
 }
 
 void TitleState::draw()
@@ -121,6 +135,52 @@ void TitleState::draw()
   sentences[step] -> draw (sentences_x[step], sentences_y[step]);
 
   start_message -> draw(start_message_x,start_message_y);
+
+  switch(step)
+  {
+  case 2:
+    keydemo_left -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_left -> update();
+    break;
+  case 3:
+    keydemo_right -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_right -> update();
+    break;
+  case 4:
+    keydemo_up -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_up -> update();
+    break;
+  case 5:
+  case 7:
+    keydemo_down -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_down -> update();
+    break;
+  case 6:
+    keydemo_left -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width(),
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_left -> update();
+
+    keydemo_right -> draw(sentences_x[step] + sentences[step] -> get_width()/2 + keydemo_left -> get_width(),
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_right -> update();
+    break;
+  case 12:
+    keydemo_escape -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_escape -> update();
+    break;
+  case 13:
+    keydemo_options -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
+			 sentences_y[step] + sentences[step] -> get_height());
+    keydemo_options -> update();
+    break;
+    break;
+    
+  }
 }
 
 void TitleState::update()
