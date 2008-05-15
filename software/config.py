@@ -36,7 +36,7 @@ class App:
                 print "OK"
                 ini = SafeConfigParser()
                 try:
-                        ini.read("/home/keph/.openalchemist/preferences-svn")
+                        ini.read("~/.openalchemist/preferences")
                         self.window.txt_fps.set_text(ini.get("Preferences", "Maxfps"))
                         if ini.get("Preferences", "OpenGL")=="True":
                                 self.window.rbt_opengl.set_active(True)
@@ -114,7 +114,7 @@ class App:
                 else:
                         options = options + " --nocb"
                 options = options + " --maxfps " + self.window.txt_fps.get_text()
-                os.system("./openalchemist" + options)
+                os.system("openalchemist" + options)
                         
                 
 
