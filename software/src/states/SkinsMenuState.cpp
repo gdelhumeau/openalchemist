@@ -45,11 +45,20 @@ void SkinsMenuState::init()
       Skin *sp = new Skin();
       sp -> filename = file.read_string();
       sp -> element = file.read_uint8();
-      skins_list.insert(skins_list.end(), sp);
 
-      // We load the logo sprite in the gfx ressources file
-      CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(sp -> filename), true);
-      sp -> logo = new CL_Surface("logo", &gfx);
+      try
+      {
+	// We load the logo sprite in the gfx ressources file
+	CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(sp -> filename), true);
+	sp -> logo = new CL_Surface("logo", &gfx);
+	skins_list.insert(skins_list.end(), sp);
+      }
+      catch(CL_Error e)
+      {
+	// We forget this skin
+	std::cout << "We don't use " << sp -> filename << "skin because it doesn't exist." << std::endl;
+	delete sp;
+      }
       
     }
     file.close();

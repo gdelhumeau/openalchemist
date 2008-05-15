@@ -9,6 +9,7 @@ FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
 CPPPATH = ""
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
+STATIC_LIBS = "/usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`"
 
 INCLUDES_TO_CHECK = "vector list ClanLib/core.h ClanLib/application.h ClanLib/gl.h ClanLib/display.h"
 LIBS_TO_CHECK = "clanCore clanDisplay clanSignals clanApp clanGL clanSDL"
@@ -26,10 +27,10 @@ for h in Split(INCLUDES_TO_CHECK):
                 Exit(1)
 
 # CHECKING LIBRAIRIES
-for l in Split(LIBS_TO_CHECK):
-        if not conf.CheckLib(l):
-                print "lib: "+l+' must be installed!'
-                Exit(1)
+#for l in Split(LIBS_TO_CHECK):
+#        if not conf.CheckLib(l):
+#                print "lib: "+l+' must be installed!'
+#                Exit(1)
 
 
 env = conf.Finish()

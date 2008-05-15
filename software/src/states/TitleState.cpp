@@ -17,6 +17,7 @@
 #include "../misc.h"
 
 
+
 void TitleState::init()
 {
   GameState::init();
@@ -325,13 +326,15 @@ bool TitleState::front_layer_behind()
 
 TitleState::TitleState()
 {
-  start_message = NULL;
-  key_echap     = NULL;
-  key_pause     = NULL;
-  keydemo_left  = NULL;
-  keydemo_up    = NULL;
-  keydemo_right = NULL;
-  keydemo_down  = NULL;
+  start_message   = NULL;
+  key_echap       = NULL;
+  key_pause       = NULL;
+  keydemo_left    = NULL;
+  keydemo_up      = NULL;
+  keydemo_right   = NULL;
+  keydemo_down    = NULL;
+  keydemo_escape  = NULL;
+  keydemo_options = NULL;
 
   for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
   {

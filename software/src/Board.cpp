@@ -258,6 +258,7 @@ bool Board::detect_pieces_to_destroy()
 
           if(score_of_root == NUMBER_OF_PIECES - 1)
           {
+	    std::cout << "heyhey" << std::endl;
             undo_bonus_score  += counter*board[i][j]->get_score_value();
             bonus_score += counter*board[i][j]->get_score_value();
           }

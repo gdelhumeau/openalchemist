@@ -255,6 +255,8 @@ void GameEngine::set_skin(std::string skin)
 
   resources -> load_gfx(pref -> skin);
 
+  title_state.load_gfx(pref -> skin);
+
   common_state.load_gfx(pref -> skin);
 
   ingame_state.load_gfx(pref -> skin);
