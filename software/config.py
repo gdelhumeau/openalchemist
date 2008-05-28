@@ -78,7 +78,7 @@ class App:
                 self.window.fps_frame.add(self.window.fps_box)
                 self.window.fps_box.set_border_width(10)
                 self.window.txt_fps = gtk.Entry()
-                self.window.txt_fps.set_text("200")
+                self.window.txt_fps.set_text("60")
                 self.window.fps_box.pack_start(self.window.txt_fps, fill=False, expand=False)
 
                 self.window.options_frame = gtk.Frame("Options")

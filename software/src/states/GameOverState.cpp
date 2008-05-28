@@ -53,7 +53,7 @@ void GameOverState::draw()
 
 void GameOverState::update()
 {
-
+  
 }
 
 void GameOverState::events()
@@ -66,6 +66,13 @@ void GameOverState::events()
     resources -> engine -> set_state_ingame();
     resources -> player1.new_game();
   }
+
+  if(resources -> key.undo -> get())
+  {
+    resources -> engine -> set_state_ingame();
+    resources -> player1.undo();
+  }
+
 }
 
 bool GameOverState::front_layer_behind()

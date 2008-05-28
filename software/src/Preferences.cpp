@@ -241,7 +241,7 @@ void Preferences::set_default()
 {
   revision = OPTIONS_FILE_REVISION;
   render_opengl = false;
-  maxfps = 250;
+  maxfps = 60;
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
