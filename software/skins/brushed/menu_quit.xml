@@ -1,0 +1,46 @@
+<resources>
+<section name="menu">
+
+	<!-- Section about the quit menu -->
+	<section name="quit">
+	
+		<section name="dialog-panel">
+			<sprite name="sprite">
+				<image file="dialogs/quit/dialog.png" />
+			</sprite>
+			
+			<integer name="top" value="100" />
+			<integer name="left" value="150" />
+		</section>
+		
+		
+		<section name="dialog-yes">
+			<sprite name="selected">
+				<image file="dialogs/quit/yes-selected.png" />
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/quit/yes-unselected.png" />
+			</sprite>
+			
+			<integer name="top" value="300" />
+			<integer name="left" value="230" />
+			
+		</section>
+
+		<section name="dialog-no">
+			<sprite name="selected">
+				<image file="dialogs/quit/no-selected.png" />
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/quit/no-unselected.png" />
+			</sprite>
+			
+			<integer name="top" value="300" />
+			<integer name="left" value="450" />
+			
+		</section>
+  		
+  	</section>
+ 
+</section>
+</resources>

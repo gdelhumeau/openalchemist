@@ -144,7 +144,7 @@ void PauseMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(common_resources -> key.echap->get() || common_resources -> key.pause->get())
+  if(common_resources -> key.escape->get() || common_resources -> key.pause->get())
   {   
     step = STEP_DISAPPEARING;
     selection = PAUSE_ITEM_RESUME;
@@ -198,7 +198,8 @@ void PauseMenuState::events()
       common_resources -> player1.undo();
       break;
     case PAUSE_ITEM_QUIT:
-      common_resources -> engine -> stop();
+      common_resources -> engine -> set_state_quit_menu();
+//      common_resources -> engine -> stop();
       break;
     }
 

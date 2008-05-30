@@ -13,7 +13,7 @@ Keys::Keys()
   right        = new KeyboardKey(CL_KEY_RIGHT , true );
 //  falling      = new KeyboardKey(CL_KEY_DOWN  , false);
   undo         = new KeyboardKey(CL_KEY_F5    , false);
-  echap        = new KeyboardKey(CL_KEY_ESCAPE, false);
+  escape       = new KeyboardKey(CL_KEY_ESCAPE, false);
   pause        = new KeyboardKey(CL_KEY_PAUSE , false);
   up           = new KeyboardKey(CL_KEY_UP    , true );
   down         = new KeyboardKey(CL_KEY_DOWN  , true );
@@ -33,7 +33,7 @@ Keys::~Keys()
   delete right; 
 //  delete falling; 
   delete undo;
-  delete echap;
+  delete escape;
   delete pause;
   delete up;
   delete down;

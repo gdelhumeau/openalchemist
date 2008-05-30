@@ -5,7 +5,7 @@ import zipfile, os
 
 # CONFIGURATION
 BIN_NAME = "openalchemist"
-FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/HumanPlayer.cpp bin/DemoPlayer.cpp bin/Board.cpp bin/states/InGameState.cpp bin/states/GameOverState.cpp bin/ProgressBar.cpp bin/states/HightScoreState.cpp bin/FrontLayer.cpp bin/states/PauseMenuState.cpp bin/states/SkinsMenuState.cpp bin/Keys.cpp bin/states/OptionsMenuState.cpp bin/states/TitleState.cpp"
+FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/HumanPlayer.cpp bin/DemoPlayer.cpp bin/Board.cpp bin/states/InGameState.cpp bin/states/GameOverState.cpp bin/ProgressBar.cpp bin/states/HightScoreState.cpp bin/FrontLayer.cpp bin/states/PauseMenuState.cpp bin/states/SkinsMenuState.cpp bin/Keys.cpp bin/states/OptionsMenuState.cpp bin/states/TitleState.cpp bin/states/QuitMenuState.cpp"
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
 CPPPATH = ""
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"

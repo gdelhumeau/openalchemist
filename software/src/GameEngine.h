@@ -24,6 +24,7 @@
 #include "states/SkinsMenuState.h"
 #include "states/OptionsMenuState.h"
 #include "states/TitleState.h"
+#include "states/QuitMenuState.h"
 
 
 /**
@@ -73,6 +74,7 @@ class GameEngine{
   SkinsMenuState skinsmenu_state;
   OptionsMenuState optionsmenu_state;
   TitleState title_state;
+  QuitMenuState quitmenu_state;
   
   public:
 
@@ -99,6 +101,7 @@ class GameEngine{
   void set_state_hightscore();
   void set_state_options_menu();
   void set_state_skin_menu();
+  void set_state_quit_menu();
 
   /**
    * Deleting current state of the stack

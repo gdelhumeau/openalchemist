@@ -13,7 +13,7 @@ class Keys{
 //  KeyboardKey * falling;
   KeyboardKey * retry;
   KeyboardKey * undo;
-  KeyboardKey * echap;
+  KeyboardKey * escape;
   KeyboardKey * pause;
   KeyboardKey * up;
   KeyboardKey * down;

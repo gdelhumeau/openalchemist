@@ -83,6 +83,9 @@ void GameEngine::init()
   title_state.init();
   title_state.load_gfx(pref -> skin);
 
+  quitmenu_state.init();
+  quitmenu_state.load_gfx(pref -> skin);
+
       
 }
 
@@ -202,6 +205,17 @@ void GameEngine::set_state_skin_menu()
   if(states_stack.top() != &skinsmenu_state)
   {
     states_stack.push(&skinsmenu_state);
+    skinsmenu_state.start();
+    pausemenu_state.start();
+    optionsmenu_state.start();
+  }
+}
+
+void GameEngine::set_state_quit_menu()
+{
+  if(states_stack.top() != &quitmenu_state)
+  {
+    states_stack.push(&quitmenu_state);
     skinsmenu_state.start();
     pausemenu_state.start();
     optionsmenu_state.start();

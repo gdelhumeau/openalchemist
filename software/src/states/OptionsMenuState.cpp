@@ -158,7 +158,7 @@ void OptionsMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(common_resources -> key.echap->get())
+  if(common_resources -> key.escape->get())
   {   
     step = STEP_DISAPPEARING;
     selection = -1;

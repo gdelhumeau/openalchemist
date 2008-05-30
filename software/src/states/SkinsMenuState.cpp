@@ -274,7 +274,7 @@ void SkinsMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(common_resources->key.echap->get() || common_resources->key.skins->get())
+  if(common_resources->key.escape->get() || common_resources->key.skins->get())
   {   
     step = STEP_DISAPPEARING;
   }
