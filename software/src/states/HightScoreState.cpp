@@ -66,6 +66,12 @@ void HightScoreState::events()
     resources -> engine -> set_state_ingame();
     resources -> player1.new_game();
   }
+
+  if(resources -> key.undo -> get())
+  {
+    resources -> player1.undo();
+    resources -> engine -> stop_current_state();
+  }
 }
 
 bool HightScoreState::front_layer_behind()
