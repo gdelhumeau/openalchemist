@@ -532,6 +532,7 @@ void Player::update_falling_and_creating()
         if(board.score + board.bonus_score > resources -> hightscores[0])
         {
           resources -> engine -> set_state_hightscore();
+	  resources -> old_hightscore = resources -> hightscores[0];
           resources -> hightscores[0] = board.score + board.bonus_score;
           resources -> save_scores();
         }
