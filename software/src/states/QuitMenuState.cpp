@@ -109,7 +109,6 @@ void QuitMenuState::update()
   panel        -> update();
   yes_selected -> update();
   no_selected  -> update();
-
 }
 
 void QuitMenuState::events()

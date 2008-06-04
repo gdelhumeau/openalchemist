@@ -33,9 +33,11 @@ void HightScoreState::load_gfx(std::string skin)
   CL_ResourceManager gfx("gfx.xml", &zip, false);
 
   panel = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
-  panel_x = CL_Integer_to_int("gameover_x", &gfx);
-  panel_y = CL_Integer_to_int("gameover_y", &gfx);
+  panel_x = CL_Integer_to_int("menu/new-hightscore/panel_x", &gfx);
+  panel_y = CL_Integer_to_int("menu/new-hightscore/panel_y", &gfx);
+  new_score_x = CL_Integer_to_int("menu/new-hightscore/new-score-left", &gfx);
   new_score_y = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
+  old_score_x = CL_Integer_to_int("menu/new-hightscore/old-score-left", &gfx);
   old_score_y = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
 }
 
@@ -55,14 +57,14 @@ void HightScoreState::draw()
   std::string new_score = format_number(to_string(common_resources -> hightscores[0]));
   std::string old_score = format_number(to_string(common_resources -> old_hightscore));
 
-  int new_score_x = panel_x + panel -> get_width() / 2 - 
+  int new_score_real_x = new_score_x -
     common_resources -> main_font -> get_width(new_score, CL_Size(0, 0)) / 2;
 
-  int old_score_x = panel_x + panel -> get_width() / 2 - 
+  int old_score_real_x = old_score_x - 
     common_resources -> main_font -> get_width(old_score, CL_Size(0, 0)) / 2;
 
-  common_resources -> main_font -> draw(new_score_x, new_score_y, new_score);
-  common_resources -> main_font -> draw(old_score_x, old_score_y, old_score);
+  common_resources -> main_font -> draw(new_score_real_x, new_score_y, new_score);
+  common_resources -> main_font -> draw(old_score_real_x, old_score_y, old_score);
 }
 
 void HightScoreState::update()

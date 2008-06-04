@@ -130,7 +130,11 @@
   			</image>
   		</sprite>
 
+        <integer name = "panel_x" value = "150" />
+        <integer name = "panel_y" value = "145" />
+		<integer name = "new-score-left" value = "400" />
   		<integer name = "new-score-top" value = "270" />
+		<integer name = "old-score-left" value = "400" />
   		<integer name = "old-score-top" value = "370" />  		
   	</section>
   </section>
