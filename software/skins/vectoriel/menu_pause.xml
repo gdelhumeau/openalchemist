@@ -11,7 +11,7 @@
 		<!-- Sprite for thr background -->
 		<sprite name="background">
 			<image file="dialogs/pause/pause.png">
-				<grid pos="0,0" size="500,462" />
+				<grid pos="0,0" size="500,568" />
 			</image>
 		</sprite>
   		
