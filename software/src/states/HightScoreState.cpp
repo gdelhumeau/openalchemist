@@ -74,20 +74,28 @@ void HightScoreState::update()
 
 void HightScoreState::events()
 {
-  // Getting resources
-  static CommonResources *resources = common_resources_get_instance();  
-
-  if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
+   if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
   {
-    resources -> engine -> set_state_ingame();
-    resources -> player1.new_game();
+    common_resources -> engine -> set_state_ingame();
+    common_resources -> player1.new_game();
   }
 
-  if(resources -> key.undo -> get())
+  if(common_resources -> key.undo -> get())
   {
-    resources -> player1.undo();
-    resources -> engine -> stop_current_state();
+    common_resources -> player1.undo();
+    common_resources -> engine -> stop_current_state();
   }
+
+  if(common_resources -> key.escape -> get() || common_resources ->key.pause->get())
+  {
+    common_resources -> engine -> set_state_pause_menu();
+  }
+
+  if(common_resources->key.skins -> get())
+  {
+    common_resources -> engine -> set_state_skin_menu();
+  }
+  
 }
 
 bool HightScoreState::front_layer_behind()

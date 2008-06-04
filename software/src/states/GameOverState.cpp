@@ -73,6 +73,17 @@ void GameOverState::events()
     resources -> player1.undo();
   }
 
+  if(common_resources -> key.escape -> get() || common_resources ->key.pause->get())
+  {
+    common_resources -> engine -> set_state_pause_menu();
+  }
+
+  if(common_resources->key.skins -> get())
+  {
+    common_resources -> engine -> set_state_skin_menu();
+  }
+
+
 }
 
 bool GameOverState::front_layer_behind()
