@@ -61,7 +61,7 @@ void GameOverState::events()
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();  
 
-  if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
+  if(CL_Keyboard::get_keycode(CL_KEY_ENTER) || resources -> key.retry -> get())
   {
     resources -> engine -> set_state_ingame();
     resources -> player1.new_game();

@@ -644,3 +644,8 @@ int Player::get_visible_pieces()
 {
   return board.visible_pieces;
 }
+
+u_int Player::get_score()
+{
+  return board.score + board.bonus_score;
+}

@@ -17,13 +17,11 @@
 void InGameState::init()
 {
   GameState::init();
-  key_echap  = new KeyboardKey(CL_KEY_ESCAPE, false);
-  key_pause  = new KeyboardKey(CL_KEY_PAUSE , false);
 }
 
 void InGameState::deinit()
 {
-  delete key_echap;
+  GameState::deinit();
 }
 
 void InGameState::load_gfx(std::string skin)
@@ -50,7 +48,7 @@ void InGameState::events()
 {
   common_resources -> player1.events();
 
-  if(key_echap->get() || key_pause->get())
+  if(common_resources -> key.escape -> get() || common_resources ->key.pause->get())
   {
     common_resources -> engine -> set_state_pause_menu();
   }

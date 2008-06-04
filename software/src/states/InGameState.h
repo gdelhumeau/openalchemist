@@ -24,10 +24,6 @@ class GameEngine;
  */
 class InGameState : public GameState{
 
-  private:
-  KeyboardKey *key_echap;
-  KeyboardKey *key_pause;
-
   public:
   void init();
   void deinit();

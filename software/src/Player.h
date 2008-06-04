@@ -297,6 +297,11 @@ class Player{
    */
   int get_visible_pieces();
 
+  /**
+   * Get score
+   */
+  u_int get_score();
+
 };
 
 #endif

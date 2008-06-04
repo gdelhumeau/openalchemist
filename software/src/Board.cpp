@@ -125,7 +125,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
         
   if(y_bottom == -1 && board[piece_bottom_x][0])
   {
-    //game_mode = GAME_MODE_GAME_OVER;
+    calc_score();
     resources -> engine -> set_state_gameover();
   }
   else
@@ -142,7 +142,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
         
   if(y_top==-1 && board[piece_top_x][0])
   {
-    //game_mode = GAME_MODE_GAME_OVER;
+    calc_score();
     resources -> engine -> set_state_gameover();
     board[piece_bottom_x][y_bottom] = NULL;
   }

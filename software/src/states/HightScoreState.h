@@ -29,6 +29,8 @@ class HightScoreState : public GameState{
 
   CL_Sprite * panel;
   int panel_x, panel_y;
+  int new_score_y;
+  int old_score_y;
 
   public:
   void init();

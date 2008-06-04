@@ -35,6 +35,8 @@ void HightScoreState::load_gfx(std::string skin)
   panel = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
   panel_x = CL_Integer_to_int("gameover_x", &gfx);
   panel_y = CL_Integer_to_int("gameover_y", &gfx);
+  new_score_y = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
+  old_score_y = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
 }
 
 void HightScoreState::unload_gfx()
@@ -49,6 +51,7 @@ void HightScoreState::unload_gfx()
 void HightScoreState::draw()
 {
   panel -> draw(panel_x, panel_y);
+  common_resources -> main_font -> draw(385, new_score_y, to_string(common_resources -> player1.get_score()));
 }
 
 void HightScoreState::update()
