@@ -1,0 +1,26 @@
+GAP-MORPH workpoint file
+LAYER-SIZES: 50  50  50 50  # src_width src_height dst_width dst_height
+TWEEN-STEPS: 6
+AFFECT-RADIUS:  100.00 # pixels
+INTENSITY:0 # OFF
+QUALITY-WP-SELECT: 0 # FALSE (faster but lower quality)
+POINTCOLOR: 26 255 26
+CURR-POINTCOLOR: 255 255 26
+# WP: src_x  src_y  dst_x dst_y
+WP:    48.229   16.771   41.979    6.979
+WP:    46.667   28.125   41.146   24.062
+WP:    41.875   35.625   30.938   32.292
+WP:    39.896   44.896   23.542   40.208
+WP:    26.771   45.417   32.917   52.292
+WP:    20.417   41.250   25.521   47.812
+WP:    18.021   45.417   20.521   49.792
+WP:    10.208   46.354   11.979   47.083
+WP:     0.833   44.896   15.417   41.354
+WP:    10.417   36.875    7.917   37.292
+WP:    17.500   28.438    5.417   31.146
+WP:    27.083   30.104   11.875   26.562
+WP:    33.750   35.625   20.000   24.896
+WP:    27.917   24.167   16.458   16.458
+WP:    28.021   15.729   18.750    5.729
+WP:    38.958   12.396   32.396    1.979
+WP:     0.000    0.000    0.000    0.000

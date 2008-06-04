@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="book.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2447"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="823.70968"
+     inkscape:cy="348.80127"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="724"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#b4b4b4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 535.6207,517.90883 L 537.76614,633.04608 L 302.48555,696.69342 L 293.18876,553.66573 L 535.6207,517.90883 z"
+       id="path2455"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#840000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 536.9069,586.54135 C 559.74484,586.23926 574.90958,612.5272 583.58733,626.56471 C 591.3027,640.83564 302.6503,736.61427 298.05805,726.20392 C 263.59114,642.46048 194.27797,492.48438 194.65778,474.97362 C 186.58522,433.9003 187.23429,378.88384 204.95043,369.33129 C 211.41416,363.21507 220.38107,355.95443 235.23928,361.47885 L 428.92397,329.56696 C 435.23833,327.94474 531.34376,505.35457 572.71501,513.74868 C 592.18881,527.30296 398.23577,580.4492 314.2143,584.83635 C 299.32271,585.49745 308.37322,646.23022 309.36745,676.92721 C 310.49107,688.14804 536.04675,624.30527 537.41483,614.86852 L 536.9069,586.54135 z"
+       id="path2453"
+       sodipodi:nodetypes="cccccccccccc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.50151972;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:16.68859482;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38906753"
+       d="M 291.32895,398.81183 C 302.49414,444.44781 319.18845,483.17909 348.70989,525.97071 C 403.33016,523.41424 451.32103,516.84981 495.47277,488.50428 C 470.45564,451.4335 453.42838,414.16575 416.20614,373.26651 C 367.06922,372.57736 329.56044,383.89798 291.32895,398.81183 z"
+       id="path3247"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#ff6600;fill-rule:evenodd;stroke:#363636;stroke-width:2.71425748;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 310.38539,602.34765 L 534.89364,545.55652"
+       id="path3253"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#282828;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:0.38906753"
+       d="M 298.07117,726.20211 C 263.60426,642.45867 194.29109,492.48257 194.6709,474.97181 C 186.59834,433.89849 187.9542,384.81947 201.99487,370.17768 C 208.24653,364.13213 217.49618,359.62818 223.87233,359.63931 C 229.47781,387.61317 288.05013,467.96305 332.32247,583.13813 C 297.07395,586.62658 308.38634,646.22842 309.38057,676.9254 C 311.09734,692.84217 315.54465,708.61508 316.94376,724.39622 C 316.48858,724.79522 299.79979,728.72718 298.07117,726.20211 z"
+       id="path3249"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#ff6600;fill-rule:evenodd;stroke:#363636;stroke-width:2.71425748;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 308.38616,613.14352 L 535.04193,556.70696"
+       id="path3263"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#ff6600;fill-rule:evenodd;stroke:#363636;stroke-width:2.71425748;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 307.41427,624.94701 L 535.32756,567.25294"
+       id="path3265"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#ff6600;fill-rule:evenodd;stroke:#363636;stroke-width:2.71425748;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 307.98635,638.334 L 535.89964,579.88545"
+       id="path3267"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#ff6600;fill-rule:evenodd;stroke:#363636;stroke-width:1.80950487;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 308.78606,652.72852 L 536.34369,594.70412"
+       id="path3269"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:none;fill-rule:evenodd;stroke:#363636;stroke-width:2.71425748;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 309.58577,670.32188 L 536.432,611.45272"
+       id="path3271"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.54103346;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.30000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 309.35153,677.63617 C 328.94802,682.85705 518.02698,629.4316 537.49906,615.54265 C 537.01013,580.65965 492.46284,574.26034 426.46676,590.06609 C 360.70446,605.84931 307.28336,636.90947 309.35153,677.63617 z"
+       id="path3251"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/data/downloads/alchemist/11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>

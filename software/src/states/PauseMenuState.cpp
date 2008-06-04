@@ -197,6 +197,9 @@ void PauseMenuState::events()
     case PAUSE_ITEM_UNDO:
       common_resources -> player1.undo();
       break;
+    case PAUSE_ITEM_GIVEUP:
+      common_resources -> engine -> set_state_title();
+      break;
     case PAUSE_ITEM_QUIT:
       common_resources -> engine -> set_state_quit_menu();
 //      common_resources -> engine -> stop();
@@ -205,7 +208,6 @@ void PauseMenuState::events()
 
   }
 }
-
 void PauseMenuState::appear()
 { 
   if(alpha + APPEARING_SPEED*common_resources -> time_interval >= 1.0)
