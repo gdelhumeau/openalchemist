@@ -106,7 +106,7 @@ void PauseMenuState::draw()
     if(i == selection)
     {
       items_selected[i] -> draw(x + items_left[i], y + items_top[i]);
-      items_selected[i] -> update();
+      items_selected[i] -> update(common_resources -> time_interval);
      
     }
     else
@@ -119,7 +119,7 @@ void PauseMenuState::draw()
       else
       {
         undo_unavailable -> draw(x + items_left[i], y + items_top[i]);
-        undo_unavailable -> update();
+        undo_unavailable -> update(common_resources -> time_interval);
       }
     }
   }

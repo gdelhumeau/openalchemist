@@ -22,7 +22,7 @@ echo "Making links"
 ln -s /usr/local/games/openalchemist/openalchemist package/usr/local/bin/openalchemist
 echo "#!/bin/sh" >  package/usr/local/bin/openalchemist-config
 echo "python /usr/local/games/openalchemist/config.py" >>  package/usr/local/bin/openalchemist-config
-chmod u+x package/usr/local/bin/openalchemist-config
+chmod a+x package/usr/local/bin/openalchemist-config
 cd package
 tar -czf ../package.tar.gz *
 cd ..

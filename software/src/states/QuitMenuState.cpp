@@ -106,9 +106,9 @@ void QuitMenuState::draw()
 
 void QuitMenuState::update()
 {
-  panel        -> update();
-  yes_selected -> update();
-  no_selected  -> update();
+  panel        -> update(common_resources -> time_interval);
+  yes_selected -> update(common_resources -> time_interval);
+  no_selected  -> update(common_resources -> time_interval);
 }
 
 void QuitMenuState::events()

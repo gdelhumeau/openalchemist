@@ -121,13 +121,13 @@ void OptionsMenuState::draw()
     if(i == selection)
     {
       items_selected[i] -> draw(x + items_left[i], y + items_top[i]);
-      items_selected[i] -> update();
+      items_selected[i] -> update(common_resources -> time_interval);
      
     }
     else
     {
         items[i] -> draw(x + items_left[i], y + items_top[i]);
-        items[i] -> update();
+        items[i] -> update(common_resources -> time_interval);
     }
   }
 
