@@ -12,7 +12,7 @@ II) How to install it
 First, you must have installed Scons (http://http://www.scons.org/) on your computer. Then, you should just tape "scons" in this folder. If it doesn't work, you should edit the SConstruct file.
 
 Then tip :
-"./install" (with root)
+"./install.sh" (with root)
 (will be install into /usr/local/games/openalchemist folder)
 
 III) How to play with it
@@ -23,7 +23,7 @@ IV) How to package it
 
 Tip "./make-package.sh" then look into "package.tar.gz" to understand. 
 Dependencies : clanlib
-If you to make a dependencies-free binary, just tip "./make-static.sh" and replace /usr/local/games/openalchemist/openalchemit by openalchemist-static in package file.
+If you want to make a dependencies-free binary, just tip "./make-static.sh" and replace /usr/local/games/openalchemist/openalchemit by openalchemist-static in package file.
 
 V) How to contact us
 

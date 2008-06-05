@@ -22,8 +22,6 @@ class Preferences
 {
 
   public:
-  /** Version of the preferences file (for compatibility) */
-  short revision;
 
   /** Render used */
   bool render_opengl;

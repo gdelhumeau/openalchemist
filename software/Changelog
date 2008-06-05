@@ -1,3 +1,15 @@
+* 0.3 * - soon
+- Refactoring complet
+- Nouveau theme vectoriel
+- Ajout du menu option
+- Ajout du menu "êtes-vous sûr de vouloir quitter ?"
+- Script qui génère un package
+- Script qui installe le jeu dans /usr/local/games/openalchemist
+- Script qui génère un binaire statique
+- Corrections de bugs
+- Utilisation de Scons pour la compilation
+
+
 * 0.2 * - 15/08/2006
 
 #52 : Ajout du changement de skin temporaire (F9) et début de stockage des options dans un fichier
