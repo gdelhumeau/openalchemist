@@ -5,19 +5,27 @@ import zipfile, os
 
 # CONFIGURATION
 BIN_NAME = "openalchemist"
+
 FILES = "bin/Application.cpp bin/Preferences.cpp bin/IniFile.cpp bin/GameEngine.cpp bin/states/GameState.cpp bin/states/CommonState.cpp bin/misc.cpp bin/CommonResources.cpp bin/Player.cpp bin/HumanPlayer.cpp bin/DemoPlayer.cpp bin/Board.cpp bin/states/InGameState.cpp bin/states/GameOverState.cpp bin/ProgressBar.cpp bin/states/HightScoreState.cpp bin/FrontLayer.cpp bin/states/PauseMenuState.cpp bin/states/SkinsMenuState.cpp bin/Keys.cpp bin/states/OptionsMenuState.cpp bin/states/TitleState.cpp bin/states/QuitMenuState.cpp"
+
 CCFLAGS = "-Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`"
+
 CPPPATH = ""
+
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
+
+INCLUDES_ENV = "pkg-config --cflags-only-I clanCore-0.8 "
+
 STATIC_LIBS = "/usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`"
 
 INCLUDES_TO_CHECK = "vector list ClanLib/core.h ClanLib/application.h ClanLib/gl.h ClanLib/display.h"
-LIBS_TO_CHECK = "clanCore clanDisplay clanSignals clanApp clanGL clanSDL"
 
+LIBS_TO_CHECK = "clanCore clanDisplay clanSignals clanApp clanGL clanSDL"
 
 # CONFIGURING ENVIRONNEMENT
 env = Environment()
 env.ParseConfig(LIBS)
+env.ParseConfig(INCLUDES_ENV)
 conf = Configure(env)
 
 # CHECKING LIBRAIRIES
