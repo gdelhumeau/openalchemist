@@ -14,7 +14,7 @@ CPPPATH = ""
 
 LIBS = "pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
 
-INCLUDES_ENV = "pkg-config --cflags-only-I clanCore-0.8 "
+INCLUDES_ENV = "pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8"
 
 STATIC_LIBS = "/usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`"
 
@@ -25,14 +25,13 @@ LIBS_TO_CHECK = "clanCore clanDisplay clanSignals clanApp clanGL clanSDL"
 # CONFIGURING ENVIRONNEMENT
 env = Environment()
 env.ParseConfig(LIBS)
-env.ParseConfig(INCLUDES_ENV)
 conf = Configure(env)
 
 # CHECKING LIBRAIRIES
-for h in Split(INCLUDES_TO_CHECK):
-        if not conf.CheckCXXHeader(h):
-                print h+' must be installed!'
-                Exit(1)
+# for h in Split(INCLUDES_TO_CHECK):
+#        if not conf.CheckCXXHeader(h):
+#                print h+' must be installed!'
+#                Exit(1)
 
 # CHECKING LIBRAIRIES
 for l in Split(LIBS_TO_CHECK):
