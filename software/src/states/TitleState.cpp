@@ -285,7 +285,7 @@ void TitleState::update()
 
 void TitleState::events()
 {
-  if(common_resources -> key.enter -> get())
+  if(common_resources -> key.enter -> get() || CL_Keyboard::get_keycode(CL_KEY_SPACE))
   {
     common_resources -> engine -> set_state_ingame();
     common_resources -> player1.new_game();
