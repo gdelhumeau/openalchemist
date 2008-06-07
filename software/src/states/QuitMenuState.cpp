@@ -21,7 +21,9 @@ void QuitMenuState::init()
 {
   GameState::init();
 
-  panel          = NULL;
+  panel_exit     = NULL;
+  panel_give_up  = NULL;
+  panel_retry    = NULL;
   yes_selected   = NULL;
   yes_unselected = NULL;
   no_selected    = NULL;
@@ -41,7 +43,10 @@ void QuitMenuState::load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_quit.xml", &zip, false);
 
-  panel = new CL_Sprite("menu/quit/dialog-panel/sprite", &gfx);
+  panel_exit    = new CL_Sprite("menu/quit/dialog-panel/sprite-exit", &gfx);
+  panel_give_up = new CL_Sprite("menu/quit/dialog-panel/sprite-giveup", &gfx);
+  panel_retry   = new CL_Sprite("menu/quit/dialog-panel/sprite-retry", &gfx);
+
   panel_x = CL_Integer_to_int("menu/quit/dialog-panel/left", &gfx);
   panel_y = CL_Integer_to_int("menu/quit/dialog-panel/top", &gfx); 
 
@@ -59,10 +64,20 @@ void QuitMenuState::load_gfx(std::string skin)
 
 void QuitMenuState::unload_gfx()
 {
-  if(panel)
+  if(panel_exit)
   {
-    delete panel;
-    panel = NULL;
+    delete panel_exit;
+    panel_exit = NULL;
+  }
+  if(panel_give_up)
+  {
+    delete panel_give_up;
+    panel_give_up = NULL;
+  }
+  if(panel_retry)
+  {
+    delete panel_retry;
+    panel_retry = NULL;
   }
   if(yes_selected)
   {
@@ -90,8 +105,8 @@ void QuitMenuState::unload_gfx()
 
 void QuitMenuState::draw()
 {
-  panel -> draw(panel_x, panel_y);
-
+  current_panel -> draw(panel_x, panel_y);
+  
   if(SELECTION_YES == selection)
   {
     yes_selected -> draw(yes_x, yes_y);
@@ -106,35 +121,48 @@ void QuitMenuState::draw()
 
 void QuitMenuState::update()
 {
-  panel        -> update(common_resources -> time_interval);
+  panel_exit   -> update(common_resources -> time_interval);
   yes_selected -> update(common_resources -> time_interval);
   no_selected  -> update(common_resources -> time_interval);
 }
 
 void QuitMenuState::events()
 {
-  // Getting resources
-  static CommonResources *resources = common_resources_get_instance();  
-
-  if(resources -> key.enter -> get())
+  if(common_resources -> key.enter -> get())
   {
     if(SELECTION_YES == selection)
-      resources -> engine -> stop();
+    {
+      switch(action)
+      {
+      case QUITMENU_EXIT:
+	common_resources -> engine -> stop();
+	break;
+      case QUITMENU_GIVE_UP:
+	//resources -> engine -> 
+	break;
+      case QUITMENU_RETRY:
+	common_resources -> player1.new_game();
+	common_resources -> engine -> set_state_ingame();
+	break;
+      }
+    }
     else
-      resources -> engine -> stop_current_state();
+    {
+      common_resources -> engine -> stop_current_state();
+    }
   }
 
-  if(resources -> key.escape -> get())
+  if(common_resources -> key.escape -> get())
   {
-    resources -> engine -> stop_current_state();
+    common_resources -> engine -> stop_current_state();
   }
 
-  if(resources -> key.left -> get())
+  if(common_resources -> key.left -> get())
   {
     selection = SELECTION_YES;
   }
 
-  if(resources -> key.right -> get())
+  if(common_resources -> key.right -> get())
   {
     selection = SELECTION_NO;
   }
@@ -158,4 +186,21 @@ QuitMenuState::~QuitMenuState()
 }
 
 
+
+void QuitMenuState::set_action(int a)
+{
+  action = a;
+  switch(action)
+  {
+  case QUITMENU_EXIT:
+    current_panel = panel_exit;
+    break;
+  case QUITMENU_GIVE_UP:
+    current_panel = panel_give_up;
+    break;
+  case QUITMENU_RETRY:
+    current_panel = panel_retry;
+    break;
+  }
+}
 

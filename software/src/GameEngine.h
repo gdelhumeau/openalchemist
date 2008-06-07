@@ -101,7 +101,7 @@ class GameEngine{
   void set_state_hightscore();
   void set_state_options_menu();
   void set_state_skin_menu();
-  void set_state_quit_menu();
+  void set_state_quit_menu(int action);
 
   /**
    * Deleting current state of the stack

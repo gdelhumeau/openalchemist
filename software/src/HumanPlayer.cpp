@@ -73,7 +73,7 @@ void HumanPlayer::events()
   // Retry current game
   if(resources -> key.retry -> get())
   {
-    new_game();
+    resources -> engine -> set_state_quit_menu(QUITMENU_RETRY);
   }
 
 }

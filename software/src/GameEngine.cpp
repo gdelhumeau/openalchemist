@@ -211,10 +211,11 @@ void GameEngine::set_state_skin_menu()
   }
 }
 
-void GameEngine::set_state_quit_menu()
+void GameEngine::set_state_quit_menu(int action)
 {
   if(states_stack.top() != &quitmenu_state)
   {
+    quitmenu_state.set_action(action);
     states_stack.push(&quitmenu_state);
     skinsmenu_state.start();
     pausemenu_state.start();

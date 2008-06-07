@@ -17,17 +17,23 @@
 #include "GameState.h"
 #include "../KeyboardKey.h"
 
+#define QUITMENU_GIVE_UP 1
+#define QUITMENU_RETRY 2
+#define QUITMENU_EXIT 3
+
+
 class GameEngine;
 
 
 /**
- * InGame State
+ * QuitMenuGame State
  */
 class QuitMenuState : public GameState{
 
   private:
 
-  CL_Sprite * panel;
+  CL_Sprite * panel_give_up, *panel_retry, *panel_exit;
+  CL_Sprite * current_panel;
   int panel_x, panel_y;
 
   CL_Sprite * yes_selected, * yes_unselected;
@@ -35,6 +41,8 @@ class QuitMenuState : public GameState{
   int yes_x, yes_y;
   int no_x, no_y;
   int selection;
+
+  int action;
 
   public:
   void init();
@@ -49,6 +57,8 @@ class QuitMenuState : public GameState{
 
   QuitMenuState();
   ~QuitMenuState();
+
+  void set_action(int a);
 
 
 };

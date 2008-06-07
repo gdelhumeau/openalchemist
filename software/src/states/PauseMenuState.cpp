@@ -192,17 +192,16 @@ void PauseMenuState::events()
     switch(selection)
     {
     case PAUSE_ITEM_RETRY:
-      common_resources -> player1.new_game();
+      common_resources -> engine -> set_state_quit_menu(QUITMENU_RETRY);
       break;
     case PAUSE_ITEM_UNDO:
       common_resources -> player1.undo();
       break;
     case PAUSE_ITEM_GIVEUP:
-      common_resources -> engine -> set_state_title();
+      common_resources -> engine -> set_state_quit_menu(QUITMENU_GIVE_UP);
       break;
     case PAUSE_ITEM_QUIT:
-      common_resources -> engine -> set_state_quit_menu();
-//      common_resources -> engine -> stop();
+      common_resources -> engine -> set_state_quit_menu(QUITMENU_EXIT);
       break;
     }
 
