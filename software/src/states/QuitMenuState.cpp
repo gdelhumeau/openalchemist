@@ -138,7 +138,7 @@ void QuitMenuState::events()
 	common_resources -> engine -> stop();
 	break;
       case QUITMENU_GIVE_UP:
-	//resources -> engine -> 
+	common_resources -> engine -> set_state_title();
 	break;
       case QUITMENU_RETRY:
 	common_resources -> player1.new_game();

@@ -21,24 +21,10 @@
 void TitleState::init()
 {
   GameState::init();
-
-  key_echap  = new KeyboardKey(CL_KEY_ESCAPE, false);
-  key_pause  = new KeyboardKey(CL_KEY_PAUSE , false);
 }
 
 void TitleState::deinit()
 {
-  if(key_echap)
-  {
-    delete key_echap;
-    key_echap = NULL;
-  }
-  if(key_pause)
-  {
-    delete key_pause;
-    key_pause = NULL;
-  }
-
 }
 
 void TitleState::load_gfx(std::string skin)
@@ -299,21 +285,18 @@ void TitleState::update()
 
 void TitleState::events()
 {
-  // Getting resources
-  static CommonResources *resources = common_resources_get_instance();  
-
-  if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
+  if(common_resources -> key.enter -> get())
   {
-    resources -> engine -> set_state_ingame();
-    resources -> player1.new_game();
+    common_resources -> engine -> set_state_ingame();
+    common_resources -> player1.new_game();
   }
 
-  if(key_echap->get() || key_pause->get())
+  if(common_resources-> key.escape -> get() || common_resources -> key.pause -> get())
   {
     common_resources -> engine -> set_state_pause_menu();
   }
 
-  if(common_resources->key.skins -> get())
+  if(common_resources -> key.skins -> get())
   {
     common_resources -> engine -> set_state_skin_menu();
   }
@@ -327,8 +310,6 @@ bool TitleState::front_layer_behind()
 TitleState::TitleState()
 {
   start_message   = NULL;
-  key_echap       = NULL;
-  key_pause       = NULL;
   keydemo_left    = NULL;
   keydemo_up      = NULL;
   keydemo_right   = NULL;

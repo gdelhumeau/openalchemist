@@ -37,8 +37,6 @@ class TitleState : public GameState{
   CL_Sprite *keydemo_left, *keydemo_up, *keydemo_right, *keydemo_down;
   CL_Sprite *keydemo_escape, *keydemo_options;
 
-  KeyboardKey *key_echap, *key_pause;
-
   /** Help sentences **/
   CL_Sprite *sentences[NUMBER_OF_SENTENCES];
 
