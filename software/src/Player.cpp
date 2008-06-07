@@ -631,7 +631,6 @@ void Player::undo()
     angle = undo_angle;
     target_angle = (int)undo_angle;
 
-
     game_mode = GAME_MODE_PLAYING;
   }
 }
@@ -649,4 +648,9 @@ int Player::get_visible_pieces()
 u_int Player::get_score()
 {
   return board.score + board.bonus_score;
+}
+
+bool Player::is_game_over()
+{
+  return board.is_game_over();
 }

@@ -302,6 +302,8 @@ class Player{
    */
   u_int get_score();
 
+  bool is_game_over();
+
 };
 
 #endif

@@ -188,23 +188,6 @@ void PauseMenuState::events()
   if(common_resources -> key.enter -> get())
   {    
     step = STEP_DISAPPEARING;
-
-    switch(selection)
-    {
-    case PAUSE_ITEM_RETRY:
-      common_resources -> engine -> set_state_quit_menu(QUITMENU_RETRY);
-      break;
-    case PAUSE_ITEM_UNDO:
-      common_resources -> player1.undo();
-      break;
-    case PAUSE_ITEM_GIVEUP:
-      common_resources -> engine -> set_state_quit_menu(QUITMENU_GIVE_UP);
-      break;
-    case PAUSE_ITEM_QUIT:
-      common_resources -> engine -> set_state_quit_menu(QUITMENU_EXIT);
-      break;
-    }
-
   }
 }
 void PauseMenuState::appear()
@@ -243,16 +226,47 @@ void PauseMenuState::disappear()
 
   undo_unavailable -> set_alpha(alpha);
 
+  // all is completly disappeared
   if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
   {
-    if(selection == PAUSE_ITEM_OPTIONS)
+    common_resources -> engine -> stop_current_state();
+    switch(selection)
+    {
+    case PAUSE_ITEM_RETRY:
+    {
+      if(common_resources -> player1.is_game_over())
+      {
+	common_resources -> player1.new_game();
+	common_resources -> engine -> set_state_ingame();
+      }
+      else
+      {
+	common_resources -> engine -> set_state_quit_menu(QUITMENU_RETRY);
+      }
+      break;
+    }
+    case PAUSE_ITEM_UNDO:
+    {
+      common_resources -> player1.undo();
+      common_resources -> engine -> set_state_ingame();
+      break;
+    }
+    case PAUSE_ITEM_GIVEUP:
+    {
+      common_resources -> engine -> set_state_quit_menu(QUITMENU_GIVE_UP);
+      break;
+    }
+    case PAUSE_ITEM_OPTIONS:
     {
       common_resources -> engine -> set_state_options_menu(); 
       start();
+      break;
     }
-    else
+    case PAUSE_ITEM_QUIT:
     {
-      common_resources -> engine -> stop_current_state(); 
+      common_resources -> engine -> set_state_quit_menu(QUITMENU_EXIT);
+      break;
+    }
     }
   }
  
