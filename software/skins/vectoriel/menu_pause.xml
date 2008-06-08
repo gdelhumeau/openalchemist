@@ -24,7 +24,7 @@
 				<image file="dialogs/pause/resume-unselected.png" />
 			</sprite>
 			
-			<integer name="top" value="100" />
+			<integer name="top" value="150" />
 			<integer name="left" value="100" />
 		</section>
 		
@@ -40,7 +40,7 @@
 				<image file="dialogs/pause/undo-unavailable.png" />
 			</sprite>
 			
-			<integer name="top" value="150" />
+			<integer name="top" value="200" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -54,7 +54,7 @@
 				<image file="dialogs/pause/retry-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="200" />
+			<integer name="top" value="250" />
 			<integer name="left" value="100" />
   			
   	</section>
@@ -68,7 +68,7 @@
 				<image file="dialogs/pause/options-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="250" />
+			<integer name="top" value="300" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -83,7 +83,7 @@
 				<image file="dialogs/pause/giveup-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="300" />
+			<integer name="top" value="350" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -97,7 +97,7 @@
 				<image file="dialogs/pause/quit-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="350" />
+			<integer name="top" value="400" />
 			<integer name="left" value="100" />
 			
 		</section>	
