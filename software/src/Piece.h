@@ -38,7 +38,7 @@ class Piece
   int piece_number;
 
   // Real coords on the screen
-  float x, y;
+  double x, y;
 
   // Goal target coord
   int target_y;
@@ -138,7 +138,7 @@ class Piece
 
 
   // Return true if the piece is placed
-  bool fall(float time_interval)
+  bool fall(double time_interval)
     {
       y += PIECE_SPEED * time_interval;
       if(y >= target_y)

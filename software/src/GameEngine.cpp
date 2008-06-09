@@ -19,11 +19,11 @@
 /**
  * This function return a factor to calcul moving with time
  */
-inline float get_time_interval(int fps)
+inline double get_time_interval(int fps)
 {
   
   if(!fps)return 0;
-  return 1000.0/((float)fps);
+  return 1000.0/((double)fps);
   
 }
 
@@ -126,7 +126,7 @@ void GameEngine::run()
     resources -> time_interval = get_time_interval(resources->fps);
 
 
-    CL_Display::flip();
+    CL_Display::flip(1);
 
     // This call updates input and performs other "housekeeping"
     // Call this each frame

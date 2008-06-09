@@ -44,7 +44,7 @@ class CommonResources{
   /** Sprites */
   int pieces_width, pieces_height;
 
-  float time_interval;
+  double time_interval;
   int fps;
 
   u_int hightscores[NUMBER_OF_DIFFICULTIES];
