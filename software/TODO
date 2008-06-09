@@ -4,6 +4,7 @@ TODO for 0.3
 - menu : would you start a new game ? (on game over)
 - combo
 - screen refresh syncrhonisation (if possible)
+- cancel best score if F5
 - load_gfx for menus when changing skin
 
 TODO for 0.4
