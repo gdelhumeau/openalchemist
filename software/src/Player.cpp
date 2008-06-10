@@ -632,6 +632,7 @@ void Player::undo()
     target_angle = (int)undo_angle;
 
     game_mode = GAME_MODE_PLAYING;
+
   }
 }
 

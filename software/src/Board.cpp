@@ -469,6 +469,12 @@ void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Spr
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
 
+  if(score + bonus_score == resources -> hightscores[0])
+  {
+    resources -> hightscores[0] = resources -> old_hightscore;
+    resources -> save_scores();
+  }
+
   // Delete the pieces in the board and replace by new ones
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -486,8 +492,6 @@ void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Spr
     } 
 
   bonus_score -= undo_bonus_score;
-
-  bonus_score = (u_int)(((double)bonus_score) * 0.5);
 
   unlocked_pieces = undo_unlocked_pieces;
   visible_pieces =  undo_visible_pieces;

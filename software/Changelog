@@ -8,7 +8,7 @@
 - Script qui génère un binaire statique
 - Corrections de bugs
 - Utilisation de Scons pour la compilation
-
+- Record supprimé si on annule pendant le HightScoreState
 
 * 0.2 * - 15/08/2006
 
