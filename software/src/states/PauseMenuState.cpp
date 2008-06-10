@@ -256,7 +256,10 @@ void PauseMenuState::disappear()
       if(common_resources -> player1.is_game_over())
 	common_resources -> engine -> set_state_title();
       else
+      {
+        common_resources -> player1.give_up();
 	common_resources -> engine -> set_state_quit_menu(QUITMENU_GIVE_UP);
+      }
       break;
     }
     case PAUSE_ITEM_OPTIONS:

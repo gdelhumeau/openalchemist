@@ -655,3 +655,16 @@ bool Player::is_game_over()
 {
   return board.is_game_over();
 }
+
+void Player::give_up()
+{
+ // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+  resources -> engine -> set_skin_element(board.visible_pieces);
+  board.clear();
+  board.unlocked_pieces = 3;
+  board.visible_pieces  = 3;
+  board.score = 0;
+  board.bonus_score = 0;
+
+}

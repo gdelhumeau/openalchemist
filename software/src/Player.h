@@ -304,6 +304,8 @@ class Player{
 
   bool is_game_over();
 
+  void give_up();
+
 };
 
 #endif
