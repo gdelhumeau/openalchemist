@@ -17,6 +17,13 @@
 #define SELECTION_YES 1
 #define SELECTION_NO  0
 
+#define STEP_APPEARING 0
+#define STEP_NORMAL 1
+#define STEP_DISAPPEARING 2
+
+#define APPEARING_SPEED 0.003
+
+
 void QuitMenuState::init()
 {
   GameState::init();
@@ -121,13 +128,26 @@ void QuitMenuState::draw()
 
 void QuitMenuState::update()
 {
-  panel_exit   -> update(common_resources -> time_interval);
-  yes_selected -> update(common_resources -> time_interval);
-  no_selected  -> update(common_resources -> time_interval);
+  current_panel -> update(common_resources -> time_interval);
+  yes_selected  -> update(common_resources -> time_interval);
+  no_selected   -> update(common_resources -> time_interval);
+
+  switch(step)
+  {
+  case STEP_APPEARING:
+    appear();
+    break;
+  case STEP_DISAPPEARING:
+    disappear();
+    break;
+  }
 }
 
 void QuitMenuState::events()
 {
+  if(step != STEP_NORMAL)
+    return;
+
   if(common_resources -> key.enter -> get())
   {
     if(SELECTION_YES == selection)
@@ -138,11 +158,8 @@ void QuitMenuState::events()
 	common_resources -> engine -> stop();
 	break;
       case QUITMENU_GIVE_UP:
-	common_resources -> engine -> set_state_title();
-	break;
       case QUITMENU_RETRY:
-	common_resources -> player1.new_game();
-	common_resources -> engine -> set_state_ingame();
+	step = STEP_DISAPPEARING;
 	break;
       }
     }
@@ -154,7 +171,7 @@ void QuitMenuState::events()
 
   if(common_resources -> key.escape -> get())
   {
-    common_resources -> engine -> stop_current_state();
+    step = STEP_DISAPPEARING;
   }
 
   if(common_resources -> key.left -> get())
@@ -204,3 +221,56 @@ void QuitMenuState::set_action(int a)
   }
 }
 
+void QuitMenuState::appear()
+{
+  if(alpha + APPEARING_SPEED * common_resources -> time_interval >= 1.0)
+  {
+    step = STEP_NORMAL;
+    alpha = 1.0;
+  }
+  else
+    alpha += APPEARING_SPEED * common_resources -> time_interval;
+
+  current_panel  -> set_alpha(alpha);
+  yes_selected   -> set_alpha(alpha);
+  yes_unselected -> set_alpha(alpha);  
+  no_selected    -> set_alpha(alpha);
+  no_unselected  -> set_alpha(alpha);
+  
+}
+
+
+void QuitMenuState::disappear()
+{
+  alpha -= APPEARING_SPEED * common_resources -> time_interval;
+
+  current_panel  -> set_alpha(alpha);
+  yes_selected   -> set_alpha(alpha);
+  yes_unselected -> set_alpha(alpha);  
+  no_selected    -> set_alpha(alpha);
+  no_unselected  -> set_alpha(alpha);
+
+  if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
+  {
+    switch(action)
+    {
+    case QUITMENU_GIVE_UP:
+      common_resources -> engine -> set_state_title();
+      break;
+    case QUITMENU_RETRY:
+      common_resources -> player1.new_game();
+      common_resources -> engine -> set_state_ingame();
+      break;
+    default:
+      common_resources -> engine -> stop_current_state();
+      break;
+    }
+  }
+
+}
+
+void QuitMenuState::start()
+{
+  step = STEP_APPEARING;
+  alpha = 0.0;
+}

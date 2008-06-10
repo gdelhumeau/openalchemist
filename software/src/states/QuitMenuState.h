@@ -43,6 +43,9 @@ class QuitMenuState : public GameState{
   int selection;
 
   int action;
+  int step;
+
+  double alpha;
 
   public:
   void init();
@@ -59,6 +62,11 @@ class QuitMenuState : public GameState{
   ~QuitMenuState();
 
   void set_action(int a);
+  void start();
+
+  private:
+  void appear();
+  void disappear();
 
 
 };

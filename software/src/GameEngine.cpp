@@ -126,7 +126,7 @@ void GameEngine::run()
     resources -> time_interval = get_time_interval(resources->fps);
 
 
-    CL_Display::flip(1);
+    CL_Display::flip();
 
     // This call updates input and performs other "housekeeping"
     // Call this each frame
@@ -217,9 +217,8 @@ void GameEngine::set_state_quit_menu(int action)
   {
     quitmenu_state.set_action(action);
     states_stack.push(&quitmenu_state);
-    skinsmenu_state.start();
     pausemenu_state.start();
-    optionsmenu_state.start();
+    quitmenu_state.start();
   }
 }
 
