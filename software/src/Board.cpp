@@ -453,7 +453,7 @@ void Board::calc_score()
 
   str_score = format_number(to_string(score));
   str_bonus = format_number(to_string(bonus_score));
-  str_hightscore = format_number(to_string(resources->hightscores[0])); 
+  str_hightscore = format_number(to_string(resources->highscore)); 
 
   int score_width = resources->main_font->get_width(str_score, CL_Size(0, 0));
   int bonus_width = resources->main_font->get_width(str_bonus, CL_Size(0, 0));
@@ -469,9 +469,9 @@ void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Spr
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
 
-  if(score + bonus_score == resources -> hightscores[0])
+  if(score + bonus_score == resources -> highscore)
   {
-    resources -> hightscores[0] = resources -> old_hightscore;
+    resources -> highscore = resources -> old_highscore;
     resources -> save_scores();
   }
 

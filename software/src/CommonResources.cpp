@@ -73,11 +73,8 @@ void CommonResources::unload_gfx()
 
 void CommonResources::read_scores()
 {
-  for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
-  {
-    hightscores[i] = 0;
-  }
-
+  highscore = 0;
+    
   std::string path = get_save_path();
 
   try
@@ -89,20 +86,13 @@ void CommonResources::read_scores()
 #endif
 
     file.open();
-    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
-    {
-      hightscores[i] = file.read_uint32();
-    }
-    file.close();
+    highscore = file.read_uint32();
+        
   }
   catch(CL_Error e)
   {
     std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
-    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
-    {
-      hightscores[i] = 0;
-    }
-    
+    highscore = 0;
   }
 }
 
@@ -119,10 +109,7 @@ void CommonResources::save_scores()
 #endif
     
     file.open();
-    for(u_int i = 0; i < NUMBER_OF_DIFFICULTIES; ++i)
-    {
-      file.write_uint32(hightscores[i]);
-    }
+    file.write_uint32(highscore);
     file.close();
   }
   catch(CL_Error e)

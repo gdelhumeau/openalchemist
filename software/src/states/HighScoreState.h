@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : HightScoreState.h
+  File : HighScoreState.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,8 +9,8 @@
 
 *********************************************************************/
 
-#ifndef _HIGHTSCORE_STATE_H_
-#define _HIGHTSCORE_STATE_H_
+#ifndef _HIGHSCORE_STATE_H_
+#define _HIGHSCORE_STATE_H_
 
 #include <ClanLib/display.h>
 
@@ -23,7 +23,7 @@ class GameEngine;
 /**
  * InGame State
  */
-class HightScoreState : public GameState{
+class HighScoreState : public GameState{
 
   private:
 
@@ -45,8 +45,8 @@ class HightScoreState : public GameState{
   
   bool front_layer_behind();
 
-  HightScoreState();
-  ~HightScoreState();
+  HighScoreState();
+  ~HighScoreState();
 
 
 };

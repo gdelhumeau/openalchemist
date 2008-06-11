@@ -47,8 +47,8 @@ class CommonResources{
   double time_interval;
   int fps;
 
-  u_int hightscores[NUMBER_OF_DIFFICULTIES];
-  u_int old_hightscore;
+  u_int highscore;
+  u_int old_highscore;
 
 
   void init(GameEngine *engine);

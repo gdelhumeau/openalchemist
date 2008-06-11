@@ -244,9 +244,9 @@ void Player::draw()
 
   // Drawing the progress bar 
   // TODO : must work with differents difficulties
-  if(resources -> hightscores[0] > 0)
+  if(resources -> highscore > 0)
   {
-    int percentage = (int)((double)(board.score + board.bonus_score) / (double)resources -> hightscores[0] * 100.0);
+    int percentage = (int)((double)(board.score + board.bonus_score) / (double)resources -> highscore * 100.0);
     progress_bar.draw(percentage);
   }
   else
@@ -529,11 +529,11 @@ void Player::update_falling_and_creating()
       if(board.is_game_over())
       {
         resources -> engine -> set_skin_element(board.visible_pieces);
-        if(board.score + board.bonus_score > resources -> hightscores[0])
+        if(board.score + board.bonus_score > resources -> highscore)
         {
-          resources -> engine -> set_state_hightscore();
-	  resources -> old_hightscore = resources -> hightscores[0];
-          resources -> hightscores[0] = board.score + board.bonus_score;
+          resources -> engine -> set_state_highscore();
+	  resources -> old_highscore = resources -> highscore;
+          resources -> highscore = board.score + board.bonus_score;
           resources -> save_scores();
         }
         else

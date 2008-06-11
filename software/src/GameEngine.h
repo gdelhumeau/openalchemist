@@ -19,7 +19,7 @@
 #include "states/CommonState.h"
 #include "states/InGameState.h"
 #include "states/GameOverState.h"
-#include "states/HightScoreState.h"
+#include "states/HighScoreState.h"
 #include "states/PauseMenuState.h"
 #include "states/SkinsMenuState.h"
 #include "states/OptionsMenuState.h"
@@ -69,7 +69,7 @@ class GameEngine{
   CommonState common_state;
   InGameState ingame_state;
   GameOverState gameover_state;
-  HightScoreState hightscore_state;
+  HighScoreState highscore_state;
   PauseMenuState pausemenu_state;
   SkinsMenuState skinsmenu_state;
   OptionsMenuState optionsmenu_state;
@@ -98,7 +98,7 @@ class GameEngine{
   void set_state_pause_menu();
   void set_state_ingame();
   void set_state_gameover();
-  void set_state_hightscore();
+  void set_state_highscore();
   void set_state_options_menu();
   void set_state_skin_menu();
   void set_state_quit_menu(int action);

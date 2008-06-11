@@ -68,8 +68,8 @@ void GameEngine::init()
   gameover_state.init();
   gameover_state.load_gfx(pref -> skin);
 
-  hightscore_state.init();
-  hightscore_state.load_gfx(pref -> skin);
+  highscore_state.init();
+  highscore_state.load_gfx(pref -> skin);
 
   pausemenu_state.init();
   pausemenu_state.load_gfx(pref -> skin);
@@ -183,9 +183,9 @@ void GameEngine::set_state_gameover()
   states_stack.push(&gameover_state);
 }
 
-void GameEngine::set_state_hightscore()
+void GameEngine::set_state_highscore()
 {
-  states_stack.push(&hightscore_state);
+  states_stack.push(&highscore_state);
 }
 
 
@@ -277,7 +277,7 @@ void GameEngine::set_skin(std::string skin)
 
   gameover_state.load_gfx(pref -> skin);
 
-  hightscore_state.load_gfx(pref -> skin);
+  highscore_state.load_gfx(pref -> skin);
 
   pausemenu_state.load_gfx(pref -> skin);
 

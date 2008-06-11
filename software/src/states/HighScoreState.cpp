@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : HightScoreState.cpp
+  File : HighScoreState.cpp
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,24 +9,24 @@
 
 *********************************************************************/
 
-#include "HightScoreState.h"
+#include "HighScoreState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
 
-void HightScoreState::init()
+void HighScoreState::init()
 {
   GameState::init();
 
   panel = NULL;
 }
 
-void HightScoreState::deinit()
+void HighScoreState::deinit()
 {
 
 }
 
-void HightScoreState::load_gfx(std::string skin)
+void HighScoreState::load_gfx(std::string skin)
 {
   // Getting skins resources
   CL_Zip_Archive zip(skin);
@@ -41,7 +41,7 @@ void HightScoreState::load_gfx(std::string skin)
   old_score_y = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
 }
 
-void HightScoreState::unload_gfx()
+void HighScoreState::unload_gfx()
 {
   if(panel)
   {
@@ -50,12 +50,12 @@ void HightScoreState::unload_gfx()
   }
 }
 
-void HightScoreState::draw()
+void HighScoreState::draw()
 {
   panel -> draw(panel_x, panel_y);
 
-  std::string new_score = format_number(to_string(common_resources -> hightscores[0]));
-  std::string old_score = format_number(to_string(common_resources -> old_hightscore));
+  std::string new_score = format_number(to_string(common_resources -> highscore));
+  std::string old_score = format_number(to_string(common_resources -> old_highscore));
 
   int new_score_real_x = new_score_x -
     common_resources -> main_font -> get_width(new_score, CL_Size(0, 0)) / 2;
@@ -67,12 +67,12 @@ void HightScoreState::draw()
   common_resources -> main_font -> draw(old_score_real_x, old_score_y, old_score);
 }
 
-void HightScoreState::update()
+void HighScoreState::update()
 {
 
 }
 
-void HightScoreState::events()
+void HighScoreState::events()
 {
    if(CL_Keyboard::get_keycode(CL_KEY_ENTER))
   {
@@ -98,17 +98,17 @@ void HightScoreState::events()
   
 }
 
-bool HightScoreState::front_layer_behind()
+bool HighScoreState::front_layer_behind()
 {
   return true;
 }
 
-HightScoreState::HightScoreState()
+HighScoreState::HighScoreState()
 {
 
 }
 
-HightScoreState::~HightScoreState()
+HighScoreState::~HighScoreState()
 {
   unload_gfx();
 }
