@@ -5,6 +5,8 @@ TODO for 0.3
 - combo
 - screen refresh syncrhonisation (if possible) -> Works with OpenGL
 - load_gfx for menus when changing skin
+- show the score at the end of the game!
+- propose to retry at the end of the game
 
 TODO for 0.4
 ------------
