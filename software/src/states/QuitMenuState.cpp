@@ -160,6 +160,7 @@ void QuitMenuState::events()
       case QUITMENU_GIVE_UP:
       case QUITMENU_RETRY:
 	step = STEP_DISAPPEARING;
+	common_resources -> player1.new_game();
 	break;
       }
     }
@@ -252,17 +253,14 @@ void QuitMenuState::disappear()
 
   if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
   {
+    common_resources -> engine -> stop_current_state();
     switch(action)
     {
     case QUITMENU_GIVE_UP:
       common_resources -> engine -> set_state_title();
       break;
     case QUITMENU_RETRY:
-      common_resources -> player1.new_game();
       common_resources -> engine -> set_state_ingame();
-      break;
-    default:
-      common_resources -> engine -> stop_current_state();
       break;
     }
   }
