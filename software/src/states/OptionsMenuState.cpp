@@ -158,16 +158,15 @@ void OptionsMenuState::events()
   if(step != STEP_NORMAL)
     return;
 
-  if(common_resources -> key.escape->get())
+  if(common_resources -> key.escape -> get() || common_resources -> key.options -> get())
   {   
     step = STEP_DISAPPEARING;
-    selection = -1;
+    selection = OPTIONS_ITEM_QUIT;
   }
 
-  if(common_resources -> key.skins->get())
+  if(common_resources -> key.skins -> get())
   {   
     step = STEP_DISAPPEARING;
-    //selection = OPTIONS_ITEM_OPTIONS;
   }
   if(common_resources -> key.up -> get())
   {

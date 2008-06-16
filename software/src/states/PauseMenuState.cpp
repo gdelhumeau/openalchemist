@@ -189,6 +189,13 @@ void PauseMenuState::events()
   {    
     step = STEP_DISAPPEARING;
   }
+
+  if(common_resources->key.options -> get() )
+  {
+    selection = PAUSE_ITEM_OPTIONS;
+    step = STEP_DISAPPEARING;
+  }
+  
 }
 void PauseMenuState::appear()
 { 
@@ -264,8 +271,8 @@ void PauseMenuState::disappear()
     }
     case PAUSE_ITEM_OPTIONS:
     {
-      common_resources -> engine -> set_state_options_menu(); 
       start();
+      common_resources -> engine -> set_state_options_menu(); 
       break;
     }
     case PAUSE_ITEM_QUIT:

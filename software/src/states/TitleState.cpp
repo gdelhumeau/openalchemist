@@ -300,6 +300,12 @@ void TitleState::events()
   {
     common_resources -> engine -> set_state_skin_menu();
   }
+
+  if(common_resources->key.options -> get() )
+  {
+    common_resources -> engine -> set_state_options_menu();
+  }
+
 }
 
 bool TitleState::front_layer_behind()
