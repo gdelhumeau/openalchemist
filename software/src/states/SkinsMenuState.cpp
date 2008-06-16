@@ -337,7 +337,6 @@ void SkinsMenuState::events()
     if(skins_board[selection_x][selection_y] -> element >= (u_int) common_resources->player1.get_visible_pieces())
     {
       common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
-      step = STEP_DISAPPEARING;
     }
   }
 

@@ -199,6 +199,9 @@ bool Board::fall_and_create()
 
 bool Board::detect_pieces_to_destroy()
 {
+  // Getting resources
+  static CommonResources *resources = common_resources_get_instance();
+
   // This table is used to know if a piece have been explorated 
   bool board_mark[NUMBER_OF_COLS][NUMBER_OF_LINES];
   for(int k=0; k<NUMBER_OF_COLS; ++k)
@@ -299,7 +302,7 @@ bool Board::detect_pieces_to_destroy()
             if(new_piece.piece_number > visible_pieces - 1)
             {
               ++visible_pieces;
-              //skins_selector.set_skin_value(skin, visible_pieces);
+	      resources -> engine -> set_skin_element(visible_pieces);
             }
             if(new_piece.piece_number > unlocked_pieces)
             {
