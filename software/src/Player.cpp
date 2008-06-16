@@ -247,6 +247,8 @@ void Player::draw()
   if(resources -> highscore > 0)
   {
     int percentage = (int)((double)(board.score + board.bonus_score) / (double)resources -> highscore * 100.0);
+    if(percentage > 100)
+      percentage = 100;
     progress_bar.draw(percentage);
   }
   else

@@ -259,62 +259,66 @@ bool Board::detect_pieces_to_destroy()
           Coords *c = (Coords*) *it;                 
           u_int score_of_root = board[c->x][c->y]->get_piece_number(); 
 
+	  // Last element
           if(score_of_root == NUMBER_OF_PIECES - 1)
           {
-	    std::cout << "heyhey" << std::endl;
-            undo_bonus_score  += counter*board[i][j]->get_score_value();
+	    std::cout << "You align " << counter << " ultimate elements ! Cheater :p" << std::endl;
+            undo_bonus_score += counter*board[i][j]->get_score_value();
             bonus_score += counter*board[i][j]->get_score_value();
           }
+	  // If not last element
           else
           {
             undo_bonus_score  += (counter - 3)*board[i][j]->get_score_value();
             bonus_score += (counter - 3)*board[i][j]->get_score_value();
-          }      
-          Coords new_piece(NUMBER_OF_COLS+1,-1);
-          
-          //std::vector<Coords*>::iterator it = list.begin();
-          while(it != list.end())
-          {
-            Coords *c = (Coords*) *it;                 
-            board[c->x][c->y]->start_disappear();                    
-            list_to_destroy.insert(list_to_destroy.end(),c);
-                    
-            // Select the lefter and bottomer Coords for create new piece
-            if(c->y > new_piece.y)
-            {
-              new_piece.x = c->x;
-              new_piece.y = c->y;
-            }
-            else if(c->y == new_piece.y)
-            {
-              if(c->x < new_piece.x)
-              {
-                new_piece.x = c->x;
-                new_piece.y = c->y;
-              }
-            }
-            new_piece.piece_number = board[c->x][c->y]->get_piece_number()+1;    
-            if(new_piece.piece_number >= NUMBER_OF_PIECES)
-            {
-              new_piece.piece_number = NUMBER_OF_PIECES-1;
-            }
-            
-            if(new_piece.piece_number > visible_pieces - 1)
-            {
-              ++visible_pieces;
-	      resources -> engine -> set_skin_element(visible_pieces);
-            }
-            if(new_piece.piece_number > unlocked_pieces)
-            {
-              unlocked_pieces ++;
-            }
-
-            ++it;
           }
+	  Coords new_piece(NUMBER_OF_COLS+1,-1);
+          
+	  //std::vector<Coords*>::iterator it = list.begin();
+	  while(it != list.end())
+	  {
+	    Coords *c = (Coords*) *it;                 
+	    board[c->x][c->y]->start_disappear();                    
+	    list_to_destroy.insert(list_to_destroy.end(),c);
+                    
+	    // Select the lefter and bottomer Coords for create new piece
+	    if(c->y > new_piece.y)
+	    {
+	      new_piece.x = c->x;
+	      new_piece.y = c->y;
+	    }
+	    else if(c->y == new_piece.y)
+	    {
+	      if(c->x < new_piece.x)
+	      {
+		new_piece.x = c->x;
+		new_piece.y = c->y;
+	      }
+	    }
+	    new_piece.piece_number = board[c->x][c->y]->get_piece_number()+1;    
+	    if(new_piece.piece_number >= NUMBER_OF_PIECES)
+	    {
+	      new_piece.piece_number = NUMBER_OF_PIECES-1;
+	    }
+            
+	    if(new_piece.piece_number > visible_pieces - 1)
+	    {
+	      ++visible_pieces;
+	      resources -> engine -> set_skin_element(visible_pieces);
+	    }
+	    if(new_piece.piece_number > unlocked_pieces)
+	    {
+	      unlocked_pieces ++;
+	    }
+
+	    ++it;
+	  }
                 
-          list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
-                
-        }
+	  // We don't add a new piece if we align 3 last elements
+	  if(score_of_root != NUMBER_OF_PIECES - 1)
+	    list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
+	}      
+        
       }
     }
 
