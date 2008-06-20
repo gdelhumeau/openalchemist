@@ -30,9 +30,13 @@
   <surface name = "background" file = "misc/landscape.png"/>
 
   <!-- game over message -->
-  <surface name = "gameover" file = "misc/gameover.png" />
-  <integer name = "gameover_x" value = "150" />
-  <integer name = "gameover_y" value = "145" />
+  <section name = "gameover">
+	  <surface name = "surface" file = "misc/gameover.png" />
+	  <integer name = "panel-left" value = "150" />
+	  <integer name = "panel-top" value = "145" />
+	  <integer name = "score-left" value = "400" />
+	  <integer name = "score-top" value = "270" />
+  </section>
 
   <!-- font to display score -->
   <sprite name="font_glyph">

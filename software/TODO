@@ -3,10 +3,7 @@ TODO for 0.3
 
 - menu : would you start a new game ? (on game over) -> I don't realy want to make it
 - combo
-- screen refresh syncrhonisation (if possible) -> Works with OpenGL
-- load_gfx for menus when changing skin
-- show the score at the end of the game!
-- propose to retry at the end of the game
+- screen refresh syncrhonisation -> ?
 
 TODO for 0.4
 ------------

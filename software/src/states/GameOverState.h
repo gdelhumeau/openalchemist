@@ -29,6 +29,7 @@ class GameOverState : public GameState{
 
   CL_Surface * panel;
   int panel_x, panel_y;
+  int score_x, score_y;
 
   public:
   void init();
