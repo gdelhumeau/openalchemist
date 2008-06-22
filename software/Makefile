@@ -16,18 +16,33 @@ LIBS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 cl
 STATIC_LIBS = /usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`
 
 # liste des objets à compiler
-OBJS=src/Application.o src/Preferences.o src/IniFile.o src/GameEngine.o src/states/GameState.o src/states/CommonState.o src/misc.o src/CommonResources.o src/Player.o src/HumanPlayer.o src/DemoPlayer.o src/Board.o src/states/InGameState.o src/states/GameOverState.o src/ProgressBar.o src/states/HighScoreState.o src/FrontLayer.o src/states/PauseMenuState.o src/states/SkinsMenuState.o src/Keys.o src/states/OptionsMenuState.o src/states/TitleState.o src/states/QuitMenuState.o
+OBJS=bin/Application.o bin/Preferences.o bin/IniFile.o bin/GameEngine.o bin/states/GameState.o bin/states/CommonState.o bin/misc.o bin/CommonResources.o bin/Player.o bin/HumanPlayer.o bin/DemoPlayer.o bin/Board.o bin/states/InGameState.o bin/states/GameOverState.o bin/ProgressBar.o bin/states/HighScoreState.o bin/FrontLayer.o bin/states/PauseMenuState.o bin/states/SkinsMenuState.o bin/Keys.o bin/states/OptionsMenuState.o bin/states/TitleState.o bin/states/QuitMenuState.o
 
 # all = on compile tous les execs
+all: openalchemist
+	@echo "OK"
 
-openalchemist: $(OBJS)
-	g++ -o openalchemist src/*.o src/states/*.o $(LIBS)
-static : $(OBJS)
-	g++ -o openalchemist-static src/*.o src/states/*.o $(STATIC_LIBS)
+openalchemist: bin $(OBJS) skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
+	g++ -o openalchemist $(OBJS) $(LIBS)
+static : bin $(OBJS) skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
+	g++ -o openalchemist-static $(OBJS) $(STATIC_LIBS)
+
+bin/%.o : src/%.cpp
+	$(CXX) -c -o $@ $? $(CXXFLAGS)
 
 bin: 
 	mkdir bin
 	mkdir bin/states
+
+skins/aqua.zip : skins/aqua/*
+	@echo "On zip le thème aqua"
+	cd skins/aqua && zip -q -r ../aqua * -x *svn*
+skins/brushed.zip : skins/brushed/*
+	@echo "On zip le thème brushed"
+	cd skins/brushed && zip -q -r ../brushed * -x *svn*
+skins/vectoriel.zip : skins/vectoriel/*
+	@echo "On zip le thème vectoriel"
+	cd skins/vectoriel && zip -q -r ../vectoriel * -x *svn*
 
 clean: 
 	rm bin -R
