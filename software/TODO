@@ -1,8 +1,13 @@
 TODO for 0.3
 ------------
 
-- menu : would you start a new game ? (on game over) -> I don't realy want to make it
-- combo
+- menu game over
+	-> Your score
+	-> Best score // ou alors New high score!
+	-> Do you want to retry?
+- Bug de chargement de menu
+- Disparition des pièces (celles qu'on fait tourner) après trip dans les menus
+- Combos
 - screen refresh syncrhonisation -> ?
 
 TODO for 0.4
