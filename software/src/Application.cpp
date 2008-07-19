@@ -111,9 +111,7 @@ public:
    */
   virtual int main(int argc, char **argv)
     {
-              
       bool dont_run_game = false;
-
       Preferences *pref = pref_get_instance();
       render = pref -> render_opengl;
 

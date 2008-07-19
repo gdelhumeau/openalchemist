@@ -185,7 +185,7 @@ openalchemist_SOURCES = ../src/Application.cpp ../src/Preferences.cpp \
 	../src/states/OptionsMenuState.h ../src/states/TitleState.h \
 	../src/states/QuitMenuState.h ../src/Coords.h \
 	../src/KeyboardKey.h ../src/Piece.h
-AM_CXXFLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
+AM_CXXFLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8` -DDATA_DIR="\"$(datadir)/openalchemist\""
 AM_LDFLAGS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
 all: all-am
 

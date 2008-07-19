@@ -74,7 +74,12 @@ void SkinsMenuState::init()
 #ifdef WIN32
   std::string dir = CL_System::get_exe_path() + "skins\\";
 #else
+#ifdef DATA_DIR
+  std::string dir = DATA_DIR;
+  dir += "/";
+#else
   std::string dir = CL_System::get_exe_path() + "skins/";
+#endif
 #endif
 
   CL_DirectoryScanner scanner;

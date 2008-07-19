@@ -44,7 +44,12 @@ void GameEngine::init()
 #ifdef WIN32
   std::string file_path = CL_System::get_exe_path() + "\\data\\";
 #else
+#ifdef DATA_DIR
+  std::string file_path = DATA_DIR;
+  file_path += "/";
+#else
   std::string file_path = CL_System::get_exe_path() + "/data/";
+#endif
 #endif
   CL_Surface loading(file_path+"loading.png");
   CL_Display::clear(CL_Color(0, 0, 0));
