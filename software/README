@@ -7,9 +7,16 @@ OpenAlchemist is based on ClanLib 0.8. You must install it before compiling this
 
 You may have to edit the /etc/ld.so.conf and add to it "/etc/local/lib". Then run "ldconfig" as root.
 
-II) How to install it
+II) How to compile/install it
 
-See "INSTALL"
+There is two ways :
+	1 - Use GNU autotools
+	It's the classic chain "./configure && make && sudo make install".
+	See "INSTALL" for more informations
+
+	2 - Use the custom Makefile
+	More simple, it's for local use (don't try make install). Usefull for developpers.
+	Just tip "make -f MyMakefile", and then "./openalchemist" to run the game.
 
 III) How to play with it
 

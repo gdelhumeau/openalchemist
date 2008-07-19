@@ -32,6 +32,7 @@ build/%.o : src/%.cpp
 
 build: 
 	mkdir build
+	mkdir build/states
 
 build/states: build
 	mkdir build/states
