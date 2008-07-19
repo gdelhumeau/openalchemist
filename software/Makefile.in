@@ -30,13 +30,12 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = openalchemist$(EXEEXT)
 subdir = .
-DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(top_srcdir)/configure \
-	$(top_srcdir)/src/config.h.in AUTHORS COPYING ChangeLog \
-	INSTALL NEWS TODO build-aux/depcomp build-aux/install-sh \
-	build-aux/missing
+DIST_COMMON = README $(am__configure_deps) $(dist_pkgdata_DATA) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(top_srcdir)/configure $(top_srcdir)/src/config.h.in AUTHORS \
+	COPYING ChangeLog INSTALL NEWS TODO build-aux/depcomp \
+	build-aux/install-sh build-aux/missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -46,33 +45,29 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/config.h
 CONFIG_CLEAN_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)"
-binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
-PROGRAMS = $(bin_PROGRAMS)
-am_openalchemist_OBJECTS = Application.$(OBJEXT) Preferences.$(OBJEXT) \
-	IniFile.$(OBJEXT) GameEngine.$(OBJEXT) GameState.$(OBJEXT) \
-	CommonState.$(OBJEXT) misc.$(OBJEXT) CommonResources.$(OBJEXT) \
-	Player.$(OBJEXT) HumanPlayer.$(OBJEXT) DemoPlayer.$(OBJEXT) \
-	Board.$(OBJEXT) InGameState.$(OBJEXT) GameOverState.$(OBJEXT) \
-	ProgressBar.$(OBJEXT) HighScoreState.$(OBJEXT) \
-	FrontLayer.$(OBJEXT) PauseMenuState.$(OBJEXT) \
-	SkinsMenuState.$(OBJEXT) Keys.$(OBJEXT) \
-	OptionsMenuState.$(OBJEXT) TitleState.$(OBJEXT) \
-	QuitMenuState.$(OBJEXT)
-openalchemist_OBJECTS = $(am_openalchemist_OBJECTS)
-openalchemist_LDADD = $(LDADD)
-DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
-depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
-am__depfiles_maybe = depfiles
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-CXXLD = $(CXX)
-CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
-SOURCES = $(openalchemist_SOURCES)
-DIST_SOURCES = $(openalchemist_SOURCES)
+SOURCES =
+DIST_SOURCES =
+RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+	html-recursive info-recursive install-data-recursive \
+	install-dvi-recursive install-exec-recursive \
+	install-html-recursive install-info-recursive \
+	install-pdf-recursive install-ps-recursive install-recursive \
+	installcheck-recursive installdirs-recursive pdf-recursive \
+	ps-recursive uninstall-recursive
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(pkgdatadir)"
+dist_pkgdataDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_pkgdata_DATA)
+RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+  distclean-recursive maintainer-clean-recursive
 ETAGS = etags
 CTAGS = ctags
+DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -175,13 +170,12 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-openalchemist_SOURCES = src/Application.cpp src/Preferences.cpp src/IniFile.cpp src/GameEngine.cpp src/states/GameState.cpp src/states/CommonState.cpp src/misc.cpp src/CommonResources.cpp src/Player.cpp src/HumanPlayer.cpp src/DemoPlayer.cpp src/Board.cpp src/states/InGameState.cpp src/states/GameOverState.cpp src/ProgressBar.cpp src/states/HighScoreState.cpp src/FrontLayer.cpp src/states/PauseMenuState.cpp src/states/SkinsMenuState.cpp src/Keys.cpp src/states/OptionsMenuState.cpp src/states/TitleState.cpp src/states/QuitMenuState.cpp 
-AM_CXXFLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
-AM_LDFLAGS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
-all: all-am
+SUBDIRS = build
+dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE
+CLEANFILES = skins/*.zip openalchemist
+all: all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .cpp .o .obj
 am--refresh:
 	@:
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -232,398 +226,93 @@ $(top_srcdir)/src/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f src/config.h src/stamp-h1
-install-binPROGRAMS: $(bin_PROGRAMS)
+install-dist_pkgdataDATA: $(dist_pkgdata_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
-	@list='$(bin_PROGRAMS)'; for p in $$list; do \
-	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
-	  if test -f $$p \
-	  ; then \
-	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
-	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(bindir)/$$f'"; \
-	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(bindir)/$$f" || exit 1; \
-	  else :; fi; \
+	test -z "$(pkgdatadir)" || $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)"
+	@list='$(dist_pkgdata_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_pkgdataDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(pkgdatadir)/$$f'"; \
+	  $(dist_pkgdataDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(pkgdatadir)/$$f"; \
 	done
 
-uninstall-binPROGRAMS:
+uninstall-dist_pkgdataDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(bin_PROGRAMS)'; for p in $$list; do \
-	  f=`echo "$$p" | sed 's,^.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/'`; \
-	  echo " rm -f '$(DESTDIR)$(bindir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(bindir)/$$f"; \
+	@list='$(dist_pkgdata_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(pkgdatadir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(pkgdatadir)/$$f"; \
 	done
 
-clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-openalchemist$(EXEEXT): $(openalchemist_OBJECTS) $(openalchemist_DEPENDENCIES) 
-	@rm -f openalchemist$(EXEEXT)
-	$(CXXLINK) $(openalchemist_OBJECTS) $(openalchemist_LDADD) $(LIBS)
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run `make' without going through this Makefile.
+# To change the values of `make' variables: instead of editing Makefiles,
+# (1) if the variable is set in `config.status', edit `config.status'
+#     (which will cause the Makefiles to be regenerated when you run `make');
+# (2) otherwise, pass the desired values on the `make' command line.
+$(RECURSIVE_TARGETS):
+	@failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    dot_seen=yes; \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done; \
+	if test "$$dot_seen" = "no"; then \
+	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
+	fi; test -z "$$fail"
 
-mostlyclean-compile:
-	-rm -f *.$(OBJEXT)
-
-distclean-compile:
-	-rm -f *.tab.c
-
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Application.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Board.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonResources.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/DemoPlayer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FrontLayer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameEngine.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameOverState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HighScoreState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HumanPlayer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/InGameState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/IniFile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Keys.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OptionsMenuState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/PauseMenuState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Player.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Preferences.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ProgressBar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/QuitMenuState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SkinsMenuState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TitleState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc.Po@am__quote@
-
-.cpp.o:
-@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
-
-.cpp.obj:
-@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-Application.o: src/Application.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Application.o -MD -MP -MF $(DEPDIR)/Application.Tpo -c -o Application.o `test -f 'src/Application.cpp' || echo '$(srcdir)/'`src/Application.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Application.Tpo $(DEPDIR)/Application.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Application.cpp' object='Application.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Application.o `test -f 'src/Application.cpp' || echo '$(srcdir)/'`src/Application.cpp
-
-Application.obj: src/Application.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Application.obj -MD -MP -MF $(DEPDIR)/Application.Tpo -c -o Application.obj `if test -f 'src/Application.cpp'; then $(CYGPATH_W) 'src/Application.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Application.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Application.Tpo $(DEPDIR)/Application.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Application.cpp' object='Application.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Application.obj `if test -f 'src/Application.cpp'; then $(CYGPATH_W) 'src/Application.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Application.cpp'; fi`
-
-Preferences.o: src/Preferences.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Preferences.o -MD -MP -MF $(DEPDIR)/Preferences.Tpo -c -o Preferences.o `test -f 'src/Preferences.cpp' || echo '$(srcdir)/'`src/Preferences.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Preferences.Tpo $(DEPDIR)/Preferences.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Preferences.cpp' object='Preferences.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Preferences.o `test -f 'src/Preferences.cpp' || echo '$(srcdir)/'`src/Preferences.cpp
-
-Preferences.obj: src/Preferences.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Preferences.obj -MD -MP -MF $(DEPDIR)/Preferences.Tpo -c -o Preferences.obj `if test -f 'src/Preferences.cpp'; then $(CYGPATH_W) 'src/Preferences.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Preferences.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Preferences.Tpo $(DEPDIR)/Preferences.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Preferences.cpp' object='Preferences.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Preferences.obj `if test -f 'src/Preferences.cpp'; then $(CYGPATH_W) 'src/Preferences.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Preferences.cpp'; fi`
-
-IniFile.o: src/IniFile.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT IniFile.o -MD -MP -MF $(DEPDIR)/IniFile.Tpo -c -o IniFile.o `test -f 'src/IniFile.cpp' || echo '$(srcdir)/'`src/IniFile.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/IniFile.Tpo $(DEPDIR)/IniFile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/IniFile.cpp' object='IniFile.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o IniFile.o `test -f 'src/IniFile.cpp' || echo '$(srcdir)/'`src/IniFile.cpp
-
-IniFile.obj: src/IniFile.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT IniFile.obj -MD -MP -MF $(DEPDIR)/IniFile.Tpo -c -o IniFile.obj `if test -f 'src/IniFile.cpp'; then $(CYGPATH_W) 'src/IniFile.cpp'; else $(CYGPATH_W) '$(srcdir)/src/IniFile.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/IniFile.Tpo $(DEPDIR)/IniFile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/IniFile.cpp' object='IniFile.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o IniFile.obj `if test -f 'src/IniFile.cpp'; then $(CYGPATH_W) 'src/IniFile.cpp'; else $(CYGPATH_W) '$(srcdir)/src/IniFile.cpp'; fi`
-
-GameEngine.o: src/GameEngine.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameEngine.o -MD -MP -MF $(DEPDIR)/GameEngine.Tpo -c -o GameEngine.o `test -f 'src/GameEngine.cpp' || echo '$(srcdir)/'`src/GameEngine.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameEngine.Tpo $(DEPDIR)/GameEngine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameEngine.cpp' object='GameEngine.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameEngine.o `test -f 'src/GameEngine.cpp' || echo '$(srcdir)/'`src/GameEngine.cpp
-
-GameEngine.obj: src/GameEngine.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameEngine.obj -MD -MP -MF $(DEPDIR)/GameEngine.Tpo -c -o GameEngine.obj `if test -f 'src/GameEngine.cpp'; then $(CYGPATH_W) 'src/GameEngine.cpp'; else $(CYGPATH_W) '$(srcdir)/src/GameEngine.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameEngine.Tpo $(DEPDIR)/GameEngine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameEngine.cpp' object='GameEngine.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameEngine.obj `if test -f 'src/GameEngine.cpp'; then $(CYGPATH_W) 'src/GameEngine.cpp'; else $(CYGPATH_W) '$(srcdir)/src/GameEngine.cpp'; fi`
-
-GameState.o: src/states/GameState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameState.o -MD -MP -MF $(DEPDIR)/GameState.Tpo -c -o GameState.o `test -f 'src/states/GameState.cpp' || echo '$(srcdir)/'`src/states/GameState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameState.Tpo $(DEPDIR)/GameState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/GameState.cpp' object='GameState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameState.o `test -f 'src/states/GameState.cpp' || echo '$(srcdir)/'`src/states/GameState.cpp
-
-GameState.obj: src/states/GameState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameState.obj -MD -MP -MF $(DEPDIR)/GameState.Tpo -c -o GameState.obj `if test -f 'src/states/GameState.cpp'; then $(CYGPATH_W) 'src/states/GameState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/GameState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameState.Tpo $(DEPDIR)/GameState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/GameState.cpp' object='GameState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameState.obj `if test -f 'src/states/GameState.cpp'; then $(CYGPATH_W) 'src/states/GameState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/GameState.cpp'; fi`
-
-CommonState.o: src/states/CommonState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonState.o -MD -MP -MF $(DEPDIR)/CommonState.Tpo -c -o CommonState.o `test -f 'src/states/CommonState.cpp' || echo '$(srcdir)/'`src/states/CommonState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CommonState.Tpo $(DEPDIR)/CommonState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/CommonState.cpp' object='CommonState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonState.o `test -f 'src/states/CommonState.cpp' || echo '$(srcdir)/'`src/states/CommonState.cpp
-
-CommonState.obj: src/states/CommonState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonState.obj -MD -MP -MF $(DEPDIR)/CommonState.Tpo -c -o CommonState.obj `if test -f 'src/states/CommonState.cpp'; then $(CYGPATH_W) 'src/states/CommonState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/CommonState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CommonState.Tpo $(DEPDIR)/CommonState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/CommonState.cpp' object='CommonState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonState.obj `if test -f 'src/states/CommonState.cpp'; then $(CYGPATH_W) 'src/states/CommonState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/CommonState.cpp'; fi`
-
-misc.o: src/misc.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT misc.o -MD -MP -MF $(DEPDIR)/misc.Tpo -c -o misc.o `test -f 'src/misc.cpp' || echo '$(srcdir)/'`src/misc.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/misc.Tpo $(DEPDIR)/misc.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/misc.cpp' object='misc.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o misc.o `test -f 'src/misc.cpp' || echo '$(srcdir)/'`src/misc.cpp
-
-misc.obj: src/misc.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT misc.obj -MD -MP -MF $(DEPDIR)/misc.Tpo -c -o misc.obj `if test -f 'src/misc.cpp'; then $(CYGPATH_W) 'src/misc.cpp'; else $(CYGPATH_W) '$(srcdir)/src/misc.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/misc.Tpo $(DEPDIR)/misc.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/misc.cpp' object='misc.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o misc.obj `if test -f 'src/misc.cpp'; then $(CYGPATH_W) 'src/misc.cpp'; else $(CYGPATH_W) '$(srcdir)/src/misc.cpp'; fi`
-
-CommonResources.o: src/CommonResources.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonResources.o -MD -MP -MF $(DEPDIR)/CommonResources.Tpo -c -o CommonResources.o `test -f 'src/CommonResources.cpp' || echo '$(srcdir)/'`src/CommonResources.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CommonResources.Tpo $(DEPDIR)/CommonResources.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/CommonResources.cpp' object='CommonResources.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonResources.o `test -f 'src/CommonResources.cpp' || echo '$(srcdir)/'`src/CommonResources.cpp
-
-CommonResources.obj: src/CommonResources.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonResources.obj -MD -MP -MF $(DEPDIR)/CommonResources.Tpo -c -o CommonResources.obj `if test -f 'src/CommonResources.cpp'; then $(CYGPATH_W) 'src/CommonResources.cpp'; else $(CYGPATH_W) '$(srcdir)/src/CommonResources.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CommonResources.Tpo $(DEPDIR)/CommonResources.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/CommonResources.cpp' object='CommonResources.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonResources.obj `if test -f 'src/CommonResources.cpp'; then $(CYGPATH_W) 'src/CommonResources.cpp'; else $(CYGPATH_W) '$(srcdir)/src/CommonResources.cpp'; fi`
-
-Player.o: src/Player.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Player.o -MD -MP -MF $(DEPDIR)/Player.Tpo -c -o Player.o `test -f 'src/Player.cpp' || echo '$(srcdir)/'`src/Player.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Player.Tpo $(DEPDIR)/Player.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Player.cpp' object='Player.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Player.o `test -f 'src/Player.cpp' || echo '$(srcdir)/'`src/Player.cpp
-
-Player.obj: src/Player.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Player.obj -MD -MP -MF $(DEPDIR)/Player.Tpo -c -o Player.obj `if test -f 'src/Player.cpp'; then $(CYGPATH_W) 'src/Player.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Player.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Player.Tpo $(DEPDIR)/Player.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Player.cpp' object='Player.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Player.obj `if test -f 'src/Player.cpp'; then $(CYGPATH_W) 'src/Player.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Player.cpp'; fi`
-
-HumanPlayer.o: src/HumanPlayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HumanPlayer.o -MD -MP -MF $(DEPDIR)/HumanPlayer.Tpo -c -o HumanPlayer.o `test -f 'src/HumanPlayer.cpp' || echo '$(srcdir)/'`src/HumanPlayer.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HumanPlayer.Tpo $(DEPDIR)/HumanPlayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/HumanPlayer.cpp' object='HumanPlayer.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HumanPlayer.o `test -f 'src/HumanPlayer.cpp' || echo '$(srcdir)/'`src/HumanPlayer.cpp
-
-HumanPlayer.obj: src/HumanPlayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HumanPlayer.obj -MD -MP -MF $(DEPDIR)/HumanPlayer.Tpo -c -o HumanPlayer.obj `if test -f 'src/HumanPlayer.cpp'; then $(CYGPATH_W) 'src/HumanPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/HumanPlayer.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HumanPlayer.Tpo $(DEPDIR)/HumanPlayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/HumanPlayer.cpp' object='HumanPlayer.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HumanPlayer.obj `if test -f 'src/HumanPlayer.cpp'; then $(CYGPATH_W) 'src/HumanPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/HumanPlayer.cpp'; fi`
-
-DemoPlayer.o: src/DemoPlayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT DemoPlayer.o -MD -MP -MF $(DEPDIR)/DemoPlayer.Tpo -c -o DemoPlayer.o `test -f 'src/DemoPlayer.cpp' || echo '$(srcdir)/'`src/DemoPlayer.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/DemoPlayer.Tpo $(DEPDIR)/DemoPlayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/DemoPlayer.cpp' object='DemoPlayer.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o DemoPlayer.o `test -f 'src/DemoPlayer.cpp' || echo '$(srcdir)/'`src/DemoPlayer.cpp
-
-DemoPlayer.obj: src/DemoPlayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT DemoPlayer.obj -MD -MP -MF $(DEPDIR)/DemoPlayer.Tpo -c -o DemoPlayer.obj `if test -f 'src/DemoPlayer.cpp'; then $(CYGPATH_W) 'src/DemoPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/DemoPlayer.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/DemoPlayer.Tpo $(DEPDIR)/DemoPlayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/DemoPlayer.cpp' object='DemoPlayer.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o DemoPlayer.obj `if test -f 'src/DemoPlayer.cpp'; then $(CYGPATH_W) 'src/DemoPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/DemoPlayer.cpp'; fi`
-
-Board.o: src/Board.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Board.o -MD -MP -MF $(DEPDIR)/Board.Tpo -c -o Board.o `test -f 'src/Board.cpp' || echo '$(srcdir)/'`src/Board.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Board.Tpo $(DEPDIR)/Board.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Board.cpp' object='Board.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Board.o `test -f 'src/Board.cpp' || echo '$(srcdir)/'`src/Board.cpp
-
-Board.obj: src/Board.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Board.obj -MD -MP -MF $(DEPDIR)/Board.Tpo -c -o Board.obj `if test -f 'src/Board.cpp'; then $(CYGPATH_W) 'src/Board.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Board.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Board.Tpo $(DEPDIR)/Board.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Board.cpp' object='Board.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Board.obj `if test -f 'src/Board.cpp'; then $(CYGPATH_W) 'src/Board.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Board.cpp'; fi`
-
-InGameState.o: src/states/InGameState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT InGameState.o -MD -MP -MF $(DEPDIR)/InGameState.Tpo -c -o InGameState.o `test -f 'src/states/InGameState.cpp' || echo '$(srcdir)/'`src/states/InGameState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/InGameState.Tpo $(DEPDIR)/InGameState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/InGameState.cpp' object='InGameState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o InGameState.o `test -f 'src/states/InGameState.cpp' || echo '$(srcdir)/'`src/states/InGameState.cpp
-
-InGameState.obj: src/states/InGameState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT InGameState.obj -MD -MP -MF $(DEPDIR)/InGameState.Tpo -c -o InGameState.obj `if test -f 'src/states/InGameState.cpp'; then $(CYGPATH_W) 'src/states/InGameState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/InGameState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/InGameState.Tpo $(DEPDIR)/InGameState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/InGameState.cpp' object='InGameState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o InGameState.obj `if test -f 'src/states/InGameState.cpp'; then $(CYGPATH_W) 'src/states/InGameState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/InGameState.cpp'; fi`
-
-GameOverState.o: src/states/GameOverState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameOverState.o -MD -MP -MF $(DEPDIR)/GameOverState.Tpo -c -o GameOverState.o `test -f 'src/states/GameOverState.cpp' || echo '$(srcdir)/'`src/states/GameOverState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameOverState.Tpo $(DEPDIR)/GameOverState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/GameOverState.cpp' object='GameOverState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameOverState.o `test -f 'src/states/GameOverState.cpp' || echo '$(srcdir)/'`src/states/GameOverState.cpp
-
-GameOverState.obj: src/states/GameOverState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT GameOverState.obj -MD -MP -MF $(DEPDIR)/GameOverState.Tpo -c -o GameOverState.obj `if test -f 'src/states/GameOverState.cpp'; then $(CYGPATH_W) 'src/states/GameOverState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/GameOverState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/GameOverState.Tpo $(DEPDIR)/GameOverState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/GameOverState.cpp' object='GameOverState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o GameOverState.obj `if test -f 'src/states/GameOverState.cpp'; then $(CYGPATH_W) 'src/states/GameOverState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/GameOverState.cpp'; fi`
-
-ProgressBar.o: src/ProgressBar.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ProgressBar.o -MD -MP -MF $(DEPDIR)/ProgressBar.Tpo -c -o ProgressBar.o `test -f 'src/ProgressBar.cpp' || echo '$(srcdir)/'`src/ProgressBar.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/ProgressBar.Tpo $(DEPDIR)/ProgressBar.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/ProgressBar.cpp' object='ProgressBar.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ProgressBar.o `test -f 'src/ProgressBar.cpp' || echo '$(srcdir)/'`src/ProgressBar.cpp
-
-ProgressBar.obj: src/ProgressBar.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ProgressBar.obj -MD -MP -MF $(DEPDIR)/ProgressBar.Tpo -c -o ProgressBar.obj `if test -f 'src/ProgressBar.cpp'; then $(CYGPATH_W) 'src/ProgressBar.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ProgressBar.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/ProgressBar.Tpo $(DEPDIR)/ProgressBar.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/ProgressBar.cpp' object='ProgressBar.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ProgressBar.obj `if test -f 'src/ProgressBar.cpp'; then $(CYGPATH_W) 'src/ProgressBar.cpp'; else $(CYGPATH_W) '$(srcdir)/src/ProgressBar.cpp'; fi`
-
-HighScoreState.o: src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HighScoreState.o -MD -MP -MF $(DEPDIR)/HighScoreState.Tpo -c -o HighScoreState.o `test -f 'src/states/HighScoreState.cpp' || echo '$(srcdir)/'`src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HighScoreState.Tpo $(DEPDIR)/HighScoreState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/HighScoreState.cpp' object='HighScoreState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HighScoreState.o `test -f 'src/states/HighScoreState.cpp' || echo '$(srcdir)/'`src/states/HighScoreState.cpp
-
-HighScoreState.obj: src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HighScoreState.obj -MD -MP -MF $(DEPDIR)/HighScoreState.Tpo -c -o HighScoreState.obj `if test -f 'src/states/HighScoreState.cpp'; then $(CYGPATH_W) 'src/states/HighScoreState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/HighScoreState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HighScoreState.Tpo $(DEPDIR)/HighScoreState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/HighScoreState.cpp' object='HighScoreState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HighScoreState.obj `if test -f 'src/states/HighScoreState.cpp'; then $(CYGPATH_W) 'src/states/HighScoreState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/HighScoreState.cpp'; fi`
-
-FrontLayer.o: src/FrontLayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FrontLayer.o -MD -MP -MF $(DEPDIR)/FrontLayer.Tpo -c -o FrontLayer.o `test -f 'src/FrontLayer.cpp' || echo '$(srcdir)/'`src/FrontLayer.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/FrontLayer.Tpo $(DEPDIR)/FrontLayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/FrontLayer.cpp' object='FrontLayer.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FrontLayer.o `test -f 'src/FrontLayer.cpp' || echo '$(srcdir)/'`src/FrontLayer.cpp
-
-FrontLayer.obj: src/FrontLayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FrontLayer.obj -MD -MP -MF $(DEPDIR)/FrontLayer.Tpo -c -o FrontLayer.obj `if test -f 'src/FrontLayer.cpp'; then $(CYGPATH_W) 'src/FrontLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/FrontLayer.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/FrontLayer.Tpo $(DEPDIR)/FrontLayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/FrontLayer.cpp' object='FrontLayer.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FrontLayer.obj `if test -f 'src/FrontLayer.cpp'; then $(CYGPATH_W) 'src/FrontLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/FrontLayer.cpp'; fi`
-
-PauseMenuState.o: src/states/PauseMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT PauseMenuState.o -MD -MP -MF $(DEPDIR)/PauseMenuState.Tpo -c -o PauseMenuState.o `test -f 'src/states/PauseMenuState.cpp' || echo '$(srcdir)/'`src/states/PauseMenuState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/PauseMenuState.Tpo $(DEPDIR)/PauseMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/PauseMenuState.cpp' object='PauseMenuState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o PauseMenuState.o `test -f 'src/states/PauseMenuState.cpp' || echo '$(srcdir)/'`src/states/PauseMenuState.cpp
-
-PauseMenuState.obj: src/states/PauseMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT PauseMenuState.obj -MD -MP -MF $(DEPDIR)/PauseMenuState.Tpo -c -o PauseMenuState.obj `if test -f 'src/states/PauseMenuState.cpp'; then $(CYGPATH_W) 'src/states/PauseMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/PauseMenuState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/PauseMenuState.Tpo $(DEPDIR)/PauseMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/PauseMenuState.cpp' object='PauseMenuState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o PauseMenuState.obj `if test -f 'src/states/PauseMenuState.cpp'; then $(CYGPATH_W) 'src/states/PauseMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/PauseMenuState.cpp'; fi`
-
-SkinsMenuState.o: src/states/SkinsMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SkinsMenuState.o -MD -MP -MF $(DEPDIR)/SkinsMenuState.Tpo -c -o SkinsMenuState.o `test -f 'src/states/SkinsMenuState.cpp' || echo '$(srcdir)/'`src/states/SkinsMenuState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/SkinsMenuState.Tpo $(DEPDIR)/SkinsMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/SkinsMenuState.cpp' object='SkinsMenuState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SkinsMenuState.o `test -f 'src/states/SkinsMenuState.cpp' || echo '$(srcdir)/'`src/states/SkinsMenuState.cpp
-
-SkinsMenuState.obj: src/states/SkinsMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SkinsMenuState.obj -MD -MP -MF $(DEPDIR)/SkinsMenuState.Tpo -c -o SkinsMenuState.obj `if test -f 'src/states/SkinsMenuState.cpp'; then $(CYGPATH_W) 'src/states/SkinsMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/SkinsMenuState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/SkinsMenuState.Tpo $(DEPDIR)/SkinsMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/SkinsMenuState.cpp' object='SkinsMenuState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SkinsMenuState.obj `if test -f 'src/states/SkinsMenuState.cpp'; then $(CYGPATH_W) 'src/states/SkinsMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/SkinsMenuState.cpp'; fi`
-
-Keys.o: src/Keys.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Keys.o -MD -MP -MF $(DEPDIR)/Keys.Tpo -c -o Keys.o `test -f 'src/Keys.cpp' || echo '$(srcdir)/'`src/Keys.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Keys.Tpo $(DEPDIR)/Keys.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Keys.cpp' object='Keys.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Keys.o `test -f 'src/Keys.cpp' || echo '$(srcdir)/'`src/Keys.cpp
-
-Keys.obj: src/Keys.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Keys.obj -MD -MP -MF $(DEPDIR)/Keys.Tpo -c -o Keys.obj `if test -f 'src/Keys.cpp'; then $(CYGPATH_W) 'src/Keys.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Keys.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/Keys.Tpo $(DEPDIR)/Keys.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Keys.cpp' object='Keys.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Keys.obj `if test -f 'src/Keys.cpp'; then $(CYGPATH_W) 'src/Keys.cpp'; else $(CYGPATH_W) '$(srcdir)/src/Keys.cpp'; fi`
-
-OptionsMenuState.o: src/states/OptionsMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT OptionsMenuState.o -MD -MP -MF $(DEPDIR)/OptionsMenuState.Tpo -c -o OptionsMenuState.o `test -f 'src/states/OptionsMenuState.cpp' || echo '$(srcdir)/'`src/states/OptionsMenuState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/OptionsMenuState.Tpo $(DEPDIR)/OptionsMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/OptionsMenuState.cpp' object='OptionsMenuState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o OptionsMenuState.o `test -f 'src/states/OptionsMenuState.cpp' || echo '$(srcdir)/'`src/states/OptionsMenuState.cpp
-
-OptionsMenuState.obj: src/states/OptionsMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT OptionsMenuState.obj -MD -MP -MF $(DEPDIR)/OptionsMenuState.Tpo -c -o OptionsMenuState.obj `if test -f 'src/states/OptionsMenuState.cpp'; then $(CYGPATH_W) 'src/states/OptionsMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/OptionsMenuState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/OptionsMenuState.Tpo $(DEPDIR)/OptionsMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/OptionsMenuState.cpp' object='OptionsMenuState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o OptionsMenuState.obj `if test -f 'src/states/OptionsMenuState.cpp'; then $(CYGPATH_W) 'src/states/OptionsMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/OptionsMenuState.cpp'; fi`
-
-TitleState.o: src/states/TitleState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TitleState.o -MD -MP -MF $(DEPDIR)/TitleState.Tpo -c -o TitleState.o `test -f 'src/states/TitleState.cpp' || echo '$(srcdir)/'`src/states/TitleState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/TitleState.Tpo $(DEPDIR)/TitleState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/TitleState.cpp' object='TitleState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TitleState.o `test -f 'src/states/TitleState.cpp' || echo '$(srcdir)/'`src/states/TitleState.cpp
-
-TitleState.obj: src/states/TitleState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TitleState.obj -MD -MP -MF $(DEPDIR)/TitleState.Tpo -c -o TitleState.obj `if test -f 'src/states/TitleState.cpp'; then $(CYGPATH_W) 'src/states/TitleState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/TitleState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/TitleState.Tpo $(DEPDIR)/TitleState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/TitleState.cpp' object='TitleState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TitleState.obj `if test -f 'src/states/TitleState.cpp'; then $(CYGPATH_W) 'src/states/TitleState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/TitleState.cpp'; fi`
-
-QuitMenuState.o: src/states/QuitMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT QuitMenuState.o -MD -MP -MF $(DEPDIR)/QuitMenuState.Tpo -c -o QuitMenuState.o `test -f 'src/states/QuitMenuState.cpp' || echo '$(srcdir)/'`src/states/QuitMenuState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/QuitMenuState.Tpo $(DEPDIR)/QuitMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/QuitMenuState.cpp' object='QuitMenuState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o QuitMenuState.o `test -f 'src/states/QuitMenuState.cpp' || echo '$(srcdir)/'`src/states/QuitMenuState.cpp
-
-QuitMenuState.obj: src/states/QuitMenuState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT QuitMenuState.obj -MD -MP -MF $(DEPDIR)/QuitMenuState.Tpo -c -o QuitMenuState.obj `if test -f 'src/states/QuitMenuState.cpp'; then $(CYGPATH_W) 'src/states/QuitMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/QuitMenuState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/QuitMenuState.Tpo $(DEPDIR)/QuitMenuState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/states/QuitMenuState.cpp' object='QuitMenuState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o QuitMenuState.obj `if test -f 'src/states/QuitMenuState.cpp'; then $(CYGPATH_W) 'src/states/QuitMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/src/states/QuitMenuState.cpp'; fi`
+$(RECURSIVE_CLEAN_TARGETS):
+	@failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	case "$@" in \
+	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
+	  *) list='$(SUBDIRS)' ;; \
+	esac; \
+	rev=''; for subdir in $$list; do \
+	  if test "$$subdir" = "."; then :; else \
+	    rev="$$subdir $$rev"; \
+	  fi; \
+	done; \
+	rev="$$rev ."; \
+	target=`echo $@ | sed s/-recursive//`; \
+	for subdir in $$rev; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done && test -z "$$fail"
+tags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) tags); \
+	done
+ctags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) ctags); \
+	done
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -635,10 +324,23 @@ ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	mkid -fID $$unique
 tags: TAGS
 
-TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	tags=; \
 	here=`pwd`; \
+	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
+	  include_option=--etags-include; \
+	  empty_fix=.; \
+	else \
+	  include_option=--include; \
+	  empty_fix=; \
+	fi; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test ! -f $$subdir/TAGS || \
+	      tags="$$tags $$include_option=$$here/$$subdir/TAGS"; \
+	  fi; \
+	done; \
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
@@ -651,7 +353,7 @@ TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	    $$tags $$unique; \
 	fi
 ctags: CTAGS
-CTAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+CTAGS: ctags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	tags=; \
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
@@ -698,6 +400,23 @@ distdir: $(DISTFILES)
 	    test -f $(distdir)/$$file \
 	    || cp -p $$d/$$file $(distdir)/$$file \
 	    || exit 1; \
+	  fi; \
+	done
+	list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test -d "$(distdir)/$$subdir" \
+	    || $(MKDIR_P) "$(distdir)/$$subdir" \
+	    || exit 1; \
+	    distdir=`$(am__cd) $(distdir) && pwd`; \
+	    top_distdir=`$(am__cd) $(top_distdir) && pwd`; \
+	    (cd $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$top_distdir" \
+	        distdir="$$distdir/$$subdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+	        distdir) \
+	      || exit 1; \
 	  fi; \
 	done
 	-find $(distdir) -type d ! -perm -777 -exec chmod a+rwx {} \; -o \
@@ -804,21 +523,22 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
-check: check-am
-all-am: Makefile $(PROGRAMS)
-installdirs:
-	for dir in "$(DESTDIR)$(bindir)"; do \
+check: check-recursive
+all-am: Makefile $(DATA)
+installdirs: installdirs-recursive
+installdirs-am:
+	for dir in "$(DESTDIR)$(pkgdatadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
-install-exec: install-exec-am
-install-data: install-data-am
-uninstall: uninstall-am
+install: install-recursive
+install-exec: install-exec-recursive
+install-data: install-data-recursive
+uninstall: uninstall-recursive
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-am
+installcheck: installcheck-recursive
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
 	  install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
@@ -827,6 +547,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -834,88 +555,89 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-am
+clean: clean-recursive
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
-distclean: distclean-am
+distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
-distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-hdr distclean-tags
+distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
 
-dvi: dvi-am
+dvi: dvi-recursive
 
 dvi-am:
 
-html: html-am
+html: html-recursive
 
-info: info-am
+info: info-recursive
 
 info-am:
 
-install-data-am:
+install-data-am: install-dist_pkgdataDATA
 
-install-dvi: install-dvi-am
+install-dvi: install-dvi-recursive
 
-install-exec-am: install-binPROGRAMS
+install-exec-am:
 
-install-html: install-html-am
+install-html: install-html-recursive
 
-install-info: install-info-am
+install-info: install-info-recursive
 
 install-man:
 
-install-pdf: install-pdf-am
+install-pdf: install-pdf-recursive
 
-install-ps: install-ps-am
+install-ps: install-ps-recursive
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-am
+maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-am
+mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic
+mostlyclean-am: mostlyclean-generic
 
-pdf: pdf-am
+pdf: pdf-recursive
 
 pdf-am:
 
-ps: ps-am
+ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS
+uninstall-am: uninstall-dist_pkgdataDATA
 
-.MAKE: install-am install-strip
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
+	install-strip
 
-.PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-binPROGRAMS clean-generic ctags dist dist-all dist-bzip2 \
-	dist-gzip dist-lzma dist-shar dist-tarZ dist-zip distcheck \
-	distclean distclean-compile distclean-generic distclean-hdr \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
+.PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
+	all all-am am--refresh check check-am clean clean-generic \
+	ctags ctags-recursive dist dist-all dist-bzip2 dist-gzip \
+	dist-lzma dist-shar dist-tarZ dist-zip distcheck distclean \
+	distclean-generic distclean-hdr distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am html html-am info \
+	info-am install install-am install-data install-data-am \
+	install-dist_pkgdataDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
 	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-binPROGRAMS
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-dist_pkgdataDATA
 
-#openalchemist_DATA = skins/aqua.zip data/*
 
-all : skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
+all : skins/aqua.zip skins/brushed.zip skins/vectoriel.zip openalchemist
 static : openalchemist skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 	$(CXX) -o openalchemist-static *.o /usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`
+
+openalchemist: build/openalchemist
+	cp build/openalchemist openalchemist
 
 skins/aqua.zip : skins/aqua/*
 	cd skins/aqua && zip -q -r ../aqua * -x *svn*

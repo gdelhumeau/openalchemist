@@ -578,6 +578,7 @@ PACKAGE_VERSION='0.3'
 PACKAGE_STRING='openalchemist 0.3'
 PACKAGE_BUGREPORT='openalchemist@gmail.com'
 
+ac_unique_file="src/Application.cpp"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -2223,6 +2224,7 @@ INSTALL_STRIP_PROGRAM="\$(install_sh) -c -s"
 AMTAR=${AMTAR-"${am_missing_run}tar"}
 
 am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
+
 
 
 
@@ -4430,26 +4432,18 @@ fi
 done
 
 
-
-
-
-
-for ac_header in iostream string vector list
-do
-as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
-  { echo "$as_me:$LINENO: checking for $ac_header" >&5
-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6; }
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
+if test "${ac_cv_header_iostream_string_vector_list+set}" = set; then
+  { echo "$as_me:$LINENO: checking for iostream string vector list" >&5
+echo $ECHO_N "checking for iostream string vector list... $ECHO_C" >&6; }
+if test "${ac_cv_header_iostream_string_vector_list+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 fi
-ac_res=`eval echo '${'$as_ac_Header'}'`
-	       { echo "$as_me:$LINENO: result: $ac_res" >&5
-echo "${ECHO_T}$ac_res" >&6; }
+{ echo "$as_me:$LINENO: result: $ac_cv_header_iostream_string_vector_list" >&5
+echo "${ECHO_T}$ac_cv_header_iostream_string_vector_list" >&6; }
 else
   # Is the header compilable?
-{ echo "$as_me:$LINENO: checking $ac_header usability" >&5
-echo $ECHO_N "checking $ac_header usability... $ECHO_C" >&6; }
+{ echo "$as_me:$LINENO: checking iostream string vector list usability" >&5
+echo $ECHO_N "checking iostream string vector list usability... $ECHO_C" >&6; }
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
 _ACEOF
@@ -4457,7 +4451,7 @@ cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
 $ac_includes_default
-#include <$ac_header>
+#include <iostream string vector list>
 _ACEOF
 rm -f conftest.$ac_objext
 if { (ac_try="$ac_compile"
@@ -4489,15 +4483,15 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 echo "${ECHO_T}$ac_header_compiler" >&6; }
 
 # Is the header present?
-{ echo "$as_me:$LINENO: checking $ac_header presence" >&5
-echo $ECHO_N "checking $ac_header presence... $ECHO_C" >&6; }
+{ echo "$as_me:$LINENO: checking iostream string vector list presence" >&5
+echo $ECHO_N "checking iostream string vector list presence... $ECHO_C" >&6; }
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
 _ACEOF
 cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
-#include <$ac_header>
+#include <iostream string vector list>
 _ACEOF
 if { (ac_try="$ac_cpp conftest.$ac_ext"
 case "(($ac_try" in
@@ -4530,25 +4524,25 @@ echo "${ECHO_T}$ac_header_preproc" >&6; }
 # So?  What about this header?
 case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
   yes:no: )
-    { echo "$as_me:$LINENO: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&5
-echo "$as_me: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the compiler's result" >&5
-echo "$as_me: WARNING: $ac_header: proceeding with the compiler's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: accepted by the compiler, rejected by the preprocessor!" >&5
+echo "$as_me: WARNING: iostream string vector list: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: proceeding with the compiler's result" >&5
+echo "$as_me: WARNING: iostream string vector list: proceeding with the compiler's result" >&2;}
     ac_header_preproc=yes
     ;;
   no:yes:* )
-    { echo "$as_me:$LINENO: WARNING: $ac_header: present but cannot be compiled" >&5
-echo "$as_me: WARNING: $ac_header: present but cannot be compiled" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header:     check for missing prerequisite headers?" >&5
-echo "$as_me: WARNING: $ac_header:     check for missing prerequisite headers?" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: see the Autoconf documentation" >&5
-echo "$as_me: WARNING: $ac_header: see the Autoconf documentation" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header:     section \"Present But Cannot Be Compiled\"" >&5
-echo "$as_me: WARNING: $ac_header:     section \"Present But Cannot Be Compiled\"" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: in the future, the compiler will take precedence" >&5
-echo "$as_me: WARNING: $ac_header: in the future, the compiler will take precedence" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: present but cannot be compiled" >&5
+echo "$as_me: WARNING: iostream string vector list: present but cannot be compiled" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list:     check for missing prerequisite headers?" >&5
+echo "$as_me: WARNING: iostream string vector list:     check for missing prerequisite headers?" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: see the Autoconf documentation" >&5
+echo "$as_me: WARNING: iostream string vector list: see the Autoconf documentation" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list:     section \"Present But Cannot Be Compiled\"" >&5
+echo "$as_me: WARNING: iostream string vector list:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: proceeding with the preprocessor's result" >&5
+echo "$as_me: WARNING: iostream string vector list: proceeding with the preprocessor's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: iostream string vector list: in the future, the compiler will take precedence" >&5
+echo "$as_me: WARNING: iostream string vector list: in the future, the compiler will take precedence" >&2;}
     ( cat <<\_ASBOX
 ## -------------------------------------- ##
 ## Report this to openalchemist@gmail.com ##
@@ -4557,26 +4551,18 @@ _ASBOX
      ) | sed "s/^/$as_me: WARNING:     /" >&2
     ;;
 esac
-{ echo "$as_me:$LINENO: checking for $ac_header" >&5
-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6; }
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
+{ echo "$as_me:$LINENO: checking for iostream string vector list" >&5
+echo $ECHO_N "checking for iostream string vector list... $ECHO_C" >&6; }
+if test "${ac_cv_header_iostream_string_vector_list+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
-  eval "$as_ac_Header=\$ac_header_preproc"
+  ac_cv_header_iostream_string_vector_list=$ac_header_preproc
 fi
-ac_res=`eval echo '${'$as_ac_Header'}'`
-	       { echo "$as_me:$LINENO: result: $ac_res" >&5
-echo "${ECHO_T}$ac_res" >&6; }
-
-fi
-if test `eval echo '${'$as_ac_Header'}'` = yes; then
-  cat >>confdefs.h <<_ACEOF
-#define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
-_ACEOF
+{ echo "$as_me:$LINENO: result: $ac_cv_header_iostream_string_vector_list" >&5
+echo "${ECHO_T}$ac_cv_header_iostream_string_vector_list" >&6; }
 
 fi
 
-done
 
 
 % Check for libraries
@@ -4825,7 +4811,7 @@ fi
 # AC CONFIG SRCDIR([src/Application.cpp])
 ac_config_headers="$ac_config_headers src/config.h"
 
-ac_config_files="$ac_config_files Makefile"
+ac_config_files="$ac_config_files Makefile build/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -5414,6 +5400,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "src/config.h") CONFIG_HEADERS="$CONFIG_HEADERS src/config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "build/Makefile") CONFIG_FILES="$CONFIG_FILES build/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

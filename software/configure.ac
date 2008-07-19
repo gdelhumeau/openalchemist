@@ -2,12 +2,13 @@
 AC_INIT([openalchemist], [0.3], [openalchemist@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
+AC_CONFIG_SRCDIR([src/Application.cpp])
 
 % Check for programs
 AC_PROG_CXX
 
 % Check for header files
-AC_CHECK_HEADERS([iostream string vector list])
+AC_CHECK_HEADER([iostream string vector list])
 
 % Check for libraries
 REQUIRED_CLANLIB_VERSION="0.8.0"
@@ -23,6 +24,6 @@ PKG_CHECK_MODULES(clanlib,
 % Outputfiles
 # AC CONFIG SRCDIR([src/Application.cpp])
 AC_CONFIG_HEADERS([src/config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile build/Makefile])
 AC_OUTPUT
 
