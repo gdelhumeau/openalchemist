@@ -290,6 +290,12 @@ void GameEngine::set_skin(std::string skin)
 
   optionsmenu_state.load_gfx(pref -> skin);
 
+  optionsmenu_state.load_gfx(pref -> skin);
+
+  title_state.load_gfx(pref -> skin);
+
+  quitmenu_state.load_gfx(pref -> skin);
+
   pref -> write();
 }
 
