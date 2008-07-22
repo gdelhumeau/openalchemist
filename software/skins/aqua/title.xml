@@ -1,5 +1,5 @@
 <resources>
-
+<section name="title">
   <sprite name = "start-message">
     <image file="dialogs/title/start_message.png">
 	<grid pos="0,0" size="420,80" />
@@ -224,5 +224,5 @@
 		</section>
 
   </section>
-
+</section>
 </resources>      

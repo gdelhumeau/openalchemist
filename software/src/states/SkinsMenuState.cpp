@@ -202,17 +202,17 @@ void SkinsMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_skins.xml", &zip, false);
 
   // First, the sprites
-  background = new CL_Sprite("menu/skins/background", &gfx); 
-  logo_unavailable = new CL_Surface("menu/skins/logo-unavailable", &gfx); 
+  background = new CL_Sprite("menu-skins/background", &gfx); 
+  logo_unavailable = new CL_Surface("menu-skins/logo-unavailable", &gfx); 
 
-  cursor = new CL_Sprite("menu/skins/cursor", &gfx);
-  arrow_down = new CL_Sprite("menu/skins/arrow-down/sprite", &gfx);
-  arrow_down_left = CL_Integer_to_int("menu/skins/arrow-down/left", &gfx);
-  arrow_down_top = CL_Integer_to_int("menu/skins/arrow-down/top", &gfx);
+  cursor = new CL_Sprite("menu-skins/cursor", &gfx);
+  arrow_down = new CL_Sprite("menu-skins/arrow-down/sprite", &gfx);
+  arrow_down_left = CL_Integer_to_int("menu-skins/arrow-down/left", &gfx);
+  arrow_down_top = CL_Integer_to_int("menu-skins/arrow-down/top", &gfx);
 
-  arrow_up = new CL_Sprite("menu/skins/arrow-up/sprite", &gfx);
-  arrow_up_left = CL_Integer_to_int("menu/skins/arrow-up/left", &gfx);
-  arrow_up_top = CL_Integer_to_int("menu/skins/arrow-up/top", &gfx);
+  arrow_up = new CL_Sprite("menu-skins/arrow-up/sprite", &gfx);
+  arrow_up_left = CL_Integer_to_int("menu-skins/arrow-up/left", &gfx);
+  arrow_up_top = CL_Integer_to_int("menu-skins/arrow-up/top", &gfx);
   
 }
 

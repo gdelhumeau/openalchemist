@@ -45,46 +45,46 @@ void PauseMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_pause.xml", &zip, false);
 
   // First, the sprites
-  background = new CL_Sprite("menu/pause/background", &gfx); 
+  background = new CL_Sprite("menu-pause/background", &gfx); 
 
-  items[PAUSE_ITEM_RESUME] = new CL_Sprite("menu/pause/resume/unselected", &gfx);
-  items_selected[PAUSE_ITEM_RESUME] = new CL_Sprite("menu/pause/resume/selected", &gfx);
+  items[PAUSE_ITEM_RESUME] = new CL_Sprite("menu-pause/resume/unselected", &gfx);
+  items_selected[PAUSE_ITEM_RESUME] = new CL_Sprite("menu-pause/resume/selected", &gfx);
 
-  items[PAUSE_ITEM_UNDO] = new CL_Sprite("menu/pause/undo/unselected", &gfx);
-  items_selected[PAUSE_ITEM_UNDO] = new CL_Sprite("menu/pause/undo/selected", &gfx);
-  undo_unavailable = new CL_Sprite("menu/pause/undo/unavailable", &gfx);
+  items[PAUSE_ITEM_UNDO] = new CL_Sprite("menu-pause/undo/unselected", &gfx);
+  items_selected[PAUSE_ITEM_UNDO] = new CL_Sprite("menu-pause/undo/selected", &gfx);
+  undo_unavailable = new CL_Sprite("menu-pause/undo/unavailable", &gfx);
 
-  items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/unselected", &gfx);
-  items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu/pause/retry/selected", &gfx);
+  items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu-pause/retry/unselected", &gfx);
+  items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu-pause/retry/selected", &gfx);
 
-  items[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu/pause/options/unselected", &gfx);
-  items_selected[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu/pause/options/selected", &gfx);
+  items[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu-pause/options/unselected", &gfx);
+  items_selected[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu-pause/options/selected", &gfx);
 
-  items[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/unselected", &gfx);
-  items_selected[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu/pause/giveup/selected", &gfx);
+  items[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu-pause/giveup/unselected", &gfx);
+  items_selected[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu-pause/giveup/selected", &gfx);
 
-  items[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/unselected", &gfx);
-  items_selected[PAUSE_ITEM_QUIT] = new CL_Sprite("menu/pause/quit/selected", &gfx);
+  items[PAUSE_ITEM_QUIT] = new CL_Sprite("menu-pause/quit/unselected", &gfx);
+  items_selected[PAUSE_ITEM_QUIT] = new CL_Sprite("menu-pause/quit/selected", &gfx);
 
 
   // Then, propreties
-  items_left[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu/pause/resume/left", &gfx);
-  items_top[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu/pause/resume/top", &gfx);
+  items_left[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu-pause/resume/left", &gfx);
+  items_top[PAUSE_ITEM_RESUME] = CL_Integer_to_int("menu-pause/resume/top", &gfx);
 
-  items_left[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu/pause/undo/left", &gfx);
-  items_top[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu/pause/undo/top", &gfx);
+  items_left[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu-pause/undo/left", &gfx);
+  items_top[PAUSE_ITEM_UNDO] = CL_Integer_to_int("menu-pause/undo/top", &gfx);
 
-  items_left[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/left", &gfx);
-  items_top[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu/pause/retry/top", &gfx);
+  items_left[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu-pause/retry/left", &gfx);
+  items_top[PAUSE_ITEM_RETRY] = CL_Integer_to_int("menu-pause/retry/top", &gfx);
 
-  items_left[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu/pause/options/left", &gfx);
-  items_top[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu/pause/options/top", &gfx);
+  items_left[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu-pause/options/left", &gfx);
+  items_top[PAUSE_ITEM_OPTIONS] = CL_Integer_to_int("menu-pause/options/top", &gfx);
 
-  items_left[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/left", &gfx);
-  items_top[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu/pause/giveup/top", &gfx);
+  items_left[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu-pause/giveup/left", &gfx);
+  items_top[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu-pause/giveup/top", &gfx);
 
-  items_left[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/left", &gfx);
-  items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu/pause/quit/top", &gfx);
+  items_left[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu-pause/quit/left", &gfx);
+  items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu-pause/quit/top", &gfx);
   
 }
 

@@ -1,8 +1,6 @@
 <resources>
-<section name="menu">
-
 	<!-- Section about the pause menu -->
-	<section name="skins">
+	<section name="menu-skins">
 	
 		<!-- true if menu appear with alpha apparition -->
 		<boolean name = "alpha_appearing" value = "true" />
@@ -38,6 +36,5 @@
   	<surface name = "logo-unavailable" file = "dialogs/skins/logo-unavailable.png"/>
   	
   </section> 
- 
-</section>
+
 </resources>

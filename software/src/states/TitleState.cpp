@@ -33,24 +33,24 @@ void TitleState::load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("title.xml", &zip, false);
 
-  start_message = new CL_Sprite("start-message", &gfx);
-  start_message_x = CL_Integer_to_int("start-message-left", &gfx);
-  start_message_y = CL_Integer_to_int("start-message-top", &gfx);
+  start_message = new CL_Sprite("title/start-message", &gfx);
+  start_message_x = CL_Integer_to_int("title/start-message-left", &gfx);
+  start_message_y = CL_Integer_to_int("title/start-message-top", &gfx);
 
   for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
   {
-    sentences[i] = new CL_Sprite("help/"+to_string(i+1)+"/sentence", &gfx);
-    sentences_x[i] = CL_Integer_to_int("help/"+to_string(i+1)+"/left", &gfx);
-    sentences_y[i] = CL_Integer_to_int("help/"+to_string(i+1)+"/top", &gfx);
-    sentences_time[i] = CL_Integer_to_int("help/"+to_string(i+1)+"/time", &gfx);
+    sentences[i] = new CL_Sprite("title/help/"+to_string(i+1)+"/sentence", &gfx);
+    sentences_x[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/left", &gfx);
+    sentences_y[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/top", &gfx);
+    sentences_time[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/time", &gfx);
   }
 
-  keydemo_left    = new CL_Sprite("keydemo/left", &gfx);
-  keydemo_up      = new CL_Sprite("keydemo/up", &gfx);
-  keydemo_right   = new CL_Sprite("keydemo/right", &gfx);
-  keydemo_down    = new CL_Sprite("keydemo/down", &gfx);
-  keydemo_escape  = new CL_Sprite("keydemo/escape", &gfx);
-  keydemo_options = new CL_Sprite("keydemo/options", &gfx);
+  keydemo_left    = new CL_Sprite("title/keydemo/left", &gfx);
+  keydemo_up      = new CL_Sprite("title/keydemo/up", &gfx);
+  keydemo_right   = new CL_Sprite("title/keydemo/right", &gfx);
+  keydemo_down    = new CL_Sprite("title/keydemo/down", &gfx);
+  keydemo_escape  = new CL_Sprite("title/keydemo/escape", &gfx);
+  keydemo_options = new CL_Sprite("title/keydemo/options", &gfx);
 
   keyleft_x = 50;
   keyleft_y = keyright_y = keydown_y = 100;

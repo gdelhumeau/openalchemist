@@ -56,49 +56,49 @@ void OptionsMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_options.xml", &zip, false);
 
   // First, the sprites
-  background = new CL_Sprite("menu/options/background", &gfx); 
+  background = new CL_Sprite("menu-options/background", &gfx); 
 
-  items[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu/options/changeskin/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu/options/changeskin/selected", &gfx);
+  items[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu-options/changeskin/unselected", &gfx);
+  items_selected[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu-options/changeskin/selected", &gfx);
 
-  items[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu/options/fullscreen/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu/options/fullscreen/selected", &gfx);
+  items[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu-options/fullscreen/unselected", &gfx);
+  items_selected[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu-options/fullscreen/selected", &gfx);
 
-  items[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu/options/sound/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu/options/sound/selected", &gfx);
+  items[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu-options/sound/unselected", &gfx);
+  items_selected[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu-options/sound/selected", &gfx);
 
-  items[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu/options/music/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu/options/music/selected", &gfx);
+  items[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu-options/music/unselected", &gfx);
+  items_selected[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu-options/music/selected", &gfx);
 
-  items[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu/options/quit/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu/options/quit/selected", &gfx);
+  items[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu-options/quit/unselected", &gfx);
+  items_selected[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu-options/quit/selected", &gfx);
 
   
   for(int i=0; i<=10; ++i)
   {
-    sound_level_sprites[i] = new CL_Sprite("menu/options/sound-level/"+to_string(i), &gfx);
+    sound_level_sprites[i] = new CL_Sprite("menu-options/sound-level/"+to_string(i), &gfx);
   }
 
 
   // Then, propreties
  
-  items_left[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu/options/changeskin/left", &gfx);
-  items_top[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu/options/changeskin/top", &gfx);
+  items_left[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu-options/changeskin/left", &gfx);
+  items_top[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu-options/changeskin/top", &gfx);
 
-  items_left[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu/options/fullscreen/left", &gfx);
-  items_top[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu/options/fullscreen/top", &gfx);
+  items_left[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu-options/fullscreen/left", &gfx);
+  items_top[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu-options/fullscreen/top", &gfx);
 
-  items_left[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu/options/sound/left", &gfx);
-  items_top[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu/options/sound/top", &gfx);
+  items_left[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu-options/sound/left", &gfx);
+  items_top[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu-options/sound/top", &gfx);
 
-  items_left[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu/options/music/left", &gfx);
-  items_top[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu/options/music/top", &gfx);
+  items_left[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu-options/music/left", &gfx);
+  items_top[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu-options/music/top", &gfx);
 
-  items_left[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu/options/quit/left", &gfx);
-  items_top[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu/options/quit/top", &gfx);
+  items_left[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu-options/quit/left", &gfx);
+  items_top[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu-options/quit/top", &gfx);
   
 
-  sound_level_left = CL_Integer_to_int("menu/options/sound-level/left", &gfx);
+  sound_level_left = CL_Integer_to_int("menu-options/sound-level/left", &gfx);
 
   
 }

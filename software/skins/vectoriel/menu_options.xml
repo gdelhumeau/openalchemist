@@ -1,8 +1,6 @@
 <resources>
-<section name="menu">
-
 	<!-- Section about the options menu -->
-	<section name="options">
+	<section name="menu-options">
 	
 		<!-- true if menu appear with alpha apparition -->
 		<boolean name = "alpha_appearing" value = "true" />
@@ -136,6 +134,4 @@
   	
   	
   </section> 
- 
-</section>
 </resources>
