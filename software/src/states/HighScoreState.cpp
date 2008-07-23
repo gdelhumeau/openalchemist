@@ -35,7 +35,7 @@ void HighScoreState::load_gfx(std::string skin)
   panel = new CL_Sprite("menu-new-highscore/dialog", &gfx);
   panel_x = CL_Integer_to_int("menu-new-highscore/panel_x", &gfx);
   panel_y = CL_Integer_to_int("menu-new-highscore/panel_y", &gfx);
-  new_score_x = CL_Integer_to_int("menu-nehighscore/new-score-left", &gfx);
+  new_score_x = CL_Integer_to_int("menu-new-highscore/new-score-left", &gfx);
   new_score_y = CL_Integer_to_int("menu-new-highscore/new-score-top", &gfx);
   old_score_x = CL_Integer_to_int("menu-new-highscore/old-score-left", &gfx);
   old_score_y = CL_Integer_to_int("menu-new-highscore/old-score-top", &gfx);
