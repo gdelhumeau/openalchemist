@@ -1,16 +1,26 @@
+<!--
+    This file describes New HighScore Menu
+-->
 <resources>
-	<section name="menu-new-highscore">
-		<sprite name="dialog">
+	
+	<!-- Main section -->
+	<section name="menu_new_highscore">
+		
+		<!-- Dialog is the background frame menu -->
+		<sprite name="dialog_background">
 			<image file="dialogs/highscores/new-highscore.png">
 				<grid pos="0,0" size="500,300" />
 			</image>
 		</sprite>
-
-		<integer name = "panel_x" value = "165" />
-		<integer name = "panel_y" value = "145" />
-		<integer name = "new-score-left" value = "400" />
-		<integer name = "new-score-top" value = "257" />
-		<integer name = "old-score-left" value = "400" />
-		<integer name = "old-score-top" value = "367" />   		
- 	</section>
+		
+		<!-- Coords -->
+		<integer name = "dialog_left" value = "165" />
+		<integer name = "dialog_top" value = "145" />
+		<integer name = "new_score_left" value = "400" />
+		<integer name = "new_score_top" value = "257" />
+		<integer name = "old_score_left" value = "400" />
+		<integer name = "old_score_top" value = "367" />
+		 
+		
+	</section>
 </resources>

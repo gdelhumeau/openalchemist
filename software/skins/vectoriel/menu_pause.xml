@@ -1,19 +1,25 @@
+<!--
+    This file describes Pause menu
+-->
 <resources>
-	<!-- Section about the pause menu -->
-	<section name="menu-pause">
 	
-		<!-- true if menu appear with alpha apparition -->
+	<!-- Main section -->
+	<section name="menu_pause">
+		
+		<!-- Alpha apparition, set "true" if want the menu to appear gradually (only avalaible with OpenGL) -->
 		<boolean name = "alpha_appearing" value = "true" />
-		<integer name = "alpha_max" value = "65" /> 
-
-		<!-- Sprite for thr background -->
+		<!-- Max alpha value -->
+		<integer name = "alpha_max" value = "65" />
+		
+		
+		<!-- Sprite for the background -->
 		<sprite name="background">
 			<image file="dialogs/pause/pause.png">
 				<grid pos="0,0" size="500,568" />
 			</image>
 		</sprite>
-  		
-  	<!-- Resume item -->
+		
+		<!-- Resume item -->
 		<section name="resume">
 			<sprite name="selected">
 				<image file="dialogs/pause/resume-selected.png" />
@@ -98,9 +104,8 @@
 			<integer name="top" value="400" />
 			<integer name="left" value="100" />
 			
-		</section>	
-  	
-  	
-  </section> 
-
+		</section>
+		
+	</section>
+	
 </resources>

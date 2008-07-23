@@ -33,15 +33,15 @@ void ProgressBar::load_gfx(std::string skin)
   CL_ResourceManager gfx("gfx.xml", &zip, false);
 
 
-  head     = new CL_Sprite("progress-bar/head/sprite",    &gfx);
-  head_ok  = new CL_Sprite("progress-bar/head/sprite-ok", &gfx);
-  foot     = new CL_Sprite("progress-bar/foot/sprite",    &gfx);
-  item     = new CL_Sprite("progress-bar/item/sprite",    &gfx);
-  item_ok  = new CL_Sprite("progress-bar/item/sprite-ok", &gfx);
+  head     = new CL_Sprite("progress_bar/head/sprite",    &gfx);
+  head_ok  = new CL_Sprite("progress_bar/head/sprite_ok", &gfx);
+  foot     = new CL_Sprite("progress_bar/foot/sprite",    &gfx);
+  item     = new CL_Sprite("progress_bar/item/sprite",    &gfx);
+  item_ok  = new CL_Sprite("progress_bar/item/sprite_ok", &gfx);
 
-  left     = CL_Integer_to_int("progress-bar/left",       &gfx);
-  head_top = CL_Integer_to_int("progress-bar/head/top",   &gfx);
-  foot_top = CL_Integer_to_int("progress-bar/foot/top",   &gfx);
+  left     = CL_Integer_to_int("progress_bar/left",       &gfx);
+  head_top = CL_Integer_to_int("progress_bar/head/top",   &gfx);
+  foot_top = CL_Integer_to_int("progress_bar/foot/top",   &gfx);
 
 }
 

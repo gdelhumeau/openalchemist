@@ -1,39 +1,56 @@
+<!--
+    This file describes Skins Selector menu
+-->
 <resources>
-	<!-- Section about the pause menu -->
-	<section name="menu-skins">
 	
+	<!-- Main section -->
+	<section name="menu_skins">
+		
 		<!-- true if menu appear with alpha apparition -->
 		<boolean name = "alpha_appearing" value = "true" />
-		<integer name = "alpha_max" value = "65" /> 
-
-		<!-- Sprite for thr background -->
+		<integer name = "alpha_max" value = "65" />
+		
+		
+		<!-- Sprite for the background -->
 		<sprite name="background">
 			<image file="dialogs/skins/background.png">
 				<grid pos="0,0" size="550,562" />
 			</image>
-		</sprite> 
+		</sprite>
 		
+		<!-- Cursor to show what is the current selection -->
 		<sprite name="cursor">
- 			<image file="dialogs/skins/cursor.png" />
- 		</sprite>
- 		
- 		<section name="arrow-down">
-	 		<sprite name="sprite">
- 				<image file="dialogs/skins/arrow_down.png" />
- 			</sprite>		
- 			<integer name = "left" value="375" />
-			<integer name = "top"  value="510" />	
- 		</section>
- 		
- 		<section name="arrow-up">
-	 		<sprite name="sprite">
- 				<image file="dialogs/skins/arrow_up.png" />
- 			</sprite>		
- 			<integer name = "left" value="375" />
-			<integer name = "top"  value="125" />	
- 		</section>
-  	
-  	<surface name = "logo-unavailable" file = "dialogs/skins/logo-unavailable.png"/>
-  	
+			<image file="dialogs/skins/cursor.png" />
+		</sprite>
+		
+		<!-- Arrow down, if there is no place to display all skins -->
+		<section name="arrow_down">
+			<sprite name="sprite">
+				<image file="dialogs/skins/arrow_down.png" />
+			</sprite>
+			
+			<!-- Coords -->
+			<integer name = "left" value="375" />
+			<integer name = "top"  value="510" />
+				
+		</section>
+		
+		<!-- Arrow down, if there is no place to display all skins -->
+		<section name="arrow_up">
+			<sprite name="sprite">
+				<image file="dialogs/skins/arrow_up.png" />
+			</sprite>
+			
+			<!-- Coords -->
+			<integer name = "left" value="375" />
+			<integer name = "top"  value="125" />
+				
+		</section>
+		
+		<!-- If we can't use a skin because we have to unlock pieces first -->
+		<surface name = "logo_unavailable" file = "dialogs/skins/logo-unavailable.png"/>
+		
 	</section>
+	
+	
 </resources>

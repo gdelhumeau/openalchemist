@@ -33,9 +33,9 @@ void TitleState::load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("title.xml", &zip, false);
 
-  start_message = new CL_Sprite("title/start-message", &gfx);
-  start_message_x = CL_Integer_to_int("title/start-message-left", &gfx);
-  start_message_y = CL_Integer_to_int("title/start-message-top", &gfx);
+  start_message = new CL_Sprite("title/start_message/sprite", &gfx);
+  start_message_x = CL_Integer_to_int("title/start_message/left", &gfx);
+  start_message_y = CL_Integer_to_int("title/start_message/top", &gfx);
 
   for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
   {

@@ -18,7 +18,7 @@ void HighScoreState::init()
 {
   GameState::init();
 
-  panel = NULL;
+  dialog = NULL;
 }
 
 void HighScoreState::deinit()
@@ -32,27 +32,27 @@ void HighScoreState::load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_highscores.xml", &zip, false);
 
-  panel = new CL_Sprite("menu-new-highscore/dialog", &gfx);
-  panel_x = CL_Integer_to_int("menu-new-highscore/panel_x", &gfx);
-  panel_y = CL_Integer_to_int("menu-new-highscore/panel_y", &gfx);
-  new_score_x = CL_Integer_to_int("menu-new-highscore/new-score-left", &gfx);
-  new_score_y = CL_Integer_to_int("menu-new-highscore/new-score-top", &gfx);
-  old_score_x = CL_Integer_to_int("menu-new-highscore/old-score-left", &gfx);
-  old_score_y = CL_Integer_to_int("menu-new-highscore/old-score-top", &gfx);
+  dialog = new CL_Sprite("menu_new_highscore/dialog_background", &gfx);
+  dialog_x = CL_Integer_to_int("menu_new_highscore/dialog_left", &gfx);
+  dialog_y = CL_Integer_to_int("menu_new_highscore/dialog_top", &gfx);
+  new_score_x = CL_Integer_to_int("menu_new_highscore/new_score_left", &gfx);
+  new_score_y = CL_Integer_to_int("menu_new_highscore/new_score_top", &gfx);
+  old_score_x = CL_Integer_to_int("menu_new_highscore/old_score_left", &gfx);
+  old_score_y = CL_Integer_to_int("menu_new_highscore/old_score_top", &gfx);
 }
 
 void HighScoreState::unload_gfx()
 {
-  if(panel)
+  if(dialog)
   {
-    delete panel;
-    panel = NULL;
+    delete dialog;
+    dialog = NULL;
   }
 }
 
 void HighScoreState::draw()
 {
-  panel -> draw(panel_x, panel_y);
+  dialog -> draw(dialog_x, dialog_y);
 
   std::string new_score = format_number(to_string(common_resources -> highscore));
   std::string old_score = format_number(to_string(common_resources -> old_highscore));

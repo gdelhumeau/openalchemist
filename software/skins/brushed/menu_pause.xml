@@ -1,19 +1,25 @@
+<!--
+    This file describes Pause menu
+-->
 <resources>
-	<!-- Section about the pause menu -->
-	<section name="menu-pause">
 	
-		<!-- true if menu appear with alpha apparition -->
+	<!-- Main section -->
+	<section name="menu_pause">
+		
+		<!-- Alpha apparition, set "true" if want the menu to appear gradually (only avalaible with OpenGL) -->
 		<boolean name = "alpha_appearing" value = "true" />
-		<integer name = "alpha_max" value = "65" /> 
-
-		<!-- Sprite for thr background -->
+		<!-- Max alpha value -->
+		<integer name = "alpha_max" value = "65" />
+		
+		
+		<!-- Sprite for the background -->
 		<sprite name="background">
 			<image file="dialogs/pause/pause.png">
 				<grid pos="0,0" size="500,462" />
 			</image>
 		</sprite>
-  		
-  	<!-- Resume item -->
+		
+		<!-- Resume item -->
 		<section name="resume">
 			<sprite name="selected">
 				<image file="dialogs/pause/resume-selected.png" />
@@ -42,63 +48,72 @@
 			<integer name="left" value="100" />
 			
 		</section>
-  		
-  	<!-- Retry Item -->
-  	<section name="retry">
+		
+		<!-- Retry Item -->
+		<section name="retry">
 			<sprite name="selected">
-				<image file="dialogs/pause/retry-selected.png" />  					
+				<image file="dialogs/pause/retry-selected.png" />
+					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/retry-unselected.png" />  					
+				<image file="dialogs/pause/retry-unselected.png" />
+					
 			</sprite>
 			
 			<integer name="top" value="200" />
 			<integer name="left" value="100" />
-  			
-  	</section>
-  	
-  	<!-- Go to option menu item -->
-  	<section name="options">
+			
+		</section>
+		
+		<!-- Go to option menu item -->
+		<section name="options">
 			<sprite name="selected">
-				<image file="dialogs/pause/options-selected.png" />  					
+				<image file="dialogs/pause/options-selected.png" />
+					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/options-unselected.png" />  					
+				<image file="dialogs/pause/options-unselected.png" />
+					
 			</sprite>
 			
 			<integer name="top" value="250" />
 			<integer name="left" value="100" />
 			
 		</section>
-  	
-  			
+		
+		
 		<!-- Back to main menu item-->
-  	<section name="giveup">
+		<section name="giveup">
 			<sprite name="selected">
-				<image file="dialogs/pause/giveup-selected.png" />  					
+				<image file="dialogs/pause/giveup-selected.png" />
+					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/giveup-unselected.png" />  					
+				<image file="dialogs/pause/giveup-unselected.png" />
+					
 			</sprite>
 			
 			<integer name="top" value="300" />
 			<integer name="left" value="100" />
 			
 		</section>
-  		
-  	<!-- Quit game item -->
+		
+		<!-- Quit game item -->
 		<section name="quit">
 			<sprite name="selected">
-				<image file="dialogs/pause/quit-selected.png" />  					
+				<image file="dialogs/pause/quit-selected.png" />
+					
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/pause/quit-unselected.png" />  					
+				<image file="dialogs/pause/quit-unselected.png" />
+					
 			</sprite>
 			
 			<integer name="top" value="350" />
 			<integer name="left" value="100" />
 			
-		</section>	
- 
-</section>
+		</section>
+		
+	</section>
+	
 </resources>

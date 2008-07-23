@@ -33,10 +33,10 @@ void GameOverState::load_gfx(std::string skin)
   CL_ResourceManager gfx("gfx.xml", &zip, false);
 
   panel = new CL_Surface("gameover/surface", &gfx);
-  panel_x = CL_Integer_to_int("gameover/panel-left", &gfx);
-  panel_y = CL_Integer_to_int("gameover/panel-top", &gfx);
-  score_x = CL_Integer_to_int("gameover/score-left", &gfx);
-  score_y = CL_Integer_to_int("gameover/score-top", &gfx);
+  panel_x = CL_Integer_to_int("gameover/panel_left", &gfx);
+  panel_y = CL_Integer_to_int("gameover/panel_top", &gfx);
+  score_x = CL_Integer_to_int("gameover/score_left", &gfx);
+  score_y = CL_Integer_to_int("gameover/score_top", &gfx);
 }
 
 void GameOverState::unload_gfx()

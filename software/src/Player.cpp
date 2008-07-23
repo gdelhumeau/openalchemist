@@ -124,7 +124,7 @@ void Player::load_gfx(std::string skin)
   for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
   {
     if(pref -> colorblind)
-      pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal-color-blind", &gfx_pieces);
+      pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
     else
       pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
 
@@ -132,12 +132,12 @@ void Player::load_gfx(std::string skin)
     pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
     
     if(pref -> colorblind)
-      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little-color-blind", &gfx_pieces);
+      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little_color_blind", &gfx_pieces);
     else
       pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces); 
 
-    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-x", &gfx_pieces);
-    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress-y", &gfx_pieces);
+    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress_left", &gfx_pieces);
+    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress_top", &gfx_pieces);
 
     if(i>3)
       pieces_hidden[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx_pieces);

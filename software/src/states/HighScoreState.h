@@ -27,8 +27,8 @@ class HighScoreState : public GameState{
 
   private:
 
-  CL_Sprite * panel;
-  int panel_x, panel_y;
+  CL_Sprite * dialog;
+  int dialog_x, dialog_y;
   int new_score_x;
   int new_score_y;
   int old_score_x;

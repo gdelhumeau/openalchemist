@@ -1,15 +1,18 @@
+<!--
+    This file describes Quit menu
+-->
 <resources>
-	<!-- Section about the quit menu -->
-	<section name="menu-quit">
-	
-		<section name="dialog-panel">
-			<sprite name="sprite-exit">
+	<!-- Main section -->
+	<section name="menu_quit">
+		
+		<section name="dialog_panel">
+			<sprite name="sprite_exit">
 				<image file="dialogs/quit/dialog-exit.png" />
 			</sprite>
-			<sprite name="sprite-giveup">
+			<sprite name="sprite_giveup">
 				<image file="dialogs/quit/dialog-giveup.png" />
 			</sprite>
-			<sprite name="sprite-retry">
+			<sprite name="sprite_retry">
 				<image file="dialogs/quit/dialog-retry.png" />
 			</sprite>
 			
@@ -18,10 +21,11 @@
 		</section>
 		
 		
-		<section name="dialog-yes">
+		<section name="dialog_yes">
 			<sprite name="selected">
 				<image file="dialogs/quit/yes-selected.png" />
-				<image file="dialogs/quit/yes-unselected.png" />	
+				<image file="dialogs/quit/yes-unselected.png" />
+				
 				<animation speed="75" />
 			</sprite>
 			<sprite name="unselected">
@@ -32,8 +36,8 @@
 			<integer name="left" value="230" />
 			
 		</section>
-
-		<section name="dialog-no">
+		
+		<section name="dialog_no">
 			<sprite name="selected">
 				<image file="dialogs/quit/no-selected.png" />
 				<image file="dialogs/quit/no-unselected.png" />
@@ -47,7 +51,7 @@
 			<integer name="left" value="450" />
 			
 		</section>
-  		
-  </section>
-
+		
+	</section>
+	
 </resources>
