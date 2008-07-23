@@ -75,18 +75,6 @@
     </image>
 
   </sprite>
-
- <section name="skins-selector">
- 	<integer name="top" value="120" />
-        <integer name="separation" value="30" />
- 	<sprite name="cursor">
- 		<image file="misc/skin-cursor.png" />
- 	</sprite>
- 	
- 	<sprite name="cant_change">
- 		<image file="dialogs/nochangeskin.png" />
- 	</sprite>
- </section>
   
   <section name="progress-bar">
   	<integer name="left" value="669" />
