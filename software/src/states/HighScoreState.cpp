@@ -30,15 +30,15 @@ void HighScoreState::load_gfx(std::string skin)
 {
   // Getting skins resources
   CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("gfx.xml", &zip, false);
+  CL_ResourceManager gfx("menu_highscores.xml", &zip, false);
 
-  panel = new CL_Sprite("menu/new-hightscore/dialog", &gfx);
-  panel_x = CL_Integer_to_int("menu/new-hightscore/panel_x", &gfx);
-  panel_y = CL_Integer_to_int("menu/new-hightscore/panel_y", &gfx);
-  new_score_x = CL_Integer_to_int("menu/new-hightscore/new-score-left", &gfx);
-  new_score_y = CL_Integer_to_int("menu/new-hightscore/new-score-top", &gfx);
-  old_score_x = CL_Integer_to_int("menu/new-hightscore/old-score-left", &gfx);
-  old_score_y = CL_Integer_to_int("menu/new-hightscore/old-score-top", &gfx);
+  panel = new CL_Sprite("menu-new-highscore/dialog", &gfx);
+  panel_x = CL_Integer_to_int("menu-new-highscore/panel_x", &gfx);
+  panel_y = CL_Integer_to_int("menu-new-highscore/panel_y", &gfx);
+  new_score_x = CL_Integer_to_int("menu-nehighscore/new-score-left", &gfx);
+  new_score_y = CL_Integer_to_int("menu-new-highscore/new-score-top", &gfx);
+  old_score_x = CL_Integer_to_int("menu-new-highscore/old-score-left", &gfx);
+  old_score_y = CL_Integer_to_int("menu-new-highscore/old-score-top", &gfx);
 }
 
 void HighScoreState::unload_gfx()

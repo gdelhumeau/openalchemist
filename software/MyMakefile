@@ -48,6 +48,7 @@ skins/vectoriel.zip : skins/vectoriel/*
 	cd skins/vectoriel && zip -q -r ../vectoriel * -x *svn*
 
 clean: 
+	rm skins/*.zip
 	rm bin -R
 	rm openalchemist
 	rm openalchemist-static
