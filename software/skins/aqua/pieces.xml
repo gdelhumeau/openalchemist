@@ -66,7 +66,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "60" />
 			
 		</section>
@@ -130,7 +130,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "105" />
 			
 		</section>
@@ -194,7 +194,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "150" />
 			
 		</section>
@@ -262,7 +262,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "195" />
 			
 		</section>
@@ -330,7 +330,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "240" />
 			
 		</section>
@@ -398,7 +398,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "285" />
 			
 		</section>
@@ -466,7 +466,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "330" />
 			
 		</section>
@@ -534,7 +534,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "375" />
 			
 		</section>
@@ -602,7 +602,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "420" />
 			
 		</section>
@@ -670,7 +670,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "465" />
 			
 		</section>
@@ -738,7 +738,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "510" />
 			
 		</section>
@@ -806,7 +806,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
+			<integer name = "progress_left" value = "40" />
 			<integer name = "progress_top" value = "555" />
 			
 		</section>
