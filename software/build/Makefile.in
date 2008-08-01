@@ -52,7 +52,7 @@ am_openalchemist_OBJECTS = Application.$(OBJEXT) Preferences.$(OBJEXT) \
 	FrontLayer.$(OBJEXT) PauseMenuState.$(OBJEXT) \
 	SkinsMenuState.$(OBJEXT) Keys.$(OBJEXT) \
 	OptionsMenuState.$(OBJEXT) TitleState.$(OBJEXT) \
-	QuitMenuState.$(OBJEXT)
+	QuitMenuState.$(OBJEXT) CombosPainter.$(OBJEXT)
 openalchemist_OBJECTS = $(am_openalchemist_OBJECTS)
 openalchemist_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
@@ -184,7 +184,8 @@ openalchemist_SOURCES = ../src/Application.cpp ../src/Preferences.cpp \
 	../src/states/SkinsMenuState.h ../src/Keys.h \
 	../src/states/OptionsMenuState.h ../src/states/TitleState.h \
 	../src/states/QuitMenuState.h ../src/Coords.h \
-	../src/KeyboardKey.h ../src/Piece.h
+	../src/KeyboardKey.h ../src/Piece.h ../src/CombosPainter.h \
+	../src/CombosPainter.cpp
 AM_CXXFLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8` -DDATA_DIR="\"$(datadir)/openalchemist\""
 AM_LDFLAGS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
 all: all-am
@@ -255,6 +256,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Application.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Board.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CombosPainter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonResources.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonState.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/DemoPlayer.Po@am__quote@
@@ -612,6 +614,20 @@ QuitMenuState.obj: ../src/states/QuitMenuState.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/states/QuitMenuState.cpp' object='QuitMenuState.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o QuitMenuState.obj `if test -f '../src/states/QuitMenuState.cpp'; then $(CYGPATH_W) '../src/states/QuitMenuState.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/states/QuitMenuState.cpp'; fi`
+
+CombosPainter.o: ../src/CombosPainter.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CombosPainter.o -MD -MP -MF $(DEPDIR)/CombosPainter.Tpo -c -o CombosPainter.o `test -f '../src/CombosPainter.cpp' || echo '$(srcdir)/'`../src/CombosPainter.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CombosPainter.Tpo $(DEPDIR)/CombosPainter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/CombosPainter.cpp' object='CombosPainter.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CombosPainter.o `test -f '../src/CombosPainter.cpp' || echo '$(srcdir)/'`../src/CombosPainter.cpp
+
+CombosPainter.obj: ../src/CombosPainter.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CombosPainter.obj -MD -MP -MF $(DEPDIR)/CombosPainter.Tpo -c -o CombosPainter.obj `if test -f '../src/CombosPainter.cpp'; then $(CYGPATH_W) '../src/CombosPainter.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/CombosPainter.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/CombosPainter.Tpo $(DEPDIR)/CombosPainter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/CombosPainter.cpp' object='CombosPainter.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CombosPainter.obj `if test -f '../src/CombosPainter.cpp'; then $(CYGPATH_W) '../src/CombosPainter.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/CombosPainter.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
