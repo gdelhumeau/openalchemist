@@ -16,8 +16,8 @@
 				<image file="dialogs/quit/dialog-retry.png" />
 			</sprite>
 			
-			<integer name="top" value="100" />
-			<integer name="left" value="150" />
+			<integer name="top" value="150" />
+			<integer name="left" value="175" />
 		</section>
 		
 		
