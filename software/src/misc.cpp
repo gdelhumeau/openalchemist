@@ -35,13 +35,44 @@ int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gf
 
 std::string get_save_path()
 {
-#ifdef WIN32
 #ifdef PORTABLE_APP
   return CL_System::get_exe_path() + "\\savedata";
 #else
-  return CL_System::get_exe_path() + "\\savedata";
+  return ((std::string)getenv("HOME")) + get_path_separator() + ".openalchemist";
 #endif
+}
+
+std::string get_skins_path()
+{
+#ifdef DATA_DIR
+  std::string dir = DATA_DIR;
 #else
-  return ((std::string)getenv("HOME")) + "/.openalchemist";
+  std::string dir = CL_System::get_exe_path() + get_path_separator() + "skins";
+#endif
+
+  return dir;
+}
+
+std::string get_data_path()
+{
+#ifdef WIN32
+  std::string file_path = CL_System::get_exe_path() + "\\data";
+#else
+#ifdef DATA_DIR
+  std::string file_path = DATA_DIR;
+  file_path += "/";
+#else
+  std::string file_path = CL_System::get_exe_path() + "/data";
+#endif
+#endif
+  return file_path;
+}
+
+std::string get_path_separator()
+{
+#ifdef WIN_32
+  return "\\";
+#else
+  return "/";
 #endif
 }

@@ -27,7 +27,7 @@ openalchemist: bin $(OBJS) skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 static : bin $(OBJS) skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 	g++ -o openalchemist-static $(OBJS) $(STATIC_LIBS)
 
-bin/%.o : src/%.cpp src/*.h src/states/*.h
+bin/%.o : src/%.cpp
 	$(CXX) -c -o $@ $? $(CXXFLAGS)
 
 bin: 

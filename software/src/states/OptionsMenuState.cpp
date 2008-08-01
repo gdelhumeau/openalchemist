@@ -272,6 +272,7 @@ void OptionsMenuState::disappear()
     switch(selection)
     {
     case OPTIONS_ITEM_CHANGESKIN:
+      common_resources -> engine -> stop_current_state();
       common_resources -> engine -> set_state_skin_menu();
       break;
     default:

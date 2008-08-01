@@ -15,17 +15,7 @@
 #include "GameEngine.h"
 #include "Preferences.h"
 #include "CommonResources.h"
-
-/**
- * This function return a factor to calcul moving with time
- */
-inline double get_time_interval(int fps)
-{
-  
-  if(!fps)return 0;
-  return 1000.0/((double)fps);
-  
-}
+#include "misc.h"
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
@@ -41,17 +31,9 @@ GameEngine::~GameEngine()
 void GameEngine::init()
 {
   // Drawing loading picture
-#ifdef WIN32
-  std::string file_path = CL_System::get_exe_path() + "\\data\\";
-#else
-#ifdef DATA_DIR
-  std::string file_path = DATA_DIR;
-  file_path += "/";
-#else
-  std::string file_path = CL_System::get_exe_path() + "/data/";
-#endif
-#endif
-  CL_Surface loading(file_path+"loading.png");
+
+  std::string file_path = get_data_path();
+  CL_Surface loading(file_path+get_path_separator()+"loading.png");
   CL_Display::clear(CL_Color(0, 0, 0));
   loading.draw(400-loading.get_width()/2,300-loading.get_height()/2);
   CL_Display::flip();
@@ -62,35 +44,17 @@ void GameEngine::init()
   fps_getter.set_fps_limit(pref -> maxfps);
 
   resources -> init(this);
-  resources -> load_gfx(pref -> skin);
-
   common_state.init();
-  common_state.load_gfx(pref -> skin);
-
   ingame_state.init();
-  ingame_state.load_gfx(pref -> skin);
-
   gameover_state.init();
-  gameover_state.load_gfx(pref -> skin);
-
   highscore_state.init();
-  highscore_state.load_gfx(pref -> skin);
-
   pausemenu_state.init();
-  pausemenu_state.load_gfx(pref -> skin);
-
   skinsmenu_state.init();
-  skinsmenu_state.load_gfx(pref -> skin);
-
   optionsmenu_state.init();
-  optionsmenu_state.load_gfx(pref -> skin);
-
   title_state.init();
-  title_state.load_gfx(pref -> skin);
-
   quitmenu_state.init();
-  quitmenu_state.load_gfx(pref -> skin);
-
+  
+  set_skin(pref -> skin);
       
 }
 
@@ -151,9 +115,9 @@ void GameEngine::stop()
 void GameEngine::set_state_title()
 {
   while(!states_stack.empty())
-    {
-      states_stack.pop();
-    }
+  {
+    states_stack.pop();
+  }
   states_stack.push(&title_state);
   title_state.start();
 }
@@ -270,33 +234,55 @@ void GameEngine::set_skin(std::string skin)
   CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
 
-  pref -> skin = skin;
+  std::string old_skin = pref -> skin;
 
-  resources -> load_gfx(pref -> skin);
+  try{
 
-  title_state.load_gfx(pref -> skin);
+    pref -> skin = skin;
 
-  common_state.load_gfx(pref -> skin);
+    resources -> load_gfx(pref -> skin);
 
-  ingame_state.load_gfx(pref -> skin);
+    title_state.load_gfx(pref -> skin);
 
-  gameover_state.load_gfx(pref -> skin);
+    common_state.load_gfx(pref -> skin);
 
-  highscore_state.load_gfx(pref -> skin);
+    ingame_state.load_gfx(pref -> skin);
 
-  pausemenu_state.load_gfx(pref -> skin);
+    gameover_state.load_gfx(pref -> skin);
 
-  skinsmenu_state.load_gfx(pref -> skin);
+    highscore_state.load_gfx(pref -> skin);
 
-  optionsmenu_state.load_gfx(pref -> skin);
+    pausemenu_state.load_gfx(pref -> skin);
 
-  optionsmenu_state.load_gfx(pref -> skin);
+    skinsmenu_state.load_gfx(pref -> skin);
 
-  title_state.load_gfx(pref -> skin);
+    optionsmenu_state.load_gfx(pref -> skin);
 
-  quitmenu_state.load_gfx(pref -> skin);
+    optionsmenu_state.load_gfx(pref -> skin);
 
-  pref -> write();
+    title_state.load_gfx(pref -> skin);
+
+    quitmenu_state.load_gfx(pref -> skin);
+
+    pref -> write();
+
+  }
+  catch(CL_Error err)
+  {
+    std::cout << "Skin error : " << err.message << std::endl;
+    std::cout << "Error in : " << skin << std::endl;
+    if(old_skin == skin)
+    {
+      std::cout << "Now loading default skin." << std::endl;
+      skin = get_skins_path() + get_path_separator() + "aqua.zip";
+      set_skin(skin);
+    }
+    else
+    {
+      std::cout << "Now reloading current skin." << std::endl;
+      set_skin(old_skin);
+    }
+  }
 }
 
 void GameEngine::set_skin_element(u_int element)

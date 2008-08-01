@@ -30,11 +30,7 @@ void SkinsMenuState::init()
 // Fist we load Skin propreties saved in the conf file
 
   std::string path = get_save_path();
-#ifdef WIN32
-  std::string file_path = path + "\\skins";
-#else
-  std::string file_path = path + "/skins";
-#endif
+  std::string file_path = path + get_path_separator() + "skins";
 
   skins_list.clear();
   try
@@ -70,17 +66,7 @@ void SkinsMenuState::init()
   }
 
 // The, we scan the current ./skins folder
-
-#ifdef WIN32
-  std::string dir = CL_System::get_exe_path() + "skins\\";
-#else
-#ifdef DATA_DIR
-  std::string dir = DATA_DIR;
-  dir += "/";
-#else
-  std::string dir = CL_System::get_exe_path() + "skins/";
-#endif
-#endif
+  std::string dir = get_skins_path() + get_path_separator();
 
   CL_DirectoryScanner scanner;
   if (scanner.scan(dir, "*.zip"))
@@ -161,12 +147,7 @@ void SkinsMenuState::init()
 void SkinsMenuState::deinit()
 {
   // Saving progression skin file
-  std::string path = get_save_path();
-#ifdef WIN32
-  std::string file_path = path + "\\skins";
-#else
-  std::string file_path = path + "/skins";
-#endif
+  std::string file_path = get_save_path() + get_path_separator() + "skins";
 
   try
   {
@@ -339,7 +320,10 @@ void SkinsMenuState::events()
   // KEY ENTER
   if(common_resources -> key.enter -> get())
   {
-    if(skins_board[selection_x][selection_y] -> element >= (u_int) common_resources->player1.get_visible_pieces())
+    // Can we see all pieces ?
+    if(skins_board[selection_x][selection_y] -> element >= (u_int) common_resources->player1.get_visible_pieces()
+       // Is this the current skin ?
+       && common_resources -> skin != skins_board[selection_x][selection_y] -> filename)
     {
       common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
     }
@@ -388,7 +372,7 @@ void SkinsMenuState::disappear()
 
   if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
   {
-    common_resources -> engine -> stop_current_state(); 
+    common_resources -> engine -> stop_current_state();
     start();
   }
 

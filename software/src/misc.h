@@ -21,7 +21,7 @@
 /**
  * This function return a factor to calcul moving with time
  */
-inline float get_time_interval(int fps)
+inline double get_time_interval(int fps)
 {
   
   if(!fps)return 0;
@@ -59,6 +59,12 @@ inline std::string format_number(const std::string &string)
  * Returning save path 
  */
 std::string get_save_path();
+
+std::string get_skins_path();
+
+std::string get_data_path();
+
+std::string get_path_separator();
 
 
 /**

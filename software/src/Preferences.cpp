@@ -36,16 +36,7 @@ Preferences::Preferences()
 void Preferences::read()
 {
   std::string options_path = get_save_path();
-#ifdef WIN32
-  std::string options_file = options_path + "\\preferences.ini";
-#else
-#ifdef SVN
-  std::string options_file = options_path + "/preferences-svn";
-#else
-  std::string options_file = options_path + "/preferences";
-#endif
-#endif
-
+  std::string options_file = get_save_path() + get_path_separator() + "preferences.ini";
   set_default();
 
   try
@@ -105,16 +96,7 @@ void Preferences::write()
 {
 
   std::string options_path = get_save_path();
-#ifdef WIN32
-  std::string options_file = options_path + "\\preferences.ini";
-#else
-#ifdef SVN
-  std::string options_file = options_path + "/preferences-svn";
-#else
-  std::string options_file = options_path + "/preferences";
-#endif
-#endif
-
+  std::string options_file = options_path + get_path_separator() + "preferences.ini";
 
   try
   {
@@ -192,7 +174,7 @@ void Preferences::set_default()
   music_level = 10;
   fullscreen = false;
   colorblind = false;
-  skin = CL_System::get_exe_path() + "skins/aqua.zip";
+  skin = get_skins_path() + get_path_separator() + "aqua.zip";
 }
 
 

@@ -6,15 +6,11 @@ TODO for 0.3
 	-> Best score // ou alors New high score!
 	-> Do you want to retry?
 - Bug de chargement de menu
-- Supprimer la limitation de dépassement
 - Compter la dernière pièce ajoutée sur le plateau
 - Disparition des pièces (celles qu'on fait tourner) après trip dans les menus
-- Combos
 - screen refresh syncrhonisation -> ?
 - press return to start ?
-- autoriser le dépassement jusqu'à la fin des réactions en chaine
 - selecteur de skin au (premier?) lancement?
-- un "echap" au change skin devrait faire disparaitre tous les menus
 - le jeu ne devrait pas recharger les graphs quand on selectionne le thème en cours d'utilisation
 
 TODO for 0.4
