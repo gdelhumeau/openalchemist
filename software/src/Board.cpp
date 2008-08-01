@@ -97,6 +97,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
       }
     } 
 
+  undo_score = score;
   undo_bonus_score = 0;
   undo_unlocked_pieces = unlocked_pieces;
   undo_visible_pieces = visible_pieces;

@@ -85,6 +85,11 @@ class Board{
   u_int bonus_score;
 
   /**
+   * Old score
+   */
+  u_int undo_score;
+
+  /**
    * Old Bonus score
    */
   u_int undo_bonus_score;

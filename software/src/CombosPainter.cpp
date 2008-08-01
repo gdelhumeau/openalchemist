@@ -23,8 +23,9 @@
 
 CombosPainter :: CombosPainter()
 {
-  sprite = NULL;
-  font   = NULL;
+  sprite_single = NULL;
+  sprite_plural = NULL;
+  font          = NULL;
 
   next_time = 0;
   enabled = false;
@@ -46,7 +47,8 @@ void CombosPainter :: load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx_combos("combos.xml", &zip, false);
 
-  sprite = new CL_Sprite("combos/text/sprite", &gfx_combos);
+  sprite_single = new CL_Sprite("combos/text/sprite_single", &gfx_combos);
+  sprite_plural = new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
   font = new CL_Font("combos/font", &gfx_combos);
 
   sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
@@ -60,10 +62,15 @@ void CombosPainter :: load_gfx(std::string skin)
 
 void CombosPainter :: unload_gfx()
 {
-  if(sprite)
+  if(sprite_single)
   {
-    delete sprite;
-    sprite = NULL;
+    delete sprite_single;
+    sprite_single = NULL;
+  }
+  if(sprite_plural)
+  {
+    delete sprite_plural;
+    sprite_plural = NULL;
   }
   if(font)
   {
@@ -97,7 +104,10 @@ void CombosPainter :: draw()
     return;
 
   font -> draw(score_x, score_current_y, to_string(score));
-  sprite -> draw(sprite_current_x, sprite_y);
+  if(score == 1)
+    sprite_single -> draw(sprite_current_x, sprite_y);
+  else
+    sprite_plural -> draw(sprite_current_x, sprite_y);
 
   
 }

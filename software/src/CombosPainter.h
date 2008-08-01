@@ -27,7 +27,12 @@ class CombosPainter{
   /**
    * Combo text sprite
    */
-  CL_Sprite * sprite;
+  CL_Sprite * sprite_single;
+
+  /**
+   * Combo text sprite
+   */
+  CL_Sprite * sprite_plural;
 
   /**
    * Combo font

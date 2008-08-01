@@ -580,7 +580,16 @@ void Player::update_destroying()
 
 void Player::prepare_to_play()
 {
+  board.calc_score();
+
+  // Adding combo bonus
+  if(combo > 1)
+  {
+    u_int delta_score = board.score + board.bonus_score - board.undo_score - board.undo_bonus_score; 
+    board.bonus_score += combo * delta_score;
+  }
   combo = 0;
+
   if(next_next_piece1 >= 0)
   {
     next_piece1 -> set_piece_number(next_next_piece1);
@@ -601,8 +610,9 @@ void Player::prepare_to_play()
   value = next_piece2 -> get_piece_number();
   next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
                              pieces_disappearing[value], pieces_mini[value]);
-          
+
   board.calc_score();
+          
 }
 
 void Player::undo()
