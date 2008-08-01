@@ -82,6 +82,10 @@ void CombosPainter :: set_score(int score)
     sprite_current_x = 800;
     mode = MODE_APPEARING;
   }
+  else
+  {
+    next_time = CL_System::get_time() + 1500;
+  }
 
   enabled = true;
 
