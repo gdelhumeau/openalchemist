@@ -499,6 +499,8 @@ void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Spr
     } 
 
   bonus_score -= undo_bonus_score;
+  // Penality !
+  bonus_score /= 2;
 
   unlocked_pieces = undo_unlocked_pieces;
   visible_pieces =  undo_visible_pieces;
