@@ -585,7 +585,7 @@ void Player::prepare_to_play()
   // Adding combo bonus
   if(combo > 1)
   {
-    u_int delta_score = board.score + board.bonus_score - board.undo_score - board.undo_bonus_score; 
+    u_int delta_score = board.score - board.undo_score; 
     board.bonus_score += combo * delta_score;
   }
   combo = 0;

@@ -7,8 +7,11 @@
 		
 		<section name="text">
 			<!-- This Sprite represents combos text -->
-			<sprite name = "sprite">
-				<image file = "misc/combos-text.png"/>
+			<sprite name = "sprite_single">
+				<image file = "misc/combos-text-single.png"/>
+			</sprite>
+			<sprite name = "sprite_plural">
+				<image file = "misc/combos-text-plural.png"/>
 			</sprite>
 			
 			<!-- Combos txt coords -->
