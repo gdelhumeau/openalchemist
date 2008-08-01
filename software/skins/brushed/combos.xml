@@ -31,7 +31,7 @@
 				<grid pos="103,0" size="108,196" />
 			</image>
 			<image file="misc/font-combos.png">
-				<grid pos="108,0" size="108,196" />
+				<grid pos="208,0" size="108,196" />
 			</image>
 			<image file="misc/font-combos.png">
 				<grid pos="320,0" size="101,196" />
