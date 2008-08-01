@@ -18,6 +18,7 @@
 #include "Board.h"
 #include "KeyboardKey.h"
 #include "ProgressBar.h"
+#include "CombosPainter.h"
 
 #define GAME_MODE_PLAYING 1
 #define GAME_MODE_FALLING_AND_CREATING 2
@@ -185,6 +186,12 @@ class Player{
    * Combo counter
    */
   int combo;
+
+  /**
+   * Combos Painter
+   */
+  CombosPainter combos_painter;
+
 
   /**
    * Progress Bar

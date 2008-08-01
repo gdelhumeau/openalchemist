@@ -1,6 +1,9 @@
+<!--
+	In this file, you can describe all sprites you want to add in the first layer (in front of all pieces elements)
+-->
 <resources>
 
-	<!-- Front Layer : could needs more GPU ressources -->
+	<!-- Main section -->
 	<section name="frontlayer">
 		<integer name = "number_of_sprites" value = "4" />
 

@@ -40,6 +40,8 @@ Player::Player()
   key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
   key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
   key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
+
+  combo = 0;
 }
 
 Player::~Player()
@@ -85,6 +87,8 @@ void Player::new_game()
   board.score = 0;
   board.bonus_score = 0;
   board.calc_score();
+
+  combo = 0;
   
   // Applying skin
   int value;
@@ -193,6 +197,9 @@ void Player::load_gfx(std::string skin)
   // Loading gfx for progress bar
   progress_bar.load_gfx(skin);
 
+  // Loading gfx for combos painter
+  combos_painter.load_gfx(skin);
+
 }
 
 void Player::unload_gfx()
@@ -274,6 +281,14 @@ void Player::draw()
     current_piece1 -> draw();
     current_piece2 -> draw();
   }
+
+  // Drawing combo
+  if(combo > 1)
+  {
+    combos_painter.set_score(combo - 1);
+  }
+  
+  combos_painter.draw();
 }
 
 void Player::events()
@@ -391,6 +406,7 @@ void Player::update()
   {
     update_destroying();
   }
+  combos_painter.update();
 }
 
 void Player::update_playing()
@@ -452,7 +468,6 @@ void Player::fall()
   static CommonResources *resources = common_resources_get_instance();
 
   falling_requested = false;
-  combo = 0;
 
   undo_possible = true;  
   undo_position = position;
@@ -512,12 +527,12 @@ void Player::update_falling_and_creating()
     
     combo ++;
     
-    // Only the second time
-    if(combo == 2 && board.is_game_over())
+    // Only the second time - an old limitation
+    /*if(combo == 2 && board.is_game_over())
     {
       resources -> engine -> set_state_gameover();
       return;
-    }
+      }*/
      
     bool to_destroy = board.detect_pieces_to_destroy();
 
@@ -565,6 +580,7 @@ void Player::update_destroying()
 
 void Player::prepare_to_play()
 {
+  combo = 0;
   if(next_next_piece1 >= 0)
   {
     next_piece1 -> set_piece_number(next_next_piece1);
