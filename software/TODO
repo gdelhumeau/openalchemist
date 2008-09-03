@@ -12,10 +12,12 @@ TODO for 0.3
 - press return to start ?
 - selecteur de skin au (premier?) lancement?
 - le jeu ne devrait pas recharger les graphs quand on selectionne le thème en cours d'utilisation
+- revoir l'organisation des xml et des dossiers (comme le gameover par exemple)
+
 
 TODO for 0.4
 ------------
 
 - Sounds & music
-
+- une touche d'aide, press H for help? --> liste des commandes, etc?
 
