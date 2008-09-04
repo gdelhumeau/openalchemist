@@ -661,6 +661,8 @@ void Player::undo()
     angle = undo_angle;
     target_angle = (int)undo_angle;
 
+    combo = 0;
+
     game_mode = GAME_MODE_PLAYING;
 
   }
