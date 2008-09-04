@@ -126,7 +126,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   if(y_bottom == -1 && board[piece_bottom_x][0])
   {
     calc_score();
-    resources -> engine -> set_state_gameover(MODE_GAMEOVER);
+     resources -> engine -> set_state_gameover(MODE_GAMEOVER);
   }
   else
   {
@@ -434,6 +434,7 @@ bool Board::is_game_over()
           game_mode = GAME_MODE_NEW_HIGHTSCORE;
           save_scores();
           }*/
+	calc_score();
         return true;
       }
     }
