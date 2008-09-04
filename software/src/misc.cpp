@@ -39,7 +39,10 @@ std::string get_save_path()
 #ifdef PORTABLE_APP
   return CL_System::get_exe_path() + "\\savedata";
 #else
-  return ((std::string)getenv("APPDATA")) + "\\OpenAlchemist";
+	if(getenv("APPDATA") != NULL)
+	  return ((std::string)getenv("APPDATA")) + "\\OpenAlchemist";
+	else
+		return CL_System::get_exe_path() + "\\savedata";
 #endif
 #else
   return ((std::string)getenv("HOME")) + get_path_separator() + ".openalchemist";

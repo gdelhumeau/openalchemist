@@ -554,7 +554,7 @@ void Player::update_falling_and_creating()
           resources -> save_scores();
         }
         else
-          resources -> engine -> set_state_gameover();
+          resources -> engine -> set_state_gameover(MODE_GAMEOVER);
         return;
       }
       prepare_to_play();

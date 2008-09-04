@@ -147,8 +147,10 @@ void GameEngine::set_state_ingame()
 }
 
 
-void GameEngine::set_state_gameover()
+void GameEngine::set_state_gameover(int mode)
 {
+  gameover_state.set_mode(mode);
+  gameover_state.start();
   states_stack.push(&gameover_state);
 }
 

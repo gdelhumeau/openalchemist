@@ -17,6 +17,12 @@
 #include "GameState.h"
 #include "../KeyboardKey.h"
 
+#define MODE_GAMEOVER 1
+#define MODE_HIGHSCORE 2
+
+#define SELECTION_YES 1
+#define SELECTION_NO 2
+
 class GameEngine;
 
 
@@ -27,9 +33,20 @@ class GameOverState : public GameState{
 
   private:
 
-  CL_Surface * panel;
-  int panel_x, panel_y;
-  int score_x, score_y;
+  CL_Sprite * dialog, * dialog_gameover, * dialog_highscore;
+  int dialog_x, dialog_y;
+  int score1_x;
+  int score1_y;
+  int score2_x;
+  int score2_y;
+
+  CL_Sprite * yes_selected, *yes_unselected;
+  CL_Sprite * no_selected, *no_unselected;
+  int yes_x, yes_y;
+  int no_x, no_y;
+
+  int mode;
+  int selection;
 
   public:
   void init();
@@ -41,6 +58,9 @@ class GameOverState : public GameState{
   void events();
 
   bool front_layer_behind();
+
+  void set_mode(int mode);
+  void start();
 
   GameOverState();
   ~GameOverState();

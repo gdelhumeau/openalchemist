@@ -1,10 +1,10 @@
 TODO for 0.3
 ------------
 
-- menu game over
+- menu Game Over // New high score
 	-> Your score
-	-> Best score // ou alors New high score!
-	-> Do you want to retry?
+	-> Best score // older best score
+	-> Do you want to retry? -> yes - no
 - Bug de chargement de menu
 - Compter la dernière pièce ajoutée sur le plateau
 - Disparition des pièces (celles qu'on fait tourner) après trip dans les menus

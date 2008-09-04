@@ -97,7 +97,7 @@ class GameEngine{
   void set_state_new_game_menu();
   void set_state_pause_menu();
   void set_state_ingame();
-  void set_state_gameover();
+  void set_state_gameover(int mode);
   void set_state_highscore();
   void set_state_options_menu();
   void set_state_skin_menu();
