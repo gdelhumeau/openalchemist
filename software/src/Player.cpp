@@ -586,7 +586,7 @@ void Player::prepare_to_play()
   if(combo > 1)
   {
     u_int delta_score = board.score - board.undo_score; 
-    u_int combo_bonus = (u_int)(((double)combo / 3.0 )* (double)delta_score / 3.0);
+    u_int combo_bonus = combo * delta_score / 10;
     board.bonus_score += combo_bonus;
     board.undo_bonus_score += combo_bonus;
   }
