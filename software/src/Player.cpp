@@ -548,7 +548,7 @@ void Player::update_falling_and_creating()
         resources -> engine -> set_skin_element(board.visible_pieces);
         if(board.score + board.bonus_score > resources -> highscore)
         {
-          resources -> engine -> set_state_highscore();
+          resources -> engine -> set_state_gameover(MODE_HIGHSCORE);
 	  resources -> old_highscore = resources -> highscore;
           resources -> highscore = board.score + board.bonus_score;
           resources -> save_scores();

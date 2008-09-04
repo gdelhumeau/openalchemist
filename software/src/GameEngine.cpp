@@ -154,10 +154,10 @@ void GameEngine::set_state_gameover(int mode)
   states_stack.push(&gameover_state);
 }
 
-void GameEngine::set_state_highscore()
+/*void GameEngine::set_state_highscore()
 {
   states_stack.push(&highscore_state);
-}
+  }*/
 
 
 void GameEngine::set_state_options_menu()
