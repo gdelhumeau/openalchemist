@@ -47,7 +47,6 @@ void GameEngine::init()
   common_state.init();
   ingame_state.init();
   gameover_state.init();
-  highscore_state.init();
   pausemenu_state.init();
   skinsmenu_state.init();
   optionsmenu_state.init();
@@ -251,8 +250,6 @@ void GameEngine::set_skin(std::string skin)
     ingame_state.load_gfx(pref -> skin);
 
     gameover_state.load_gfx(pref -> skin);
-
-    highscore_state.load_gfx(pref -> skin);
 
     pausemenu_state.load_gfx(pref -> skin);
 

@@ -20,8 +20,8 @@
 #define MODE_GAMEOVER 1
 #define MODE_HIGHSCORE 2
 
-#define SELECTION_YES 1
-#define SELECTION_NO 2
+#define GAMEOVER_SELECTION_YES 1
+#define GAMEOVER_SELECTION_NO 2
 
 class GameEngine;
 

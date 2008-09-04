@@ -17,7 +17,7 @@
 void GameOverState::init()
 {
   GameState::init();
-  selection = SELECTION_YES;
+  selection = GAMEOVER_SELECTION_YES;
 }
 
 void GameOverState::deinit()
@@ -130,7 +130,7 @@ void GameOverState::draw()
     common_resources -> main_font -> draw(score2_real_x, score2_y, highscore);
   }
 
-  if(selection == SELECTION_YES)
+  if(selection == GAMEOVER_SELECTION_YES)
   {
     yes_selected -> draw(yes_x, yes_y);
     no_unselected  -> draw(no_x, no_y);
@@ -152,7 +152,7 @@ void GameOverState::events()
   if(common_resources -> key.enter -> get())
   {
 
-    if(selection == SELECTION_YES)
+    if(selection == GAMEOVER_SELECTION_YES)
     {
       common_resources -> engine -> stop_current_state();
       common_resources -> engine -> set_state_ingame();
@@ -180,7 +180,9 @@ void GameOverState::events()
 
   if(common_resources -> key.escape -> get() || common_resources ->key.pause->get())
   {
-    common_resources -> engine -> set_state_pause_menu();
+    common_resources -> engine -> stop_current_state();
+    common_resources -> engine -> set_state_title();
+//    common_resources -> engine -> set_state_pause_menu();
   }
 
   if(common_resources->key.skins -> get())
@@ -190,12 +192,12 @@ void GameOverState::events()
 
   if(common_resources -> key.left -> get())
   {
-    selection = SELECTION_YES;
+    selection = GAMEOVER_SELECTION_YES;
   }
 
   if(common_resources -> key.right -> get())
   {
-    selection = SELECTION_NO;
+    selection = GAMEOVER_SELECTION_NO;
   }
 
 
@@ -222,7 +224,7 @@ void GameOverState::set_mode(int mode)
 
 void GameOverState::start()
 {
-  selection = SELECTION_YES;
+  selection = GAMEOVER_SELECTION_YES;
 }
 
 GameOverState::GameOverState()
