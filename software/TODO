@@ -14,6 +14,9 @@ TODO for 0.3
 - le jeu ne devrait pas recharger les graphs quand on selectionne le thème en cours d'utilisation
 - revoir l'organisation des xml et des dossiers (comme le gameover par exemple)
 
+bugs:
+-Dans la démo: La jauge devient verte comme si on battait un score quand la pièce se transforme.
+-J'ai eu un problème de thème bloqué alors qu'il n'aurait pas dû après une partie
 
 TODO for 0.4
 ------------
