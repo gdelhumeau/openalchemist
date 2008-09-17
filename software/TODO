@@ -1,18 +1,10 @@
 TODO for 0.3
 ------------
 
-- menu Game Over // New high score
-	-> Your score
-	-> Best score // older best score
-	-> Do you want to retry? -> yes - no
-- Bug de chargement de menu
-- Compter la dernière pièce ajoutée sur le plateau
 - Disparition des pièces (celles qu'on fait tourner) après trip dans les menus
 - screen refresh syncrhonisation -> ?
 - press return to start ?
 - selecteur de skin au (premier?) lancement?
-- le jeu ne devrait pas recharger les graphs quand on selectionne le thème en cours d'utilisation
-- revoir l'organisation des xml et des dossiers (comme le gameover par exemple)
 
 bugs:
 -Dans la démo: La jauge devient verte comme si on battait un score quand la pièce se transforme.

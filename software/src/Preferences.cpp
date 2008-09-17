@@ -168,8 +168,8 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
 
 void Preferences::set_default()
 {
-  render_opengl = false;
-  maxfps = 60;
+  render_opengl = true;
+  maxfps = 65;
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
