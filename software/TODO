@@ -1,14 +1,14 @@
 TODO for 0.3
 ------------
 
-- Disparition des pièces (celles qu'on fait tourner) après trip dans les menus
-- screen refresh syncrhonisation -> ?
-- press return to start ?
-- selecteur de skin au (premier?) lancement?
+- Disparition des pièces (celles qu'on fait tourner) après trip dans les menus -> jamais reproduit
+- screen refresh syncrhonisation -> ? pour le moment, je met 65 fps par défaut
+- press return to start ? -> "space" est indiqué
+- selecteur de skin au (premier?) lancement? - je ne suis pas pour...
 
 bugs:
--Dans la démo: La jauge devient verte comme si on battait un score quand la pièce se transforme.
--J'ai eu un problème de thème bloqué alors qu'il n'aurait pas dû après une partie
+-Dans la démo: La jauge devient verte comme si on battait un score quand la pièce se transforme. -> Reglé
+-J'ai eu un problème de thème bloqué alors qu'il n'aurait pas dû après une partie -> les skins ne se débloquent que si on va jusqu'au bout de la partie
 
 TODO for 0.4
 ------------
