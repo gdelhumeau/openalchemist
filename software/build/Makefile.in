@@ -48,10 +48,9 @@ am_openalchemist_OBJECTS = Application.$(OBJEXT) Preferences.$(OBJEXT) \
 	CommonState.$(OBJEXT) misc.$(OBJEXT) CommonResources.$(OBJEXT) \
 	Player.$(OBJEXT) HumanPlayer.$(OBJEXT) DemoPlayer.$(OBJEXT) \
 	Board.$(OBJEXT) InGameState.$(OBJEXT) GameOverState.$(OBJEXT) \
-	ProgressBar.$(OBJEXT) HighScoreState.$(OBJEXT) \
-	FrontLayer.$(OBJEXT) PauseMenuState.$(OBJEXT) \
-	SkinsMenuState.$(OBJEXT) Keys.$(OBJEXT) \
-	OptionsMenuState.$(OBJEXT) TitleState.$(OBJEXT) \
+	ProgressBar.$(OBJEXT) FrontLayer.$(OBJEXT) \
+	PauseMenuState.$(OBJEXT) SkinsMenuState.$(OBJEXT) \
+	Keys.$(OBJEXT) OptionsMenuState.$(OBJEXT) TitleState.$(OBJEXT) \
 	QuitMenuState.$(OBJEXT) CombosPainter.$(OBJEXT)
 openalchemist_OBJECTS = $(am_openalchemist_OBJECTS)
 openalchemist_LDADD = $(LDADD)
@@ -169,8 +168,8 @@ openalchemist_SOURCES = ../src/Application.cpp ../src/Preferences.cpp \
 	../src/misc.cpp ../src/CommonResources.cpp ../src/Player.cpp \
 	../src/HumanPlayer.cpp ../src/DemoPlayer.cpp ../src/Board.cpp \
 	../src/states/InGameState.cpp ../src/states/GameOverState.cpp \
-	../src/ProgressBar.cpp ../src/states/HighScoreState.cpp \
-	../src/FrontLayer.cpp ../src/states/PauseMenuState.cpp \
+	../src/ProgressBar.cpp ../src/FrontLayer.cpp \
+	../src/states/PauseMenuState.cpp \
 	../src/states/SkinsMenuState.cpp ../src/Keys.cpp \
 	../src/states/OptionsMenuState.cpp \
 	../src/states/TitleState.cpp ../src/states/QuitMenuState.cpp \
@@ -179,13 +178,12 @@ openalchemist_SOURCES = ../src/Application.cpp ../src/Preferences.cpp \
 	../src/misc.h ../src/CommonResources.h ../src/Player.h \
 	../src/HumanPlayer.h ../src/DemoPlayer.h ../src/Board.h \
 	../src/states/InGameState.h ../src/states/GameOverState.h \
-	../src/ProgressBar.h ../src/states/HighScoreState.h \
-	../src/FrontLayer.h ../src/states/PauseMenuState.h \
-	../src/states/SkinsMenuState.h ../src/Keys.h \
-	../src/states/OptionsMenuState.h ../src/states/TitleState.h \
-	../src/states/QuitMenuState.h ../src/Coords.h \
-	../src/KeyboardKey.h ../src/Piece.h ../src/CombosPainter.h \
-	../src/CombosPainter.cpp
+	../src/ProgressBar.h ../src/FrontLayer.h \
+	../src/states/PauseMenuState.h ../src/states/SkinsMenuState.h \
+	../src/Keys.h ../src/states/OptionsMenuState.h \
+	../src/states/TitleState.h ../src/states/QuitMenuState.h \
+	../src/Coords.h ../src/KeyboardKey.h ../src/Piece.h \
+	../src/CombosPainter.h ../src/CombosPainter.cpp
 AM_CXXFLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8` -DDATA_DIR="\"$(datadir)/openalchemist\""
 AM_LDFLAGS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
 all: all-am
@@ -264,7 +262,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameEngine.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameOverState.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GameState.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HighScoreState.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HumanPlayer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/InGameState.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/IniFile.Po@am__quote@
@@ -502,20 +499,6 @@ ProgressBar.obj: ../src/ProgressBar.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/ProgressBar.cpp' object='ProgressBar.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ProgressBar.obj `if test -f '../src/ProgressBar.cpp'; then $(CYGPATH_W) '../src/ProgressBar.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/ProgressBar.cpp'; fi`
-
-HighScoreState.o: ../src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HighScoreState.o -MD -MP -MF $(DEPDIR)/HighScoreState.Tpo -c -o HighScoreState.o `test -f '../src/states/HighScoreState.cpp' || echo '$(srcdir)/'`../src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HighScoreState.Tpo $(DEPDIR)/HighScoreState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/states/HighScoreState.cpp' object='HighScoreState.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HighScoreState.o `test -f '../src/states/HighScoreState.cpp' || echo '$(srcdir)/'`../src/states/HighScoreState.cpp
-
-HighScoreState.obj: ../src/states/HighScoreState.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT HighScoreState.obj -MD -MP -MF $(DEPDIR)/HighScoreState.Tpo -c -o HighScoreState.obj `if test -f '../src/states/HighScoreState.cpp'; then $(CYGPATH_W) '../src/states/HighScoreState.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/states/HighScoreState.cpp'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/HighScoreState.Tpo $(DEPDIR)/HighScoreState.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../src/states/HighScoreState.cpp' object='HighScoreState.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o HighScoreState.obj `if test -f '../src/states/HighScoreState.cpp'; then $(CYGPATH_W) '../src/states/HighScoreState.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/states/HighScoreState.cpp'; fi`
 
 FrontLayer.o: ../src/FrontLayer.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FrontLayer.o -MD -MP -MF $(DEPDIR)/FrontLayer.Tpo -c -o FrontLayer.o `test -f '../src/FrontLayer.cpp' || echo '$(srcdir)/'`../src/FrontLayer.cpp
