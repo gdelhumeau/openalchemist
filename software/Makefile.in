@@ -171,7 +171,7 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = build
-dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE
+dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 CLEANFILES = skins/*.zip
 all: all-recursive
 

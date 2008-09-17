@@ -1,6 +1,6 @@
 SUBDIRS = build
 
-dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE
+dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 
 all : skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 	@echo "-----------------------------------------"
