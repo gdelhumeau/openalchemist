@@ -35,13 +35,13 @@
 			
 				<sprite name="unselected">
 					<image file="dialogs/gameover/yes-unselected.png">
-						<grid pos="0,0" size="100,50" />
+						<grid pos="0,0" size="100,100" />
 					</image>
 				</sprite>
 				
 				<sprite name="selected">
 					<image file="dialogs/gameover/yes-selected.png">
-						<grid pos="0,0" size="100,50" />
+						<grid pos="0,0" size="100,100" />
 					</image>
 				</sprite>
 				
@@ -55,13 +55,13 @@
 			
 				<sprite name="unselected">
 					<image file="dialogs/gameover/no-unselected.png">
-						<grid pos="0,0" size="100,50" />
+						<grid pos="0,0" size="100,100" />
 					</image>
 				</sprite>
 				
 				<sprite name="selected">
 					<image file="dialogs/gameover/no-selected.png">
-						<grid pos="0,0" size="100,50" />
+						<grid pos="0,0" size="100,100" />
 					</image>
 				</sprite>
 				
