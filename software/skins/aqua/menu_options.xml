@@ -15,7 +15,7 @@
 		<!-- Sprite for the background -->
 		<sprite name="dialog_background">
 			<image file="dialogs/options/background.png">
-				<grid pos="0,0" size="447,449" />
+				<grid pos="0,0" size="463,454" />
 			</image>
 		</sprite>
 		
