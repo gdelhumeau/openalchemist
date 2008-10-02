@@ -50,6 +50,21 @@
 		<!-- If we can't use a skin because we have to unlock pieces first -->
 		<surface name = "logo_unavailable" file = "dialogs/skins/logo-unavailable.png"/>
 		
+		<!-- Coords for displaying skins viewer -->
+		<section name="skins-preview-coords">
+			<integer name = "top" value = "150" />
+			<integer name = "left" value = "120" />
+			<integer name = "width" value = "250" />
+			<integer name = "height" value = "200" />
+		</section>
+		
+		<section name="cursor-coords">
+			<integer name = "top" value = "140" />
+			<integer name = "left" value = "150" />
+			<integer name = "width" value = "250" />
+			<integer name = "height" value = "200" />
+		</section>
+		
 	</section>
 	
 	

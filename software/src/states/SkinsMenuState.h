@@ -123,6 +123,22 @@ class SkinsMenuState : public GameState{
   int y_start;
 
   /**
+   * Skins preview coords
+   */
+  int skins_preview_x;
+  int skins_preview_y;
+  int skins_preview_width;
+  int skins_preview_height;
+
+  /**
+   * Skins preview cursor coords
+   */
+  int cursor_x;
+  int cursor_y;
+  int cursor_width;
+  int cursor_height;
+
+  /**
    * Skins skins list (read in the .openalchemist/skins file) 
    */
   std::vector<Skin*> skins_list;

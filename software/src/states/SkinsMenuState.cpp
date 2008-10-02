@@ -47,7 +47,7 @@ void SkinsMenuState::init()
 	// We load the logo sprite in the gfx ressources file
 	CL_ResourceManager gfx("gfx.xml", new CL_Zip_Archive(sp -> filename), true);
 	sp -> logo = new CL_Surface("logo", &gfx);
-	skins_list.insert(skins_list.end(), sp);
+	skins_list.insert(skins_list.begin(), sp);
       }
       catch(CL_Error e)
       {
@@ -99,7 +99,7 @@ void SkinsMenuState::init()
             sp -> logo = logo;
             skins_list.insert(skins_list.end(), sp);
           }
-               
+
         }
         catch(CL_Error e)
         {
@@ -194,6 +194,17 @@ void SkinsMenuState::load_gfx(std::string skin)
   arrow_up = new CL_Sprite("menu_skins/arrow_up/sprite", &gfx);
   arrow_up_left = CL_Integer_to_int("menu_skins/arrow_up/left", &gfx);
   arrow_up_top = CL_Integer_to_int("menu_skins/arrow_up/top", &gfx);
+
+  skins_preview_x = CL_Integer_to_int("menu_skins/skins-preview-coords/left", &gfx);
+  skins_preview_y = CL_Integer_to_int("menu_skins/skins-preview-coords/top", &gfx);
+  skins_preview_width = CL_Integer_to_int("menu_skins/skins-preview-coords/width", &gfx);
+  skins_preview_height = CL_Integer_to_int("menu_skins/skins-preview-coords/height", &gfx);
+
+  cursor_x      = CL_Integer_to_int("menu_skins/cursor-coords/left", &gfx);
+  cursor_y      = CL_Integer_to_int("menu_skins/cursor-coords/top", &gfx);
+  cursor_width  = CL_Integer_to_int("menu_skins/cursor-coords/width", &gfx);
+  cursor_height = CL_Integer_to_int("menu_skins/cursor-coords/height", &gfx);
+ 
   
 }
 
@@ -208,8 +219,6 @@ void SkinsMenuState::draw()
   int y = 300 - background -> get_height()/2;
   background -> draw(x,y);
 
-  y+=150;
-
   // Drawing logo skins
   for(int i=0; i<2; ++i)
     for(int j=0; j<2 && j+y_start<number_y; ++j)
@@ -217,17 +226,20 @@ void SkinsMenuState::draw()
       if(skins_board[i][j+y_start])
       { 
         if(skins_board[i][j] -> logo)
-          skins_board[i][j+y_start] -> logo -> draw(x+i*250, y+j*190);
+          skins_board[i][j+y_start] -> logo -> draw(skins_preview_x+i*skins_preview_width,
+						    skins_preview_y+j*skins_preview_height);
 
         // If the skin is not available, we draw logo_unavailable
         if(common_resources -> skin != skins_board[i][j+y_start] -> filename
            && skins_board[i][j] -> element < (u_int) common_resources->player1.get_visible_pieces())
-          logo_unavailable -> draw(x+i*250, y+j*190);
+          logo_unavailable -> draw(skins_preview_x+i*skins_preview_width,
+						    skins_preview_y+j*skins_preview_height);
       }
     }
 
   // Drawing the cursor
-  cursor -> draw(x+selection_x*250+30, y+(selection_y-y_start)*190-10);
+  cursor -> draw(cursor_x+selection_x*cursor_width, 
+		 cursor_y+(selection_y-y_start)*cursor_height);
 
   // Drawig arrows, if needed
   if(y_start + 2 < number_y)
