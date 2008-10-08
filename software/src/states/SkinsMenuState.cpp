@@ -30,7 +30,7 @@ void SkinsMenuState::init()
 // Fist we load Skin propreties saved in the conf file
 
   std::string path = get_save_path();
-  std::string file_path = path + get_path_separator() + "skins";
+  std::string file_path = path + get_path_separator() + "skins-" + get_version();
 
   skins_list.clear();
   try
@@ -159,7 +159,7 @@ void SkinsMenuState::init()
 void SkinsMenuState::deinit()
 {
   // Saving progression skin file
-  std::string file_path = get_save_path() + get_path_separator() + "skins";
+  std::string file_path = get_save_path() + get_path_separator() + "skins-" + get_version();
 
   try
   {

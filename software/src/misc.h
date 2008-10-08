@@ -19,6 +19,11 @@
 #include <ClanLib/core.h>
 
 /**
+ * This function return the current version name
+ */
+std::string get_version();
+
+/**
  * This function return a factor to calcul moving with time
  */
 inline double get_time_interval(int fps)

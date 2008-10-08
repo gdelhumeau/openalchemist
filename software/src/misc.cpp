@@ -12,6 +12,14 @@
 #include "misc.h"
 
 /**
+ * This function return the current version name
+ */
+std::string get_version()
+{
+  return "trunk";
+}
+
+/**
  * Convert a CL_Integer to a int
  */
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)

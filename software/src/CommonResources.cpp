@@ -79,7 +79,7 @@ void CommonResources::read_scores()
 
   try
   {
-    CL_InputSource_File file(path+get_path_separator()+"hightscores");
+    CL_InputSource_File file(path+get_path_separator()+"hightscores-"+get_version());
 
     file.open();
     highscore = file.read_uint32();
@@ -99,9 +99,9 @@ void CommonResources::save_scores()
   try
   {
 #ifdef WIN32
-    CL_OutputSource_File file(path+"\\hightscores");
+    CL_OutputSource_File file(path+"\\hightscores-"+get_version());
 #else
-    CL_OutputSource_File file(path+"/hightscores");
+    CL_OutputSource_File file(path+"/hightscores-"+get_version());
 #endif
     
     file.open();
