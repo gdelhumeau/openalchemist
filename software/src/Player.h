@@ -144,12 +144,12 @@ class Player{
   /**
    * 
    */
-  int pieces_progress_x[NUMBER_OF_PIECES];
+  int pieces_preview_x[NUMBER_OF_PIECES];
 
   /**
    *
    */
-  int pieces_progress_y[NUMBER_OF_PIECES];
+  int pieces_preview_y[NUMBER_OF_PIECES];
 
   /**
    * Board game

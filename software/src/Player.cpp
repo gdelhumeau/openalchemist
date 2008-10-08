@@ -119,7 +119,8 @@ void Player::load_gfx(std::string skin)
   // Getting skins resources
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
-  CL_ResourceManager gfx("gfx.xml", &zip, false);
+  CL_ResourceManager gfx_preview_pieces("pieces_preview.xml", &zip, false);
+  CL_ResourceManager gfx("general.xml", &zip, false);
 
   // Getting preferences (to know if colorbling is activated)
   Preferences *pref = pref_get_instance();
@@ -136,15 +137,17 @@ void Player::load_gfx(std::string skin)
     pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
     
     if(pref -> colorblind)
-      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little_color_blind", &gfx_pieces);
+      pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
     else
-      pieces_mini[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/little", &gfx_pieces); 
+      pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces); 
 
-    pieces_progress_x[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress_left", &gfx_pieces);
-    pieces_progress_y[i-1] = CL_Integer_to_int("pieces/piece_"+to_string(i)+"/progress_top", &gfx_pieces);
+    pieces_preview_x[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left", &gfx_preview_pieces);
+    pieces_preview_y[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top", &gfx_preview_pieces);
 
     if(i>3)
-      pieces_hidden[i-4] = new CL_Sprite("pieces/piece_"+to_string(i)+"/hidder", &gfx_pieces);
+    {
+      pieces_hidden[i-4] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
+    }
   }
 
   // Getting sprites position
@@ -241,9 +244,9 @@ void Player::draw()
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
     if(i >= board.visible_pieces)
-      pieces_hidden[i-3] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+      pieces_hidden[i-3] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
     else
-      pieces_mini[i] -> draw(pieces_progress_x[i], pieces_progress_y[i], 0);
+      pieces_mini[i] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
   }
 
   // Drawing board
@@ -529,7 +532,7 @@ void Player::update_falling_and_creating()
     
     // Only the second time - an old limitation
     /*if(combo == 2 && board.is_game_over())
-    {
+      {
       resources -> engine -> set_state_gameover();
       return;
       }*/
@@ -690,7 +693,7 @@ bool Player::is_game_over()
 
 void Player::give_up()
 {
- // Getting resources
+  // Getting resources
   static CommonResources *resources = common_resources_get_instance();
   resources -> engine -> set_skin_element(board.visible_pieces);
   board.clear();

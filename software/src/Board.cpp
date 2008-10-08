@@ -50,9 +50,9 @@ void Board::apply_skin(CL_Sprite** pieces_normal, CL_Sprite** pieces_appearing, 
     {
       if(board[i][j])
       {
-        int value = board[i][j] -> get_piece_number();
+	int value = board[i][j] -> get_piece_number();
         board[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                   pieces_disappearing[value], pieces_mini[value]);
+				   pieces_disappearing[value], pieces_mini[value]);
       }
     }
 }

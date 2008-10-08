@@ -30,7 +30,7 @@ void ProgressBar::load_gfx(std::string skin)
 {
   // Getting skins resources
   CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("gfx.xml", &zip, false);
+  CL_ResourceManager gfx("progress_bar.xml", &zip, false);
 
 
   head     = new CL_Sprite("progress_bar/head/sprite",    &gfx);

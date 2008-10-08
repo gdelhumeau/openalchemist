@@ -54,21 +54,7 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece1/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece1/little-cb.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "60" />
-			
+				
 		</section>
 		
 		
@@ -118,20 +104,6 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece2/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece2/little-cb.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "105" />
 			
 		</section>
 		
@@ -183,20 +155,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece3/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece3/little-cb.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "150" />
-			
 		</section>
 		
 		
@@ -247,24 +205,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece4/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece4/little-cb.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece4/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "195" />
-			
 		</section>
 		
 		
@@ -314,24 +254,7 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece5/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece5/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece5/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "240" />
+				
 			
 		</section>
 		
@@ -383,24 +306,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece6/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece6/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece6/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "285" />
-			
 		</section>
 		
 		
@@ -450,24 +355,6 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece7/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece7/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece7/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "330" />
 			
 		</section>
 		
@@ -519,24 +406,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece8/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece8/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece8/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "375" />
-			
 		</section>
 		
 		
@@ -586,24 +455,6 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece9/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece9/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece9/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "420" />
 			
 		</section>
 		
@@ -655,24 +506,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece10/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece10/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece10/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "465" />
-			
 		</section>
 		
 		
@@ -723,24 +556,6 @@
 				<animation speed="50" />
 			</sprite>
 			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece11/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece11/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece11/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "510" />
-			
 		</section>
 		
 		
@@ -790,24 +605,6 @@
 				
 				<animation speed="50" />
 			</sprite>
-			
-			<!-- Little sprite, that you see in the next step or in the preview -->
-			<sprite name = "little">
-				<image file = "piece12/little.png" />
-			</sprite>
-			
-			<!-- Little sprite, but for color blind -->
-			<sprite name = "little_color_blind">
-				<image file = "piece5/little.png" />
-			</sprite>
-			
-			<sprite name= "hidder">
-				<image file ="piece12/hidder.png" />
-			</sprite>
-			
-			<!-- Coords of the sprite in the preview area -->
-			<integer name = "progress_left" value = "17" />
-			<integer name = "progress_top" value = "555" />
 			
 		</section>
 		

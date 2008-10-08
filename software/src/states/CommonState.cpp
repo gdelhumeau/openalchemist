@@ -44,7 +44,7 @@ void CommonState::deinit()
 void CommonState::load_gfx(std::string skin)
 {
   CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("gfx.xml",&zip, false);
+  CL_ResourceManager gfx("general.xml",&zip, false);
 
   background = new CL_Surface("background", &gfx);
 }
