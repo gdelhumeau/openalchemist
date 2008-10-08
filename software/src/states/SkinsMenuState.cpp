@@ -47,7 +47,7 @@ void SkinsMenuState::init()
 	// We load the logo sprite in the gfx ressources file
 	CL_ResourceManager gfx("general.xml", new CL_Zip_Archive(sp -> filename), true);
 	sp -> logo = new CL_Surface("logo", &gfx);
-	skins_list.insert(skins_list.begin(), sp);
+	skins_list.insert(skins_list.end(), sp);
       }
       catch(CL_Error e)
       {
@@ -65,7 +65,7 @@ void SkinsMenuState::init()
     std::cout << "Error while reading " << file_path << " file, probably doesn't exist yet." << std::endl;
   }
 
-// The, we scan the current ./skins folder
+// Then, we scan the current ./skins folder
   std::string dir = get_skins_path() + get_path_separator();
 
   CL_DirectoryScanner scanner;
@@ -109,6 +109,18 @@ void SkinsMenuState::init()
 
     }
   }
+
+  // Sorting skin list by alphabetical order (bubble sort)
+  for(u_int i=0; i<skins_list.size(); ++i)
+    for(u_int j=i+1; j<skins_list.size(); ++j)
+    {
+      if(skins_list[i]->filename.compare(skins_list[j]->filename)>0)
+      {
+	Skin * sk = skins_list[i];
+	skins_list[i] = skins_list[j];
+	skins_list[j] = sk;
+      }
+    }
 
   // Calculating the lines number needed for the board
   number_y = skins_list.size() / 2;
