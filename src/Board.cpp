@@ -76,6 +76,7 @@ void Board::draw()
   resources -> main_font -> draw(score_left, score_top, str_score);
   resources -> main_font -> draw(bonus_left, bonus_top, str_bonus);
   resources -> main_font -> draw(hightscore_left, hightscore_top, str_hightscore);
+
 }
 
 void Board::add_pieces(Piece* piece1, Piece* piece2)
