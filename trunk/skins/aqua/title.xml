@@ -97,8 +97,8 @@
 				<sprite name = "sentence">
 					<image file="dialogs/title/sentences/01.png" />
 				</sprite>
-				<integer name = "top"  value = "150"  />
-				<integer name = "left" value = "190"   />
+				<integer name = "top"  value = "250"  />
+				<integer name = "left" value = "170"   />
 				<integer name = "time" value = "5000" />
 			</section>
 			

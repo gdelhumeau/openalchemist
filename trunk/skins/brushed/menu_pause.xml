@@ -29,7 +29,7 @@
 			</sprite>
 			
 			<integer name="top" value="100" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 		</section>
 		
 		<!-- Undo item -->
@@ -45,7 +45,7 @@
 			</sprite>
 			
 			<integer name="top" value="150" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 			
 		</section>
 		
@@ -61,7 +61,7 @@
 			</sprite>
 			
 			<integer name="top" value="200" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 			
 		</section>
 		
@@ -77,7 +77,7 @@
 			</sprite>
 			
 			<integer name="top" value="250" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 			
 		</section>
 		
@@ -94,7 +94,7 @@
 			</sprite>
 			
 			<integer name="top" value="300" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 			
 		</section>
 		
@@ -110,7 +110,7 @@
 			</sprite>
 			
 			<integer name="top" value="350" />
-			<integer name="left" value="100" />
+			<integer name="left" value="80" />
 			
 		</section>
 		

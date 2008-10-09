@@ -10,7 +10,8 @@ bugs:
 -Dans la démo: La jauge devient verte comme si on battait un score quand la pièce se transforme. -> Reglé
 -J'ai eu un problème de thème bloqué alors qu'il n'aurait pas dû après une partie -> les skins ne se débloquent que si on va jusqu'au bout de la partie // j'avais été au bout de la partie, mais le bug c'est pas reproduit depuis.
 -dans la démo: score hallucinant après la disparition des pièces
--disparition des pièces
+-disparition des pièces en haut
+-augmentation puis diminution de la jauge lorsqu'on fait disparaitre le dernier élément
 
 
 TODO for 0.4
