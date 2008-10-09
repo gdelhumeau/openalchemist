@@ -15,7 +15,7 @@
 	
 	<!-- Coords for score displaying -->
 	<integer name = "score_top" value = "50" />
-	<integer name = "score_right" value = "50" />
+	<integer name = "score_right" value = "170" />
 	<integer name = "bonus_score_top" value = "50" />
 	<integer name = "bonus_score_right" value ="750" />
 	<integer name = "hight_score_top" value = "250" />
