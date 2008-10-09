@@ -6,7 +6,7 @@
 <!-- Progress Bar - show how far as best score you are ! -->
 	<section name="progress_bar">
 		<!-- Left coordinate -->
-		<integer name="left" value="669" />
+		<integer name="left" value="675" />
 		
 		<!-- Head element -->
 		<section name = "head">
