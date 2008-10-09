@@ -19,7 +19,7 @@
 			</sprite>
 						
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "60" />
 			
 		</section>
@@ -39,7 +39,7 @@
 			
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "105" />
 			
 		</section>
@@ -59,7 +59,7 @@
 			
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "150" />
 			
 		</section>
@@ -83,7 +83,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "195" />
 			
 		</section>
@@ -108,7 +108,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "240" />
 			
 		</section>
@@ -132,7 +132,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "285" />
 			
 		</section>
@@ -157,7 +157,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "330" />
 			
 		</section>
@@ -181,7 +181,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "375" />
 			
 		</section>
@@ -205,7 +205,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "420" />
 			
 		</section>
@@ -229,7 +229,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "465" />
 			
 		</section>
@@ -254,7 +254,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "510" />
 			
 		</section>
@@ -278,7 +278,7 @@
 			</sprite>
 			
 			<!-- Coords of the sprite in the preview area -->
-			<integer name = "left" value = "40" />
+			<integer name = "left" value = "20" />
 			<integer name = "top" value = "555" />
 			
 		</section>
