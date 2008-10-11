@@ -6,7 +6,7 @@ Declare initComponents()
 Declare readConf()
 
 ; ------------
-;- Constantes
+;- Globales
 ; ------------
 Global running = 1
 
@@ -110,9 +110,8 @@ EndProcedure
 
 
 ; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 75
-; FirstLine = 67
+; CursorPosition = 8
 ; Folding = -
 ; EnableXP
-; Executable = C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\config.exe
+; Executable = C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\Config.exe
 ; DisableDebugger

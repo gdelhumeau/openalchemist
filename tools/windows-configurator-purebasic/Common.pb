@@ -37,3 +37,8 @@ Procedure Open_MainWindow()
   EndIf
 EndProcedure
 
+
+; IDE Options = PureBasic 4.20 (Windows - x86)
+; Folding = -
+; EnableXP
+; Executable = C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\onfig.exe
