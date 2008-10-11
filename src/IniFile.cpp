@@ -54,7 +54,7 @@ void IniFile::read(CL_InputSource_File *file)
 
     if(line.length() >1)
     {
-      int separator = line.find(" : ", 0);
+      int separator = line.find(" = ", 0);
       if(separator)
       {
         e -> name = line.substr(0, separator);
@@ -77,7 +77,7 @@ void IniFile::write(CL_OutputSource_File *file)
     while(it != list.end())
     {
       IniElement *e = (IniElement*)*it;
-      std::string line = e -> name + " : " + e -> value;
+      std::string line = e -> name + " = " + e -> value;
       write_ln(file, line);
       it++;
     }
