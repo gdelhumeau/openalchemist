@@ -85,7 +85,7 @@ std::string get_data_path()
 
 std::string get_path_separator()
 {
-#ifdef WIN_32
+#ifdef WIN32
   return "\\";
 #else
   return "/";
