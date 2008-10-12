@@ -17,7 +17,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece1/normal-cb.png" />
 			</sprite>
 			
@@ -67,7 +67,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece2/normal-cb.png" />
 			</sprite>
 			
@@ -117,7 +117,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece3/normal-cb.png" />
 			</sprite>
 			
@@ -167,7 +167,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece4/normal-cb.png" />
 			</sprite>
 			
@@ -217,7 +217,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece5/normal.png" />
 			</sprite>
 			
@@ -268,7 +268,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece6/normal.png" />
 			</sprite>
 			
@@ -318,7 +318,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece7/normal.png" />
 			</sprite>
 			
@@ -368,7 +368,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece8/normal.png" />
 			</sprite>
 			
@@ -418,7 +418,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece9/normal.png" />
 			</sprite>
 			
@@ -468,7 +468,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece10/normal.png" />
 			</sprite>
 			
@@ -518,7 +518,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece11/normal.png" />
 			</sprite>
 			
@@ -568,7 +568,7 @@
 			</sprite>
 			
 			<!-- Color Blind sprite -->
-			<sprite name = "normal-color-blind">
+			<sprite name = "normal_color_blind">
 				<image file = "piece12/normal.png" />
 			</sprite>
 			
