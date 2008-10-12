@@ -16,7 +16,7 @@
  */
 std::string get_version()
 {
-  return "trunk";
+  return "0.3";
 }
 
 /**
