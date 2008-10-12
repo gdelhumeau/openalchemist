@@ -31,8 +31,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\OpenAlchemist.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\Config.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\data\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\skins\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\skins\*"; DestDir: "{app}\skins"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
