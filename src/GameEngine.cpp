@@ -270,7 +270,7 @@ void GameEngine::set_skin(std::string skin)
   {
     std::cout << "Skin error : " << err.message << std::endl;
     std::cout << "Error in : " << skin << std::endl;
-    if(old_skin == skin)
+    if(old_skin.compare(skin))
     {
       std::cout << "Now loading default skin." << std::endl;
       skin = get_skins_path() + get_path_separator() + "aqua.zip";
@@ -278,8 +278,7 @@ void GameEngine::set_skin(std::string skin)
     }
     else
     {
-      std::cout << "Now reloading current skin." << std::endl;
-      set_skin(old_skin);
+      throw err;
     }
   }
 }
