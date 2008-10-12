@@ -36,7 +36,7 @@ Preferences::Preferences()
 void Preferences::read()
 {
   std::string options_path = get_save_path();
-  std::string options_file = get_save_path() + get_path_separator() + "preferences.ini";
+  std::string options_file = get_save_path() + get_path_separator() + "preferences"+get_version()+".ini";
   set_default();
 
   try
@@ -96,7 +96,7 @@ void Preferences::write()
 {
 
   std::string options_path = get_save_path();
-  std::string options_file = options_path + get_path_separator() + "preferences.ini";
+  std::string options_file = options_path + get_path_separator() + "preferences"+get_version()+".ini";
 
   try
   {
