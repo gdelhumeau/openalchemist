@@ -115,11 +115,11 @@ class App:
 			options = options + " --cb"
 		else:
 			options = options + " --nocb"
-			options = options + " --maxfps " + self.window.txt_fps.get_text()
-			if os.path.exists("./openalchemist"):
-				os.system("./openalchemist" + options)                 
-			else:
-				os.system("openalchemist" + options)                
+		options = options + " --maxfps " + self.window.txt_fps.get_text()
+		if os.path.exists("./openalchemist"):
+			os.system("./openalchemist" + options)                 
+		else:
+			os.system("openalchemist" + options)                
                 
 
 app = App()
