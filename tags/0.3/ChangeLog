@@ -1,0 +1,66 @@
+* 0.3 * - soon
+- Refactoring complet
+- Nouveau theme vectoriel
+- Ajout du menu option
+- Ajout du menu "êtes-vous sûr de vouloir quitter ?"
+- Corrections de bugs
+- Ajout des autotools
+- Record supprimé si on annule pendant le HighScoreState
+- Ajout des combos
+- Skin Aqua redessiné
+
+* 0.2 * - 15/08/2006
+
+#52 : Ajout du changement de skin temporaire (F9) et début de stockage des options dans un fichier
+#53 : Un raté
+#54 : Ajout des premières pièces du second theme
+#59 : Ajout de l'enregistrement des hight scores
+#60 : Hight scores compatible avec le thème "temp"
+#63 : Affichage d'un dialogue quand on bat un record.
+#67 : Premier menu pause
+#68 : Les items du  menu pause peuvent maintenant être animés
+#69 : Apparition avec alpha blending du menu pause (uniquement avec OpenGL)
+#70 : Correction d'un oublie: ajout du fichier pause.cpp, + affichage progressif avec les éléments du menu (cf 69)
+#72 et 73 : Je vire les zip du dépôt, il se feront maintenant via la commande make (valable seulement pour aqua pour le moment)
+#74 : Disparition de temp.zip, le theme est logé à la même enseigne
+#76 : Refonte du stockage des préférences
+#77 : Remplacement de _WINDOWS_ par WIN32
+#80 : Corrections de problèmes pour windows : (/ au lieu de \ dans les URL... sacré billou...)
+#84 : Ajout des items de volume sonore dans le menu
+#97 : AJout des lanceurs run-sdl.bat et run-opengl.bat pour windows
+#102 : Première version de la progress-bar
+#103 : Undo corrigé (prend en compte les pièces débloquées)
+#104 : Aperçu des pieces revu (plus présent dans le landscape.png)
+#107 : Meilleure version de la progress-bar (plus jolie mais moins modulable)
+#108 : Correction du système de points qui était mal pensé
+#114 : Ajout du skin-selector
+#146 : Quand la dernière pièce est détruite, tout va en bonus
+#151 : Eclatement du fichier gfx.xml
+#155 : Amélioration du selecteur de skins (paramétrage via XML + sauvegarde du theme)
+#161 : Meilleur affichage des scores (avec séparation des milliers)
+#163 : La touche entrer quitte le mode game over
+#169 : Changement de \n par std::endl dans main.cpp, changement des scores (arrondis), petites optimisations
+#171 : On fixe des scores
+
+
+
+* 0.1 * - 27/06/2006
+
+#10 : Correction du bug carré blanc
+#11 : Affichage progressif des pieces (avec leur score)
+#12 : Affichage progressif repensé car le premier était mal foutu
+#13 : English revision (corrections de log dans le README)
+#14 : Ajout de nouvelles anims (pièces 1 et 2)
+#15 : Idem
+#16 : Ajout du répertoire tools et début de programmation de l'outil AnimViewer
+#17 : Ajout des animations des 9 premières pièces
+#37 : Première version utilisable de l'anim-viewer
+#40 : Changement d'angle revu
+#42 : Changement d'angle corrigé smile
+#43 : Changement du délai entre les appuis de touche
+#46 : Début de la doc Doxygen (Doxyfile)
+#48 : Annulation du dernier coup
+#49 : Juste une petite maj d'aqua.zip
+#50 : Jeu plus rapide, démarrage au milieuVersion 0.1
+----------
+
