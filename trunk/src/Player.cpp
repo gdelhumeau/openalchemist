@@ -22,7 +22,7 @@
 #include "GameEngine.h"
 
 #define TO_RAD PI/180
-#define PIECE_MOVING_SPEED 0.25
+#define PIECE_MOVING_SPEED 0.3
 
 Player::Player()
 {
