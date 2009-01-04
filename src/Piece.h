@@ -16,7 +16,7 @@
 
 #include <ClanLib/display.h>
 
-#define PIECE_SPEED 0.5
+#define PIECE_SPEED 0.7
 
 class Piece
 {

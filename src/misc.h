@@ -28,9 +28,25 @@ std::string get_version();
  */
 inline double get_time_interval(int fps)
 {
-  
-  if(!fps)return 0;
-  return 1000.0/((double)fps);
+	static unsigned int last_time = 0;
+
+	unsigned int delta_time = CL_System::get_time() - last_time;
+
+	last_time += delta_time;
+
+	if(fps == 0)
+	{
+		return delta_time;
+	}
+
+	double fps_normal_time = 1000.0/((double)fps);
+
+	if(delta_time > fps_normal_time * 1.1 || delta_time < fps_normal_time * 0.9)
+	{
+		return delta_time;
+	}	
+	
+	return fps_normal_time;
   
 }
 

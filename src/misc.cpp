@@ -16,7 +16,7 @@
  */
 std::string get_version()
 {
-  return "0.3";
+  return "svn";
 }
 
 /**

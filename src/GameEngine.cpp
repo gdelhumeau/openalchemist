@@ -206,6 +206,14 @@ void GameEngine::toggle_screen()
 {
   Preferences *pref = pref_get_instance();
   pref -> fullscreen = !pref -> fullscreen;
+  
+  std::vector<CL_DisplayMode>& v = CL_DisplayMode::get_display_modes();
+  for(u_int i=0; i<v.size(); ++i)
+  {
+	std::cout << v[i].get_string()<< std::endl;
+  }
+
+  
   if(pref -> fullscreen)
   {
     window->set_fullscreen(800,600,0,0);
