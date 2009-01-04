@@ -57,6 +57,11 @@ class Board{
    */
   std::list<Coords*> list_to_create;
 
+	/**
+	 * List of explorated pieces during "pieces to destroy" exploration
+	 */
+	bool board_mark[NUMBER_OF_COLS][NUMBER_OF_LINES];
+
   public:
 
   /**
@@ -159,6 +164,36 @@ class Board{
    */
   bool detect_pieces_to_destroy();
 
+	private:
+
+	/**
+	 * Detect pieces to destroy from (x,y) coords
+	 */
+	void detect_pieces_to_destroy_from(int x, int y);
+	
+	/**
+	 * Function called when pieces to destoyes are detected
+	 */
+	void pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces);
+
+	/**
+	 * Funcion called when we want to create a new piece from thoses
+	 * we have destroyed
+	 */
+	void create_new_piece(std::vector<Coords*> &detected_pieces);	
+
+	/**
+	 * Choose the new piece coords
+	 */
+	void choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces);	
+
+	/**
+	 * Check if we have unlocked a piece with the new one
+	 */
+	void unlock_piece(Coords &new_piece);
+
+	public:
+
   /**
    * Destroying pieces
    * @return true if pieces are deleted
@@ -175,6 +210,7 @@ class Board{
    * Detecting pieces which have to fall
    */
   void detect_pieces_to_fall();
+
 
   /**
    * Detecting if pieces are upside the limit, so if game is over

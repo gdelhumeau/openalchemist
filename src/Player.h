@@ -232,7 +232,45 @@ class Player{
   /**
    * Checking key events
    */
-  void events();
+  void events();    
+  
+  /**
+   * Draw player (board and playable pieces)
+   */
+  void draw();
+  
+  /**
+   * Make a new party
+   */
+  void new_game();
+  
+  /**
+   * Update playable pieces and board
+   */
+  void update();  
+  
+  /**
+   * Get score
+   */
+  u_int get_score();  
+
+  /**
+   * Returning if undo is available
+   */
+  bool is_undo_available();
+  
+  /**
+   * Undoing last action
+   */
+  void undo();  
+
+  bool is_game_over();
+  void give_up();  
+
+  /**
+   *
+   */
+  int get_visible_pieces();
 
   /**
    * Change angle of playable pieces
@@ -248,21 +286,15 @@ class Player{
    * Move playable pieces to the right
    */
   void move_right();
-
+  
+  
   /**
-   * Make a new party
+   * Fall playable pieces
    */
-  void new_game();
+  void fall();
 
-  /**
-   * Draw player (board and playable pieces)
-   */
-  void draw();
-
-  /**
-   * Update playable pieces and board
-   */
-  void update();
+  
+  protected:
 
   /**
    * Update when game_mode = playing
@@ -280,38 +312,10 @@ class Player{
   void update_destroying();
 
   /**
-   * Fall playable pieces
-   */
-  void fall();
-
-  /**
    * Prepare game to play (after a fall)
    */
   void prepare_to_play();
 
-  /**
-   * Undoing last action
-   */
-  void undo();
-
-  /**
-   * Returning if undo is available
-   */
-  bool is_undo_available();
-
-  /**
-   *
-   */
-  int get_visible_pieces();
-
-  /**
-   * Get score
-   */
-  u_int get_score();
-
-  bool is_game_over();
-
-  void give_up();
 
 };
 
