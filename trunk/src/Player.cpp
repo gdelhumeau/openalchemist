@@ -22,7 +22,8 @@
 #include "GameEngine.h"
 
 #define TO_RAD PI/180
-#define PIECE_MOVING_SPEED 0.3
+#define PIECE_MOVING_SPEED 0.4
+#define PIECE_ROTATION_SPEED 0.45
 
 Player::Player()
 {
@@ -419,7 +420,7 @@ void Player::update_playing()
   // Move the pieces if the order has been changed      
   if(angle<target_angle)
   {
-    angle += resources->time_interval * 0.35;
+    angle += resources->time_interval * PIECE_ROTATION_SPEED;
     if(angle>=target_angle)
     {
       while(target_angle>=360)
