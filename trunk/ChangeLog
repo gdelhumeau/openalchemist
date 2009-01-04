@@ -1,4 +1,10 @@
-* 0.3 * - soon
+* 0.4 * - under development
+#451 : Ajout du mode 16:9 wide screen (uniquement disponible avec OpenGL)
+#451 : Ajout du fichier .desktop
+#450 : Split de la fonction Board::detect_to_destroy();
+#449 : Amélioration de la synchronisation (le jeu va à la même vitesse partout)
+
+* 0.3 * - 12/10/2008
 - Refactoring complet
 - Nouveau theme vectoriel
 - Ajout du menu option
@@ -8,6 +14,7 @@
 - Record supprimé si on annule pendant le HighScoreState
 - Ajout des combos
 - Skin Aqua redessiné
+- Fond du skin Brushed redessiné
 
 * 0.2 * - 15/08/2006
 
@@ -61,6 +68,7 @@
 #46 : Début de la doc Doxygen (Doxyfile)
 #48 : Annulation du dernier coup
 #49 : Juste une petite maj d'aqua.zip
-#50 : Jeu plus rapide, démarrage au milieuVersion 0.1
+#50 : Jeu plus rapide, démarrage au milieu
 ----------
 
+#xxx = numéro du commit svn
