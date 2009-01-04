@@ -207,22 +207,27 @@ void GameEngine::toggle_screen()
   Preferences *pref = pref_get_instance();
   pref -> fullscreen = !pref -> fullscreen;
   
-  std::vector<CL_DisplayMode>& v = CL_DisplayMode::get_display_modes();
-  for(u_int i=0; i<v.size(); ++i)
-  {
-	std::cout << v[i].get_string()<< std::endl;
-  }
-
-  
   if(pref -> fullscreen)
   {
     window->set_fullscreen(800,600,0,0);
     CL_Mouse::hide();
+		
+		if(pref -> widescreen && opengl)
+		{
+			CL_GraphicContext *gc = window -> get_gc();
+			gc -> set_scale(0.83, 1.0);
+			gc -> add_translate(80, 0, 0);					
+		}
   }
   else
   {
     window->set_windowed();
     CL_Mouse::show();
+		
+		CL_GraphicContext *gc = window -> get_gc();
+		gc -> set_scale(1.0, 1.0);
+		gc -> set_translate(0, 0, 0);
+	
   }
   
   pref -> write();
@@ -236,6 +241,12 @@ int GameEngine::get_fps()
 bool GameEngine::is_opengl_used()
 {
   return opengl;
+}
+
+bool GameEngine::is_fullscreen()
+{
+	Preferences *pref = pref_get_instance();
+	return pref -> fullscreen;
 }
 
 void GameEngine::set_skin(std::string skin)

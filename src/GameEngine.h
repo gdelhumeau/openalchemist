@@ -120,6 +120,8 @@ class GameEngine{
    */
   bool is_opengl_used();
 
+	bool is_fullscreen();
+
   void set_skin(std::string skin);
 
   void set_skin_element(u_int element);

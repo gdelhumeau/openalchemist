@@ -3,7 +3,7 @@
 
 # Configuration tool (0.3 version)
 # ===============
-# Copyright (C) 2006, 2008 Guillaume Delhumeau
+# Copyright (C) 2006, 2008, 2009 Guillaume Delhumeau
 #                                                                             
 # This program is free software; you can redistribute it and/or               
 # modify it under the terms of the GNU General Public License                 
@@ -19,13 +19,13 @@
 # along with this program; if not, write to the Free Software                 
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. 
 #                                                                             
-# Contact me: kephO.O [_at_] gmail [_dot_] com 
+# Contact me: guillaume.delhumeau [_at_] gmail [_dot_] com 
 
 # This program needs Python(http://www.python.org) of course, GTK+(http://www.gtk.org) and PyGTK 2.6 (http://www.pygtk.org).
 
 import gtk, os, sys, struct, ConfigParser
 
-OPENALCHEMIST_VERSION = "0.3"
+OPENALCHEMIST_VERSION = "svn"
 
 class App:
 	def __init__(self):
@@ -48,6 +48,10 @@ class App:
 				self.window.rbt_sdl.set_active(True)
 			if ini.get("Preferences", "Colorblind")=="True":
 				self.window.cb_colorblind.set_active(True)
+			if ini.get("Preferences", "Widescreen")=="True":
+				self.window.cb_widescreen.set_active(True)
+			else:
+				self.window.cb_widescreen.set_active(False)
 		except:
 			print "Error while reading ini file"
           
@@ -69,10 +73,10 @@ class App:
 		self.window.render_box = gtk.VBox(homogeneous = True, spacing = 0)
 		self.window.render_box.set_border_width(10)
 		self.window.render_frame.add(self.window.render_box)
-		self.window.rbt_sdl = gtk.RadioButton(label="SDL")
-		self.window.render_box.pack_start(self.window.rbt_sdl, fill=False, expand=False)
-		self.window.rbt_opengl = gtk.RadioButton(label="OpenGL", group=self.window.rbt_sdl)
+		self.window.rbt_opengl = gtk.RadioButton(label="OpenGL")
 		self.window.render_box.pack_start(self.window.rbt_opengl, fill=False, expand=False)
+		self.window.rbt_sdl = gtk.RadioButton(label="SDL", group=self.window.rbt_opengl)
+		self.window.render_box.pack_start(self.window.rbt_sdl, fill=False, expand=False)
 
 		self.window.fps_frame = gtk.Frame("Limit framerate to :")
 		self.window.mainbox.pack_start(self.window.fps_frame, fill=False, expand=False)
@@ -88,18 +92,27 @@ class App:
 		self.window.options_box = gtk.VBox()
 		self.window.options_box.set_border_width(10)
 		self.window.options_frame.add(self.window.options_box)
+		self.window.cb_widescreen = gtk.CheckButton(label="Active 16:9 wide screen mode")
+		self.window.options_box.pack_start(self.window.cb_widescreen, fill=False, expand=False)
 		self.window.cb_colorblind = gtk.CheckButton(label="Active color blind mode")
 		self.window.options_box.pack_start(self.window.cb_colorblind, fill=False, expand=False)
                
 		self.window.bt_start = gtk.Button("Run game")
 		self.window.mainbox.pack_start(self.window.bt_start, fill=False, expand=False)
 		self.window.bt_start.connect("clicked", self._event_ok)
-
+		
+		self.check_resolution()
 
 		# Show the window and start the main loop.
 		self.window.set_position(gtk.WIN_POS_CENTER)
 		self.window.show_all()
-
+		
+	def check_resolution(self):
+		ratio = 0.0 + gtk.gdk.screen_width() / (0.0 + gtk.gdk.screen_height())
+		if 16.0 / 9.0 * 1.2 > ratio and 16.0 / 9.0 * 0.8 < ratio:
+			self.window.cb_widescreen.set_active(True)
+		else:
+			self.window.cb_widescreen.set_active(False)
                 
 	def _event_quit(self,  event):
 		gtk.main_quit()
@@ -115,6 +128,10 @@ class App:
 			options = options + " --cb"
 		else:
 			options = options + " --nocb"
+		if self.window.cb_widescreen.get_active():
+			options = options + " --wide"
+		else:
+			options = options + " --nowide"
 		options = options + " --maxfps " + self.window.txt_fps.get_text()
 		if os.path.exists("./openalchemist"):
 			os.system("./openalchemist" + options)                 

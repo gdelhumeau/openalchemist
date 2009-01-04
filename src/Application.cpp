@@ -17,6 +17,7 @@
 
 #include "Preferences.h"
 #include "GameEngine.h"
+#include "misc.h"
 
 #define RENDER_SDL false
 #define RENDER_OPENGL true
@@ -57,10 +58,18 @@ public:
       window = new CL_DisplayWindow("OpenAlchemist",800,600);
 
       
-      Preferences *pref = pref_get_instance();
-      if(pref -> fullscreen)
-      window -> set_fullscreen(800,600,0,0);
-
+			Preferences *pref = pref_get_instance();
+			if(pref -> fullscreen)
+			{
+				window -> set_fullscreen(800,600,0,0);
+				if(pref -> widescreen && RENDER_OPENGL == render)
+				{
+					CL_GraphicContext *gc = window -> get_gc();
+					gc -> set_scale(0.83, 1.0);
+					gc -> add_translate(80, 0, 0);					
+				}
+			}
+			
       // Add a callback when user close the window
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
@@ -171,6 +180,16 @@ public:
           pref -> write();
          
         }
+				if(strcmp(argv[i], "--wide")==0)
+        {
+          pref -> widescreen = true;
+          pref -> write();         
+        }
+				if(strcmp(argv[i], "--nowide")==0)
+        {
+          pref -> widescreen = false;
+          pref -> write();         
+        }
         
         
       }
@@ -203,16 +222,18 @@ public:
    */
   void help()
     {
-      std::cout << "OpenAlchemist v0.3 -- Help" << std::endl
+      std::cout << "OpenAlchemist " << get_version() << " -- Help" << std::endl
                 << "Usage: openalchemist [OPTIONS]"  << std::endl  << std::endl
                 << "Options:"  << std::endl
-                << "\t--cb : Active colorblind mode"  << std::endl
-                << "\t--help : Show this message"  << std::endl
-                << "\t--license : Show the license of this program"  << std::endl
+                << "\t--cb       : Active colorblind mode"  << std::endl
+                << "\t--help     : Show this message"  << std::endl
+                << "\t--license  : Show the license of this program"  << std::endl
                 << "\t--maxfps X : Limit framerate to X"  << std::endl   
-                << "\t--nocb : Unactive colorblind mode"  << std::endl
-                << "\t--opengl : Use OpenGL as render target" << std::endl
-                << "\t--sdl : Use SDL as render target (default)" << std::endl
+                << "\t--nocb     : Disable colorblind mode"  << std::endl
+								<< "\t--nowide   : Disable 16:9 wide screen mode"  << std::endl
+                << "\t--opengl   : Use OpenGL as render target (default)" << std::endl
+                << "\t--sdl      : Use SDL as render target" << std::endl
+                << "\t--wide     : Special mode for 16:9 wide screen (only supported with OpenGL)" << std::endl
         ;
     }
 
@@ -221,8 +242,8 @@ public:
    */
   void license()
     {
-      std::cout << " * OpenAlchemist v0.3 -- License\n" << std::endl
-                << " * Copyright (C) 2006 Guillaume Delhumeau <guillaume.delhumeau at laposte.net>" << std::endl 
+      std::cout << " * OpenAlchemist "<< get_version() << " -- License\n" << std::endl
+                << " * Copyright (C) 2006,2009 Guillaume Delhumeau <guillaume.delhumeau at gmail.com>" << std::endl 
                 << " *"  << std::endl
                 << " * This program is free software; you can redistribute it and/or modify " << std::endl
                 << " * it under the terms of the GNU General Public License as published by" << std::endl

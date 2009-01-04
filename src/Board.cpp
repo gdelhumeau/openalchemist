@@ -43,7 +43,10 @@ void Board::clear()
 
 }
 
-void Board::apply_skin(CL_Sprite** pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini)
+void Board::apply_skin(CL_Sprite** pieces_normal,
+											 CL_Sprite** pieces_appearing,
+											 CL_Sprite** pieces_disappearing,
+											 CL_Sprite** pieces_mini)
 {
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
@@ -392,7 +395,9 @@ bool Board::destroy()
   return end;
 }
 
-void Board::create_new_pieces(CL_Sprite **pieces_normal, CL_Sprite **pieces_appearing, CL_Sprite **pieces_disappearing,
+void Board::create_new_pieces(CL_Sprite **pieces_normal,
+															CL_Sprite **pieces_appearing,
+															CL_Sprite **pieces_disappearing,
                               CL_Sprite **pieces_mini)
 {
   // Getting resources
@@ -473,7 +478,7 @@ bool Board::is_game_over()
           game_mode = GAME_MODE_NEW_HIGHTSCORE;
           save_scores();
           }*/
-	calc_score();
+				calc_score();
         return true;
       }
     }
@@ -511,7 +516,10 @@ void Board::calc_score()
   hightscore_left = hightscore_right - hightscore_width;
 }
 
-void Board::undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini)
+void Board::undo(CL_Sprite **pieces_normal,
+								 CL_Sprite** pieces_appearing,
+								 CL_Sprite** pieces_disappearing,
+								 CL_Sprite** pieces_mini)
 {
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();

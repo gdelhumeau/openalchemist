@@ -122,6 +122,7 @@ void Preferences::read_options_file(CL_InputSource_File *file)
   
     render_opengl = ini.get("OpenGL", render_opengl);
     fullscreen = ini.get("Fullscreen", fullscreen);
+		widescreen = ini.get("Widescreen", widescreen);
     sound_level = ini.get("Sound Level", sound_level);
     music_level = ini.get("Music Level", music_level);
     maxfps = ini.get("MaxFPS", maxfps);
@@ -155,6 +156,7 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
   ini.clear();
   ini.add("OpenGL", render_opengl);
   ini.add("Fullscreen", fullscreen);
+	ini.add("Widescreen", widescreen);
   ini.add("Sound Level", sound_level);
   ini.add("Music Level", music_level);
   ini.add("MaxFPS", maxfps);
@@ -173,6 +175,7 @@ void Preferences::set_default()
   sound_level = 10;
   music_level = 10;
   fullscreen = false;
+	widescreen = false;
   colorblind = false;
   skin = get_skins_path() + get_path_separator() + "aqua.zip";
 }

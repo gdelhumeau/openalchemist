@@ -17,6 +17,7 @@
 #include "../CommonResources.h"
 #include "../KeyboardKey.h"
 #include "../misc.h"
+#include "../Preferences.h"
 
 CommonState::CommonState()
 {

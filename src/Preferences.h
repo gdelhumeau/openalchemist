@@ -41,6 +41,9 @@ class Preferences
   /** Saves if user wants to use blind-mode */
   bool colorblind;
 
+	/** Saves if user have a wide screen */
+	bool widescreen;
+
   /** Saves the last skin used */
   std::string skin;
 
