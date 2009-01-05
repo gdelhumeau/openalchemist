@@ -111,10 +111,6 @@ void GameEngine::run()
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
     CL_System::keep_alive();
-		
-		//resize(window -> get_width(), window -> get_height());
-
-
   }
 }
 
@@ -219,7 +215,7 @@ void GameEngine::stop_current_state()
 
 void GameEngine::toggle_screen()
 {
-  Preferences *pref = pref_get_instance();
+  /*Preferences *pref = pref_get_instance();
   pref -> fullscreen = !pref -> fullscreen;
   
   if(pref -> fullscreen)
@@ -245,7 +241,26 @@ void GameEngine::toggle_screen()
 	
   }
   
-  pref -> write();
+  pref -> write();*/
+	
+	if(window -> get_width() == 800)
+	{
+		
+		window -> set_size(640, 480);
+		CL_GraphicContext *gc = window -> get_gc();				
+		double scale_width = 640 / 800.0;
+		double scale_height= 480 / 600.0;
+		gc -> set_scale(scale_width, scale_height);	
+		gc -> add_translate(0, 150, 0);		
+	}
+	else
+	{
+		window -> set_size(800, 600);
+		CL_GraphicContext *gc = window -> get_gc();				
+		gc -> set_scale(1.0, 1.0);	
+	}
+				
+	
 }
 
 /**
