@@ -57,6 +57,8 @@ class TitleState : public GameState{
 
   bool new_game, fall, change_angle, select_the_position;
 
+	CL_Font * font;
+
   public:
   void init();
   void deinit();

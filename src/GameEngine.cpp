@@ -37,7 +37,7 @@ void GameEngine::init()
   std::string file_path = get_data_path();
   CL_Surface loading(file_path+get_path_separator()+"loading.png");
 
-	for(int i=0; i<10; ++i)
+	for(int i=0; i<100; ++i)
 	{
 		CL_Display::clear(CL_Color(0, 0, 0));	
 		loading.draw(400-loading.get_width()/2, 300-loading.get_height()/2);
