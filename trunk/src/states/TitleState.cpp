@@ -119,6 +119,7 @@ void TitleState::unload_gfx()
 
 void TitleState::draw()
 {
+	
   sentences[step] -> draw (sentences_x[step], sentences_y[step]);
 
   start_message -> draw(start_message_x,start_message_y);

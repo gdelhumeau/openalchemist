@@ -51,8 +51,8 @@ public:
       if(RENDER_OPENGL == render)
       {
         CL_SetupGL::init();
-				window = new CL_DisplayWindow("OpenAlchemist",320,240, false, true, 2);
-				window -> set_size(800,600);	
+				window = new CL_DisplayWindow("OpenAlchemist",800,600, false, true, 2);
+				//window -> set_size(800,600);	
 				CL_System::keep_alive();
 			}
       else
