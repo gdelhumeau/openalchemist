@@ -110,6 +110,11 @@ class GameEngine{
    */
   void toggle_screen();
 
+	/**
+	 * Called when the window is resized by the user
+   */
+	void resize(int width, int height);
+
   /**
    * Returning Frame Rate
    */

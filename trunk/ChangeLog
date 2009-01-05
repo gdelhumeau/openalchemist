@@ -1,4 +1,5 @@
 * 0.4 * - under development
+#457 : On peut désormais redimmensionner la fenêtre (si OpenGL)
 #455 : Ajout d'un nouveau système de menu (en interne, MenuState.h)
 #451 : Ajout du mode 16:9 wide screen (uniquement disponible avec OpenGL)
 #451 : Ajout du fichier .desktop

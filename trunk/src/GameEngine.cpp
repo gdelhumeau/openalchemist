@@ -100,11 +100,7 @@ void GameEngine::run()
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
     CL_System::keep_alive();
-		
-		CL_GraphicContext *gc = window -> get_gc();
-		double scale_width = (double) window -> get_width() / 800.0;
-		double scale_height = (double) window -> get_height() / 600.0;
-		gc -> set_scale(scale_width, scale_height);
+
 
   }
 }
@@ -238,6 +234,69 @@ void GameEngine::toggle_screen()
   
   pref -> write();
 }
+
+/**
+ * Called when user resize the window
+ */
+void GameEngine::resize(int width, int height)
+{
+	//static int old_width = 0;
+	//static int old_height = 0;		
+	
+	if(!window -> is_fullscreen())
+	{
+		CL_GraphicContext *gc = window -> get_gc();				
+		
+		double ratio = (double) width / (double) height;			
+		
+		/*if(old_width != width || old_height != height)
+		{			
+			old_width = width;
+			old_height = height;			
+						
+			if(ratio > 800.0 / 600.0 * 1.01)
+			{
+				width = height * 1.33;
+				window -> set_size(width, height);
+			}
+			else if (ratio < 800.0 / 600.0 * 0.99)
+			{
+				height = width * 0.75;
+				window -> set_size(width, height);
+			}
+			
+			double scale_width = width / 800.0;
+			double scale_height= height / 600.0;
+			gc -> set_scale(scale_width, scale_height);
+		}
+		else*/
+		{
+			
+			if(ratio > 800.0 / 600.0 * 1.01)
+			{
+				double n_width = height * 1.333333;
+				int dx = (width - n_width) / 2;
+				double scale_width = n_width / 800.0;
+				double scale_height= height / 600.0;
+				gc -> set_scale(scale_width, scale_height);	
+				gc -> add_translate(dx, 0, 0);			
+				
+			}
+			else if (ratio < 800.0 / 600.0 * 0.99)
+			{
+				double n_height = width * 0.75;
+				int dy = (height - n_height) / 2;
+				double scale_width = width / 800.0;
+				double scale_height= n_height / 600.0;
+				gc -> set_scale(scale_width, scale_height);	
+				gc -> add_translate(0, dy, 0);
+			} 
+			
+		}
+		
+	}
+}
+
 
 int GameEngine::get_fps()
 {
