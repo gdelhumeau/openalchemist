@@ -33,6 +33,8 @@ public:
   CL_DisplayWindow *window;
   /** Used to have a callback event when user close the window */
   CL_Slot quit_event;
+	/** Used to have a callback event when user resize the window */
+	CL_Slot resize_event;
   /** Rendering used - OpenGL or SDL */
   bool render;  
 
@@ -49,18 +51,14 @@ public:
       if(RENDER_OPENGL == render)
       {
         CL_SetupGL::init();
+				window = new CL_DisplayWindow("OpenAlchemist",320,240, false, true, 2);
+				window -> set_size(800,600);
       }
       else
       {
         CL_SetupSDL::init();
+				window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
       }
-
-      window = new CL_DisplayWindow("OpenAlchemist",640,480, false, true, 2);
-			
-		
-				CL_GraphicContext *gc = window -> get_gc();
-				gc -> set_scale(0.8, 0.8);
-			
       
 			Preferences *pref = pref_get_instance();
 			if(pref -> fullscreen)
@@ -76,9 +74,13 @@ public:
 			
       // Add a callback when user close the window
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
-
+			
       game = new GameEngine(window, render);
       game -> init();
+			
+			// Add a callback when user resize the window
+			resize_event = window -> sig_resize().connect(game, &GameEngine::resize);	
+
   
     }
 
@@ -88,7 +90,7 @@ public:
   void stop()
     {
       game -> stop();
-    }
+    }	
 
   /**
    * Quit the application
@@ -263,6 +265,7 @@ public:
                 << " * along with this program; if not, write to the Free Software" << std::endl
                 << " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA." <<std::endl
                 << " *" << std::endl << std::endl;
-    }
+		}	
+	
 
 } app;
