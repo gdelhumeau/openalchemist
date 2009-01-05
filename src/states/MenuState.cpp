@@ -22,6 +22,7 @@
 
 MenuState::MenuState()
 {
+	selection = 0;
 }
 
 bool MenuState::front_layer_behind()
@@ -50,6 +51,11 @@ void MenuState::unload_gfx()
 }
 
 void MenuState::action_performed(int selection)
+{
+	std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+}
+
+void MenuState::update_child()
 {
 	std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
@@ -88,6 +94,7 @@ void MenuState::update()
     disappear();
     break;
   }
+	this -> update_child();
 }
 
 void MenuState::events()
@@ -95,8 +102,14 @@ void MenuState::events()
 	// Leaving the state
 	if(common_resources -> key.escape->get() || common_resources -> key.pause->get())
   {   
- 	  step = STEP_DISAPPEARING;
+ 		start_disappear();
     selection = -1;
+  }
+	
+	// Key ENTER
+  if(common_resources -> key.enter -> get())
+  {    
+    start_disappear();
   }
 	
 	// Key UP
@@ -151,7 +164,18 @@ void MenuState::events()
 void MenuState::start()
 {
 	selection = 0;
+	// All items are not selected
+	std::vector<MenuItem*>::iterator it = items.begin();
+	while(it != items.end())
+	{
+		MenuItem *item = (MenuItem*) *it;
+		item -> set_selected(false);
+		++it;
+	}
+	// Except the selection
 	items[selection] -> set_selected(true);
+	
+	// Now, begining appearing
   if(common_resources -> engine -> is_opengl_used())
   {
     step = STEP_APPEARING;
@@ -207,10 +231,18 @@ void MenuState::disappear()
 		++it;
 	}
 	
-	// Now perfom child action or leaving the state
-	if(selection == -1)
-		common_resources -> engine -> stop_current_state();
-	else
-		this -> action_performed(selection);
+	if(alpha <= 0)
+	{		
+		// Now perfom child action or leaving the state
+		if(selection == -1)
+			common_resources -> engine -> stop_current_state();
+		else
+			this -> action_performed(selection);
+	}
+}
+
+void MenuState::start_disappear()
+{
+	step = STEP_DISAPPEARING;
 }
 
