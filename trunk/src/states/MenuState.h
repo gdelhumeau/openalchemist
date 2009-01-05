@@ -38,6 +38,8 @@ class MenuState : public GameState{
   
   void appear();
   void disappear();
+  
+  void start_disappear();
 
   public:
   virtual void init();
@@ -45,6 +47,7 @@ class MenuState : public GameState{
   virtual void load_gfx(std::string skin);
   virtual void unload_gfx();
   virtual void action_performed(int selection);
+  virtual void update_child();
   void draw();
   void update();
   void events();

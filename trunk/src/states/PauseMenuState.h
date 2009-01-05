@@ -29,6 +29,9 @@ class PauseMenuState : public MenuState{
  	BasicItem resume_item;
 	BasicItem undo_item;
 	BasicItem retry_item;
+	BasicItem options_item;
+	BasicItem giveup_item;
+	BasicItem quit_item;
 
   public:
   void init();
@@ -36,6 +39,7 @@ class PauseMenuState : public MenuState{
   void load_gfx(std::string skin);
   void unload_gfx();
   void action_performed(int selection);
+	void update_child();
 
   PauseMenuState();
   ~PauseMenuState();
