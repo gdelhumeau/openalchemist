@@ -12,50 +12,30 @@
 #ifndef _PAUSEMENU_STATE_H_
 #define _PAUSEMENU_STATE_H_
 
-#include <ClanLib/display.h>
-
-#include "GameState.h"
+#include "MenuState.h"
 #include "../KeyboardKey.h"
+#include "MenuState/BasicItem.h"
 
-#define PAUSE_NUMBER_OF_ITEMS 6
-
-class GameEngine;
 
 /**
  * PauseMenu State
  */
-class PauseMenuState : public GameState{
+class PauseMenuState : public MenuState{
 
   private:
-  int step;
-
-  float alpha;
-
-  CL_Sprite *items[PAUSE_NUMBER_OF_ITEMS];
-  CL_Sprite *items_selected[PAUSE_NUMBER_OF_ITEMS];
-  int items_left[PAUSE_NUMBER_OF_ITEMS];
-  int items_top [PAUSE_NUMBER_OF_ITEMS];
-
-  CL_Sprite *background;  
-  CL_Sprite *undo_unavailable;
 
   int selection;
-
-  void appear();
-  void disappear();
+  
+ 	BasicItem resume_item;
+	BasicItem undo_item;
+	BasicItem retry_item;
 
   public:
   void init();
   void deinit();
   void load_gfx(std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
-
-  void start();
-
-  bool front_layer_behind();
+  void action_performed(int selection);
 
   PauseMenuState();
   ~PauseMenuState();

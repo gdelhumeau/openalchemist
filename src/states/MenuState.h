@@ -33,12 +33,18 @@ class MenuState : public GameState{
   std::vector<MenuItem*> items;
   CL_Sprite *background;  
   int selection;
+  
+  void set_background_sprite(CL_Sprite *background);
+  
+  void appear();
+  void disappear();
 
   public:
   virtual void init();
   virtual void deinit();
   virtual void load_gfx(std::string skin);
   virtual void unload_gfx();
+  virtual void action_performed(int selection);
   void draw();
   void update();
   void events();

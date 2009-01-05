@@ -31,7 +31,10 @@
 
 void PauseMenuState::init()
 {
-  GameState::init();
+	GameState::init();
+	items.insert(items.end(), &resume_item);
+	items.insert(items.end(), &undo_item);
+	items.insert(items.end(), &retry_item);
 }
 
 void PauseMenuState::deinit()
@@ -46,10 +49,34 @@ void PauseMenuState::load_gfx(std::string skin)
 
   // First, the sprites
   background = new CL_Sprite("menu_pause/background", &gfx); 
+	
+	int x = 400 - background -> get_width()/2;
+  int y = 300 - background -> get_height()/2;
+	
 
-  items[PAUSE_ITEM_RESUME] = new CL_Sprite("menu_pause/resume/unselected", &gfx);
-  items_selected[PAUSE_ITEM_RESUME] = new CL_Sprite("menu_pause/resume/selected", &gfx);
+	resume_item.set_gfx(new CL_Sprite("menu_pause/resume/unselected", &gfx),
+											new CL_Sprite("menu_pause/resume/selected"  , &gfx),
+											NULL);
+	resume_item.set_x(x + CL_Integer_to_int("menu_pause/resume/left", &gfx));
+	resume_item.set_y(y + CL_Integer_to_int("menu_pause/resume/top" , &gfx));
+	
+	undo_item.set_gfx(new CL_Sprite("menu_pause/undo/unselected"    , &gfx),
+										new CL_Sprite("menu_pause/undo/selected"      , &gfx),
+										new CL_Sprite("menu_pause/undo/unavailable"   , &gfx)
+										);
+	undo_item.set_x(x + CL_Integer_to_int("menu_pause/undo/left"    , &gfx));
+	undo_item.set_y(y + CL_Integer_to_int("menu_pause/undo/top"     , &gfx));
+	undo_item.set_locked(true);
 
+	retry_item.set_gfx(new CL_Sprite("menu_pause/retry/unselected"  , &gfx),
+										 new CL_Sprite("menu_pause/retry/selected"    , &gfx),
+										 NULL);
+	retry_item.set_x(x + CL_Integer_to_int("menu_pause/retry/left"  , &gfx));
+	retry_item.set_y(y + CL_Integer_to_int("menu_pause/retry/top"   , &gfx));
+	
+	
+
+  /*
   items[PAUSE_ITEM_UNDO] = new CL_Sprite("menu_pause/undo/unselected", &gfx);
   items_selected[PAUSE_ITEM_UNDO] = new CL_Sprite("menu_pause/undo/selected", &gfx);
   undo_unavailable = new CL_Sprite("menu_pause/undo/unavailable", &gfx);
@@ -84,15 +111,18 @@ void PauseMenuState::load_gfx(std::string skin)
   items_top[PAUSE_ITEM_GIVEUP] = CL_Integer_to_int("menu_pause/giveup/top", &gfx);
 
   items_left[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu_pause/quit/left", &gfx);
-  items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu_pause/quit/top", &gfx);
+  items_top[PAUSE_ITEM_QUIT] = CL_Integer_to_int("menu_pause/quit/top", &gfx);*/
   
 }
 
 void PauseMenuState::unload_gfx()
 {
-
+	resume_item.unload_gfx();
+	undo_item.unload_gfx();
+	retry_item.unload_gfx();
 }
 
+/*
 void PauseMenuState::draw()
 {
   int x = 400 - background -> get_width()/2;
@@ -125,7 +155,9 @@ void PauseMenuState::draw()
   }
 
 }
+*/
 
+/*
 void PauseMenuState::update()
 {
   switch(step)
@@ -138,7 +170,9 @@ void PauseMenuState::update()
     break;
   }
 }
+*/
 
+/*
 void PauseMenuState::events()
 {
   if(step != STEP_NORMAL)
@@ -196,7 +230,9 @@ void PauseMenuState::events()
     step = STEP_DISAPPEARING;
   }
   
-}
+}*/
+
+/*
 void PauseMenuState::appear()
 { 
   if(alpha + APPEARING_SPEED*common_resources -> time_interval >= 1.0)
@@ -217,8 +253,9 @@ void PauseMenuState::appear()
 
   undo_unavailable -> set_alpha(alpha);
 
-}
+}*/
 
+/*
 void PauseMenuState::disappear()
 {  
   alpha -= APPEARING_SPEED * common_resources -> time_interval;
@@ -283,8 +320,9 @@ void PauseMenuState::disappear()
     }
   }
  
-}
+}*/
 
+/*
 void PauseMenuState::start()
 {
   selection = 0;
@@ -297,11 +335,17 @@ void PauseMenuState::start()
   {
     step = STEP_NORMAL;
   }
-}
+}*/
 
+/*
 bool PauseMenuState::front_layer_behind()
 {
   return true;
+}*/
+
+void PauseMenuState::action_performed(int selection)
+{
+	common_resources -> engine -> stop_current_state();
 }
 
 PauseMenuState::PauseMenuState()
