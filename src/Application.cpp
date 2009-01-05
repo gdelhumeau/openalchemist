@@ -55,8 +55,12 @@ public:
         CL_SetupSDL::init();
       }
 
-      window = new CL_DisplayWindow("OpenAlchemist",800,600);
-
+      window = new CL_DisplayWindow("OpenAlchemist",640,480, false, true, 2);
+			
+		
+				CL_GraphicContext *gc = window -> get_gc();
+				gc -> set_scale(0.8, 0.8);
+			
       
 			Preferences *pref = pref_get_instance();
 			if(pref -> fullscreen)
