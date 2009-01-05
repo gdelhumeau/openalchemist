@@ -29,10 +29,13 @@ class BasicItem : public MenuItem{
 	public:
 		
 	void set_gfx(CL_Sprite *normal_sprite, CL_Sprite *selected_sprite, CL_Sprite *locked_sprite);
+	void unload_gfx();
+
 	void draw();
 	void events();
 	
 	BasicItem();	
+	~BasicItem();
 
 };
 

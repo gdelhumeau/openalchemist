@@ -13,16 +13,43 @@
 
 BasicItem::BasicItem()
 {
-	
+	normal_sprite = NULL;
+	selected_sprite = NULL;
+	locked_sprite = NULL;
+}
+
+BasicItem::~BasicItem()
+{
+	unload_gfx();
 }
 
 void BasicItem::set_gfx(CL_Sprite *normal_sprite,
 												CL_Sprite *selected_sprite,
 												CL_Sprite *locked_sprite)
 {
+	unload_gfx();
 	this -> normal_sprite = normal_sprite;
 	this -> selected_sprite = selected_sprite;
 	this -> locked_sprite = locked_sprite;
+}
+
+void BasicItem::unload_gfx()
+{
+	if(normal_sprite != NULL)
+	{
+		delete normal_sprite;
+		normal_sprite = NULL;
+	}
+	if(selected_sprite != NULL)
+	{
+		delete selected_sprite;
+		selected_sprite = NULL;
+	}
+	if(locked_sprite != NULL)
+	{
+		delete locked_sprite;
+		locked_sprite = NULL;
+	}
 }
 
 void BasicItem::draw()

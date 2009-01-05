@@ -15,7 +15,8 @@
 
 MenuItem::MenuItem()
 {
-
+	selected = false;
+	locked = false;
 }
 
 void MenuItem::draw()
