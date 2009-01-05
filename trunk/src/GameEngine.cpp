@@ -30,13 +30,20 @@ GameEngine::~GameEngine()
 
 void GameEngine::init()
 {
-  // Drawing loading picture
 
+	CL_System::keep_alive();
+	
+	// Drawing loading picture
   std::string file_path = get_data_path();
   CL_Surface loading(file_path+get_path_separator()+"loading.png");
-  CL_Display::clear(CL_Color(0, 0, 0));
-  loading.draw(400-loading.get_width()/2,300-loading.get_height()/2);
-  CL_Display::flip();
+
+	for(int i=0; i<10; ++i)
+	{
+		CL_Display::clear(CL_Color(0, 0, 0));	
+		loading.draw(400-loading.get_width()/2, 300-loading.get_height()/2);
+		CL_Display::flip();
+		CL_System::keep_alive();
+	}
 
   CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
@@ -51,9 +58,11 @@ void GameEngine::init()
   skinsmenu_state.init();
   optionsmenu_state.init();
   title_state.init();
-  quitmenu_state.init();
+  quitmenu_state.init();	
   
   set_skin(pref -> skin);
+	
+	resize(window -> get_width(), window -> get_height());
       
 }
 
@@ -65,6 +74,8 @@ void GameEngine::run()
   resources -> player1.new_game();
 
   running = true;
+	
+	init();
    
   while (running)
   {
@@ -100,6 +111,8 @@ void GameEngine::run()
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
     CL_System::keep_alive();
+		
+		//resize(window -> get_width(), window -> get_height());
 
 
   }

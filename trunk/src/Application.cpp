@@ -52,8 +52,9 @@ public:
       {
         CL_SetupGL::init();
 				window = new CL_DisplayWindow("OpenAlchemist",320,240, false, true, 2);
-				window -> set_size(800,600);
-      }
+				window -> set_size(800,600);	
+				CL_System::keep_alive();
+			}
       else
       {
         CL_SetupSDL::init();
@@ -76,12 +77,11 @@ public:
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 			
       game = new GameEngine(window, render);
-      game -> init();
 			
 			// Add a callback when user resize the window
 			resize_event = window -> sig_resize().connect(game, &GameEngine::resize);	
-
-  
+			
+      game -> init();  
     }
 
   /**
