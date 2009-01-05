@@ -100,6 +100,12 @@ void GameEngine::run()
     // Call this each frame
     // Also, gives the CPU a rest for 10 milliseconds to catch up
     CL_System::keep_alive();
+		
+		CL_GraphicContext *gc = window -> get_gc();
+		double scale_width = (double) window -> get_width() / 800.0;
+		double scale_height = (double) window -> get_height() / 600.0;
+		gc -> set_scale(scale_width, scale_height);
+
   }
 }
 
