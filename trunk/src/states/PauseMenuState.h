@@ -23,8 +23,6 @@
 class PauseMenuState : public MenuState{
 
   private:
-
-  int selection;
   
  	BasicItem resume_item;
 	BasicItem undo_item;
