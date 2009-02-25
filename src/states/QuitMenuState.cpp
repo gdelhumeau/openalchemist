@@ -269,6 +269,6 @@ void QuitMenuState::disappear()
 
 void QuitMenuState::start()
 {
-  step = STEP_APPEARING;
-  alpha = 0.0;
+	step = STEP_NORMAL;
+  alpha = 1.0;
 }

@@ -14,8 +14,10 @@
 
 #include <ClanLib/display.h>
 
+#include "MenuState.h"
 #include "GameState.h"
 #include "../KeyboardKey.h"
+#include "MenuState/BasicItem.h"
 
 #define QUITMENU_GIVE_UP 1
 #define QUITMENU_RETRY 2
