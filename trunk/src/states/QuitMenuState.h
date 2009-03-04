@@ -18,6 +18,7 @@
 #include "GameState.h"
 #include "../KeyboardKey.h"
 #include "MenuState/BasicItem.h"
+#include "MenuState/DualChoiceItem.h"
 
 #define QUITMENU_GIVE_UP 1
 #define QUITMENU_RETRY 2
@@ -48,6 +49,8 @@ class QuitMenuState : public GameState{
   int step;
 
   double alpha;
+
+	DualChoiceItem _choice_item;
 
   public:
   void init();
