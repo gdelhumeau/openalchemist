@@ -66,10 +66,14 @@ void QuitMenuState::load_gfx(std::string skin)
   no_unselected = new CL_Sprite("menu_quit/dialog_no/unselected", &gfx);
   no_x = CL_Integer_to_int("menu_quit/dialog_no/left", &gfx);
   no_y = CL_Integer_to_int("menu_quit/dialog_no/top", &gfx); 
+	
+	_choice_item.set_gfx(yes_unselected, yes_selected, no_unselected, no_selected);
+	_choice_item.set_x(yes_x);
+	_choice_item.set_y(yes_y);
 
 }
 
-void QuitMenuState::unload_gfx()
+void QuitMenuState::unload_gfx()	
 {
   if(panel_exit)
   {
@@ -86,6 +90,7 @@ void QuitMenuState::unload_gfx()
     delete panel_retry;
     panel_retry = NULL;
   }
+	/*
   if(yes_selected)
   {
     delete yes_selected;
@@ -105,7 +110,9 @@ void QuitMenuState::unload_gfx()
   {
     delete no_unselected;
     no_unselected = NULL;
-  }
+  }*/
+	
+	_choice_item.unload_gfx();
 
 }
 
@@ -114,7 +121,7 @@ void QuitMenuState::draw()
 {
   current_panel -> draw(panel_x, panel_y);
   
-  if(SELECTION_YES == selection)
+  /*if(SELECTION_YES == selection)
   {
     yes_selected -> draw(yes_x, yes_y);
     no_unselected -> draw(no_x, no_y);
@@ -123,7 +130,11 @@ void QuitMenuState::draw()
   {
     yes_unselected -> draw(yes_x, yes_y);
     no_selected -> draw(no_x, no_y);
-  }
+  }*/
+	
+	_choice_item.draw();
+	
+	
 }
 
 void QuitMenuState::update()

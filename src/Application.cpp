@@ -33,8 +33,8 @@ public:
   CL_DisplayWindow *window;
   /** Used to have a callback event when user close the window */
   CL_Slot quit_event;
-	/** Used to have a callback event when user resize the window */
-	CL_Slot resize_event;
+  /** Used to have a callback event when user resize the window */
+  CL_Slot resize_event;
   /** Rendering used - OpenGL or SDL */
   bool render;  
 
@@ -51,35 +51,35 @@ public:
       if(RENDER_OPENGL == render)
       {
         CL_SetupGL::init();
-				window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
-				//window -> set_size(800,600);	
-				CL_System::keep_alive();
-			}
+	window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+	//window -> set_size(800,600);	
+	CL_System::keep_alive();
+      }
       else
       {
         CL_SetupSDL::init();
-				window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+	window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
       }
       
-			Preferences *pref = pref_get_instance();
-			if(pref -> fullscreen)
-			{
-				window -> set_fullscreen(800,600,0,0);
-				if(pref -> widescreen && RENDER_OPENGL == render)
-				{
-					CL_GraphicContext *gc = window -> get_gc();
-					gc -> set_scale(0.83, 1.0);
-					gc -> add_translate(80, 0, 0);					
-				}
-			}
+      Preferences *pref = pref_get_instance();
+      if(pref -> fullscreen)
+      {
+	window -> set_fullscreen(800,600,0,0);
+	if(pref -> widescreen && RENDER_OPENGL == render)
+	{
+	  CL_GraphicContext *gc = window -> get_gc();
+	  gc -> set_scale(0.83, 1.0);
+	  gc -> add_translate(80, 0, 0);					
+	}
+      }
 			
       // Add a callback when user close the window
       quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 			
       game = new GameEngine(window, render);
 			
-			// Add a callback when user resize the window
-			//resize_event = window -> sig_resize().connect(game, &GameEngine::resize);	
+      // Add a callback when user resize the window
+      //resize_event = window -> sig_resize().connect(game, &GameEngine::resize);	
 			
       game -> init();  
     }
@@ -186,12 +186,12 @@ public:
           pref -> write();
          
         }
-				if(strcmp(argv[i], "--wide")==0)
+	if(strcmp(argv[i], "--wide")==0)
         {
           pref -> widescreen = true;
           pref -> write();         
         }
-				if(strcmp(argv[i], "--nowide")==0)
+	if(strcmp(argv[i], "--nowide")==0)
         {
           pref -> widescreen = false;
           pref -> write();         
@@ -236,7 +236,7 @@ public:
                 << "\t--license  : Show the license of this program"  << std::endl
                 << "\t--maxfps X : Limit framerate to X"  << std::endl   
                 << "\t--nocb     : Disable colorblind mode"  << std::endl
-								<< "\t--nowide   : Disable 16:9 wide screen mode"  << std::endl
+		<< "\t--nowide   : Disable 16:9 wide screen mode"  << std::endl
                 << "\t--opengl   : Use OpenGL as render target (default)" << std::endl
                 << "\t--sdl      : Use SDL as render target" << std::endl
                 << "\t--wide     : Special mode for 16:9 wide screen (only supported with OpenGL)" << std::endl
@@ -265,7 +265,7 @@ public:
                 << " * along with this program; if not, write to the Free Software" << std::endl
                 << " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA." <<std::endl
                 << " *" << std::endl << std::endl;
-		}	
+    }	
 	
 
 } app;
