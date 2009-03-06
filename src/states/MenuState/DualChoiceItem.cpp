@@ -100,16 +100,15 @@ void DualChoiceItem::draw()
 	}
 }
 
-void DualChoiceItem::events()
+void DualChoiceItem::action_performed(int action_type)
 {
-	static CommonResources * common_resources = common_resources_get_instance();
 	
-	if(common_resources -> key.left -> get())
+	if(ACTION_TYPE_LEFT == action_type)
  	{
     	_selection = CHOICE_LEFT;
   	}
 
- 	if(common_resources -> key.right -> get())
+ 	if(ACTION_TYPE_RIGHT == action_type)
  	{
  		_selection = CHOICE_RIGHT;
   	}

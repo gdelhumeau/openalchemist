@@ -49,9 +49,10 @@ public:
     void set_y2(int y);
 
     void draw();
-    void events();
+    void action_performed(int action_type);
     
     int get_selection(){ return _selection; }
+    virtual bool quit_menu_on_action(){ return true; }
 
     DualChoiceItem();
     ~DualChoiceItem();

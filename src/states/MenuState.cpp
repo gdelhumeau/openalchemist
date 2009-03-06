@@ -52,9 +52,9 @@ void MenuState::unload_gfx ()
     std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
-void MenuState::action_performed (int selection)
+void MenuState::action_performed (int selection, int action_type)
 {
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class (action_performed)" << std::endl;
 }
 
 void MenuState::update_child ()
@@ -111,8 +111,27 @@ void MenuState::events ()
     // Key ENTER
     if (common_resources -> key.enter -> get ())
     {
-        start_disappear ();
+    	if(items[selection] -> quit_menu_on_action())
+    	{
+        	start_disappear ();
+    	}
+    	items[selection] -> action_performed(ACTION_TYPE_ENTER);
     }
+    
+    // Key LEFT
+    if (common_resources -> key.left -> get ())
+    {
+    	items[selection] -> action_performed(ACTION_TYPE_LEFT);
+    	this -> action_performed (selection, ACTION_TYPE_LEFT);
+    }
+    
+    // Key RIGHT
+    if (common_resources -> key.right -> get ())
+    {
+    	items[selection] -> action_performed(ACTION_TYPE_RIGHT);
+    	this -> action_performed (selection, ACTION_TYPE_RIGHT);
+    }
+    
 
     // Key UP
     if (common_resources -> key.up -> get ())
@@ -160,11 +179,6 @@ void MenuState::events ()
                 items[selection] -> set_selected (true);
             }
         }
-    }
-    
-    if(selection > -1)
-    {
-    	items[selection] -> events();
     }
 
 }
@@ -246,7 +260,7 @@ void MenuState::disappear ()
         if (selection == -1)
             common_resources -> engine -> stop_current_state ();
         else
-            this -> action_performed (selection);
+            this -> action_performed (selection, ACTION_TYPE_ENTER);
     }
 }
 

@@ -12,6 +12,13 @@
 #ifndef _MENU_ITEM_H_
 #define _MENU_ITEM_H_
 
+enum ACTION_TYPE
+{
+	ACTION_TYPE_ENTER,
+	ACTION_TYPE_LEFT,
+	ACTION_TYPE_RIGHT
+};
+
 /**
  * Generic (abstract) Menu Item class
  */
@@ -27,7 +34,8 @@ class MenuItem{
 	public:
 		
 	virtual void draw();
-	virtual void events();
+	virtual void action_performed(int action_type);
+	virtual bool quit_menu_on_action() = 0;
 
 	void set_x(int x);
 	void set_y(int y);

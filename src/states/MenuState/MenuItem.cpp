@@ -25,7 +25,7 @@ void MenuItem::draw()
 	std::cout << "MenuItem class may not be used cause it is an abstract class" << std::endl;
 }
 
-void MenuItem::events()
+void MenuItem::action_performed(int action_type)
 {
 	std::cout << "MenuItem class may not be used cause it is an abstract class" << std::endl;
 }

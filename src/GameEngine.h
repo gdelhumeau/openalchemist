@@ -25,6 +25,8 @@
 #include "states/TitleState.h"
 #include "states/QuitMenuState.h"
 
+class LoadingScreen;
+
 
 /**
  * GameEngine class - controls the states
@@ -73,6 +75,8 @@ class GameEngine{
   OptionsMenuState optionsmenu_state;
   TitleState title_state;
   QuitMenuState quitmenu_state;
+  
+  LoadingScreen * _p_loading_screen;
   
   public:
 
