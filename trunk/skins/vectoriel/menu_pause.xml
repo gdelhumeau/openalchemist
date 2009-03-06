@@ -72,6 +72,10 @@
 				<image file="dialogs/pause/options-unselected.png" />  					
 			</sprite>
 			
+			<sprite name="unavailable">
+				<image file="dialogs/pause/giveup-unavailable.png" />
+			</sprite>
+			
 			<integer name="top" value="300" />
 			<integer name="left" value="100" />
 			
@@ -85,6 +89,10 @@
 			</sprite>
 			<sprite name="unselected">
 				<image file="dialogs/pause/giveup-unselected.png" />  					
+			</sprite>
+			
+			<sprite name="unavailable">
+				<image file="dialogs/pause/giveup-unavailable.png" />
 			</sprite>
 			
 			<integer name="top" value="350" />

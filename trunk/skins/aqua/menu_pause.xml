@@ -85,12 +85,15 @@
 		<!-- Back to main menu item-->
 		<section name="giveup">
 			<sprite name="selected">
-				<image file="dialogs/pause/giveup-selected.png" />
-					
+				<image file="dialogs/pause/giveup-selected.png" />					
 			</sprite>
+			
 			<sprite name="unselected">
-				<image file="dialogs/pause/giveup-unselected.png" />
-					
+				<image file="dialogs/pause/giveup-unselected.png" />					
+			</sprite>
+			
+			<sprite name="unavailable">
+				<image file="dialogs/pause/giveup-unavailable.png" />
 			</sprite>
 			
 			<integer name="top" value="300" />

@@ -93,6 +93,10 @@
 					
 			</sprite>
 			
+			<sprite name="unavailable">
+				<image file="dialogs/pause/giveup-unavailable.png" />
+			</sprite>
+			
 			<integer name="top" value="300" />
 			<integer name="left" value="80" />
 			
