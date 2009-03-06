@@ -1,12 +1,12 @@
 /********************************************************************
                           OpenAlchemist
-
+ 
   File : QuitMenuSate.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
+ 
+ 
 *********************************************************************/
 
 #ifndef _QUITMENU_STATE_H_
@@ -31,47 +31,39 @@ class GameEngine;
 /**
  * QuitMenuGame State
  */
-class QuitMenuState : public GameState{
+class QuitMenuState : public MenuState
+{
 
-  private:
+private:
 
-  CL_Sprite * panel_give_up, *panel_retry, *panel_exit;
-  CL_Sprite * current_panel;
-  int panel_x, panel_y;
+    DualChoiceItem _choice_item;
 
-  CL_Sprite * yes_selected, * yes_unselected;
-  CL_Sprite * no_selected,  * no_unselected;
-  int yes_x, yes_y;
-  int no_x, no_y;
-  int selection;
+    CL_Sprite * panel_give_up, *panel_retry, *panel_exit;
+    int panel_x, panel_y;
 
-  int action;
-  int step;
+    int yes_x, yes_y;
+    int no_x, no_y;
+    int selection;
 
-  double alpha;
+    int action;
+    int step;
 
-	DualChoiceItem _choice_item;
+    double alpha;
 
-  public:
-  void init();
-  void deinit();
-  void load_gfx(std::string skin);
-  void unload_gfx();
-  void draw();
-  void update();
-  void events();
-  
-  bool front_layer_behind();
 
-  QuitMenuState();
-  ~QuitMenuState();
+public:
+    void init();
+    void deinit();
+    void load_gfx(std::string skin);
+    void unload_gfx();
 
-  void set_action(int a);
-  void start();
+    void action_performed(int selection);
+    void update_child();
 
-  private:
-  void appear();
-  void disappear();
+    QuitMenuState();
+    ~QuitMenuState();
+
+    void set_action(int a);
 
 
 };

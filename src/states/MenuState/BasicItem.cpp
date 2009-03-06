@@ -9,6 +9,7 @@
 
  *********************************************************************/
 
+#include <iostream>
 #include "BasicItem.h"
 
 BasicItem::BasicItem()
@@ -73,4 +74,5 @@ void BasicItem::draw()
 
 void BasicItem::events()
 {
+
 }

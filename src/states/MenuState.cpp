@@ -1,12 +1,12 @@
 /********************************************************************
                           OpenAlchemist
-
+ 
   File : MenuState.cpp
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
+ 
+ 
  *********************************************************************/
 
 
@@ -14,235 +14,244 @@
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 
-#define STEP_APPEARING 0
-#define STEP_NORMAL 1
-#define STEP_DISAPPEARING 2
+enum{
+    STEP_APPEARING,
+    STEP_NORMAL,
+    STEP_DISAPPEARING
+};
 
 #define APPEARING_SPEED 0.003
 
 MenuState::MenuState ()
 {
-  selection = 0;
+    selection = 0;
 }
 
 bool MenuState::front_layer_behind ()
 {
-  return true;
+    return true;
 }
 
 void MenuState::init ()
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::deinit ()
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::load_gfx (std::string skin)
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::unload_gfx ()
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::action_performed (int selection)
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::update_child ()
 {
-  std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
+    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
 void MenuState::set_background_sprite (CL_Sprite *background)
 {
-  this -> background = background;
+    this -> background = background;
 }
 
 void MenuState::draw ()
 {
-  // Displaying background
-  int x = 400 - background -> get_width () / 2;
-  int y = 300 - background -> get_height () / 2;
-  background -> draw (x, y);
-
-  // Displaying items
-  std::vector<MenuItem*>::iterator it = items.begin ();
-  while (it != items.end ())
+    // Displaying background
+    int x = 400 - background -> get_width () / 2;
+    int y = 300 - background -> get_height () / 2;
+    background -> draw (x, y);
+	
+    // Displaying items
+    std::vector<MenuItem*>::iterator it = items.begin ();
+    while (it != items.end ())
     {
-      MenuItem *item = (MenuItem*) * it;
-      item -> draw ();
-      ++it;
+        MenuItem *item = (MenuItem*) * it;
+        item -> draw ();
+        ++it;
     }
 
 }
 
 void MenuState::update ()
 {
-  switch (step)
+    switch (step)
     {
     case STEP_APPEARING:
-      appear ();
-      break;
+        appear ();
+        break;
     case STEP_DISAPPEARING:
-      disappear ();
-      break;
+        disappear ();
+        break;
     }
-  this -> update_child ();
+    this -> update_child ();
 }
 
 void MenuState::events ()
 {
-  // Leaving the state
-  if (common_resources -> key.escape->get () || common_resources -> key.pause->get ())
+    // Leaving the state
+    if (common_resources -> key.escape->get () || common_resources -> key.pause->get ())
     {
-      start_disappear ();
-      selection = -1;
+        start_disappear ();
+        selection = -1;
     }
 
-  // Key ENTER
-  if (common_resources -> key.enter -> get ())
+    // Key ENTER
+    if (common_resources -> key.enter -> get ())
     {
-      start_disappear ();
+        start_disappear ();
     }
 
-  // Key UP
-  if (common_resources -> key.up -> get ())
+    // Key UP
+    if (common_resources -> key.up -> get ())
     {
-      items[selection] -> set_selected (false);
-      bool changed = false;
-      while (!changed)
+        items[selection] -> set_selected (false);
+        bool changed = false;
+        while (!changed)
         {
-          if (selection == 0)
+            if (selection == 0)
             {
-              selection = items.size () - 1;
+                selection = items.size () - 1;
             }
-          else
+            else
             {
-              selection--;
+                selection--;
             }
 
-          if (!items[selection] -> is_locked ())
+            if (!items[selection] -> is_locked ())
             {
-              changed = true;
-              items[selection] -> set_selected (true);
+                changed = true;
+                items[selection] -> set_selected (true);
             }
         }
     }
 
-  // Key DOWN
-  if (common_resources -> key.down -> get ())
+    // Key DOWN
+    if (common_resources -> key.down -> get ())
     {
-      items[selection] -> set_selected (false);
-      bool changed = false;
-      while (!changed)
+        items[selection] -> set_selected (false);
+        bool changed = false;
+        while (!changed)
         {
-          if (selection == (int) items.size () - 1)
+            if (selection == (int) items.size () - 1)
             {
-              selection = 0;
+                selection = 0;
             }
-          else
+            else
             {
-              selection++;
+                selection++;
             }
 
-          if (!items[selection] -> is_locked ())
+            if (!items[selection] -> is_locked ())
             {
-              changed = true;
-              items[selection] -> set_selected (true);
+                changed = true;
+                items[selection] -> set_selected (true);
             }
         }
     }
+    
+    if(selection > -1)
+    {
+    	items[selection] -> events();
+    }
+
 }
 
 void MenuState::start ()
 {
-  selection = 0;
-  // All items are not selected
-  std::vector<MenuItem*>::iterator it = items.begin ();
-  while (it != items.end ())
+    selection = 0;
+    // All items are not selected
+    
+    std::vector<MenuItem*>::iterator it = items.begin ();
+    while (it != items.end ())
     {
-      MenuItem *item = (MenuItem*) * it;
-      item -> set_selected (false);
-      ++it;
+        MenuItem *item = (MenuItem*) * it;
+        item -> set_selected (false);
+        ++it;
     }
-  // Except the selection
-  items[selection] -> set_selected (true);
+    // Except the selection
+    items[selection] -> set_selected (true);
 
-  // Now, begining appearing
-  if (common_resources -> engine -> is_opengl_used ())
+    // Now, begining appearing
+    if (common_resources -> engine -> is_opengl_used ())
     {
-      step = STEP_APPEARING;
-      alpha = 0.0;
+        step = STEP_APPEARING;
+        alpha = 0.0;
     }
-  else
+    else
     {
-      step = STEP_NORMAL;
+        step = STEP_NORMAL;
     }
 }
 
 void MenuState::appear ()
 {
-  // Updating alpha value
-  if (alpha + APPEARING_SPEED * common_resources -> time_interval >= 1.0)
+    // Updating alpha value
+    if (alpha + APPEARING_SPEED * common_resources -> time_interval >= 1.0)
     {
-      step = STEP_NORMAL;
-      alpha = 1.0;
+        step = STEP_NORMAL;
+        alpha = 1.0;
     }
-  else
+    else
     {
-      alpha += APPEARING_SPEED * common_resources -> time_interval;
+        alpha += APPEARING_SPEED * common_resources -> time_interval;
     }
 
-  // Updating background sprite
-  background -> set_alpha (alpha);
+    // Updating background sprite
+    background -> set_alpha (alpha);
 
-  // Updating items
-  std::vector<MenuItem*>::iterator it = items.begin ();
-  while (it != items.end ())
+    // Updating items
+    std::vector<MenuItem*>::iterator it = items.begin ();
+    while (it != items.end ())
     {
-      MenuItem *item = (MenuItem*) * it;
-      item -> set_alpha (alpha);
-      ++it;
+        MenuItem *item = (MenuItem*) * it;
+        item -> set_alpha (alpha);
+        ++it;
     }
 
 }
 
 void MenuState::disappear ()
 {
-  // Updating alpha value
-  alpha -= APPEARING_SPEED * common_resources -> time_interval;
+    // Updating alpha value
+    alpha -= APPEARING_SPEED * common_resources -> time_interval;
 
-  // Updating background sprite
-  background -> set_alpha (alpha);
+    // Updating background sprite
+    background -> set_alpha (alpha);
 
-  // Updating items
-  std::vector<MenuItem*>::iterator it = items.begin ();
-  while (it != items.end ())
+    // Updating items
+    std::vector<MenuItem*>::iterator it = items.begin ();
+    while (it != items.end ())
     {
-      MenuItem *item = (MenuItem*) * it;
-      item -> set_alpha (alpha);
-      ++it;
+        MenuItem *item = (MenuItem*) * it;
+        item -> set_alpha (alpha);
+        ++it;
     }
 
-  if (alpha <= 0)
+    if (alpha <= 0)
     {
-      // Now perfom child action or leaving the state
-      if (selection == -1)
-        common_resources -> engine -> stop_current_state ();
-      else
-        this -> action_performed (selection);
+        // Now perfom child action or leaving the state
+        if (selection == -1)
+            common_resources -> engine -> stop_current_state ();
+        else
+            this -> action_performed (selection);
     }
 }
 
 void MenuState::start_disappear ()
 {
-  step = STEP_DISAPPEARING;
+    step = STEP_DISAPPEARING;
 }
 

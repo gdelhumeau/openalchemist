@@ -16,22 +16,18 @@
 #include "../GameEngine.h"
 #include "../misc.h"
 
-#define PAUSE_ITEM_RESUME 0
-#define PAUSE_ITEM_UNDO 1
-#define PAUSE_ITEM_RETRY 2
-#define PAUSE_ITEM_OPTIONS 3
-#define PAUSE_ITEM_GIVEUP 4
-#define PAUSE_ITEM_QUIT 5
-
-#define STEP_APPEARING 0
-#define STEP_NORMAL 1
-#define STEP_DISAPPEARING 2
-
-#define APPEARING_SPEED 0.003
+enum
+{ 
+	PAUSE_ITEM_RESUME,
+	PAUSE_ITEM_UNDO,
+	PAUSE_ITEM_RETRY,
+	PAUSE_ITEM_OPTIONS,
+	PAUSE_ITEM_GIVEUP,
+	PAUSE_ITEM_QUIT
+};
 
 void PauseMenuState::init ()
 {
-  GameState::init ();
   items.clear();
   items.insert (items.end (), &resume_item);
   items.insert (items.end (), &undo_item);
