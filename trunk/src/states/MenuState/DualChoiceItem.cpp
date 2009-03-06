@@ -10,20 +10,31 @@
  *********************************************************************/
 
 #include <iostream>
+#include "../../CommonResources.h"
 #include "DualChoiceItem.h"
 
 DualChoiceItem::DualChoiceItem()
 {
-    normal_sprite_left = NULL;
-    selected_sprite_left = NULL;
-    normal_sprite_right = NULL;
-    selected_sprite_right = NULL;
-		_selection = CHOICE_LEFT;
+    _p_normal_sprite_left = NULL;
+    _p_selected_sprite_left = NULL;
+    _p_normal_sprite_right = NULL;
+    _p_selected_sprite_right = NULL;
+	_selection = CHOICE_LEFT;
 }
 
 DualChoiceItem::~DualChoiceItem()
 {
     unload_gfx();
+}
+
+void DualChoiceItem::set_x2(int x)
+{
+	_x2 = x;
+}
+
+void DualChoiceItem::set_y2(int y)
+{
+	_y2 = y;
 }
 
 void DualChoiceItem::set_gfx(CL_Sprite *normal_sprite_left_,
@@ -32,58 +43,74 @@ void DualChoiceItem::set_gfx(CL_Sprite *normal_sprite_left_,
 			     CL_Sprite *selected_sprite_right_)
 {
   unload_gfx();
-	normal_sprite_left  = normal_sprite_left_;
-	selected_sprite_left = selected_sprite_left_;
-	normal_sprite_right = normal_sprite_right_;
-	selected_sprite_right = selected_sprite_right_;
+	_p_normal_sprite_left  = normal_sprite_left_;
+	_p_selected_sprite_left = selected_sprite_left_;
+	_p_normal_sprite_right = normal_sprite_right_;
+	_p_selected_sprite_right = selected_sprite_right_;
    
 }
 
 void DualChoiceItem::unload_gfx()
 {
-    if (normal_sprite_left != NULL)
+    if (_p_normal_sprite_left != NULL)
     {
-        delete normal_sprite_left;
-        normal_sprite_left = NULL;
+        delete _p_normal_sprite_left;
+        _p_normal_sprite_left = NULL;
     }
-    if (selected_sprite_left != NULL)
+    if (_p_selected_sprite_left != NULL)
     {
-        delete selected_sprite_left;
-        selected_sprite_left = NULL;
+        delete _p_selected_sprite_left;
+        _p_selected_sprite_left = NULL;
     }
-    if (normal_sprite_right != NULL)
+    if (_p_normal_sprite_right != NULL)
     {
-        delete normal_sprite_right;
-        normal_sprite_right = NULL;
+        delete _p_normal_sprite_right;
+        _p_normal_sprite_right = NULL;
     }
-    if (selected_sprite_right != NULL)
+    if (_p_selected_sprite_right != NULL)
     {
-        delete selected_sprite_right;
-        selected_sprite_right = NULL;
+        delete _p_selected_sprite_right;
+        _p_selected_sprite_right = NULL;
     }
   
 }
 
 void DualChoiceItem::draw()
 {
+	_p_selected_sprite_left  -> update();
+	_p_selected_sprite_right -> update();
+	_p_normal_sprite_left    -> update();
+	_p_normal_sprite_right   -> update();
+	
 	if(_selection == CHOICE_LEFT)
 	{
-			selected_sprite_left -> set_alpha(alpha);
-			normal_sprite_right -> set_alpha(alpha);
+		_p_selected_sprite_left -> set_alpha(alpha);
+		_p_normal_sprite_right -> set_alpha(alpha);
 		
-			selected_sprite_left -> draw(x, y);
-			normal_sprite_right -> draw(x + selected_sprite_left -> get_width(), y);
+		_p_selected_sprite_left -> draw(x, y);
+		_p_normal_sprite_right -> draw(_x2, _y2);
 	}
 	else
 	{
-			normal_sprite_left -> set_alpha(alpha);
-			selected_sprite_right -> set_alpha(alpha);
+		_p_normal_sprite_left -> set_alpha(alpha);
+		_p_selected_sprite_right -> set_alpha(alpha);
 		
-			normal_sprite_left -> draw(x, y);
-			selected_sprite_right -> draw(x + normal_sprite_left -> get_width(), y);
+		_p_normal_sprite_left -> draw(x, y);
+		_p_selected_sprite_right -> draw(_x2, _y2);
 	}
 }
 
 void DualChoiceItem::events()
 {
+	static CommonResources * common_resources = common_resources_get_instance();
+	
+	if(common_resources -> key.left -> get())
+ 	{
+    	_selection = CHOICE_LEFT;
+  	}
+
+ 	if(common_resources -> key.right -> get())
+ 	{
+ 		_selection = CHOICE_RIGHT;
+  	}
 }

@@ -16,7 +16,7 @@
 
 #include "MenuItem.h"
 
-enum DUAL_CHOICES
+enum
 {
 	CHOICE_LEFT,
 	CHOICE_RIGHT
@@ -28,12 +28,14 @@ enum DUAL_CHOICES
 class DualChoiceItem : public MenuItem
 {
 protected:
-    CL_Sprite *normal_sprite_left;
-    CL_Sprite *selected_sprite_left;
-    CL_Sprite *normal_sprite_right;
-    CL_Sprite *selected_sprite_right;
+    CL_Sprite *_p_normal_sprite_left;
+    CL_Sprite *_p_selected_sprite_left;
+    CL_Sprite *_p_normal_sprite_right;
+    CL_Sprite *_p_selected_sprite_right;
 
-		int _selection;
+	int _selection;
+	
+	int _x2, _y2;
 
 public:
 
@@ -42,9 +44,14 @@ public:
                  CL_Sprite *normal_sprite_right,
                  CL_Sprite *selected_sprite_right);
     void unload_gfx();
+    
+    void set_x2(int x);
+    void set_y2(int y);
 
     void draw();
     void events();
+    
+    int get_selection(){ return _selection; }
 
     DualChoiceItem();
     ~DualChoiceItem();

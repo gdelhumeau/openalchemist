@@ -75,8 +75,6 @@ void GameEngine::run()
 
     running = true;
 
-    init();
-
     while (running)
     {
         common_state.events();
@@ -188,7 +186,6 @@ void GameEngine::set_state_quit_menu(int action)
 {
     if (states_stack.top() != &quitmenu_state)
     {
-        std::cout << "yaya" << std::endl;
         quitmenu_state.set_action(action);
         states_stack.push(&quitmenu_state);
         pausemenu_state.start();
