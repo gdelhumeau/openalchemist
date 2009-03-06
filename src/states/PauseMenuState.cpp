@@ -84,7 +84,7 @@ void PauseMenuState::load_gfx (std::string skin)
   // give up
   giveup_item.set_gfx (new CL_Sprite ("menu_pause/giveup/unselected", &gfx),
                        new CL_Sprite ("menu_pause/giveup/selected", &gfx),
-                       NULL);
+                       new CL_Sprite ("menu_pause/giveup/unavailable", &gfx));
   giveup_item.set_x (x + CL_Integer_to_int ("menu_pause/giveup/left", &gfx));
   giveup_item.set_y (y + CL_Integer_to_int ("menu_pause/giveup/top", &gfx));
 
@@ -165,6 +165,7 @@ void PauseMenuState::action_performed (int selection)
 void PauseMenuState::update_child ()
 {
   undo_item.set_locked (!common_resources -> player1.is_undo_available ());
+  giveup_item.set_locked(!common_resources -> current_player -> is_human());
 }
 
 PauseMenuState::PauseMenuState () {

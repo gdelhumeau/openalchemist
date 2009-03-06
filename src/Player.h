@@ -292,6 +292,8 @@ class Player{
    * Fall playable pieces
    */
   void fall();
+  
+  virtual bool is_human() = 0;
 
   
   protected:

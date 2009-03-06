@@ -33,6 +33,8 @@ class HumanPlayer : public Player{
    * Checking key events
    */
   void events();
+  
+  virtual bool is_human(){ return true; }
 
 
 };

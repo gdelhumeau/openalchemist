@@ -38,6 +38,8 @@ class DemoPlayer : public Player{
    * Make a new game
    */
   void new_game();
+  
+  virtual bool is_human(){ return false; }
 
 
 };
