@@ -80,8 +80,6 @@ public:
 
         // Add a callback when user resize the window
         //resize_event = window -> sig_resize().connect(game, &GameEngine::resize);
-
-        game -> init();
     }
 
     /**

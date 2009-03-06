@@ -72,7 +72,7 @@ void BasicItem::draw()
     }
 }
 
-void BasicItem::events()
+void BasicItem::action_performed(int action_type)
 {
 
 }

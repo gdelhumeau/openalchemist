@@ -1,12 +1,12 @@
 /********************************************************************
                             OpenAlchemist
-
+ 
   File : GameEngine.cpp
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
+ 
+ 
  *********************************************************************/
 
 #include <ClanLib/core.h>
@@ -16,37 +16,27 @@
 #include "Preferences.h"
 #include "CommonResources.h"
 #include "misc.h"
+#include "LoadingScreen.h"
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
     this -> window = window;
     this -> opengl = opengl;
+    _p_loading_screen = NULL;
 }
 
 GameEngine::~GameEngine()
-{
-}
+{}
 
 void GameEngine::init()
 {
+    running = true;
 
-    CL_System::keep_alive();
-
-    // Drawing loading picture
-    std::string file_path = get_data_path();
-    CL_Surface loading(file_path + get_path_separator() + "loading.png");
-
-    for (int i = 0; i < 100; ++i)
-    {
-        CL_Display::clear(CL_Color(0, 0, 0));
-        loading.draw(400 - loading.get_width() / 2, 300 - loading.get_height() / 2);
-        CL_Display::flip();
-        CL_System::keep_alive();
-    }
+    _p_loading_screen = new LoadingScreen();
+    _p_loading_screen -> set_progression(0.0f);
 
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();
-
 
     fps_getter.set_fps_limit(pref -> maxfps);
 
@@ -60,55 +50,61 @@ void GameEngine::init()
     title_state.init();
     quitmenu_state.init();
 
-    set_skin(pref -> skin);
+    _p_loading_screen -> set_progression(1.0f / 12.0f);
 
+    set_skin(pref -> skin);
     resize(window -> get_width(), window -> get_height());
 
+    delete _p_loading_screen;
+    _p_loading_screen = NULL;
 }
 
 void GameEngine::run()
 {
-    set_state_title();
+    init();
 
-    CommonResources *resources = common_resources_get_instance();
-    resources -> player1.new_game();
-
-    running = true;
-
-    while (running)
+    if(running)
     {
-        common_state.events();
-        common_state.update();
-        common_state.draw();
+        set_state_title();
 
-        GameState* current_state = states_stack.top();
-        current_state -> events();
-        current_state -> update();
+        CommonResources *resources = common_resources_get_instance();
+        resources -> player1.new_game();
 
-        // Drawing the front layer behind the current state or not
-        if (current_state -> front_layer_behind())
+        while (running)
         {
-            resources -> front_layer.draw();
-            current_state -> draw();
+            common_state.events();
+            common_state.update();
+            common_state.draw();
+
+            GameState* current_state = states_stack.top();
+            current_state -> events();
+            current_state -> update();
+
+            // Drawing the front layer behind the current state or not
+            if (current_state -> front_layer_behind())
+            {
+                resources -> front_layer.draw();
+                current_state -> draw();
+            }
+            else
+            {
+                current_state -> draw();
+                resources -> front_layer.draw();
+            }
+
+
+            // Get the Framerate
+            resources -> fps = fps_getter.get_fps();
+            resources -> time_interval = get_time_interval(resources->fps);
+
+
+            CL_Display::flip();
+
+            // This call updates input and performs other "housekeeping"
+            // Call this each frame
+            // Also, gives the CPU a rest for 10 milliseconds to catch up
+            CL_System::keep_alive();
         }
-        else
-        {
-            current_state -> draw();
-            resources -> front_layer.draw();
-        }
-
-
-        // Get the Framerate
-        resources -> fps = fps_getter.get_fps();
-        resources -> time_interval = get_time_interval(resources->fps);
-
-
-        CL_Display::flip();
-
-        // This call updates input and performs other "housekeeping"
-        // Call this each frame
-        // Also, gives the CPU a rest for 10 milliseconds to catch up
-        CL_System::keep_alive();
     }
 }
 
@@ -128,9 +124,7 @@ void GameEngine::set_state_title()
 }
 
 void GameEngine::set_state_new_game_menu()
-{
-
-}
+{}
 
 void GameEngine::set_state_pause_menu()
 {
@@ -202,12 +196,12 @@ void GameEngine::toggle_screen()
 {
     /*Preferences *pref = pref_get_instance();
      pref -> fullscreen = !pref -> fullscreen;
-	 
+
      if(pref -> fullscreen)
      {
              window->set_fullscreen(800,600,0,0);
              CL_Mouse::hide();
-		 
+
              if(pref -> widescreen && opengl)
              {
                      CL_GraphicContext *gc = window -> get_gc();
@@ -219,13 +213,13 @@ void GameEngine::toggle_screen()
      {
              window->set_windowed();
              CL_Mouse::show();
-		 
+
              CL_GraphicContext *gc = window -> get_gc();
              gc -> set_scale(1.0, 1.0);
              gc -> set_translate(0, 0, 0);
-		 
+
      }
-	 
+
      pref -> write();*/
 
     if (window -> get_width() == 800)
@@ -254,7 +248,7 @@ void GameEngine::toggle_screen()
 void GameEngine::resize(int width, int height)
 {
     //static int old_width = 0;
-    //static int old_height = 0;		
+    //static int old_height = 0;
 
     if (!window -> is_fullscreen())
     {
@@ -266,7 +260,7 @@ void GameEngine::resize(int width, int height)
          {			
                  old_width = width;
                  old_height = height;			
-			 
+
                  if(ratio > 800.0 / 600.0 * 1.01)
                  {
                          width = height * 1.33;
@@ -277,7 +271,7 @@ void GameEngine::resize(int width, int height)
                          height = width * 0.75;
                          window -> set_size(width, height);
                  }
-			 
+
                  double scale_width = width / 800.0;
                  double scale_height= height / 600.0;
                  gc -> set_scale(scale_width, scale_height);
@@ -335,30 +329,79 @@ void GameEngine::set_skin(std::string skin)
 
     try
     {
-
         pref -> skin = skin;
 
-        resources -> load_gfx(pref -> skin);
+        if(running)
+        {
+            resources -> load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(2.0f / 12.0f);
+        }
 
-        title_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            title_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(3.0f / 12.0f);
+        }
 
-        common_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            common_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(4.0f / 12.0f);
+        }
 
-        ingame_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            ingame_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(5.0f / 12.0f);
+        }
 
-        gameover_state.load_gfx(pref -> skin);
 
-        pausemenu_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            gameover_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(6.0f / 12.0f);
+        }
 
-        skinsmenu_state.load_gfx(pref -> skin);
 
-        optionsmenu_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            pausemenu_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(7.0f / 12.0f);
+        }
 
-        optionsmenu_state.load_gfx(pref -> skin);
 
-        title_state.load_gfx(pref -> skin);
+        if(running)
+        {
+            skinsmenu_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(8.0f / 12.0f);
+        }
 
-        quitmenu_state.load_gfx(pref -> skin);
+
+        if(running)
+        {
+            optionsmenu_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(9.0f / 12.0f);
+        }
+
+        if(running)
+        {
+            optionsmenu_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(10.0f / 12.0f);
+        }
+
+
+        if(running)
+        {
+            title_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(11.0f / 12.0f);
+        }
+
+
+        if(running)
+        {
+            quitmenu_state.load_gfx(pref -> skin);
+            _p_loading_screen -> set_progression(12.0f / 12.0f);
+        }
 
         pref -> write();
 

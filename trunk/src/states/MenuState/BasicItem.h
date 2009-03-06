@@ -32,7 +32,9 @@ class BasicItem : public MenuItem{
 	void unload_gfx();
 
 	void draw();
-	void events();
+	void action_performed(int action_type);
+	
+	virtual bool quit_menu_on_action(){ return true; }
 	
 	BasicItem();	
 	~BasicItem();

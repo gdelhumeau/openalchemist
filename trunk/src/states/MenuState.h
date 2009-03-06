@@ -46,8 +46,9 @@ class MenuState : public GameState{
   virtual void deinit();
   virtual void load_gfx(std::string skin);
   virtual void unload_gfx();
-  virtual void action_performed(int selection);
+  virtual void action_performed(int selection, int action_type);
   virtual void update_child();
+  
   void draw();
   void update();
   void events();
