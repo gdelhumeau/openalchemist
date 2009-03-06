@@ -35,7 +35,7 @@ LoadingScreen::~LoadingScreen()
 void LoadingScreen::set_progression(float progression)
 {
     CL_Display::clear(CL_Color(0, 0, 0));
-    _p_logo -> draw(400 - _p_logo->get_width() / 2, 300 - _p_logo->get_height() / 2);
+    _p_logo -> draw(400 - _p_logo->get_width() / 2, 280 - _p_logo->get_height() / 2);
     
     int base_x = 400 - _p_progression -> get_width() / 2;
     int base_y = 550;
