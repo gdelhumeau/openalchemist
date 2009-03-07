@@ -58,7 +58,7 @@ public:
     void load_gfx(std::string skin);
     void unload_gfx();
 
-    void action_performed(int selection);
+    void action_performed(int selection, int action_type);
     void update_child();
 
     QuitMenuState();
