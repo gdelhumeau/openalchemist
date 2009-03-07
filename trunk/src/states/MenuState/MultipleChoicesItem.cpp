@@ -9,6 +9,7 @@
  
 *********************************************************************/
 
+#include <iostream>
 #include "MultipleChoicesItem.h"
 
 
@@ -63,6 +64,15 @@ void MultipleChoicesItem::set_current_choice(unsigned int choice)
 	{
 		_selection = choice;
 	}
+}
+
+void MultipleChoicesItem::clear_choices()
+{
+    for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
+    {
+        delete _choices_list_p[i];
+    }
+    _choices_list_p.clear();
 }
 
 void MultipleChoicesItem::draw()

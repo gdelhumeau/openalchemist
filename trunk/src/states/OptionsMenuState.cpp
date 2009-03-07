@@ -98,7 +98,11 @@ void OptionsMenuState::load_gfx(std::string skin)
     _quit_item.set_gfx(new CL_Sprite("menu_options/quit/unselected", &gfx),
                        new CL_Sprite("menu_options/quit/selected", &gfx),
                        NULL);
+                       
+    _sound_level_item.clear_choices();
+	_music_level_item.clear_choices();
 
+	std::cout << "gralala\n";
     for(int i=0; i<=10; ++i)
     {
         _sound_level_item.add_choice(new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
@@ -129,9 +133,15 @@ void OptionsMenuState::load_gfx(std::string skin)
 
     _sound_level_item.set_x(x + CL_Integer_to_int("menu_options/sound/left", &gfx));
     _sound_level_item.set_y(y + CL_Integer_to_int("menu_options/sound/top", &gfx));
+    
+    _sound_level_item.set_choice_x(x + CL_Integer_to_int("menu_options/sound/left", &gfx)+250);
+    _sound_level_item.set_choice_y(y + CL_Integer_to_int("menu_options/sound/top", &gfx));
 
     _music_level_item.set_x(x + CL_Integer_to_int("menu_options/music/left", &gfx));
     _music_level_item.set_y(y + CL_Integer_to_int("menu_options/music/top", &gfx));
+    
+    _music_level_item.set_choice_x(x + CL_Integer_to_int("menu_options/music/left", &gfx)+250);
+    _music_level_item.set_choice_y(y + CL_Integer_to_int("menu_options/music/top", &gfx));
     
     _quit_item.set_x(x + CL_Integer_to_int("menu_options/quit/left", &gfx));
     _quit_item.set_y(y + CL_Integer_to_int("menu_options/quit/top", &gfx));

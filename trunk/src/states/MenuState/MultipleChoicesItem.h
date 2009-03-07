@@ -44,6 +44,8 @@ class MultipleChoicesItem : public MenuItem{
 	void add_choice(CL_Sprite * p_sprite);
 	void set_current_choice(unsigned int choice);
 	
+	void clear_choices();
+	
 	MultipleChoicesItem();
 	~MultipleChoicesItem();	
 
