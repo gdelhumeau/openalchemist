@@ -23,13 +23,13 @@
 
 CombosPainter :: CombosPainter()
 {
-  sprite_single = NULL;
-  sprite_plural = NULL;
-  font          = NULL;
+  _p_sprite_single = NULL;
+  _p_sprite_plural = NULL;
+  _p_font          = NULL;
 
-  next_time = 0;
-  enabled = false;
-  mode = MODE_APPEARING;
+  _next_time = 0;
+  _is_enabled = false;
+  _mode = MODE_APPEARING;
 }
 
 CombosPainter :: ~CombosPainter()
@@ -47,143 +47,143 @@ void CombosPainter :: load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx_combos("combos.xml", &zip, false);
 
-  sprite_single = new CL_Sprite("combos/text/sprite_single", &gfx_combos);
-  sprite_plural = new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
-  font = new CL_Font("combos/font", &gfx_combos);
+  _p_sprite_single = new CL_Sprite("combos/text/sprite_single", &gfx_combos);
+  _p_sprite_plural = new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
+  _p_font = new CL_Font("combos/font", &gfx_combos);
 
-  sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
-  sprite_y =  CL_Integer_to_int("combos/text/top", &gfx_combos);
+  _sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
+  _sprite_y =  CL_Integer_to_int("combos/text/top", &gfx_combos);
 
-  score_x =  CL_Integer_to_int("combos/score/left", &gfx_combos);
-  score_y =  CL_Integer_to_int("combos/score/top", &gfx_combos);  
+  _score_x =  CL_Integer_to_int("combos/score/left", &gfx_combos);
+  _score_y =  CL_Integer_to_int("combos/score/top", &gfx_combos);  
 
 }
 
 
 void CombosPainter :: unload_gfx()
 {
-  if(sprite_single)
+  if(_p_sprite_single)
   {
-    delete sprite_single;
-    sprite_single = NULL;
+    delete _p_sprite_single;
+    _p_sprite_single = NULL;
   }
-  if(sprite_plural)
+  if(_p_sprite_plural)
   {
-    delete sprite_plural;
-    sprite_plural = NULL;
+    delete _p_sprite_plural;
+    _p_sprite_plural = NULL;
   }
-  if(font)
+  if(_p_font)
   {
-    delete font;
-    font = NULL;
+    delete _p_font;
+    _p_font = NULL;
   }
 }
 
 void CombosPainter :: set_score(int score)
 {
-  this -> score = score;
+  this -> _score = score;
 
-  if(!enabled)
+  if(!_is_enabled)
   {
-    score_current_y  = - font -> get_height();
-    sprite_current_x = 800;
-    mode = MODE_APPEARING;
+    _score_current_y  = - _p_font -> get_height();
+    _sprite_current_x = 800;
+    _mode = MODE_APPEARING;
   }
   else
   {
-    next_time = CL_System::get_time() + 1500;
+    _next_time = CL_System::get_time() + 1500;
   }
 
-  enabled = true;
+  _is_enabled = true;
 
 }
 
 void CombosPainter :: draw()
 {
-  if(!enabled)
+  if(!_is_enabled)
     return;
 
-  font -> draw(score_x, score_current_y, to_string(score));
-  if(score == 1)
-    sprite_single -> draw(sprite_current_x, sprite_y);
+  _p_font -> draw(_score_x, _score_current_y, to_string(_score));
+  if(_score == 1)
+    _p_sprite_single -> draw(_sprite_current_x, _sprite_y);
   else
-    sprite_plural -> draw(sprite_current_x, sprite_y);
+    _p_sprite_plural -> draw(_sprite_current_x, _sprite_y);
 
   
 }
 
 void CombosPainter :: update()
 {
-  if(enabled)
+  if(_is_enabled)
   {
-    switch(mode)
+    switch(_mode)
     {
     case MODE_APPEARING:
-      update_appearing();
+      _update_appearing();
       break;  
     case MODE_DISPLAY:
-      update_display();
+      _update_display();
       break;
     case MODE_DISAPPEARING:
-      update_disappearing();
+      _update_disappearing();
       break;
     }
   }
 }
 
   
-void CombosPainter :: update_appearing()
+void CombosPainter :: _update_appearing()
 {
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
 
-  if(sprite_current_x > sprite_x)
+  if(_sprite_current_x > _sprite_x)
   {
-    sprite_current_x -= COMBOS_SPEED * resources -> time_interval;
-    if(sprite_current_x < sprite_x)
-      sprite_current_x = sprite_x;
+    _sprite_current_x -= COMBOS_SPEED * resources -> time_interval;
+    if(_sprite_current_x < _sprite_x)
+      _sprite_current_x = _sprite_x;
   }
  
-  if(score_current_y < score_y)
+  if(_score_current_y < _score_y)
   {
-    score_current_y += COMBOS_SPEED * resources -> time_interval;
-    if(score_current_y > score_y)
-      score_current_y = score_y;
+    _score_current_y += COMBOS_SPEED * resources -> time_interval;
+    if(_score_current_y > _score_y)
+      _score_current_y = _score_y;
   }
 
-  if(score_current_y >= score_y && sprite_current_x <= sprite_x)
+  if(_score_current_y >= _score_y && _sprite_current_x <= _sprite_x)
   {
-    mode = MODE_DISPLAY;
-    next_time = CL_System::get_time() + 1500;
+    _mode = MODE_DISPLAY;
+    _next_time = CL_System::get_time() + 1500;
   }
 }
 
 
-void CombosPainter :: update_display()
+void CombosPainter :: _update_display()
 {
-  if(CL_System::get_time() > next_time)
+  if(CL_System::get_time() > _next_time)
   {
-    mode = MODE_DISAPPEARING;
+    _mode = MODE_DISAPPEARING;
   }
 }
 
-void CombosPainter :: update_disappearing()
+void CombosPainter :: _update_disappearing()
 {
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
 
-  if(sprite_current_x < 800)
+  if(_sprite_current_x < 800)
   {
-    sprite_current_x += COMBOS_SPEED * resources -> time_interval;
+    _sprite_current_x += COMBOS_SPEED * resources -> time_interval;
   }
  
-  if(score_current_y > -font -> get_height())
+  if(_score_current_y > -_p_font -> get_height())
   {
-    score_current_y -= COMBOS_SPEED * resources -> time_interval;
+    _score_current_y -= COMBOS_SPEED * resources -> time_interval;
   }
 
-  if(score_current_y < - font -> get_height() && sprite_current_x > 800)
+  if(_score_current_y < - _p_font -> get_height() && _sprite_current_x > 800)
   {
-    enabled = false;
+    _is_enabled = false;
   }
 }

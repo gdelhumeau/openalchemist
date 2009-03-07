@@ -26,7 +26,7 @@ class GameEngine;
 class CommonState : public GameState{
 
   private:
-  CL_Surface *background;
+  CL_Surface *_p_background;
 
   public:
   void init();

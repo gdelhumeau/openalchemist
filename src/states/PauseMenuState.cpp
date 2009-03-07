@@ -28,13 +28,13 @@ enum
 
 void PauseMenuState::init ()
 {
-    items.clear();
-    items.insert (items.end (), &resume_item);
-    items.insert (items.end (), &undo_item);
-    items.insert (items.end (), &retry_item);
-    items.insert (items.end (), &options_item);
-    items.insert (items.end (), &giveup_item);
-    items.insert (items.end (), &quit_item);
+    _items.clear();
+    _items.insert (_items.end (), &_resume_item);
+    _items.insert (_items.end (), &_undo_item);
+    _items.insert (_items.end (), &_retry_item);
+    _items.insert (_items.end (), &_options_item);
+    _items.insert (_items.end (), &_giveup_item);
+    _items.insert (_items.end (), &_quit_item);
 }
 
 void PauseMenuState::deinit ()
@@ -47,63 +47,63 @@ void PauseMenuState::load_gfx (std::string skin)
     CL_ResourceManager gfx ("menu_pause.xml", &zip, false);
 
     // First, the sprites
-    background = new CL_Sprite ("menu_pause/background", &gfx);
+    _background = new CL_Sprite ("menu_pause/background", &gfx);
 
-    int x = 400 - background -> get_width () / 2;
-    int y = 300 - background -> get_height () / 2;
+    int x = 400 - _background -> get_width () / 2;
+    int y = 300 - _background -> get_height () / 2;
 
 
     // resume
-    resume_item.set_gfx (new CL_Sprite ("menu_pause/resume/unselected", &gfx),
+    _resume_item.set_gfx (new CL_Sprite ("menu_pause/resume/unselected", &gfx),
                          new CL_Sprite ("menu_pause/resume/selected", &gfx),
                          NULL);
-    resume_item.set_x (x + CL_Integer_to_int ("menu_pause/resume/left", &gfx));
-    resume_item.set_y (y + CL_Integer_to_int ("menu_pause/resume/top", &gfx));
+    _resume_item.set_x (x + CL_Integer_to_int ("menu_pause/resume/left", &gfx));
+    _resume_item.set_y (y + CL_Integer_to_int ("menu_pause/resume/top", &gfx));
 
     // undo
-    undo_item.set_gfx (new CL_Sprite ("menu_pause/undo/unselected", &gfx),
+    _undo_item.set_gfx (new CL_Sprite ("menu_pause/undo/unselected", &gfx),
                        new CL_Sprite ("menu_pause/undo/selected", &gfx),
                        new CL_Sprite ("menu_pause/undo/unavailable", &gfx));
-    undo_item.set_x (x + CL_Integer_to_int ("menu_pause/undo/left", &gfx));
-    undo_item.set_y (y + CL_Integer_to_int ("menu_pause/undo/top", &gfx));
-    undo_item.set_locked (true);
+    _undo_item.set_x (x + CL_Integer_to_int ("menu_pause/undo/left", &gfx));
+    _undo_item.set_y (y + CL_Integer_to_int ("menu_pause/undo/top", &gfx));
+    _undo_item.set_locked (true);
 
     // retry
-    retry_item.set_gfx (new CL_Sprite ("menu_pause/retry/unselected", &gfx),
+    _retry_item.set_gfx (new CL_Sprite ("menu_pause/retry/unselected", &gfx),
                         new CL_Sprite ("menu_pause/retry/selected", &gfx),
                         NULL);
-    retry_item.set_x (x + CL_Integer_to_int ("menu_pause/retry/left", &gfx));
-    retry_item.set_y (y + CL_Integer_to_int ("menu_pause/retry/top", &gfx));
+    _retry_item.set_x (x + CL_Integer_to_int ("menu_pause/retry/left", &gfx));
+    _retry_item.set_y (y + CL_Integer_to_int ("menu_pause/retry/top", &gfx));
 
     // options
-    options_item.set_gfx (new CL_Sprite ("menu_pause/options/unselected", &gfx),
+    _options_item.set_gfx (new CL_Sprite ("menu_pause/options/unselected", &gfx),
                           new CL_Sprite ("menu_pause/options/selected", &gfx),
                           NULL);
-    options_item.set_x (x + CL_Integer_to_int ("menu_pause/options/left", &gfx));
-    options_item.set_y (y + CL_Integer_to_int ("menu_pause/options/top", &gfx));
+    _options_item.set_x (x + CL_Integer_to_int ("menu_pause/options/left", &gfx));
+    _options_item.set_y (y + CL_Integer_to_int ("menu_pause/options/top", &gfx));
 
     // give up
-    giveup_item.set_gfx (new CL_Sprite ("menu_pause/giveup/unselected", &gfx),
+    _giveup_item.set_gfx (new CL_Sprite ("menu_pause/giveup/unselected", &gfx),
                          new CL_Sprite ("menu_pause/giveup/selected", &gfx),
                          new CL_Sprite ("menu_pause/giveup/unavailable", &gfx));
-    giveup_item.set_x (x + CL_Integer_to_int ("menu_pause/giveup/left", &gfx));
-    giveup_item.set_y (y + CL_Integer_to_int ("menu_pause/giveup/top", &gfx));
+    _giveup_item.set_x (x + CL_Integer_to_int ("menu_pause/giveup/left", &gfx));
+    _giveup_item.set_y (y + CL_Integer_to_int ("menu_pause/giveup/top", &gfx));
 
     // quit
-    quit_item.set_gfx (new CL_Sprite ("menu_pause/quit/unselected", &gfx),
+    _quit_item.set_gfx (new CL_Sprite ("menu_pause/quit/unselected", &gfx),
                        new CL_Sprite ("menu_pause/quit/selected", &gfx),
                        NULL);
-    quit_item.set_x (x + CL_Integer_to_int ("menu_pause/quit/left", &gfx));
-    quit_item.set_y (y + CL_Integer_to_int ("menu_pause/quit/top", &gfx));
+    _quit_item.set_x (x + CL_Integer_to_int ("menu_pause/quit/left", &gfx));
+    _quit_item.set_y (y + CL_Integer_to_int ("menu_pause/quit/top", &gfx));
 
 
 }
 
 void PauseMenuState::unload_gfx ()
 {
-    resume_item.unload_gfx ();
-    undo_item.unload_gfx ();
-    retry_item.unload_gfx ();
+    _resume_item.unload_gfx ();
+    _undo_item.unload_gfx ();
+    _retry_item.unload_gfx ();
 }
 
 void PauseMenuState::action_performed (int selection, int action_type)
@@ -113,52 +113,52 @@ void PauseMenuState::action_performed (int selection, int action_type)
         switch (selection)
         {
         case PAUSE_ITEM_RESUME:
-            common_resources -> engine -> stop_current_state ();
+            _p_common_resources -> p_engine -> stop_current_state ();
             break;
         case PAUSE_ITEM_UNDO:
-            common_resources -> player1.undo ();
-            common_resources -> engine -> stop_current_state ();
-            common_resources -> engine -> set_state_ingame ();
+            _p_common_resources -> player1.undo ();
+            _p_common_resources -> p_engine -> stop_current_state ();
+            _p_common_resources -> p_engine -> set_state_ingame ();
             break;
         case PAUSE_ITEM_RETRY:
             {
-                if (common_resources -> player1.is_game_over ())
+                if (_p_common_resources -> player1.is_game_over ())
                 {
-                    common_resources -> player1.new_game ();
-                    common_resources -> engine -> stop_current_state ();
-                    common_resources -> engine -> set_state_ingame ();
+                    _p_common_resources -> player1.new_game ();
+                    _p_common_resources -> p_engine -> stop_current_state ();
+                    _p_common_resources -> p_engine -> set_state_ingame ();
                 }
                 else
                 {
-                    common_resources -> engine -> stop_current_state ();
-                    common_resources -> engine -> set_state_quit_menu (QUITMENU_RETRY);
+                    _p_common_resources -> p_engine -> stop_current_state ();
+                    _p_common_resources -> p_engine -> set_state_quit_menu (QUITMENU_RETRY);
                 }
                 break;
             }
         case PAUSE_ITEM_GIVEUP:
             {
-                if (common_resources -> player1.is_game_over ())
+                if (_p_common_resources -> player1.is_game_over ())
                 {
-                    common_resources -> engine -> stop_current_state ();
-                    common_resources -> engine -> set_state_title ();
+                    _p_common_resources -> p_engine -> stop_current_state ();
+                    _p_common_resources -> p_engine -> set_state_title ();
                 }
                 else
                 {
-                    common_resources -> player1.give_up ();
-                    common_resources -> engine -> stop_current_state ();
-                    common_resources -> engine -> set_state_quit_menu (QUITMENU_GIVE_UP);
+                    _p_common_resources -> player1.give_up ();
+                    _p_common_resources -> p_engine -> stop_current_state ();
+                    _p_common_resources -> p_engine -> set_state_quit_menu (QUITMENU_GIVE_UP);
                 }
                 break;
             }
         case PAUSE_ITEM_OPTIONS:
             {
                 start ();
-                common_resources -> engine -> set_state_options_menu ();
+                _p_common_resources -> p_engine -> set_state_options_menu ();
                 break;
             }
         case PAUSE_ITEM_QUIT:
             {
-                common_resources -> engine -> set_state_quit_menu (QUITMENU_EXIT);
+                _p_common_resources -> p_engine -> set_state_quit_menu (QUITMENU_EXIT);
                 break;
             }
         }
@@ -168,8 +168,8 @@ void PauseMenuState::action_performed (int selection, int action_type)
 
 void PauseMenuState::update_child ()
 {
-    undo_item.set_locked (!common_resources -> player1.is_undo_available ());
-    giveup_item.set_locked(!common_resources -> current_player -> is_human());
+    _undo_item.set_locked (!_p_common_resources -> player1.is_undo_available ());
+    _giveup_item.set_locked(!_p_common_resources -> p_current_player -> is_human());
 }
 
 PauseMenuState::PauseMenuState ()

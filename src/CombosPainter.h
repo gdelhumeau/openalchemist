@@ -18,38 +18,38 @@ class CombosPainter{
 
   private:
 
-  int score;
+  int _score;
 
-  int mode;
+  int _mode;
 
-  bool enabled;
+  bool _is_enabled;
   
   /**
    * Combo text sprite
    */
-  CL_Sprite * sprite_single;
+  CL_Sprite * _p_sprite_single;
 
   /**
    * Combo text sprite
    */
-  CL_Sprite * sprite_plural;
+  CL_Sprite * _p_sprite_plural;
 
   /**
    * Combo font
    */
-  CL_Font * font;
+  CL_Font * _p_font;
 
   /**
    * Combo coords
    */ 
-  int sprite_x, sprite_y, score_x, score_y;
+  int _sprite_x, _sprite_y, _score_x, _score_y;
 
   /**
    * Actual coords
    */
-  double sprite_current_x, sprite_current_y, score_current_x, score_current_y;
+  double _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
 
-  unsigned long int next_time;
+  unsigned long int _next_time;
 
   public:
 
@@ -62,9 +62,9 @@ class CombosPainter{
   void update();
 
   private:
-  void update_appearing();
-  void update_display();
-  void update_disappearing();
+  void _update_appearing();
+  void _update_display();
+  void _update_disappearing();
 
 };
 

@@ -27,26 +27,26 @@ class GameEngine;
 class OptionsMenuState : public GameState{
 
   private:
-  int step;
+  int _step;
 
-  float alpha;
+  float _alpha;
 
-  CL_Sprite *items[OPTIONS_NUMBER_OF_ITEMS];
-  CL_Sprite *items_selected[OPTIONS_NUMBER_OF_ITEMS];
-  int items_left[OPTIONS_NUMBER_OF_ITEMS];
-  int items_top [OPTIONS_NUMBER_OF_ITEMS];
-  int sound_level_left;
+  CL_Sprite *_items_p[OPTIONS_NUMBER_OF_ITEMS];
+  CL_Sprite *_items_selected_p[OPTIONS_NUMBER_OF_ITEMS];
+  int _items_left[OPTIONS_NUMBER_OF_ITEMS];
+  int _items_top [OPTIONS_NUMBER_OF_ITEMS];
+  int _sound_level_left;
 
-  CL_Sprite *background;  
-  CL_Sprite *sound_level_sprites[11];
+  CL_Sprite *_p_background;  
+  CL_Sprite *_sound_level_sprites_p[11];
 
-  int sound_level;
-  int music_level;
+  int _sound_level;
+  int _music_level;
 
-  int selection;
+  int _selection;
 
-  void appear();
-  void disappear();
+  void _appear();
+  void _disappear();
 
   public:
   void init();

@@ -21,7 +21,7 @@
 
 CommonState::CommonState()
 {
-  background = NULL;
+  _p_background = NULL;
 }
 
 
@@ -47,16 +47,16 @@ void CommonState::load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("general.xml",&zip, false);
 
-  background = new CL_Surface("background", &gfx);
+  _p_background = new CL_Surface("background", &gfx);
 }
 
 
 void CommonState::unload_gfx()
 {
-  if(background)
+  if(_p_background)
   {
-    delete background;
-    background = NULL;
+    delete _p_background;
+    _p_background = NULL;
   }
 
 }
@@ -64,11 +64,11 @@ void CommonState::unload_gfx()
 
 void CommonState::draw()
 {
-  background -> draw(0, 0);
-  common_resources -> main_font -> draw(580,550,to_string(common_resources -> engine -> get_fps()));
+  _p_background -> draw(0, 0);
+  _p_common_resources -> p_main_font -> draw(580,550,to_string(_p_common_resources -> p_engine -> get_fps()));
 
-  if(common_resources -> current_player)
-    common_resources -> current_player -> draw();
+  if(_p_common_resources -> p_current_player)
+    _p_common_resources -> p_current_player -> draw();
 }
 
 
@@ -80,9 +80,9 @@ void CommonState::update()
 
 void CommonState::events()
 {
-  if(common_resources->key.fullscreen -> get())
+  if(_p_common_resources->key.fullscreen -> get())
   {
-    common_resources -> engine -> toggle_screen();
+    _p_common_resources -> p_engine -> toggle_screen();
   }
 }
 

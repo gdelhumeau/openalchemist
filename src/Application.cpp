@@ -30,15 +30,15 @@ class Application : public CL_ClanApplication
 public:
 
     /** Main Window */
-    CL_DisplayWindow *window;
+    CL_DisplayWindow *_p_window;
     /** Used to have a callback event when user close the window */
-    CL_Slot quit_event;
+    CL_Slot _quit_event;
     /** Used to have a callback event when user resize the window */
-    CL_Slot resize_event;
+    CL_Slot _resize_event;
     /** Rendering used - OpenGL or SDL */
-    bool render;
+    bool _render;
 
-    GameEngine *game;
+    GameEngine *_p_game;
 
     /**
      * Initialise the game
@@ -48,35 +48,35 @@ public:
         CL_SetupCore::init();
         CL_SetupDisplay::init();
 
-        if(RENDER_OPENGL == render)
+        if(RENDER_OPENGL == _render)
         {
             CL_SetupGL::init();
-            window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+            _p_window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
             //window -> set_size(800,600);
             CL_System::keep_alive();
         }
         else
         {
             CL_SetupSDL::init();
-            window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+            _p_window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
         }
 
-        Preferences *pref = pref_get_instance();
-        if(pref -> fullscreen)
+        Preferences *p_pref = pref_get_instance();
+        if(p_pref -> fullscreen)
         {
-            window -> set_fullscreen(800,600,0,0);
-            if(pref -> widescreen && RENDER_OPENGL == render)
+            _p_window -> set_fullscreen(800,600,0,0);
+            if(p_pref -> widescreen && RENDER_OPENGL == _render)
             {
-                CL_GraphicContext *gc = window -> get_gc();
+                CL_GraphicContext *gc = _p_window -> get_gc();
                 gc -> set_scale(0.83, 1.0);
                 gc -> add_translate(80, 0, 0);
             }
         }
 
         // Add a callback when user close the window
-        quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
+        _quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
-        game = new GameEngine(window, render);
+        _p_game = new GameEngine(_p_window, _render);
 
         // Add a callback when user resize the window
         //resize_event = window -> sig_resize().connect(game, &GameEngine::resize);
@@ -87,7 +87,7 @@ public:
      */
     void stop()
     {
-        game -> stop();
+        _p_game -> stop();
     }
 
     /**
@@ -95,13 +95,13 @@ public:
      */
     void quit()
     {
-        CL_Display::sig_window_close().disconnect(quit_event);
+        CL_Display::sig_window_close().disconnect(_quit_event);
 
-        delete game;
+        delete _p_game;
 
-        delete window;
+        delete _p_window;
 
-        if(render == RENDER_OPENGL)
+        if(_render == RENDER_OPENGL)
         {
             CL_SetupGL::deinit();
         }
@@ -125,24 +125,24 @@ public:
     virtual int main(int argc, char **argv)
     {
         bool dont_run_game = false;
-        Preferences *pref = pref_get_instance();
-        render = pref -> render_opengl;
+        Preferences *_p_pref = pref_get_instance();
+        _render = _p_pref -> render_opengl;
 
         // Checking parameters
         for(int i = 0; i < argc; ++i)
         {
-            if(strcmp(argv[i], "--sdl")==0 && render != RENDER_SDL)
+            if(strcmp(argv[i], "--sdl")==0 && _render != RENDER_SDL)
             {
-                render = RENDER_SDL;
-                pref -> render_opengl = false;
-                pref -> write();
+                _render = RENDER_SDL;
+                _p_pref -> render_opengl = false;
+                _p_pref -> write();
 
             }
-            if(strcmp(argv[i], "--opengl")==0 && render != RENDER_OPENGL)
+            if(strcmp(argv[i], "--opengl")==0 && _render != RENDER_OPENGL)
             {
-                render = RENDER_OPENGL;
-                pref -> render_opengl = true;
-                pref -> write();
+                _render = RENDER_OPENGL;
+                _p_pref -> render_opengl = true;
+                _p_pref -> write();
 
             }
             if(strcmp(argv[i], "--help")==0)
@@ -163,7 +163,7 @@ public:
 
                 if(istr>>maxfps)
                 {
-                    pref -> maxfps = maxfps;
+                    _p_pref -> maxfps = maxfps;
                 }
                 else
                 {
@@ -174,25 +174,25 @@ public:
             }
             if(strcmp(argv[i], "--cb")==0)
             {
-                pref -> colorblind = true;
-                pref -> write();
+                _p_pref -> colorblind = true;
+                _p_pref -> write();
 
             }
             if(strcmp(argv[i], "--nocb")==0)
             {
-                pref -> colorblind = false;
-                pref -> write();
+                _p_pref -> colorblind = false;
+                _p_pref -> write();
 
             }
             if(strcmp(argv[i], "--wide")==0)
             {
-                pref -> widescreen = true;
-                pref -> write();
+                _p_pref -> widescreen = true;
+                _p_pref -> write();
             }
             if(strcmp(argv[i], "--nowide")==0)
             {
-                pref -> widescreen = false;
-                pref -> write();
+                _p_pref -> widescreen = false;
+                _p_pref -> write();
             }
 
 
@@ -204,7 +204,7 @@ public:
             {
 
                 this->init();
-                game->run();
+                _p_game->run();
                 this->quit();
 
             }

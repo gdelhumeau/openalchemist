@@ -33,20 +33,20 @@ class GameOverState : public GameState{
 
   private:
 
-  CL_Sprite * dialog, * dialog_gameover, * dialog_highscore;
-  int dialog_x, dialog_y;
-  int score1_x;
-  int score1_y;
-  int score2_x;
-  int score2_y;
+  CL_Sprite * _p_dialog, * _p_dialog_gameover, * _p_dialog_highscore;
+  int _dialog_x, _dialog_y;
+  int _score1_x;
+  int _score1_y;
+  int _score2_x;
+  int _score2_y;
 
-  CL_Sprite * yes_selected, *yes_unselected;
-  CL_Sprite * no_selected, *no_unselected;
-  int yes_x, yes_y;
-  int no_x, no_y;
+  CL_Sprite * _p_yes_selected, *_p_yes_unselected;
+  CL_Sprite * _p_no_selected, *_p_no_unselected;
+  int _yes_x, _yes_y;
+  int _no_x, _no_y;
 
-  int mode;
-  int selection;
+  int _mode;
+  int _selection;
 
   public:
   void init();

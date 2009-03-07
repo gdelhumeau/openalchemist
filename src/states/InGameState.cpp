@@ -41,26 +41,26 @@ void InGameState::draw()
 
 void InGameState::update()
 {
-  common_resources -> player1.update();
+  _p_common_resources -> player1.update();
 }
 
 void InGameState::events()
 {
-  common_resources -> player1.events();
+  _p_common_resources -> player1.events();
 
-  if(common_resources -> key.escape -> get() || common_resources ->key.pause->get())
+  if(_p_common_resources -> key.escape -> get() || _p_common_resources ->key.pause->get())
   {
-    common_resources -> engine -> set_state_pause_menu();
+    _p_common_resources -> p_engine -> set_state_pause_menu();
   }
 
-  if(common_resources->key.skins -> get())
+  if(_p_common_resources->key.skins -> get())
   {
-    common_resources -> engine -> set_state_skin_menu();
+    _p_common_resources -> p_engine -> set_state_skin_menu();
   }
 
-  if(common_resources->key.options -> get() )
+  if(_p_common_resources->key.options -> get() )
   {
-    common_resources -> engine -> set_state_options_menu();
+    _p_common_resources -> p_engine -> set_state_options_menu();
   }
 
 }

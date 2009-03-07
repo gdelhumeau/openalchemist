@@ -29,35 +29,36 @@ class TitleState : public GameState{
 
   private:
 
-  DemoPlayer demo_player;
+  DemoPlayer _demo_player;
 
-  CL_Sprite *start_message;
-  int start_message_x, start_message_y;
+  CL_Sprite *_p_start_message;
+  int _start_message_x, _start_message_y;
 
-  CL_Sprite *keydemo_left, *keydemo_up, *keydemo_right, *keydemo_down;
-  CL_Sprite *keydemo_escape, *keydemo_options;
+  CL_Sprite *_p_keydemo_left, *_p_keydemo_up, *_p_keydemo_right, *_p_keydemo_down;
+  CL_Sprite *_p_keydemo_escape, *_p_keydemo_options;
 
   /** Help sentences **/
-  CL_Sprite *sentences[NUMBER_OF_SENTENCES];
+  CL_Sprite *_sentences_p[NUMBER_OF_SENTENCES];
 
   /** Help sentences coords **/
-  int sentences_x[NUMBER_OF_SENTENCES], sentences_y[NUMBER_OF_SENTENCES];
+  int _sentences_x[NUMBER_OF_SENTENCES], _sentences_y[NUMBER_OF_SENTENCES];
 
   /** Help sentences time **/
-  int sentences_time[NUMBER_OF_SENTENCES];
+  int _sentences_time[NUMBER_OF_SENTENCES];
 
   /** Keyboard demo coords **/
-  int keyleft_x, keyleft_y, keyup_x, keyup_y, keyright_x, keyright_y, keydown_x, keydown_y;
+  int _keyleft_x, _keyleft_y, _keyup_x, _keyup_y, _keyright_x, _keyright_y,
+          _keydown_x, _keydown_y;
 
   /** Time when will come the next step **/
-  u_int next_time;
+  u_int _next_time;
 
   /** Current Step **/
-  short int step;
+  short int _step;
 
-  bool new_game, fall, change_angle, select_the_position;
+  bool _new_game, _fall, _change_angle, _select_the_position;
 
-	CL_Font * font;
+	CL_Font * _p_font;
 
   public:
   void init();

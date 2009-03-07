@@ -33,52 +33,52 @@ void DemoPlayer::new_game()
   CommonResources *resources = common_resources_get_instance();
 
   // Creating new pieces for playable pieces and next pieces
-  current_piece1 = new Piece(2);
-  current_piece2 = new Piece(1);
-  next_piece1 = new Piece(2);
-  next_piece2 = new Piece(2);
+  _p_current_piece1 = new Piece(2);
+  _p_current_piece2 = new Piece(1);
+  _p_next_piece1 = new Piece(2);
+  _p_next_piece2 = new Piece(2);
 
   // Setting playable pieces position
-  angle = 0.0;
-  target_angle = 0;
-  position = 2;
-  position_bis = 1;
-  placed = true;
-  undo_possible = false;
-  next_next_piece1 = 0;
-  next_next_piece2 = 0;
-  x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
-  next_piece1 -> set_position(next_left, next_top);
-  next_piece2 -> set_position(next_left+((resources->pieces_width)/2),next_top);
+  _angle = 0.0;
+  _aimed_angle = 0;
+  _position = 2;
+  _position_bis = 1;
+  _is_placed = true;
+  _undo_possible = false;
+  _next_next_piece1 = 0;
+  _next_next_piece2 = 0;
+  _x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+  _p_next_piece1 -> set_position(_next_left, _next_top);
+  _p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
 
-  falling_requested = false;
-  game_mode = GAME_MODE_PLAYING;
+  _is_falling_requested = false;
+  _game_mode = GAME_MODE_PLAYING;
 
-  board.clear();
-  board.unlocked_pieces = 3;
-  board.visible_pieces  = 3;
-  board.score = 0;
-  board.bonus_score = 0;
-  board.calc_score();
+  _board.clear();
+  _board.unlocked_pieces = 3;
+  _board.visible_pieces  = 3;
+  _board.score = 0;
+  _board.bonus_score = 0;
+  _board.calc_score();
   
   // Applying skin
   int value;
-  value = next_piece1 -> get_piece_number();
+  value = _p_next_piece1 -> get_piece_number();
   
-  next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                             _p_pieces_disappearing[value], _p_pieces_mini[value]);
   
-  value = next_piece2 -> get_piece_number();
-  next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                             pieces_disappearing[value], pieces_mini[value]);
+  value = _p_next_piece2 -> get_piece_number();
+  _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                             _p_pieces_disappearing[value], _p_pieces_mini[value]);
   
-  value = current_piece1 ->  get_piece_number();
-  current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  value = _p_current_piece1 ->  get_piece_number();
+  _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                _p_pieces_disappearing[value], _p_pieces_mini[value]);
   
-  value = current_piece2 ->  get_piece_number();
-  current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                pieces_disappearing[value], pieces_mini[value]);
+  value = _p_current_piece2 ->  get_piece_number();
+  _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
 }
 

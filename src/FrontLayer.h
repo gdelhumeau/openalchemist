@@ -18,7 +18,7 @@
 class FrontLayerSprite{
 
   public:
-  CL_Sprite *sprite;
+  CL_Sprite *p_sprite;
   u_int left, top;
 
 };
@@ -27,11 +27,11 @@ class FrontLayerSprite{
 class FrontLayer{
 
   private:
-  void load_gfx(CL_ResourceManager *gfx_frontlayer);
+  void _load_gfx(CL_ResourceManager *p_gfx_frontlayer);
 
 
   public:
-  bool enabled;
+  bool is_enabled;
   
   std::list<FrontLayerSprite*> list;
   void load_gfx(std::string skin);

@@ -21,11 +21,11 @@
 class KeyboardKey
 {
 private:
-  int key;
-  bool key_active;
+  int _key;
+  bool _is_key_active;
 
-  bool repeat;
-  unsigned long int next_time;
+  bool _should_repeat;
+  unsigned long int _next_time;
 
 public:
   /**
@@ -33,10 +33,10 @@ public:
    */
   KeyboardKey(int key, bool repeat = false)
   {
-    this->key = key;
-    this->repeat = repeat;
-    key_active = true;
-    next_time = 0;
+    this->_key = key;
+    this->_should_repeat = repeat;
+    _is_key_active = true;
+    _next_time = 0;
   }
   
   /**
@@ -44,18 +44,18 @@ public:
    */
   bool get()
   {
-    if(CL_Keyboard::get_keycode(key))
+    if(CL_Keyboard::get_keycode(_key))
     {
-      if(!key_active || (repeat && CL_System::get_time()>next_time))
+      if(!_is_key_active || (_should_repeat && CL_System::get_time()>_next_time))
       {
-        key_active = true;
-        next_time = CL_System::get_time()+380;
+        _is_key_active = true;
+        _next_time = CL_System::get_time()+380;
         return true;
       }
     }
     else
     {
-      key_active = false;
+      _is_key_active = false;
     }
     return false;
   }

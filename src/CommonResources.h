@@ -27,13 +27,13 @@ class GameEngine;
 class CommonResources{
 
   public:
-  GameEngine *engine;
-  CL_Font *main_font;
+  GameEngine *p_engine;
+  CL_Font *p_main_font;
 
   int score;
 
   HumanPlayer player1;
-  Player *current_player;
+  Player *p_current_player;
 
   FrontLayer front_layer;
 

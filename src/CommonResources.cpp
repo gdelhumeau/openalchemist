@@ -16,12 +16,12 @@
 #include "misc.h"
 #include "Piece.h"
 
-const int Piece::score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
+const int Piece::_score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
 CommonResources::CommonResources()
 {
-  main_font = NULL;
-  current_player = NULL;
+  p_main_font = NULL;
+  p_current_player = NULL;
 }
 
 CommonResources::~CommonResources()
@@ -31,7 +31,7 @@ CommonResources::~CommonResources()
 
 void CommonResources::init(GameEngine *engine)
 {
-  this -> engine = engine;
+  this -> p_engine = engine;
   read_scores();
   
 }
@@ -46,7 +46,7 @@ void CommonResources::load_gfx(std::string skin)
   CL_ResourceManager gfx("general.xml",&zip, false);
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
 
-  main_font = new CL_Font("font", &gfx);
+  p_main_font = new CL_Font("font", &gfx);
 
   // Then, propreties
   pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
@@ -60,10 +60,10 @@ void CommonResources::load_gfx(std::string skin)
 
 void CommonResources::unload_gfx()
 {
-  if(main_font)
+  if(p_main_font)
   {
-    delete main_font;
-    main_font = NULL;
+    delete p_main_font;
+    p_main_font = NULL;
   }
 
   player1.unload_gfx();

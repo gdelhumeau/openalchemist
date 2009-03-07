@@ -14,11 +14,11 @@
 
 ProgressBar::ProgressBar()
 {
-  head    = NULL;
-  head_ok = NULL;
-  foot    = NULL;
-  item    = NULL;
-  item_ok = NULL;
+  _p_head    = NULL;
+  _p_head_ok = NULL;
+  _p_foot    = NULL;
+  _p_item    = NULL;
+  _p_item_ok = NULL;
 }
 
 ProgressBar::~ProgressBar()
@@ -33,55 +33,55 @@ void ProgressBar::load_gfx(std::string skin)
   CL_ResourceManager gfx("progress_bar.xml", &zip, false);
 
 
-  head     = new CL_Sprite("progress_bar/head/sprite",    &gfx);
-  head_ok  = new CL_Sprite("progress_bar/head/sprite_ok", &gfx);
-  foot     = new CL_Sprite("progress_bar/foot/sprite",    &gfx);
-  item     = new CL_Sprite("progress_bar/item/sprite",    &gfx);
-  item_ok  = new CL_Sprite("progress_bar/item/sprite_ok", &gfx);
+  _p_head     = new CL_Sprite("progress_bar/head/sprite",    &gfx);
+  _p_head_ok  = new CL_Sprite("progress_bar/head/sprite_ok", &gfx);
+  _p_foot     = new CL_Sprite("progress_bar/foot/sprite",    &gfx);
+  _p_item     = new CL_Sprite("progress_bar/item/sprite",    &gfx);
+  _p_item_ok  = new CL_Sprite("progress_bar/item/sprite_ok", &gfx);
 
-  left     = CL_Integer_to_int("progress_bar/left",       &gfx);
-  head_top = CL_Integer_to_int("progress_bar/head/top",   &gfx);
-  foot_top = CL_Integer_to_int("progress_bar/foot/top",   &gfx);
+  _left     = CL_Integer_to_int("progress_bar/left",       &gfx);
+  _head_top = CL_Integer_to_int("progress_bar/head/top",   &gfx);
+  _foot_top = CL_Integer_to_int("progress_bar/foot/top",   &gfx);
 
 }
 
 void ProgressBar::unload_gfx()
 {
-  if(head)
+  if(_p_head)
   {
-    delete head;
-    head = NULL;
+    delete _p_head;
+    _p_head = NULL;
   }
 
-  if(head_ok)
+  if(_p_head_ok)
   {
-    delete head_ok;
-    head_ok = NULL;
+    delete _p_head_ok;
+    _p_head_ok = NULL;
   }
 
-  if(foot)
+  if(_p_foot)
   {
-    delete foot;
-    foot = NULL;
+    delete _p_foot;
+    _p_foot = NULL;
   }
 
-  if(item)
+  if(_p_item)
   {
-    delete item;
-    item = NULL;
+    delete _p_item;
+    _p_item = NULL;
   }
 
-  if(item_ok)
+  if(_p_item_ok)
   {
-    delete item_ok;
-    item_ok = NULL;
+    delete _p_item_ok;
+    _p_item_ok = NULL;
   }
 }
 
 void ProgressBar::draw(int percentage)
 {
-  int head_height = head -> get_height();
-  int height = foot_top - (head_top + head_height);
+  int head_height = _p_head -> get_height();
+  int height = _foot_top - (_head_top + head_height);
 
   /*if(hightscores[current_difficulty] > 0)
     v = height * (global_score + global_bonus) / hightscores[current_difficulty];*/
@@ -92,23 +92,23 @@ void ProgressBar::draw(int percentage)
   for(int i=0; i<=height; ++i)
   {
     if(height - i < v)
-      item_ok -> draw(left, head_top+head_height+i-1);
+      _p_item_ok -> draw(_left, _head_top+head_height+i-1);
     else
-      item -> draw(left, head_top+head_height+i-1);
+      _p_item -> draw(_left, _head_top+head_height+i-1);
   }
-  item -> update();
-  item_ok -> update();
+  _p_item -> update();
+  _p_item_ok -> update();
 
   if(percentage < 100)
   {
-    head -> draw(left, head_top);
-    head -> update();
+    _p_head -> draw(_left, _head_top);
+    _p_head -> update();
   }
   else
   {
-    head_ok -> draw(left, head_top);
-    head_ok -> update();
+    _p_head_ok -> draw(_left, _head_top);
+    _p_head_ok -> update();
   }
-  foot -> draw(left, foot_top);
-  foot -> update();
+  _p_foot -> draw(_left, _foot_top);
+  _p_foot -> update();
 }

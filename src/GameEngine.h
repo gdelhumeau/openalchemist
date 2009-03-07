@@ -38,43 +38,43 @@ class GameEngine{
   /**
    * Stack of states, the current state is on the top
    */
-  std::stack<GameState*> states_stack;
+  std::stack<GameState*> _states_stack;
   
   /**
    * Window
    */
-  CL_DisplayWindow *window;
+  CL_DisplayWindow *_p_window;
 
 
   /**
    * To know if OpenGL is used
    */
 
-  bool opengl;
+  bool _render_mode;
 
 
   /** 
    * Controling main loop
    */
-  bool running;
+  bool _running;
   
 
   /**
    * Fps Getter
    */
-  CL_FramerateCounter fps_getter;
+  CL_FramerateCounter _fps_getter;
 
   /** 
    * States
    */
-  CommonState common_state;
-  InGameState ingame_state;
-  GameOverState gameover_state;
-  PauseMenuState pausemenu_state;
-  SkinsMenuState skinsmenu_state;
-  OptionsMenuState optionsmenu_state;
-  TitleState title_state;
-  QuitMenuState quitmenu_state;
+  CommonState _common_state;
+  InGameState _ingame_state;
+  GameOverState _gameover_state;
+  PauseMenuState _pausemenu_state;
+  SkinsMenuState _skinsmenu_state;
+  OptionsMenuState _optionsmenu_state;
+  TitleState _title_state;
+  QuitMenuState _quitmenu_state;
   
   LoadingScreen * _p_loading_screen;
   

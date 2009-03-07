@@ -23,25 +23,25 @@ class Piece
   private:
 
   // For display:
-  CL_Sprite *normal_sprite;
-  CL_Sprite *appearing_sprite;
-  CL_Sprite *disappearing_sprite;
-  CL_Sprite *current_sprite;
-  CL_Sprite *mini_sprite;
+  CL_Sprite *_p_normal_sprite;
+  CL_Sprite *_p_appearing_sprite;
+  CL_Sprite *_p_disappearing_sprite;
+  CL_Sprite *_p_current_sprite;
+  CL_Sprite *_p_mini_sprite;
 
-  static const int score[12];
+  static const int _score[12];
 
   // For scores:
-  int score_value;
+  int _score_value;
 
   // For ...
-  int piece_number;
+  int _piece_number;
 
   // Real coords on the screen
-  double x, y;
+  double _x, _y;
 
   // Goal target coord
-  int target_y;
+  int _target_y;
 
     
   public:
@@ -50,72 +50,72 @@ class Piece
   Piece(int piece_number)
   {
 
-    normal_sprite = NULL;
-    appearing_sprite = NULL;
-    disappearing_sprite = NULL;
-    mini_sprite = NULL;
-    current_sprite = NULL; 
+    _p_normal_sprite = NULL;
+    _p_appearing_sprite = NULL;
+    _p_disappearing_sprite = NULL;
+    _p_mini_sprite = NULL;
+    _p_current_sprite = NULL; 
 
-    this -> piece_number = piece_number;
-    this -> score_value = score[piece_number];
-    x = 0.0;
-    y = 0.0;
-    target_y = 0;      
+    this -> _piece_number = piece_number;
+    this -> _score_value = _score[piece_number];
+    _x = 0.0;
+    _y = 0.0;
+    _target_y = 0;      
   }
   
   // Method to set the sprites
   void set_sprites(CL_Sprite *normal, CL_Sprite *appearing, CL_Sprite *disappearing, CL_Sprite *mini)
   {
-    normal_sprite = normal;
-    appearing_sprite = appearing;
-    disappearing_sprite = disappearing;
-    mini_sprite = mini;
-    current_sprite = normal_sprite;
+    _p_normal_sprite = normal;
+    _p_appearing_sprite = appearing;
+    _p_disappearing_sprite = disappearing;
+    _p_mini_sprite = mini;
+    _p_current_sprite = _p_normal_sprite;
   }
  
   // Methods to display - be carefull, if current_prite is not initialized
   void draw(CL_GraphicContext* context = 0)
     {
-      current_sprite -> draw(x, y, context);
+      _p_current_sprite -> draw(_x, _y, context);
     }
 
   void draw_mini(CL_GraphicContext* context = 0)
     {
-      mini_sprite -> draw(x, y, context); 
+      _p_mini_sprite -> draw(_x, _y, context); 
     }
 
   void start_appear()
     {
-      appearing_sprite -> set_play_loop(false);
-      current_sprite = appearing_sprite;
-      current_sprite -> restart();      
+      _p_appearing_sprite -> set_play_loop(false);
+      _p_current_sprite = _p_appearing_sprite;
+      _p_current_sprite -> restart();      
     }
 
   void start_disappear()
     {
-      disappearing_sprite -> set_play_loop(false);
-      current_sprite = disappearing_sprite;
-      current_sprite -> restart();
+      _p_disappearing_sprite -> set_play_loop(false);
+      _p_current_sprite = _p_disappearing_sprite;
+      _p_current_sprite -> restart();
     }
 
   void start_fall(int target_x, int target_y)
     {
-      this -> target_y = target_y;
-      x = target_x;
+      this -> _target_y = target_y;
+      _x = target_x;
     }
 
   void set_normal()
     {
-      current_sprite = normal_sprite;
+      _p_current_sprite = _p_normal_sprite;
     }
 
  // Return true if the piece is appeared
   bool appear()
     {
-      appearing_sprite -> update();
-      if(appearing_sprite -> is_finished())
+      _p_appearing_sprite -> update();
+      if(_p_appearing_sprite -> is_finished())
       {
-        current_sprite = normal_sprite;
+        _p_current_sprite = _p_normal_sprite;
         return true;
       }
    
@@ -125,10 +125,10 @@ class Piece
   // Return true if the piece is disappeared
   bool disappear()
     {
-      disappearing_sprite -> update();
-      if(disappearing_sprite -> is_finished())
+      _p_disappearing_sprite -> update();
+      if(_p_disappearing_sprite -> is_finished())
       {
-        current_sprite = normal_sprite;
+        _p_current_sprite = _p_normal_sprite;
         return true;
       }
       return false;
@@ -140,10 +140,10 @@ class Piece
   // Return true if the piece is placed
   bool fall(double time_interval)
     {
-      y += PIECE_SPEED * time_interval;
-      if(y >= target_y)
+      _y += PIECE_SPEED * time_interval;
+      if(_y >= _target_y)
       {
-        y = target_y;
+        _y = _target_y;
         return true;
       }
 
@@ -152,62 +152,62 @@ class Piece
     
   void set_score_value(int _score_value)
     {
-      score_value = _score_value; 
+      _score_value = _score_value; 
     }
 
   int get_score_value()
     {
-      return score_value;
+      return _score_value;
     }
 
   void set_piece_number(int _piece_number)
     {
-      piece_number = _piece_number;
-      this -> score_value = score[piece_number];
+      _piece_number = _piece_number;
+      this -> _score_value = _score[_piece_number];
     }
 
   int get_piece_number()
     {
-      return piece_number;
+      return _piece_number;
     }
 
   // Setters
   void set_x(float x)
     {
-      this -> x = x;
+      this -> _x = x;
     }
 
   void set_y(float y)
     {
-      this -> y = y;
+      this -> _y = y;
     }
 
   void set_position(float x, float y)
   {
-    this -> x = x;
-    this -> y = y;
+    this -> _x = x;
+    this -> _y = y;
   }
   
   //Getters
   float get_x()
   {
-    return x;
+    return _x;
   }
   
   float get_y()
   {
-    return y;
+    return _y;
   }
 
   void print()
     {
-      std::cout << "-----\nnormal_sprite: " << normal_sprite << "\n"
-        << "appearing_sprite: " << appearing_sprite << "\n"
-                << "disappearing_spirte: " << disappearing_sprite << "\n"
-                << "current_sprite: " << current_sprite << "\n";
-      if(current_sprite == appearing_sprite)// && appearing_sprite -> is_finished())
+      std::cout << "-----\nnormal_sprite: " << _p_normal_sprite << "\n"
+        << "appearing_sprite: " << _p_appearing_sprite << "\n"
+                << "disappearing_spirte: " << _p_disappearing_sprite << "\n"
+                << "current_sprite: " << _p_current_sprite << "\n";
+      if(_p_current_sprite == _p_appearing_sprite)// && appearing_sprite -> is_finished())
       {
-        current_sprite = normal_sprite;
+        _p_current_sprite = _p_normal_sprite;
       }
     }
 

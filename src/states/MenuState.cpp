@@ -24,7 +24,7 @@ enum{
 
 MenuState::MenuState ()
 {
-    selection = 0;
+    _selection = 0;
 }
 
 bool MenuState::front_layer_behind ()
@@ -62,21 +62,21 @@ void MenuState::update_child ()
     std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
 }
 
-void MenuState::set_background_sprite (CL_Sprite *background)
+void MenuState::_set_background_sprite (CL_Sprite *background)
 {
-    this -> background = background;
+    this -> _background = background;
 }
 
 void MenuState::draw ()
 {
     // Displaying background
-    int x = 400 - background -> get_width () / 2;
-    int y = 300 - background -> get_height () / 2;
-    background -> draw (x, y);
+    int x = 400 - _background -> get_width () / 2;
+    int y = 300 - _background -> get_height () / 2;
+    _background -> draw (x, y);
 	
     // Displaying items
-    std::vector<MenuItem*>::iterator it = items.begin ();
-    while (it != items.end ())
+    std::vector<MenuItem*>::iterator it = _items.begin ();
+    while (it != _items.end ())
     {
         MenuItem *item = (MenuItem*) * it;
         item -> draw ();
@@ -87,13 +87,13 @@ void MenuState::draw ()
 
 void MenuState::update ()
 {
-    switch (step)
+    switch (_step)
     {
     case STEP_APPEARING:
-        appear ();
+        _appear ();
         break;
     case STEP_DISAPPEARING:
-        disappear ();
+        _disappear ();
         break;
     }
     this -> update_child ();
@@ -102,81 +102,81 @@ void MenuState::update ()
 void MenuState::events ()
 {
     // Leaving the state
-    if (common_resources -> key.escape->get () || common_resources -> key.pause->get ())
+    if (_p_common_resources -> key.escape->get () || _p_common_resources -> key.pause->get ())
     {
-        start_disappear ();
-        selection = -1;
+        _start_disappear ();
+        _selection = -1;
     }
 
     // Key ENTER
-    if (common_resources -> key.enter -> get ())
+    if (_p_common_resources -> key.enter -> get ())
     {
-    	if(items[selection] -> quit_menu_on_action())
+    	if(_items[_selection] -> quit_menu_on_action())
     	{
-        	start_disappear ();
+        	_start_disappear ();
     	}
-    	items[selection] -> action_performed(ACTION_TYPE_ENTER);
+    	_items[_selection] -> action_performed(ACTION_TYPE_ENTER);
     }
     
     // Key LEFT
-    if (common_resources -> key.left -> get ())
+    if (_p_common_resources -> key.left -> get ())
     {
-    	items[selection] -> action_performed(ACTION_TYPE_LEFT);
-    	this -> action_performed (selection, ACTION_TYPE_LEFT);
+    	_items[_selection] -> action_performed(ACTION_TYPE_LEFT);
+    	this -> action_performed (_selection, ACTION_TYPE_LEFT);
     }
     
     // Key RIGHT
-    if (common_resources -> key.right -> get ())
+    if (_p_common_resources -> key.right -> get ())
     {
-    	items[selection] -> action_performed(ACTION_TYPE_RIGHT);
-    	this -> action_performed (selection, ACTION_TYPE_RIGHT);
+    	_items[_selection] -> action_performed(ACTION_TYPE_RIGHT);
+    	this -> action_performed (_selection, ACTION_TYPE_RIGHT);
     }
     
 
     // Key UP
-    if (common_resources -> key.up -> get ())
+    if (_p_common_resources -> key.up -> get ())
     {
-        items[selection] -> set_selected (false);
+        _items[_selection] -> set_selected (false);
         bool changed = false;
         while (!changed)
         {
-            if (selection == 0)
+            if (_selection == 0)
             {
-                selection = items.size () - 1;
+                _selection = _items.size () - 1;
             }
             else
             {
-                selection--;
+                _selection--;
             }
 
-            if (!items[selection] -> is_locked ())
+            if (!_items[_selection] -> is_locked ())
             {
                 changed = true;
-                items[selection] -> set_selected (true);
+                _items[_selection] -> set_selected (true);
             }
         }
     }
 
     // Key DOWN
-    if (common_resources -> key.down -> get ())
+    if (_p_common_resources -> key.down -> get ())
     {
-        items[selection] -> set_selected (false);
+        _items[_selection] -> set_selected (false);
         bool changed = false;
         while (!changed)
         {
-            if (selection == (int) items.size () - 1)
+            if (_selection == (int) _items.size () - 1)
             {
-                selection = 0;
+                _selection = 0;
             }
             else
             {
-                selection++;
+                _selection++;
             }
 
-            if (!items[selection] -> is_locked ())
+            if (!_items[_selection] -> is_locked ())
             {
                 changed = true;
-                items[selection] -> set_selected (true);
+                _items[_selection] -> set_selected (true);
             }
         }
     }
@@ -185,87 +185,87 @@ void MenuState::events ()
 
 void MenuState::start ()
 {
-    selection = 0;
+    _selection = 0;
     // All items are not selected
     
-    std::vector<MenuItem*>::iterator it = items.begin ();
-    while (it != items.end ())
+    std::vector<MenuItem*>::iterator it = _items.begin ();
+    while (it != _items.end ())
     {
         MenuItem *item = (MenuItem*) * it;
         item -> set_selected (false);
         ++it;
     }
     // Except the selection
-    items[selection] -> set_selected (true);
+    _items[_selection] -> set_selected (true);
 
     // Now, begining appearing
-    if (common_resources -> engine -> is_opengl_used ())
+    if (_p_common_resources -> p_engine -> is_opengl_used ())
     {
-        step = STEP_APPEARING;
-        alpha = 0.0;
+        _step = STEP_APPEARING;
+        _alpha = 0.0;
     }
     else
     {
-        step = STEP_NORMAL;
+        _step = STEP_NORMAL;
     }
 }
 
-void MenuState::appear ()
+void MenuState::_appear ()
 {
     // Updating alpha value
-    if (alpha + APPEARING_SPEED * common_resources -> time_interval >= 1.0)
+    if (_alpha + APPEARING_SPEED * _p_common_resources -> time_interval >= 1.0)
     {
-        step = STEP_NORMAL;
-        alpha = 1.0;
+        _step = STEP_NORMAL;
+        _alpha = 1.0;
     }
     else
     {
-        alpha += APPEARING_SPEED * common_resources -> time_interval;
+        _alpha += APPEARING_SPEED * _p_common_resources -> time_interval;
     }
 
     // Updating background sprite
-    background -> set_alpha (alpha);
+    _background -> set_alpha (_alpha);
 
     // Updating items
-    std::vector<MenuItem*>::iterator it = items.begin ();
-    while (it != items.end ())
+    std::vector<MenuItem*>::iterator it = _items.begin ();
+    while (it != _items.end ())
     {
         MenuItem *item = (MenuItem*) * it;
-        item -> set_alpha (alpha);
+        item -> set_alpha (_alpha);
         ++it;
     }
 
 }
 
-void MenuState::disappear ()
+void MenuState::_disappear ()
 {
     // Updating alpha value
-    alpha -= APPEARING_SPEED * common_resources -> time_interval;
+    _alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
 
     // Updating background sprite
-    background -> set_alpha (alpha);
+    _background -> set_alpha (_alpha);
 
     // Updating items
-    std::vector<MenuItem*>::iterator it = items.begin ();
-    while (it != items.end ())
+    std::vector<MenuItem*>::iterator it = _items.begin ();
+    while (it != _items.end ())
     {
         MenuItem *item = (MenuItem*) * it;
-        item -> set_alpha (alpha);
+        item -> set_alpha (_alpha);
         ++it;
     }
 
-    if (alpha <= 0)
+    if (_alpha <= 0)
     {
         // Now perfom child action or leaving the state
-        if (selection == -1)
-            common_resources -> engine -> stop_current_state ();
+        if (_selection == -1)
+            _p_common_resources -> p_engine -> stop_current_state ();
         else
-            this -> action_performed (selection, ACTION_TYPE_ENTER);
+            this -> action_performed (_selection, ACTION_TYPE_ENTER);
     }
 }
 
-void MenuState::start_disappear ()
+void MenuState::_start_disappear ()
 {
-    step = STEP_DISAPPEARING;
+    _step = STEP_DISAPPEARING;
 }
 
