@@ -24,12 +24,12 @@ class PauseMenuState : public MenuState{
 
   private:
   
- 	BasicItem resume_item;
-	BasicItem undo_item;
-	BasicItem retry_item;
-	BasicItem options_item;
-	BasicItem giveup_item;
-	BasicItem quit_item;
+ 	BasicItem _resume_item;
+	BasicItem _undo_item;
+	BasicItem _retry_item;
+	BasicItem _options_item;
+	BasicItem _giveup_item;
+	BasicItem _quit_item;
 
   public:
   void init();

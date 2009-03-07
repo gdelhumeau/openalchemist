@@ -18,7 +18,7 @@
 
 GameState::GameState()
 {
-	  common_resources = common_resources_get_instance();
+	  _p_common_resources = common_resources_get_instance();
   return;
 }
 

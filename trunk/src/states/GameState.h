@@ -22,7 +22,7 @@ class CommonResources;
 class GameState{
 
   protected:
-  CommonResources *common_resources;
+  CommonResources *_p_common_resources;
 
   public:
   /**

@@ -20,8 +20,8 @@
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
-    this -> window = window;
-    this -> opengl = opengl;
+    this -> _p_window = window;
+    this -> _render_mode = opengl;
     _p_loading_screen = NULL;
 }
 
@@ -30,7 +30,7 @@ GameEngine::~GameEngine()
 
 void GameEngine::init()
 {
-    running = true;
+    _running = true;
 
     _p_loading_screen = new LoadingScreen();
     _p_loading_screen -> set_progression(0.0f);
@@ -38,22 +38,22 @@ void GameEngine::init()
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();
 
-    fps_getter.set_fps_limit(pref -> maxfps);
+    _fps_getter.set_fps_limit(pref -> maxfps);
 
     resources -> init(this);
-    common_state.init();
-    ingame_state.init();
-    gameover_state.init();
-    pausemenu_state.init();
-    skinsmenu_state.init();
-    optionsmenu_state.init();
-    title_state.init();
-    quitmenu_state.init();
+    _common_state.init();
+    _ingame_state.init();
+    _gameover_state.init();
+    _pausemenu_state.init();
+    _skinsmenu_state.init();
+    _optionsmenu_state.init();
+    _title_state.init();
+    _quitmenu_state.init();
 
     _p_loading_screen -> set_progression(1.0f / 12.0f);
 
     set_skin(pref -> skin);
-    resize(window -> get_width(), window -> get_height());
+    resize(_p_window -> get_width(), _p_window -> get_height());
 
     delete _p_loading_screen;
     _p_loading_screen = NULL;
@@ -63,20 +63,20 @@ void GameEngine::run()
 {
     init();
 
-    if(running)
+    if(_running)
     {
         set_state_title();
 
         CommonResources *resources = common_resources_get_instance();
         resources -> player1.new_game();
 
-        while (running)
+        while (_running)
         {
-            common_state.events();
-            common_state.update();
-            common_state.draw();
+            _common_state.events();
+            _common_state.update();
+            _common_state.draw();
 
-            GameState* current_state = states_stack.top();
+            GameState* current_state = _states_stack.top();
             current_state -> events();
             current_state -> update();
 
@@ -94,7 +94,7 @@ void GameEngine::run()
 
 
             // Get the Framerate
-            resources -> fps = fps_getter.get_fps();
+            resources -> fps = _fps_getter.get_fps();
             resources -> time_interval = get_time_interval(resources->fps);
 
 
@@ -110,17 +110,17 @@ void GameEngine::run()
 
 void GameEngine::stop()
 {
-    running = false;
+    _running = false;
 }
 
 void GameEngine::set_state_title()
 {
-    while (!states_stack.empty())
+    while (!_states_stack.empty())
     {
-        states_stack.pop();
+        _states_stack.pop();
     }
-    states_stack.push(&title_state);
-    title_state.start();
+    _states_stack.push(&_title_state);
+    _title_state.start();
 }
 
 void GameEngine::set_state_new_game_menu()
@@ -128,25 +128,25 @@ void GameEngine::set_state_new_game_menu()
 
 void GameEngine::set_state_pause_menu()
 {
-    if (states_stack.top() != &pausemenu_state)
+    if (_states_stack.top() != &_pausemenu_state)
     {
-        states_stack.push(&pausemenu_state);
-        pausemenu_state.start();
+        _states_stack.push(&_pausemenu_state);
+        _pausemenu_state.start();
     }
 }
 
 void GameEngine::set_state_ingame()
 {
     CommonResources *common_resources = common_resources_get_instance();
-    common_resources -> current_player = &(common_resources -> player1);
-    states_stack.push(&ingame_state);
+    common_resources -> p_current_player = &(common_resources -> player1);
+    _states_stack.push(&_ingame_state);
 }
 
 void GameEngine::set_state_gameover(int mode)
 {
-    gameover_state.set_mode(mode);
-    gameover_state.start();
-    states_stack.push(&gameover_state);
+    _gameover_state.set_mode(mode);
+    _gameover_state.start();
+    _states_stack.push(&_gameover_state);
 }
 
 /*void GameEngine::set_state_highscore()
@@ -157,39 +157,39 @@ void GameEngine::set_state_gameover(int mode)
 
 void GameEngine::set_state_options_menu()
 {
-    if (states_stack.top() != &optionsmenu_state)
+    if (_states_stack.top() != &_optionsmenu_state)
     {
-        states_stack.push(&optionsmenu_state);
-        optionsmenu_state.start();
-        pausemenu_state.start();
+        _states_stack.push(&_optionsmenu_state);
+        _optionsmenu_state.start();
+        _pausemenu_state.start();
     }
 }
 
 void GameEngine::set_state_skin_menu()
 {
-    if (states_stack.top() != &skinsmenu_state)
+    if (_states_stack.top() != &_skinsmenu_state)
     {
-        states_stack.push(&skinsmenu_state);
-        skinsmenu_state.start();
-        pausemenu_state.start();
-        optionsmenu_state.start();
+        _states_stack.push(&_skinsmenu_state);
+        _skinsmenu_state.start();
+        _pausemenu_state.start();
+        _optionsmenu_state.start();
     }
 }
 
 void GameEngine::set_state_quit_menu(int action)
 {
-    if (states_stack.top() != &quitmenu_state)
+    if (_states_stack.top() != &_quitmenu_state)
     {
-        quitmenu_state.set_action(action);
-        states_stack.push(&quitmenu_state);
-        pausemenu_state.start();
-        quitmenu_state.start();
+        _quitmenu_state.set_action(action);
+        _states_stack.push(&_quitmenu_state);
+        _pausemenu_state.start();
+        _quitmenu_state.start();
     }
 }
 
 void GameEngine::stop_current_state()
 {
-    states_stack.pop();
+    _states_stack.pop();
 }
 
 void GameEngine::toggle_screen()
@@ -222,11 +222,11 @@ void GameEngine::toggle_screen()
 
      pref -> write();*/
 
-    if (window -> get_width() == 800)
+    if (_p_window -> get_width() == 800)
     {
 
-        window -> set_size(640, 480);
-        CL_GraphicContext *gc = window -> get_gc();
+        _p_window -> set_size(640, 480);
+        CL_GraphicContext *gc = _p_window -> get_gc();
         double scale_width = 640 / 800.0;
         double scale_height = 480 / 600.0;
         gc -> set_scale(scale_width, scale_height);
@@ -234,8 +234,8 @@ void GameEngine::toggle_screen()
     }
     else
     {
-        window -> set_size(800, 600);
-        CL_GraphicContext *gc = window -> get_gc();
+        _p_window -> set_size(800, 600);
+        CL_GraphicContext *gc = _p_window -> get_gc();
         gc -> set_scale(1.0, 1.0);
     }
 
@@ -250,9 +250,9 @@ void GameEngine::resize(int width, int height)
     //static int old_width = 0;
     //static int old_height = 0;
 
-    if (!window -> is_fullscreen())
+    if (!_p_window -> is_fullscreen())
     {
-        CL_GraphicContext *gc = window -> get_gc();
+        CL_GraphicContext *gc = _p_window -> get_gc();
 
         double ratio = (double) width / (double) height;
 
@@ -306,12 +306,12 @@ void GameEngine::resize(int width, int height)
 
 int GameEngine::get_fps()
 {
-    return fps_getter.get_fps();
+    return _fps_getter.get_fps();
 }
 
 bool GameEngine::is_opengl_used()
 {
-    return opengl;
+    return _render_mode;
 }
 
 bool GameEngine::is_fullscreen()
@@ -331,75 +331,75 @@ void GameEngine::set_skin(std::string skin)
     {
         pref -> skin = skin;
 
-        if(running)
+        if(_running)
         {
             resources -> load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(2.0f / 12.0f);
         }
 
-        if(running)
+        if(_running)
         {
-            title_state.load_gfx(pref -> skin);
+            _title_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(3.0f / 12.0f);
         }
 
-        if(running)
+        if(_running)
         {
-            common_state.load_gfx(pref -> skin);
+            _common_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(4.0f / 12.0f);
         }
 
-        if(running)
+        if(_running)
         {
-            ingame_state.load_gfx(pref -> skin);
+            _ingame_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(5.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            gameover_state.load_gfx(pref -> skin);
+            _gameover_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(6.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            pausemenu_state.load_gfx(pref -> skin);
+            _pausemenu_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(7.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            skinsmenu_state.load_gfx(pref -> skin);
+            _skinsmenu_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(8.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            optionsmenu_state.load_gfx(pref -> skin);
+            _optionsmenu_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(9.0f / 12.0f);
         }
 
-        if(running)
+        if(_running)
         {
-            optionsmenu_state.load_gfx(pref -> skin);
+            _optionsmenu_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(10.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            title_state.load_gfx(pref -> skin);
+            _title_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(11.0f / 12.0f);
         }
 
 
-        if(running)
+        if(_running)
         {
-            quitmenu_state.load_gfx(pref -> skin);
+            _quitmenu_state.load_gfx(pref -> skin);
             _p_loading_screen -> set_progression(12.0f / 12.0f);
         }
 
@@ -425,5 +425,5 @@ void GameEngine::set_skin(std::string skin)
 
 void GameEngine::set_skin_element(u_int element)
 {
-    skinsmenu_state.set_skin_elements(element);
+    _skinsmenu_state.set_skin_elements(element);
 }

@@ -28,18 +28,18 @@ class MenuState : public GameState{
 
   protected:
 
-  int step;
-  double alpha;
-  std::vector<MenuItem*> items;
-  CL_Sprite *background;  
-  int selection;
+  int _step;
+  double _alpha;
+  std::vector<MenuItem*> _items;
+  CL_Sprite *_background;  
+  int _selection;
   
-  void set_background_sprite(CL_Sprite *background);
+  void _set_background_sprite(CL_Sprite *background);
   
-  void appear();
-  void disappear();
+  void _appear();
+  void _disappear();
   
-  void start_disappear();
+  void _start_disappear();
 
   public:
   virtual void init();

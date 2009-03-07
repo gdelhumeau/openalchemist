@@ -69,79 +69,79 @@ class SkinsMenuState : public GameState{
   /**
    * Step (Normal, Appearing, Disappearing)
    */
-  int step;
+  int _step;
 
   /**
    * Alpha blending
    */
-  float alpha;
+  float _alpha;
 
   /**
    * Menu background
    */
-  CL_Sprite *background;  
+  CL_Sprite *_p_background;  
 
   /**
    * Unavaible skin logo
    */
-  CL_Surface *logo_unavailable;
+  CL_Surface *_p_logo_unavailable;
 
   /**
    * Cursor
    */
-  CL_Sprite *cursor;
+  CL_Sprite *_p_cursor;
 
   /**
    * Arrow Up (displayed when skin list is more long than a screen)
    */
-  CL_Sprite *arrow_down;
+  CL_Sprite *_p_arrow_down;
 
   /**
    * Arrow down
    */
-  CL_Sprite *arrow_up;
+  CL_Sprite *_p_arrow_up;
 
   /**
    * Arrows coords
    */
-  int arrow_down_left, arrow_down_top;
-  int arrow_up_left, arrow_up_top;
+  int _arrow_down_left, _arrow_down_top;
+  int _arrow_up_left, _arrow_up_top;
 
   /**
    * Selection coords
    */
-  int selection_x, selection_y;
+  int _selection_x, _selection_y;
 
   /**
    * Number of lines in the skins board 
    */
-  int number_y;
+  int _number_y;
 
   /**
    * Start for drawing in the sin board (scroll)
    */
-  int y_start;
+  int _y_start;
 
   /**
    * Skins preview coords
    */
-  int skins_preview_x;
-  int skins_preview_y;
-  int skins_preview_width;
-  int skins_preview_height;
+  int _skins_preview_x;
+  int _skins_preview_y;
+  int _skins_preview_width;
+  int _skins_preview_height;
 
   /**
    * Skins preview cursor coords
    */
-  int cursor_x;
-  int cursor_y;
-  int cursor_width;
-  int cursor_height;
+  int _cursor_x;
+  int _cursor_y;
+  int _cursor_width;
+  int _cursor_height;
 
   /**
    * Skins skins list (read in the .openalchemist/skins file) 
    */
-  std::vector<Skin*> skins_list;
+  std::vector<Skin*> _skins_list;
 
   /**
    * Skins board. Board which contains skins to draw in the menu
@@ -151,12 +151,12 @@ class SkinsMenuState : public GameState{
   /**
    * Makes menu appear
    */
-  void appear();
+  void _appear();
 
   /**
    * Makes menu disappear
    */
-  void disappear();
+  void _disappear();
 
   public:
   void init();

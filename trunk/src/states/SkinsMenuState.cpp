@@ -32,7 +32,7 @@ void SkinsMenuState::init()
   std::string path = get_save_path();
   std::string file_path = path + get_path_separator() + "skins-" + get_version();
 
-  skins_list.clear();
+  _skins_list.clear();
   try
   {
     CL_InputSource_File file(file_path);
@@ -47,7 +47,7 @@ void SkinsMenuState::init()
 	// We load the logo sprite in the gfx ressources file
 	CL_ResourceManager gfx("general.xml", new CL_Zip_Archive(sp -> filename), true);
 	sp -> logo = new CL_Surface("logo", &gfx);
-	skins_list.insert(skins_list.end(), sp);
+	_skins_list.insert(_skins_list.end(), sp);
       }
       catch(CL_Error e)
       {
@@ -83,9 +83,9 @@ void SkinsMenuState::init()
           CL_Surface *logo = new CL_Surface("logo", &gfx);
 
           bool found = false;
-          for(u_int i = 0; i < skins_list.size(); ++i)
+          for(u_int i = 0; i < _skins_list.size(); ++i)
           {
-            if(skins_list[i] -> filename == filename)
+            if(_skins_list[i] -> filename == filename)
             {
               found = true;
               break;
@@ -97,7 +97,7 @@ void SkinsMenuState::init()
             sp -> filename = filename;
             sp -> element = 3;
             sp -> logo = logo;
-            skins_list.insert(skins_list.end(), sp);
+            _skins_list.insert(_skins_list.end(), sp);
           }
 
         }
@@ -111,38 +111,38 @@ void SkinsMenuState::init()
   }
 
   // Sorting skin list by alphabetical order (bubble sort)
-  for(u_int i=0; i<skins_list.size(); ++i)
-    for(u_int j=i+1; j<skins_list.size(); ++j)
+  for(u_int i=0; i<_skins_list.size(); ++i)
+    for(u_int j=i+1; j<_skins_list.size(); ++j)
     {
-      if(skins_list[i]->filename.compare(skins_list[j]->filename)>0)
+      if(_skins_list[i]->filename.compare(_skins_list[j]->filename)>0)
       {
-	Skin * sk = skins_list[i];
-	skins_list[i] = skins_list[j];
-	skins_list[j] = sk;
+	Skin * sk = _skins_list[i];
+	_skins_list[i] = _skins_list[j];
+	_skins_list[j] = sk;
       }
     }
 
   // Calculating the lines number needed for the board
-  number_y = skins_list.size() / 2;
-  if(skins_list.size() % 2 > 0)
-    number_y += 1;
+  _number_y = _skins_list.size() / 2;
+  if(_skins_list.size() % 2 > 0)
+    _number_y += 1;
 
   // Making the board
-  skins_board[0] = new Skin* [number_y];
-  skins_board[1] = new Skin* [number_y];
+  skins_board[0] = new Skin* [_number_y];
+  skins_board[1] = new Skin* [_number_y];
 
   // Initializing the board
   for(int x=0; x<2; ++x)
-    for(int y=0; y<number_y; ++y)
+    for(int y=0; y<_number_y; ++y)
     {
       skins_board[x][y] = NULL;
     }
   
   // Setting skins to the board
   int x= 0, y = 0;
-  for(u_int i = 0; i < skins_list.size(); ++i)
+  for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    skins_board[x][y] = skins_list[i];
+    skins_board[x][y] = _skins_list[i];
     x++;
     if(x > 1)
     {
@@ -152,8 +152,8 @@ void SkinsMenuState::init()
   }
 
   // Initalizing variables
-  selection_x = selection_y = 0;
-  y_start = 0;
+  _selection_x = _selection_y = 0;
+  _y_start = 0;
 }
 
 void SkinsMenuState::deinit()
@@ -164,10 +164,10 @@ void SkinsMenuState::deinit()
   try
   {
     CL_OutputSource_File file(file_path);
-    for(u_int i = 0; i < skins_list.size(); ++i)
+    for(u_int i = 0; i < _skins_list.size(); ++i)
     {
-      file.write_string(skins_list[i]->filename);
-      file.write_uint8 (skins_list[i]->element);  
+      file.write_string(_skins_list[i]->filename);
+      file.write_uint8 (_skins_list[i]->element);  
     }
     file.close();
        
@@ -177,12 +177,12 @@ void SkinsMenuState::deinit()
     std::cout << "Error while reading " << file_path << "file, probably doesn't exist yet." << std::endl;
   }
 
-  for(u_int i = 0; i < skins_list.size(); ++i)
+  for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    delete skins_list[i];
+    delete _skins_list[i];
   }
 
-  skins_list.clear();
+  _skins_list.clear();
 
   delete skins_board[0];
   delete skins_board[1];
@@ -195,27 +195,27 @@ void SkinsMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_skins.xml", &zip, false);
 
   // First, the sprites
-  background = new CL_Sprite("menu_skins/background", &gfx); 
-  logo_unavailable = new CL_Surface("menu_skins/logo_unavailable", &gfx); 
+  _p_background = new CL_Sprite("menu_skins/background", &gfx); 
+  _p_logo_unavailable = new CL_Surface("menu_skins/logo_unavailable", &gfx); 
 
-  cursor = new CL_Sprite("menu_skins/cursor", &gfx);
-  arrow_down = new CL_Sprite("menu_skins/arrow_down/sprite", &gfx);
-  arrow_down_left = CL_Integer_to_int("menu_skins/arrow_down/left", &gfx);
-  arrow_down_top = CL_Integer_to_int("menu_skins/arrow_down/top", &gfx);
+  _p_cursor = new CL_Sprite("menu_skins/cursor", &gfx);
+  _p_arrow_down = new CL_Sprite("menu_skins/arrow_down/sprite", &gfx);
+  _arrow_down_left = CL_Integer_to_int("menu_skins/arrow_down/left", &gfx);
+  _arrow_down_top = CL_Integer_to_int("menu_skins/arrow_down/top", &gfx);
 
-  arrow_up = new CL_Sprite("menu_skins/arrow_up/sprite", &gfx);
-  arrow_up_left = CL_Integer_to_int("menu_skins/arrow_up/left", &gfx);
-  arrow_up_top = CL_Integer_to_int("menu_skins/arrow_up/top", &gfx);
+  _p_arrow_up = new CL_Sprite("menu_skins/arrow_up/sprite", &gfx);
+  _arrow_up_left = CL_Integer_to_int("menu_skins/arrow_up/left", &gfx);
+  _arrow_up_top = CL_Integer_to_int("menu_skins/arrow_up/top", &gfx);
 
-  skins_preview_x = CL_Integer_to_int("menu_skins/skins-preview-coords/left", &gfx);
-  skins_preview_y = CL_Integer_to_int("menu_skins/skins-preview-coords/top", &gfx);
-  skins_preview_width = CL_Integer_to_int("menu_skins/skins-preview-coords/width", &gfx);
-  skins_preview_height = CL_Integer_to_int("menu_skins/skins-preview-coords/height", &gfx);
+  _skins_preview_x = CL_Integer_to_int("menu_skins/skins-preview-coords/left", &gfx);
+  _skins_preview_y = CL_Integer_to_int("menu_skins/skins-preview-coords/top", &gfx);
+  _skins_preview_width = CL_Integer_to_int("menu_skins/skins-preview-coords/width", &gfx);
+  _skins_preview_height = CL_Integer_to_int("menu_skins/skins-preview-coords/height", &gfx);
 
-  cursor_x      = CL_Integer_to_int("menu_skins/cursor-coords/left", &gfx);
-  cursor_y      = CL_Integer_to_int("menu_skins/cursor-coords/top", &gfx);
-  cursor_width  = CL_Integer_to_int("menu_skins/cursor-coords/width", &gfx);
-  cursor_height = CL_Integer_to_int("menu_skins/cursor-coords/height", &gfx);
+  _cursor_x      = CL_Integer_to_int("menu_skins/cursor-coords/left", &gfx);
+  _cursor_y      = CL_Integer_to_int("menu_skins/cursor-coords/top", &gfx);
+  _cursor_width  = CL_Integer_to_int("menu_skins/cursor-coords/width", &gfx);
+  _cursor_height = CL_Integer_to_int("menu_skins/cursor-coords/height", &gfx);
  
   
 }
@@ -227,176 +227,176 @@ void SkinsMenuState::unload_gfx()
 
 void SkinsMenuState::draw()
 {
-  int x = 400 - background -> get_width()/2;
-  int y = 300 - background -> get_height()/2;
-  background -> draw(x,y);
+  int x = 400 - _p_background -> get_width()/2;
+  int y = 300 - _p_background -> get_height()/2;
+  _p_background -> draw(x,y);
 
   // Drawing logo skins
   for(int i=0; i<2; ++i)
-    for(int j=0; j<2 && j+y_start<number_y; ++j)
+    for(int j=0; j<2 && j+_y_start<_number_y; ++j)
     {
-      if(skins_board[i][j+y_start])
+      if(skins_board[i][j+_y_start])
       { 
         if(skins_board[i][j] -> logo)
-          skins_board[i][j+y_start] -> logo -> draw(skins_preview_x+i*skins_preview_width,
-						    skins_preview_y+j*skins_preview_height);
+          skins_board[i][j+_y_start] -> logo -> draw(_skins_preview_x+i*_skins_preview_width,
+						    _skins_preview_y+j*_skins_preview_height);
 
         // If the skin is not available, we draw logo_unavailable
-        if(common_resources -> skin != skins_board[i][j+y_start] -> filename
-           && skins_board[i][j] -> element < (u_int) common_resources->player1.get_visible_pieces())
-          logo_unavailable -> draw(skins_preview_x+i*skins_preview_width,
-						    skins_preview_y+j*skins_preview_height);
+        if(_p_common_resources -> skin != skins_board[i][j+_y_start] -> filename
+           && skins_board[i][j] -> element < (u_int) _p_common_resources->player1.get_visible_pieces())
+          _p_logo_unavailable -> draw(_skins_preview_x+i*_skins_preview_width,
+						    _skins_preview_y+j*_skins_preview_height);
       }
     }
 
   // Drawing the cursor
-  cursor -> draw(cursor_x+selection_x*cursor_width, 
-		 cursor_y+(selection_y-y_start)*cursor_height);
+  _p_cursor -> draw(_cursor_x+_selection_x*_cursor_width, 
+		 _cursor_y+(_selection_y-_y_start)*_cursor_height);
 
   // Drawig arrows, if needed
-  if(y_start + 2 < number_y)
+  if(_y_start + 2 < _number_y)
   {
-    arrow_down -> draw(arrow_down_left, arrow_down_top);
+    _p_arrow_down -> draw(_arrow_down_left, _arrow_down_top);
   }
 
-  if(y_start > 0)
+  if(_y_start > 0)
   {
-    arrow_up -> draw(arrow_up_left, arrow_up_top);
+    _p_arrow_up -> draw(_arrow_up_left, _arrow_up_top);
   }
 
 }
 
 void SkinsMenuState::update()
 {
-  switch(step)
+  switch(_step)
   {
   case STEP_APPEARING:
-    appear();
+    _appear();
     break;
   case STEP_DISAPPEARING:
-    disappear();
+    _disappear();
     break;
   }
 }
 
 void SkinsMenuState::events()
 {
-  if(step != STEP_NORMAL)
+  if(_step != STEP_NORMAL)
     return;
 
-  if(common_resources->key.escape->get() || common_resources->key.skins->get())
+  if(_p_common_resources->key.escape->get() || _p_common_resources->key.skins->get())
   {   
-    step = STEP_DISAPPEARING;
+    _step = STEP_DISAPPEARING;
   }
 
   // KEY DOWN
-  if(common_resources -> key.down -> get())
+  if(_p_common_resources -> key.down -> get())
   {
     // If we don't go outline
-    if(selection_y + 1 < number_y)
+    if(_selection_y + 1 < _number_y)
     {
       // If there is a skin in this place
-      if(skins_board[selection_x][selection_y + 1])
+      if(skins_board[_selection_x][_selection_y + 1])
       {
-        selection_y++;
+        _selection_y++;
 
-        if(selection_y > y_start + 1)
-          y_start ++;
+        if(_selection_y > _y_start + 1)
+          _y_start ++;
       }
       // Else, we juste increment y_start
-      else if(selection_y > y_start && selection_x == 1 && !skins_board[1][selection_y+1] && skins_board[0][selection_y+1])
+      else if(_selection_y > _y_start && _selection_x == 1 && !skins_board[1][_selection_y+1] && skins_board[0][_selection_y+1])
       {
-        y_start ++;
+        _y_start ++;
       }
     }
   }
 
   // KEY UP
-  if(common_resources -> key.up -> get())
+  if(_p_common_resources -> key.up -> get())
   {
-    if(selection_y > 0 && skins_board[selection_x][selection_y-1])
+    if(_selection_y > 0 && skins_board[_selection_x][_selection_y-1])
     {
-      selection_y--;
+      _selection_y--;
 
-      if(selection_y < y_start)
-        y_start --;
+      if(_selection_y < _y_start)
+        _y_start --;
     }
   }
 
   // KEY RIGHT
-  if(common_resources -> key.right -> get())
+  if(_p_common_resources -> key.right -> get())
   {
-    if(selection_x == 0 && skins_board[1][selection_y])
+    if(_selection_x == 0 && skins_board[1][_selection_y])
     {
-      selection_x = 1;
+      _selection_x = 1;
     }
   }
 
   // KEY LEFT
-  if(common_resources -> key.left -> get())
+  if(_p_common_resources -> key.left -> get())
   {
-    if(selection_x == 1 && skins_board[0][selection_y])
+    if(_selection_x == 1 && skins_board[0][_selection_y])
     {
-      selection_x = 0;
+      _selection_x = 0;
     }
   }
 
   // KEY ENTER
-  if(common_resources -> key.enter -> get())
+  if(_p_common_resources -> key.enter -> get())
   {
     // Can we see all pieces ?
-    if(skins_board[selection_x][selection_y] -> element >= (u_int) common_resources->player1.get_visible_pieces()
+    if(skins_board[_selection_x][_selection_y] -> element >= (u_int) _p_common_resources->player1.get_visible_pieces()
        // Is this the current skin ?
-       && common_resources -> skin != skins_board[selection_x][selection_y] -> filename)
+       && _p_common_resources -> skin != skins_board[_selection_x][_selection_y] -> filename)
     {
-      common_resources -> engine -> set_skin(skins_board[selection_x][selection_y] -> filename);
+      _p_common_resources -> p_engine -> set_skin(skins_board[_selection_x][_selection_y] -> filename);
     }
   }
 
 }
 
-void SkinsMenuState::appear()
+void SkinsMenuState::_appear()
 { 
-  if(alpha + APPEARING_SPEED*common_resources -> time_interval >= 1.0)
+  if(_alpha + APPEARING_SPEED*_p_common_resources -> time_interval >= 1.0)
   {
-    step = STEP_NORMAL;
-    alpha = 1.0;
+    _step = STEP_NORMAL;
+    _alpha = 1.0;
   }
   else
-    alpha += APPEARING_SPEED * common_resources -> time_interval;
+    _alpha += APPEARING_SPEED * _p_common_resources -> time_interval;
 
-  background -> set_alpha(alpha);
-  arrow_up   -> set_alpha(alpha);
-  arrow_down -> set_alpha(alpha);
-  cursor     -> set_alpha(alpha);
-  logo_unavailable -> set_alpha(alpha);
+  _p_background -> set_alpha(_alpha);
+  _p_arrow_up   -> set_alpha(_alpha);
+  _p_arrow_down -> set_alpha(_alpha);
+  _p_cursor     -> set_alpha(_alpha);
+  _p_logo_unavailable -> set_alpha(_alpha);
 
-  for(u_int i = 0; i < skins_list.size(); ++i)
+  for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    skins_list[i] -> logo -> set_alpha(alpha);
+    _skins_list[i] -> logo -> set_alpha(_alpha);
   }
 
 
 }
 
-void SkinsMenuState::disappear()
+void SkinsMenuState::_disappear()
 {  
-  alpha -= APPEARING_SPEED * common_resources -> time_interval;
+  _alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
 
-  background -> set_alpha(alpha);
-  arrow_up   -> set_alpha(alpha);
-  arrow_down -> set_alpha(alpha);
-  cursor     -> set_alpha(alpha);
-  logo_unavailable -> set_alpha(alpha);
+  _p_background -> set_alpha(_alpha);
+  _p_arrow_up   -> set_alpha(_alpha);
+  _p_arrow_down -> set_alpha(_alpha);
+  _p_cursor     -> set_alpha(_alpha);
+  _p_logo_unavailable -> set_alpha(_alpha);
 
-  for(u_int i = 0; i < skins_list.size(); ++i)
+  for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    skins_list[i] -> logo -> set_alpha(alpha);
+    _skins_list[i] -> logo -> set_alpha(_alpha);
   }
 
-  if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
+  if(_alpha <= 0.0 || !_p_common_resources -> p_engine -> is_opengl_used())
   {
-    common_resources -> engine -> stop_current_state();
+    _p_common_resources -> p_engine -> stop_current_state();
     start();
   }
 
@@ -404,14 +404,14 @@ void SkinsMenuState::disappear()
 
 void SkinsMenuState::start()
 {
-  if(common_resources -> engine -> is_opengl_used())
+  if(_p_common_resources -> p_engine -> is_opengl_used())
   {
-    step = STEP_APPEARING;
-    alpha = 0.0;
+    _step = STEP_APPEARING;
+    _alpha = 0.0;
   }
   else
   {
-    step = STEP_NORMAL;
+    _step = STEP_NORMAL;
   }
 }
 
@@ -422,12 +422,12 @@ bool SkinsMenuState::front_layer_behind()
 
 void SkinsMenuState::set_skin_elements(u_int element)
 {
-  for(u_int i = 0; i < skins_list.size(); ++i)
+  for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    if(skins_list[i] -> filename == common_resources -> skin)
+    if(_skins_list[i] -> filename == _p_common_resources -> skin)
     {
-      if(skins_list[i] -> element < element)
-        skins_list[i] -> element = element;
+      if(_skins_list[i] -> element < element)
+        _skins_list[i] -> element = element;
     }
   }
 }

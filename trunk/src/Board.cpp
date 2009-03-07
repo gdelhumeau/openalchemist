@@ -21,7 +21,7 @@ Board::Board()
   /* Initializing all to NULL */
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
-      board[i][j] = NULL;
+      _p_board[i][j] = NULL;
 
 }
 
@@ -35,10 +35,10 @@ void Board::clear()
   /* Initializing all to NULL */
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
-      if(board[i][j])
+      if(_p_board[i][j])
       {
-        delete board[i][j];
-        board[i][j] = NULL;
+        delete _p_board[i][j];
+        _p_board[i][j] = NULL;
       }
 
 }
@@ -51,10 +51,10 @@ void Board::apply_skin(CL_Sprite** pieces_normal,
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
     {
-      if(board[i][j])
+      if(_p_board[i][j])
       {
-	int value = board[i][j] -> get_piece_number();
-        board[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
+	int value = _p_board[i][j] -> get_piece_number();
+        _p_board[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
 				   pieces_disappearing[value], pieces_mini[value]);
       }
     }
@@ -69,16 +69,16 @@ void Board::draw()
   for(int i = 0; i < NUMBER_OF_COLS; ++i)
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
     {
-      if(board[i][j])
+      if(_p_board[i][j])
       {
-        board[i][j] -> draw(); 
+        _p_board[i][j] -> draw(); 
       }
     }
 
   // Displaying scores
-  resources -> main_font -> draw(score_left, score_top, str_score);
-  resources -> main_font -> draw(bonus_left, bonus_top, str_bonus);
-  resources -> main_font -> draw(hightscore_left, hightscore_top, str_hightscore);
+  resources -> p_main_font -> draw(score_left, score_top, str_score);
+  resources -> p_main_font -> draw(bonus_left, bonus_top, str_bonus);
+  resources -> p_main_font -> draw(hightscore_left, hightscore_top, str_hightscore);
 
 }
 
@@ -91,13 +91,13 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
     {
-      if(board[i][j])
+      if(_p_board[i][j])
       {
-        undo_board[i][j] = board[i][j] -> get_piece_number();
+        _undo_board[i][j] = _p_board[i][j] -> get_piece_number();
       }
       else
       {
-        undo_board[i][j] = -1;
+        _undo_board[i][j] = -1;
       }
     } 
 
@@ -122,37 +122,37 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(resources->pieces_width);  
 
   int y_bottom = -1;
-  while(y_bottom < NUMBER_OF_LINES-1 && !board[piece_bottom_x][y_bottom+1])
+  while(y_bottom < NUMBER_OF_LINES-1 && !_p_board[piece_bottom_x][y_bottom+1])
   {
     ++y_bottom;
   }    
         
-  if(y_bottom == -1 && board[piece_bottom_x][0])
+  if(y_bottom == -1 && _p_board[piece_bottom_x][0])
   {
     calc_score();
-     resources -> engine -> set_state_gameover(MODE_GAMEOVER);
+     resources -> p_engine -> set_state_gameover(MODE_GAMEOVER);
   }
   else
   {
-    board[piece_bottom_x][y_bottom] = piece_on_bottom;
+    _p_board[piece_bottom_x][y_bottom] = piece_on_bottom;
   }
                 
                 
   int y_top = -1;
-  while(y_top < NUMBER_OF_LINES-1 && !board[piece_top_x][y_top+1])
+  while(y_top < NUMBER_OF_LINES-1 && !_p_board[piece_top_x][y_top+1])
   {
     ++y_top;
   }      
         
-  if(y_top==-1 && board[piece_top_x][0])
+  if(y_top==-1 && _p_board[piece_top_x][0])
   {
     calc_score();
-    resources -> engine -> set_state_gameover(MODE_GAMEOVER);
-    board[piece_bottom_x][y_bottom] = NULL;
+    resources -> p_engine -> set_state_gameover(MODE_GAMEOVER);
+    _p_board[piece_bottom_x][y_bottom] = NULL;
   }
   else
   {          
-    board[piece_top_x][y_top] = piece_on_top;
+    _p_board[piece_top_x][y_top] = piece_on_top;
   } 
 
   piece_on_bottom -> start_fall(piece_bottom_x*resources->pieces_width+game_left,
@@ -160,9 +160,9 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   piece_on_top -> start_fall(piece_top_x*resources->pieces_width+game_left,
                              game_top+(y_top-2)*resources->pieces_height);
         
-  falling_list.clear();
-  falling_list.push_back(piece_on_top);
-  falling_list.push_back(piece_on_bottom);
+  _falling_list.clear();
+  _falling_list.push_back(piece_on_top);
+  _falling_list.push_back(piece_on_bottom);
 
 }
 
@@ -172,23 +172,23 @@ bool Board::fall_and_create()
   static CommonResources *resources = common_resources_get_instance();
 
   bool all_pieces_are_placed = true;
-  for(u_int i=0; i<falling_list.size(); ++i)
+  for(u_int i=0; i<_falling_list.size(); ++i)
   {
-    if(falling_list[i])
+    if(_falling_list[i])
     {
-      if(!falling_list[i] -> fall(resources -> time_interval))
+      if(!_falling_list[i] -> fall(resources -> time_interval))
         all_pieces_are_placed = false;
     }
   }
 
   // This part makes pieces appear
-  std::list<Piece*>::iterator it = appearing_list.begin();
-  while(it != appearing_list.end())
+  std::list<Piece*>::iterator it = _appearing_list.begin();
+  while(it != _appearing_list.end())
   {
     Piece *p = (Piece*)*it;
     if(p -> appear())
     {
-      it = appearing_list.erase(it);
+      it = _appearing_list.erase(it);
     }
     else
     {
@@ -207,30 +207,30 @@ bool Board::detect_pieces_to_destroy()
 	// This table is used to know if a piece have been explorated 
 	for(int k=0; k<NUMBER_OF_COLS; ++k)
 		for(int l=0; l<NUMBER_OF_LINES; ++l)
-			board_mark[k][l] = false;
+			_board_mark[k][l] = false;
 	
 	// We clear the list witch will contains the pieces to make disappear
-	list_to_destroy.clear();	
+	_list_to_destroy.clear();	
 	
 	// We will look from all pieces in the table
 	for(int x=0; x<NUMBER_OF_COLS; ++x)
 		for(int y=0; y<NUMBER_OF_LINES; ++y)
 	{
-		detect_pieces_to_destroy_from(x, y);
+		_detect_pieces_to_destroy_from(x, y);
 	}
 	
 	// if the list_to_destroy is not empty, then we have detected some pieces
-  return !list_to_destroy.empty();
+  return !_list_to_destroy.empty();
     
 }
 
-void Board::detect_pieces_to_destroy_from(int i, 
+void Board::_detect_pieces_to_destroy_from(int i, 
 																					int j)
 {
-	if(board[i][j] != NULL && !board_mark[i][j])
+	if(_p_board[i][j] != NULL && !_board_mark[i][j])
 	{
 		int counter = 0;            
-		int root_number = board[i][j] -> get_piece_number();
+		int root_number = _p_board[i][j] -> get_piece_number();
 		
 		std::vector<Coords*> detected_pieces;		
 			
@@ -249,14 +249,14 @@ void Board::detect_pieces_to_destroy_from(int i,
 			delete c;
 			
 			if(x >= 0 && x < NUMBER_OF_COLS && y >= 0 && y < NUMBER_OF_LINES 
-				 && board[x][y]!=NULL)
+				 && _p_board[x][y]!=NULL)
 			{
 				// We look if this piece is the same as the reference
-				if(!board_mark[x][y] && board[x][y]->get_piece_number() == root_number)
+				if(!_board_mark[x][y] && _p_board[x][y]->get_piece_number() == root_number)
 				{
 					// We add this pieces to the detected_pieces list
 					detected_pieces.insert(detected_pieces.end(),new Coords(x,y));
-					board_mark[x][y] = true;
+					_board_mark[x][y] = true;
 					counter ++;
 					
 					// We will explore neighboors
@@ -270,16 +270,16 @@ void Board::detect_pieces_to_destroy_from(int i,
 		}
 		
 		if(counter >= 3)
-			pieces_to_destroy_detected(detected_pieces);
+			_pieces_to_destroy_detected(detected_pieces);
 		
 	}
 }
 
-void Board::pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces)
+void Board::_pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces)
 {
           
 	Coords *c = detected_pieces[0];
-	u_int piece_number = board[c->x][c->y]->get_piece_number(); 
+	u_int piece_number = _p_board[c->x][c->y]->get_piece_number(); 
 	
 	int counter = detected_pieces.size();
 	
@@ -287,50 +287,50 @@ void Board::pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces)
 	if(piece_number == NUMBER_OF_PIECES - 1)
 	{
 		std::cout << "You align " << counter << " ultimate elements ! Cheater :p" << std::endl;
-		undo_bonus_score += counter*board[c->x][c->y]->get_score_value();
-		bonus_score += counter*board[c->x][c->y]->get_score_value();
+		undo_bonus_score += counter*_p_board[c->x][c->y]->get_score_value();
+		bonus_score += counter*_p_board[c->x][c->y]->get_score_value();
 	}
 	// If it was not last element
 	else
 	{
-		undo_bonus_score  += (counter - 3)*board[c->x][c->y]->get_score_value();
-		bonus_score += (counter - 3)*board[c->x][c->y]->get_score_value();
+		undo_bonus_score  += (counter - 3)*_p_board[c->x][c->y]->get_score_value();
+		bonus_score += (counter - 3)*_p_board[c->x][c->y]->get_score_value();
 	}
 	
-	create_new_piece(detected_pieces);
+	_create_new_piece(detected_pieces);
 	
 }
 
-void Board::create_new_piece(std::vector<Coords*> &detected_pieces)
+void Board::_create_new_piece(std::vector<Coords*> &detected_pieces)
 {
 	// Determining the new piece coords
 	Coords new_piece(NUMBER_OF_COLS+1,-1);	
-	choose_new_piece_coords(new_piece, detected_pieces);
+	_choose_new_piece_coords(new_piece, detected_pieces);
 	
 	// Determining the new piece number
 	new_piece.piece_number = 
-		board[detected_pieces[0]->x][detected_pieces[0]->y]->get_piece_number()+1;    
+		_p_board[detected_pieces[0]->x][detected_pieces[0]->y]->get_piece_number()+1;    
 	if(new_piece.piece_number >= NUMBER_OF_PIECES)
 	{
 		new_piece.piece_number = NUMBER_OF_PIECES-1;
 	}
 	
 	// Maybe we have unlocked new element ?
-	unlock_piece(new_piece);
+	_unlock_piece(new_piece);
 	
 	// We add the new piece except if we have aligned 3 last elements
 	if(new_piece.piece_number != NUMBER_OF_PIECES - 1)
-		list_to_create.insert(list_to_create.end(), new Coords(&new_piece));	
+		_list_to_create.insert(_list_to_create.end(), new Coords(&new_piece));	
 }
 
-void Board::choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces)
+void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces)
 {
 	std::vector<Coords*>::iterator it = detected_pieces.begin();
 	while(it != detected_pieces.end())
 	{
 		Coords *c = (Coords*) *it;                 
-		board[c->x][c->y]->start_disappear();                    
-		list_to_destroy.insert(list_to_destroy.end(),c);
+		_p_board[c->x][c->y]->start_disappear();                    
+		_list_to_destroy.insert(_list_to_destroy.end(),c);
 		
 		// Select the lefter and bottomer Coords for create new piece
 		if(c->y > new_piece.y)
@@ -351,7 +351,7 @@ void Board::choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &det
 	}	
 }
 
-void Board::unlock_piece(Coords &new_piece)
+void Board::_unlock_piece(Coords &new_piece)
 {
 	static CommonResources *resources = common_resources_get_instance();
 	
@@ -360,7 +360,7 @@ void Board::unlock_piece(Coords &new_piece)
 		++visible_pieces;
 		
 		// now we have unlocked this element with this skin		
-		resources -> engine -> set_skin_element(visible_pieces);
+		resources -> p_engine -> set_skin_element(visible_pieces);
 	}
 	if(new_piece.piece_number > unlocked_pieces)
 	{
@@ -372,22 +372,22 @@ bool Board::destroy()
 {
 
   bool end = true;
-  for(u_int i=0; i<list_to_destroy.size(); i++)
+  for(u_int i=0; i<_list_to_destroy.size(); i++)
   {    
-    if(list_to_destroy[i])
+    if(_list_to_destroy[i])
     {
-      Coords *c = list_to_destroy[i];
+      Coords *c = _list_to_destroy[i];
             
-      if(board[c->x][c->y] != NULL && !board[c->x][c->y]->disappear())
+      if(_p_board[c->x][c->y] != NULL && !_p_board[c->x][c->y]->disappear())
       {
         end = false;
       }
       else
       {
-        delete board[c->x][c->y];
-        board[c->x][c->y] = NULL;
+        delete _p_board[c->x][c->y];
+        _p_board[c->x][c->y] = NULL;
         delete c;
-        list_to_destroy[i] = NULL;
+        _list_to_destroy[i] = NULL;
       }
     }
   }
@@ -403,16 +403,16 @@ void Board::create_new_pieces(CL_Sprite **pieces_normal,
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
 
-  list_to_destroy.clear(); 
-  appearing_list.clear();
+  _list_to_destroy.clear(); 
+  _appearing_list.clear();
     
-  std::list<Coords*>::iterator it = list_to_create.begin();
-  while(it != list_to_create.end())
+  std::list<Coords*>::iterator it = _list_to_create.begin();
+  while(it != _list_to_create.end())
   {
     Coords *c = (Coords*) *it;
     if(c && c->x >= 0 && c->x < NUMBER_OF_COLS
        && c->y >=0 && c->y < NUMBER_OF_LINES
-       && !board[c->x][c->y])
+       && !_p_board[c->x][c->y])
     {
       
 
@@ -427,11 +427,11 @@ void Board::create_new_pieces(CL_Sprite **pieces_normal,
                         
       p -> start_appear();
                 
-      board[c->x][c->y] = p; 
-      appearing_list.insert(appearing_list.begin(), p);
+      _p_board[c->x][c->y] = p; 
+      _appearing_list.insert(_appearing_list.begin(), p);
 
       delete c;
-      it = list_to_create.erase(it);
+      it = _list_to_create.erase(it);
     }
   }
 }
@@ -441,24 +441,24 @@ void Board::detect_pieces_to_fall()
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
 
-  falling_list.clear();
+  _falling_list.clear();
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=NUMBER_OF_LINES-2; j>=0; --j)
     {
-      if(board[i][j] != NULL)
+      if(_p_board[i][j] != NULL)
       {
         int k = 1;
-        while(j+k < NUMBER_OF_LINES && board[i][j+k] == NULL)
+        while(j+k < NUMBER_OF_LINES && _p_board[i][j+k] == NULL)
         {
-          board[i][j+k] = board[i][j+k-1];
-          board[i][j+k-1] = NULL;
-          board[i][j+k] -> start_fall((int)(board[i][j+k]->get_x()),
+          _p_board[i][j+k] = _p_board[i][j+k-1];
+          _p_board[i][j+k-1] = NULL;
+          _p_board[i][j+k] -> start_fall((int)(_p_board[i][j+k]->get_x()),
                                       (int)(game_top+(j+k-2)*resources->pieces_height));
           k++;
         }
         if(k>1)
         {
-          falling_list.insert(falling_list.end(), board[i][j+k-1]);
+          _falling_list.insert(_falling_list.end(), _p_board[i][j+k-1]);
         }
       }
     }
@@ -470,7 +470,7 @@ bool Board::is_game_over()
     for(int j=0; j<2; ++j)
     {
     
-      if(board[i][j] != NULL)
+      if(_p_board[i][j] != NULL)
       {
         //game_mode = GAME_MODE_GAME_OVER;
         /*if(global_score + global_bonus > hightscores[current_difficulty])
@@ -497,9 +497,9 @@ void Board::calc_score()
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=2; j<NUMBER_OF_LINES; ++j)
     {
-      if(board[i][j])
+      if(_p_board[i][j])
       {
-        score += board[i][j]->get_score_value();                           
+        score += _p_board[i][j]->get_score_value();                           
       }
     }
 
@@ -507,9 +507,9 @@ void Board::calc_score()
   str_bonus = format_number(to_string(bonus_score));
   str_hightscore = format_number(to_string(resources->highscore)); 
 
-  int score_width = resources->main_font->get_width(str_score, CL_Size(0, 0));
-  int bonus_width = resources->main_font->get_width(str_bonus, CL_Size(0, 0));
-  int hightscore_width = resources->main_font->get_width(str_hightscore, CL_Size(0, 0));
+  int score_width = resources->p_main_font->get_width(str_score, CL_Size(0, 0));
+  int bonus_width = resources->p_main_font->get_width(str_bonus, CL_Size(0, 0));
+  int hightscore_width = resources->p_main_font->get_width(str_hightscore, CL_Size(0, 0));
 
   score_left = score_right - score_width;
   bonus_left = bonus_right - bonus_width;
@@ -534,15 +534,15 @@ void Board::undo(CL_Sprite **pieces_normal,
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
     {
-      if(board[i][j]) delete board[i][j];
-      board[i][j] = NULL;
+      if(_p_board[i][j]) delete _p_board[i][j];
+      _p_board[i][j] = NULL;
       
-      if(undo_board[i][j] >= 0)
+      if(_undo_board[i][j] >= 0)
       {
-        board[i][j] = new Piece(undo_board[i][j]);
-        board[i][j] -> set_sprites(pieces_normal[undo_board[i][j]], pieces_appearing[undo_board[i][j]],
-                                   pieces_disappearing[undo_board[i][j]], pieces_mini[undo_board[i][j]]);
-        board[i][j] -> set_position(i*resources->pieces_width+game_left,game_top+(j-2)*resources->pieces_height);
+        _p_board[i][j] = new Piece(_undo_board[i][j]);
+        _p_board[i][j] -> set_sprites(pieces_normal[_undo_board[i][j]], pieces_appearing[_undo_board[i][j]],
+                                   pieces_disappearing[_undo_board[i][j]], pieces_mini[_undo_board[i][j]]);
+        _p_board[i][j] -> set_position(i*resources->pieces_width+game_left,game_top+(j-2)*resources->pieces_height);
       }
     } 
 

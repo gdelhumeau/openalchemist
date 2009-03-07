@@ -20,13 +20,14 @@
 #include "MenuState/BasicItem.h"
 #include "MenuState/DualChoiceItem.h"
 
-#define QUITMENU_GIVE_UP 1
-#define QUITMENU_RETRY 2
-#define QUITMENU_EXIT 3
-
+enum QUITMENU
+{
+    QUITMENU_GIVE_UP,
+    QUITMENU_RETRY,
+    QUITMENU_EXIT
+};
 
 class GameEngine;
-
 
 /**
  * QuitMenuGame State
@@ -43,7 +44,7 @@ private:
 
     int yes_x, yes_y;
     int no_x, no_y;
-    int selection;
+    int _selection;
 
     int action;
     int step;

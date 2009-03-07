@@ -28,29 +28,29 @@
 Player::Player()
 {
     // Setting objects to NULL
-    next_piece1    = NULL;
-    next_piece2    = NULL;
-    current_piece1 = NULL;
-    current_piece2 = NULL;
+    _p_next_piece1    = NULL;
+    _p_next_piece2    = NULL;
+    _p_current_piece1 = NULL;
+    _p_current_piece2 = NULL;
 
     // Initializing random numbers generator
     srand(CL_System::get_time());
 
     // Making key objects
-    key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
-    key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
-    key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
-    key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
+    _p_key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
+    _p_key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
+    _p_key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
+    _p_key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
 
-    combo = 0;
+    _combo = 0;
 
     // Setting the pieces sprites to NULL
     for(int i = 0; i<NUMBER_OF_PIECES; ++i)
     {
-        pieces_normal[i] = NULL;
-        pieces_appearing[i] = NULL;
-        pieces_disappearing[i] = NULL;
-        pieces_mini[i] = NULL;
+        _p_pieces_normal[i] = NULL;
+        _p_pieces_appearing[i] = NULL;
+        _p_pieces_disappearing[i] = NULL;
+        _p_pieces_mini[i] = NULL;
     }
 
 }
@@ -59,10 +59,10 @@ Player::~Player()
 {
     unload_gfx();
     // Deleting key objects
-    delete key_change_angle;
-    delete key_left;
-    delete key_right;
-    delete key_falling;
+    delete _p_key_change_angle;
+    delete _p_key_left;
+    delete _p_key_right;
+    delete _p_key_falling;
 }
 
 void Player::new_game()
@@ -71,54 +71,54 @@ void Player::new_game()
     CommonResources *resources = common_resources_get_instance();
 
     // Creating new pieces for playable pieces and next pieces
-    current_piece1 = new Piece(rand()%3);
-    current_piece2 = new Piece(rand()%3);
-    next_piece1 = new Piece(rand()%3);
-    next_piece2 = new Piece(rand()%3);
+    _p_current_piece1 = new Piece(rand()%3);
+    _p_current_piece2 = new Piece(rand()%3);
+    _p_next_piece1 = new Piece(rand()%3);
+    _p_next_piece2 = new Piece(rand()%3);
 
     // Setting playable pieces position
-    angle = 0.0;
-    target_angle = 0;
-    position = 2;
-    position_bis = 1;
-    placed = true;
-    undo_possible = false;
-    next_next_piece1 = 0;
-    next_next_piece2 = 0;
-    x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
-    next_piece1 -> set_position(next_left, next_top);
-    next_piece2 -> set_position(next_left+((resources->pieces_width)/2),next_top);
+    _angle = 0.0;
+    _aimed_angle = 0;
+    _position = 2;
+    _position_bis = 1;
+    _is_placed = true;
+    _undo_possible = false;
+    _next_next_piece1 = 0;
+    _next_next_piece2 = 0;
+    _x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+    _p_next_piece1 -> set_position(_next_left, _next_top);
+    _p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
 
-    falling_requested = false;
-    game_mode = GAME_MODE_PLAYING;
+    _is_falling_requested = false;
+    _game_mode = GAME_MODE_PLAYING;
 
-    board.clear();
-    board.unlocked_pieces = 3;
-    board.visible_pieces  = 3;
-    board.score = 0;
-    board.bonus_score = 0;
-    board.calc_score();
+    _board.clear();
+    _board.unlocked_pieces = 3;
+    _board.visible_pieces  = 3;
+    _board.score = 0;
+    _board.bonus_score = 0;
+    _board.calc_score();
 
-    combo = 0;
+    _combo = 0;
 
     // Applying skin
     int value;
-    value = next_piece1 -> get_piece_number();
+    value = _p_next_piece1 -> get_piece_number();
 
-    next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                               _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    value = next_piece2 -> get_piece_number();
-    next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    value = _p_next_piece2 -> get_piece_number();
+    _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                               _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    value = current_piece1 ->  get_piece_number();
-    current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    value = _p_current_piece1 ->  get_piece_number();
+    _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                  _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    value = current_piece2 ->  get_piece_number();
-    current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    value = _p_current_piece2 ->  get_piece_number();
+    _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                  _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
 }
 
@@ -140,79 +140,79 @@ void Player::load_gfx(std::string skin)
     for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
     {
         if(pref -> colorblind)
-            pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
+            _p_pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
         else
-            pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
+            _p_pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
 
-        pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
-        pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
+        _p_pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
+        _p_pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
 
         if(pref -> colorblind)
-            pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
+            _p_pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
         else
-            pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
+            _p_pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
 
-        pieces_preview_x[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left", &gfx_preview_pieces);
-        pieces_preview_y[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top", &gfx_preview_pieces);
+        _pieces_preview_x[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left", &gfx_preview_pieces);
+        _pieces_preview_y[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top", &gfx_preview_pieces);
 
         if(i>3)
         {
-            pieces_hidden[i-4] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
+            _p_pieces_hidden[i-4] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
         }
     }
 
     // Getting sprites position
-    next_left = CL_Integer_to_int("game/next_left", &gfx);
-    next_top = CL_Integer_to_int("game/next_top", &gfx);
+    _next_left = CL_Integer_to_int("game/next_left", &gfx);
+    _next_top = CL_Integer_to_int("game/next_top", &gfx);
 
     // Getting game zone position
-    board.game_top = CL_Integer_to_int("game/top", &gfx);
-    board.game_left = CL_Integer_to_int("game/left", &gfx);
-    board.zone_top = CL_Integer_to_int("zone_top", &gfx);
+    _board.game_top = CL_Integer_to_int("game/top", &gfx);
+    _board.game_left = CL_Integer_to_int("game/left", &gfx);
+    _board.zone_top = CL_Integer_to_int("zone_top", &gfx);
 
-    board.score_top = CL_Integer_to_int("score_top", &gfx);
-    board.score_right = CL_Integer_to_int("score_right", &gfx);
-    board.bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
-    board.bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
-    board.hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
-    board.hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
+    _board.score_top = CL_Integer_to_int("score_top", &gfx);
+    _board.score_right = CL_Integer_to_int("score_right", &gfx);
+    _board.bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
+    _board.bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
+    _board.hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
+    _board.hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
 
     // Calculating c² = a²+b³
-    current_pieces_r = resources->pieces_width/2;
+    _current_pieces_r = resources->pieces_width/2;
 
     // Then, we apply new sprites
-    if(next_piece1 && next_piece2 && current_piece1 && current_piece2)
+    if(_p_next_piece1 && _p_next_piece2 && _p_current_piece1 && _p_current_piece2)
     {
         int value;
-        value = next_piece1 -> get_piece_number();
+        value = _p_next_piece1 -> get_piece_number();
 
-        next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                   pieces_disappearing[value], pieces_mini[value]);
+        _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                   _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        value = next_piece2 -> get_piece_number();
-        next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                   pieces_disappearing[value], pieces_mini[value]);
+        value = _p_next_piece2 -> get_piece_number();
+        _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                   _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        value = current_piece1 ->  get_piece_number();
-        current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
+        value = _p_current_piece1 ->  get_piece_number();
+        _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                      _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        value = current_piece2 ->  get_piece_number();
-        current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
+        value = _p_current_piece2 ->  get_piece_number();
+        _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                      _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        next_piece1 -> set_position(next_left, next_top);
-        next_piece2 -> set_position(next_left+((resources->pieces_width)/2),next_top);
+        _p_next_piece1 -> set_position(_next_left, _next_top);
+        _p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
     }
 
     // And to the board too
-    board.apply_skin(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+    _board.apply_skin(_p_pieces_normal, _p_pieces_appearing, _p_pieces_disappearing, _p_pieces_mini);
 
     // Loading gfx for progress bar
-    progress_bar.load_gfx(skin);
+    _progress_bar.load_gfx(skin);
 
     // Loading gfx for combos painter
-    combos_painter.load_gfx(skin);
+    _combos_painter.load_gfx(skin);
 
 }
 
@@ -221,29 +221,29 @@ void Player::unload_gfx()
     // Delete the pieces sprites
     for(int i = 0; i<NUMBER_OF_PIECES; ++i)
     {
-        if(pieces_normal[i])
+        if(_p_pieces_normal[i])
         {
-            delete pieces_normal[i];
-            pieces_normal[i] = NULL;
+            delete _p_pieces_normal[i];
+            _p_pieces_normal[i] = NULL;
         }
-        if(pieces_appearing[i])
+        if(_p_pieces_appearing[i])
         {
-            delete pieces_appearing[i];
-            pieces_appearing[i] = NULL;
+            delete _p_pieces_appearing[i];
+            _p_pieces_appearing[i] = NULL;
         }
-        if(pieces_disappearing[i])
+        if(_p_pieces_disappearing[i])
         {
-            delete pieces_disappearing[i];
-            pieces_disappearing[i] = NULL;
+            delete _p_pieces_disappearing[i];
+            _p_pieces_disappearing[i] = NULL;
         }
-        if(pieces_mini[i])
+        if(_p_pieces_mini[i])
         {
-            delete pieces_mini[i];
-            pieces_mini[i] = NULL;
+            delete _p_pieces_mini[i];
+            _p_pieces_mini[i] = NULL;
         }
     }
 
-    progress_bar.unload_gfx();
+    _progress_bar.unload_gfx();
 }
 
 void Player::draw()
@@ -254,55 +254,55 @@ void Player::draw()
     // Drawing unlocked pieces
     for(int i=0; i<NUMBER_OF_PIECES; ++i)
     {
-        if(i >= board.visible_pieces)
-            pieces_hidden[i-3] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
+        if(i >= _board.visible_pieces)
+            _p_pieces_hidden[i-3] -> draw(_pieces_preview_x[i], _pieces_preview_y[i], 0);
         else
-            pieces_mini[i] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
+            _p_pieces_mini[i] -> draw(_pieces_preview_x[i], _pieces_preview_y[i], 0);
     }
 
     // Drawing board
-    board.draw();
+    _board.draw();
 
     // Drawing the progress bar
     // TODO : must work with differents difficulties
     if(resources -> highscore > 0)
     {
-        int percentage = (int)((double)(board.score + board.bonus_score) / (double)resources -> highscore * 100.0);
+        int percentage = (int)((double)(_board.score + _board.bonus_score) / (double)resources -> highscore * 100.0);
         if(percentage > 100)
             percentage = 100;
-        progress_bar.draw(percentage);
+        _progress_bar.draw(percentage);
     }
     else
     {
-        progress_bar.draw(100);
+        _progress_bar.draw(100);
     }
 
     // Drawing next pieces
-    next_piece1 -> draw_mini();
-    next_piece2 -> draw_mini();
+    _p_next_piece1 -> draw_mini();
+    _p_next_piece2 -> draw_mini();
 
 
-    if(GAME_MODE_PLAYING == game_mode)
+    if(GAME_MODE_PLAYING == _game_mode)
     {
         // Setting playable pieces position
-        current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
-                                       board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
+        _p_current_piece1 -> set_position(_board.game_left+_x+cos(_angle*TO_RAD)*_current_pieces_r,
+                                       _board.zone_top+resources->pieces_height/2+sin((_angle)*TO_RAD)*_current_pieces_r);
 
-        current_piece2 -> set_position(board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,
-                                       board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
+        _p_current_piece2 -> set_position(_board.game_left+_x+cos((_angle+180)*TO_RAD)*_current_pieces_r,
+                                       _board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
 
         // Displaying playable pieces
-        current_piece1 -> draw();
-        current_piece2 -> draw();
+        _p_current_piece1 -> draw();
+        _p_current_piece2 -> draw();
     }
 
     // Drawing combo
-    if(combo > 1)
+    if(_combo > 1)
     {
-        combos_painter.set_score(combo - 1);
+        _combos_painter.set_score(_combo - 1);
     }
 
-    combos_painter.draw();
+    _combos_painter.draw();
 }
 
 void Player::events()
@@ -310,37 +310,37 @@ void Player::events()
     // Getting resources
     static CommonResources *resources = common_resources_get_instance();
 
-    if(GAME_MODE_PLAYING == game_mode)
+    if(GAME_MODE_PLAYING == _game_mode)
     {
         // Change the order of the pieces
-        if(key_change_angle->get())
+        if(_p_key_change_angle->get())
         {
             change_angle();
         }
 
         // Look the key to know if we have to move the pieces to the left
-        if(key_left->get())
+        if(_p_key_left->get())
         {
             move_left();
         }
 
         // Look the key to know if we have to move the pieces to the right
-        if(key_right->get())
+        if(_p_key_right->get())
         {
             move_right();
         }
 
         // It's time for the pieces to fall
-        if(key_falling -> get())
+        if(_p_key_falling -> get())
         {
-            falling_requested = true;
+            _is_falling_requested = true;
         }
 
         // Cheatting
         if(CL_Keyboard::get_keycode(CL_KEY_A) && CL_Keyboard::get_keycode(CL_KEY_L))
         {
-            board.unlocked_pieces = NUMBER_OF_PIECES;
-            board.visible_pieces = NUMBER_OF_PIECES;
+            _board.unlocked_pieces = NUMBER_OF_PIECES;
+            _board.visible_pieces = NUMBER_OF_PIECES;
         }
     }
 
@@ -353,7 +353,7 @@ void Player::events()
     // Retry current game
     if(resources -> key.retry -> get())
     {
-        resources -> engine -> set_state_quit_menu(QUITMENU_RETRY);
+        resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
     }
 
 }
@@ -361,21 +361,21 @@ void Player::events()
 void Player::change_angle()
 {
     // Change the order of the pieces
-    if(target_angle<=target_angle+90)
+    if(_aimed_angle<=_aimed_angle+90)
     {
-        target_angle += 90;
-        placed = false;
+        _aimed_angle += 90;
+        _is_placed = false;
 
-        if((target_angle%180 == 90))
+        if((_aimed_angle%180 == 90))
         {
-            position_bis = 0;
+            _position_bis = 0;
         }
         else
         {
-            if(position == NUMBER_OF_COLS -1)
-                position --;
+            if(_position == NUMBER_OF_COLS -1)
+                _position --;
 
-            position_bis = 1;
+            _position_bis = 1;
         }
 
     }
@@ -383,94 +383,94 @@ void Player::change_angle()
 
 void Player::move_left()
 {
-    if(position > 0)
+    if(_position > 0)
     {
-        old_position = position;
-        old_position_bis = position_bis;
-        position--;
-        placed = false;
+        _old_position = _position;
+        _old_position_bis = _position_bis;
+        _position--;
+        _is_placed = false;
     }
 }
 
 void Player::move_right()
 {
-    if(position < NUMBER_OF_COLS - 1)
+    if(_position < NUMBER_OF_COLS - 1)
     {
-        if(!(position == NUMBER_OF_COLS - 2 && position_bis))
+        if(!(_position == NUMBER_OF_COLS - 2 && _position_bis))
         {
-            old_position = position;
-            old_position_bis = position_bis;
-            position++;
-            placed = false;
+            _old_position = _position;
+            _old_position_bis = _position_bis;
+            _position++;
+            _is_placed = false;
         }
     }
 }
 
 void Player::update()
 {
-    if(GAME_MODE_PLAYING == game_mode)
+    if(GAME_MODE_PLAYING == _game_mode)
     {
-        update_playing();
+        _update_playing();
     }
-    else if(GAME_MODE_FALLING_AND_CREATING == game_mode)
+    else if(GAME_MODE_FALLING_AND_CREATING == _game_mode)
     {
-        update_falling_and_creating();
+        _update_falling_and_creating();
     }
-    else if(GAME_MODE_DESTROYING == game_mode)
+    else if(GAME_MODE_DESTROYING == _game_mode)
     {
-        update_destroying();
+        _update_destroying();
     }
-    combos_painter.update();
+    _combos_painter.update();
 }
 
-void Player::update_playing()
+void Player::_update_playing()
 {
     static CommonResources *resources = common_resources_get_instance();
 
     // Move the pieces if the order has been changed
-    if(angle<target_angle)
+    if(_angle<_aimed_angle)
     {
-        angle += resources->time_interval * PIECE_ROTATION_SPEED;
-        if(angle>=target_angle)
+        _angle += resources->time_interval * PIECE_ROTATION_SPEED;
+        if(_angle>=_aimed_angle)
         {
-            while(target_angle>=360)
+            while(_aimed_angle>=360)
             {
-                target_angle-=360;
+                _aimed_angle-=360;
             }
-            angle = target_angle;
+            _angle = _aimed_angle;
         }
     }
 
     // Move the pieces to the right
-    if(!placed)
+    if(!_is_placed)
     {
-        if(position * resources->pieces_width + position_bis *resources->pieces_width/2 >= x)
+        if(_position * resources->pieces_width + _position_bis *resources->pieces_width/2 >= _x)
         {
-            x += resources->time_interval * PIECE_MOVING_SPEED;
-            if(x > position * resources->pieces_width + (position_bis )*resources->pieces_width/2)
+            _x += resources->time_interval * PIECE_MOVING_SPEED;
+            if(_x > _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2)
             {
-                x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
-                placed = true;
+                _x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+                _is_placed = true;
             }
         }
     }
 
     // Move the pieces to the left
-    if(!placed)
+    if(!_is_placed)
     {
-        if(position * resources->pieces_width + (position_bis )*resources->pieces_width/2 <= x)
+        if(_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2 <= _x)
         {
-            x -= resources->time_interval * PIECE_MOVING_SPEED;
-            if(x < position * resources->pieces_width + (position_bis)*resources->pieces_width/2)
+            _x -= resources->time_interval * PIECE_MOVING_SPEED;
+            if(_x < _position * resources->pieces_width + (_position_bis)*resources->pieces_width/2)
             {
-                x = position * resources->pieces_width + (position_bis)*resources->pieces_width/2;
-                placed = true;
+                _x = _position * resources->pieces_width + (_position_bis)*resources->pieces_width/2;
+                _is_placed = true;
             }
         }
     }
 
     // Falling the playable pieces
-    if(falling_requested && placed && (angle >= target_angle))
+    if(_is_falling_requested && _is_placed && (_angle >= _aimed_angle))
     {
         fall();
     }
@@ -481,65 +481,65 @@ void Player::fall()
     // Getting resources
     static CommonResources *resources = common_resources_get_instance();
 
-    falling_requested = false;
+    _is_falling_requested = false;
 
-    undo_possible = true;
-    undo_position = position;
-    undo_position_bis = position_bis;
-    undo_piece1_number = current_piece1 -> get_piece_number();
-    undo_piece2_number = current_piece2 -> get_piece_number();
-    undo_angle = target_angle;
+    _undo_possible = true;
+    _undo_position = _position;
+    _undo_position_bis = _position_bis;
+    _undo_piece1_number = _p_current_piece1 -> get_piece_number();
+    _undo_piece2_number = _p_current_piece2 -> get_piece_number();
+    _undo_angle = _aimed_angle;
 
 
-    current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
-                                   board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
+    _p_current_piece1 -> set_position(_board.game_left+_x+cos(_angle*TO_RAD)*_current_pieces_r,
+                                   _board.zone_top+resources->pieces_height/2+sin((_angle)*TO_RAD)*_current_pieces_r);
 
-    current_piece2 -> set_position(board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,
-                                   board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
+    _p_current_piece2 -> set_position(_board.game_left+_x+cos((_angle+180)*TO_RAD)*_current_pieces_r,
+                                   _board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
 
-    board.add_pieces(current_piece1, current_piece2);
+    _board.add_pieces(_p_current_piece1, _p_current_piece2);
 
 
 
     // We must respect the next piece order (ex: red to the left, blue to the right...)
-    float piece1x = cos(angle*TO_RAD)*current_pieces_r;
-    float piece2x = cos((angle+180)*TO_RAD)*current_pieces_r;
+    float piece1x = cos(_angle*TO_RAD)*_current_pieces_r;
+    float piece2x = cos((_angle+180)*TO_RAD)*_current_pieces_r;
 
     if(piece1x < piece2x)
     {
-        current_piece1 = new Piece(next_piece1->get_piece_number());
-        current_piece2 = new Piece(next_piece2->get_piece_number());
+        _p_current_piece1 = new Piece(_p_next_piece1->get_piece_number());
+        _p_current_piece2 = new Piece(_p_next_piece2->get_piece_number());
     }
     else
     {
-        current_piece1 = new Piece(next_piece2->get_piece_number());
-        current_piece2 = new Piece(next_piece1->get_piece_number());
+        _p_current_piece1 = new Piece(_p_next_piece2->get_piece_number());
+        _p_current_piece2 = new Piece(_p_next_piece1->get_piece_number());
     }
 
 
-    int value = current_piece1 -> get_piece_number();
-    current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    int value = _p_current_piece1 -> get_piece_number();
+    _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                  _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    value = current_piece2 -> get_piece_number();
-    current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                  pieces_disappearing[value], pieces_mini[value]);
+    value = _p_current_piece2 -> get_piece_number();
+    _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                  _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
 
-    game_mode = GAME_MODE_FALLING_AND_CREATING;
+    _game_mode = GAME_MODE_FALLING_AND_CREATING;
 }
 
-void Player::update_falling_and_creating()
+void Player::_update_falling_and_creating()
 {
     // Getting resources
     static CommonResources *resources = common_resources_get_instance();
 
-    bool placed = board.fall_and_create();
+    bool placed = _board.fall_and_create();
 
     if(placed)
     {
 
-        combo ++;
+        _combo ++;
 
         // Only the second time - an old limitation
         /*if(combo == 2 && board.is_game_over())
@@ -548,86 +548,86 @@ void Player::update_falling_and_creating()
           return;
           }*/
 
-        bool to_destroy = board.detect_pieces_to_destroy();
+        bool to_destroy = _board.detect_pieces_to_destroy();
 
         if(to_destroy)
         {
-            game_mode = GAME_MODE_DESTROYING;
+            _game_mode = GAME_MODE_DESTROYING;
             //game_mode = GAME_MODE_TO_PLAYING;
         }
         else
         {
-            if(board.is_game_over())
+            if(_board.is_game_over())
             {
-                resources -> engine -> set_skin_element(board.visible_pieces);
-                if(board.score + board.bonus_score > resources -> highscore)
+                resources -> p_engine -> set_skin_element(_board.visible_pieces);
+                if(_board.score + _board.bonus_score > resources -> highscore)
                 {
-                    resources -> engine -> set_state_gameover(MODE_HIGHSCORE);
+                    resources -> p_engine -> set_state_gameover(MODE_HIGHSCORE);
                     resources -> old_highscore = resources -> highscore;
-                    resources -> highscore = board.score + board.bonus_score;
+                    resources -> highscore = _board.score + _board.bonus_score;
                     resources -> save_scores();
                 }
                 else
-                    resources -> engine -> set_state_gameover(MODE_GAMEOVER);
+                    resources -> p_engine -> set_state_gameover(MODE_GAMEOVER);
                 return;
             }
-            prepare_to_play();
-            game_mode = GAME_MODE_PLAYING;
+            _prepare_to_play();
+            _game_mode = GAME_MODE_PLAYING;
         }
 
     }
 }
 
-void Player::update_destroying()
+void Player::_update_destroying()
 {
-    bool destroyed = board.destroy();
+    bool destroyed = _board.destroy();
 
     if(destroyed)
     {
-        board.create_new_pieces(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+        _board.create_new_pieces(_p_pieces_normal, _p_pieces_appearing, _p_pieces_disappearing, _p_pieces_mini);
 
-        board.detect_pieces_to_fall();
-        game_mode = GAME_MODE_FALLING_AND_CREATING;
+        _board.detect_pieces_to_fall();
+        _game_mode = GAME_MODE_FALLING_AND_CREATING;
     }
 
 }
 
-void Player::prepare_to_play()
+void Player::_prepare_to_play()
 {
-    board.calc_score();
+    _board.calc_score();
 
     // Adding combo bonus
-    if(combo > 1)
+    if(_combo > 1)
     {
-        u_int delta_score = board.score - board.undo_score;
-        u_int combo_bonus = combo * delta_score / 10;
-        board.bonus_score += combo_bonus;
-        board.undo_bonus_score += combo_bonus;
+        u_int delta_score = _board.score - _board.undo_score;
+        u_int combo_bonus = _combo * delta_score / 10;
+        _board.bonus_score += combo_bonus;
+        _board.undo_bonus_score += combo_bonus;
     }
-    combo = 0;
+    _combo = 0;
 
-    if(next_next_piece1 >= 0)
+    if(_next_next_piece1 >= 0)
     {
-        next_piece1 -> set_piece_number(next_next_piece1);
-        next_piece2 -> set_piece_number(next_next_piece2);
-        next_next_piece1 = -1;
+        _p_next_piece1 -> set_piece_number(_next_next_piece1);
+        _p_next_piece2 -> set_piece_number(_next_next_piece2);
+        _next_next_piece1 = -1;
     }
     else
     {
-        next_piece1 -> set_piece_number(rand()%(board.unlocked_pieces));
-        next_piece2 -> set_piece_number(rand()%(board.unlocked_pieces));
+        _p_next_piece1 -> set_piece_number(rand()%(_board.unlocked_pieces));
+        _p_next_piece2 -> set_piece_number(rand()%(_board.unlocked_pieces));
     }
 
     int value;
-    value = next_piece1 -> get_piece_number();
-    next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    value = _p_next_piece1 -> get_piece_number();
+    _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                               _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    value = next_piece2 -> get_piece_number();
-    next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                               pieces_disappearing[value], pieces_mini[value]);
+    value = _p_next_piece2 -> get_piece_number();
+    _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                               _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-    board.calc_score();
+    _board.calc_score();
 
 }
 
@@ -637,80 +637,80 @@ void Player::undo()
     static CommonResources *resources = common_resources_get_instance();
 
     // First verify than the last move is not the first one
-    if(undo_possible)
+    if(_undo_possible)
     {
-        undo_possible = false;
+        _undo_possible = false;
 
-        board.undo(pieces_normal, pieces_appearing, pieces_disappearing, pieces_mini);
+        _board.undo(_p_pieces_normal, _p_pieces_appearing, _p_pieces_disappearing, _p_pieces_mini);
 
-        next_next_piece1 = next_piece1 -> get_piece_number();
-        next_next_piece2 = next_piece2 -> get_piece_number();
-
-
-        int value = current_piece1 -> get_piece_number();
-        next_piece1 -> set_piece_number(value);
-        next_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                   pieces_disappearing[value], pieces_mini[value]);
-
-        value = current_piece2 -> get_piece_number();
-        next_piece2 -> set_piece_number(value);
-        next_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                   pieces_disappearing[value], pieces_mini[value]);
-
-        value = undo_piece1_number;
-        current_piece1 -> set_piece_number(value);
-        current_piece1 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
-
-        value = undo_piece2_number;
-        current_piece2 -> set_piece_number(value);
-        current_piece2 -> set_sprites(pieces_normal[value], pieces_appearing[value],
-                                      pieces_disappearing[value], pieces_mini[value]);
+        _next_next_piece1 = _p_next_piece1 -> get_piece_number();
+        _next_next_piece2 = _p_next_piece2 -> get_piece_number();
 
 
-        position = undo_position;
-        position_bis = undo_position_bis;
-        x = position * resources->pieces_width + position_bis * resources->pieces_width / 2;
+        int value = _p_current_piece1 -> get_piece_number();
+        _p_next_piece1 -> set_piece_number(value);
+        _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                   _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        angle = undo_angle;
-        target_angle = (int)undo_angle;
+        value = _p_current_piece2 -> get_piece_number();
+        _p_next_piece2 -> set_piece_number(value);
+        _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                   _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        combo = 0;
+        value = _undo_piece1_number;
+        _p_current_piece1 -> set_piece_number(value);
+        _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                      _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
-        game_mode = GAME_MODE_PLAYING;
+        value = _undo_piece2_number;
+        _p_current_piece2 -> set_piece_number(value);
+        _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
+                                      _p_pieces_disappearing[value], _p_pieces_mini[value]);
+
+
+        _position = _undo_position;
+        _position_bis = _undo_position_bis;
+        _x = _position * resources->pieces_width + _position_bis * resources->pieces_width / 2;
+
+        _angle = _undo_angle;
+        _aimed_angle = (int)_undo_angle;
+
+        _combo = 0;
+
+        _game_mode = GAME_MODE_PLAYING;
 
     }
 }
 
 bool Player::is_undo_available()
 {
-    return undo_possible;
+    return _undo_possible;
 }
 
 int Player::get_visible_pieces()
 {
-    return board.visible_pieces;
+    return _board.visible_pieces;
 }
 
 u_int Player::get_score()
 {
-    return board.score + board.bonus_score;
+    return _board.score + _board.bonus_score;
 }
 
 bool Player::is_game_over()
 {
-    return board.is_game_over();
+    return _board.is_game_over();
 }
 
 void Player::give_up()
 {
     // Getting resources
     static CommonResources *resources = common_resources_get_instance();
-    resources -> engine -> set_skin_element(board.visible_pieces);
-    board.clear();
-    board.unlocked_pieces = 3;
-    board.visible_pieces  = 3;
-    board.score = 0;
-    board.bonus_score = 0;
+    resources -> p_engine -> set_skin_element(_board.visible_pieces);
+    _board.clear();
+    _board.unlocked_pieces = 3;
+    _board.visible_pieces  = 3;
+    _board.score = 0;
+    _board.bonus_score = 0;
 
 }

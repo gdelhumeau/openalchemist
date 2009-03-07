@@ -17,8 +17,8 @@
 
 void QuitMenuState::init()
 {
-    items.clear();
-    items.insert (items.end (), &_choice_item);
+    _items.clear();
+    _items.insert (_items.end (), &_choice_item);
 
     panel_exit     = NULL;
     panel_give_up  = NULL;
@@ -91,21 +91,21 @@ void QuitMenuState::action_performed(int selection)
         switch(action)
         {
         case QUITMENU_EXIT:
-            common_resources -> engine -> stop();
+            _p_common_resources -> p_engine -> stop();
             break;
         case QUITMENU_GIVE_UP:
-        	common_resources -> engine -> stop_current_state();
-        	common_resources -> engine -> set_state_title();
+        	_p_common_resources -> p_engine -> stop_current_state();
+        	_p_common_resources -> p_engine -> set_state_title();
         	break;
         case QUITMENU_RETRY:
-            common_resources -> player1.new_game();
-            common_resources -> engine -> stop_current_state();
+            _p_common_resources -> player1.new_game();
+            _p_common_resources -> p_engine -> stop_current_state();
             break;
         }
     }
     else
     {
-        common_resources -> engine -> stop_current_state();
+        _p_common_resources -> p_engine -> stop_current_state();
     }
 
 }
@@ -131,13 +131,13 @@ void QuitMenuState::set_action(int a)
     switch(action)
     {
     case QUITMENU_EXIT:
-        background = panel_exit;
+        _background = panel_exit;
         break;
     case QUITMENU_GIVE_UP:
-        background = panel_give_up;
+        _background = panel_give_up;
         break;
     case QUITMENU_RETRY:
-        background = panel_retry;
+        _background = panel_retry;
         break;
     }
 }

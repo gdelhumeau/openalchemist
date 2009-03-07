@@ -35,16 +35,16 @@ void OptionsMenuState::init()
 
   Preferences *pref = pref_get_instance();
   
-  sound_level = pref -> sound_level;
-  music_level = pref -> music_level;
+  _sound_level = pref -> sound_level;
+  _music_level = pref -> music_level;
 }
 
 void OptionsMenuState::deinit()
 {
   Preferences *pref = pref_get_instance();
   
-  pref -> sound_level = sound_level;
-  pref -> music_level = music_level;
+  pref -> sound_level = _sound_level;
+  pref -> music_level = _music_level;
 
   pref -> write();
 }
@@ -56,49 +56,49 @@ void OptionsMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_options.xml", &zip, false);
 
   // First, the sprites
-  background = new CL_Sprite("menu_options/dialog_background", &gfx); 
+  _p_background = new CL_Sprite("menu_options/dialog_background", &gfx); 
 
-  items[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/selected", &gfx);
+  _items_p[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/unselected", &gfx);
+  _items_selected_p[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/selected", &gfx);
 
-  items[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/selected", &gfx);
+  _items_p[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
+  _items_selected_p[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/selected", &gfx);
 
-  items[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/selected", &gfx);
+  _items_p[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/unselected", &gfx);
+  _items_selected_p[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/selected", &gfx);
 
-  items[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/selected", &gfx);
+  _items_p[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/unselected", &gfx);
+  _items_selected_p[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/selected", &gfx);
 
-  items[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/unselected", &gfx);
-  items_selected[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/selected", &gfx);
+  _items_p[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/unselected", &gfx);
+  _items_selected_p[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/selected", &gfx);
 
   
   for(int i=0; i<=10; ++i)
   {
-    sound_level_sprites[i] = new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx);
+    _sound_level_sprites_p[i] = new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx);
   }
 
 
   // Then, propreties
  
-  items_left[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu_options/changeskin/left", &gfx);
-  items_top[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu_options/changeskin/top", &gfx);
+  _items_left[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu_options/changeskin/left", &gfx);
+  _items_top[OPTIONS_ITEM_CHANGESKIN] = CL_Integer_to_int("menu_options/changeskin/top", &gfx);
 
-  items_left[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu_options/fullscreen/left", &gfx);
-  items_top[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu_options/fullscreen/top", &gfx);
+  _items_left[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu_options/fullscreen/left", &gfx);
+  _items_top[OPTIONS_ITEM_FULLSCREEN] = CL_Integer_to_int("menu_options/fullscreen/top", &gfx);
 
-  items_left[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu_options/sound/left", &gfx);
-  items_top[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu_options/sound/top", &gfx);
+  _items_left[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu_options/sound/left", &gfx);
+  _items_top[OPTIONS_ITEM_SOUND] = CL_Integer_to_int("menu_options/sound/top", &gfx);
 
-  items_left[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu_options/music/left", &gfx);
-  items_top[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu_options/music/top", &gfx);
+  _items_left[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu_options/music/left", &gfx);
+  _items_top[OPTIONS_ITEM_MUSIC] = CL_Integer_to_int("menu_options/music/top", &gfx);
 
-  items_left[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu_options/quit/left", &gfx);
-  items_top[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu_options/quit/top", &gfx);
+  _items_left[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu_options/quit/left", &gfx);
+  _items_top[OPTIONS_ITEM_QUIT] = CL_Integer_to_int("menu_options/quit/top", &gfx);
   
 
-  sound_level_left = CL_Integer_to_int("menu_options/sound_level/left", &gfx);
+  _sound_level_left = CL_Integer_to_int("menu_options/sound_level/left", &gfx);
 
   
 }
@@ -110,173 +110,173 @@ void OptionsMenuState::unload_gfx()
 
 void OptionsMenuState::draw()
 {
-  int x = 400 - background -> get_width()/2;
-  int y = 300 - background -> get_height()/2;
-  background -> draw(x,y);
+  int x = 400 - _p_background -> get_width()/2;
+  int y = 300 - _p_background -> get_height()/2;
+  _p_background -> draw(x,y);
 
   // Drawing 
   for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
 
-    if(i == selection)
+    if(i == _selection)
     {
-      items_selected[i] -> draw(x + items_left[i], y + items_top[i]);
-      items_selected[i] -> update(common_resources -> time_interval);
+      _items_selected_p[i] -> draw(x + _items_left[i], y + _items_top[i]);
+      _items_selected_p[i] -> update(_p_common_resources -> time_interval);
      
     }
     else
     {
-        items[i] -> draw(x + items_left[i], y + items_top[i]);
-        items[i] -> update(common_resources -> time_interval);
+        _items_p[i] -> draw(x + _items_left[i], y + _items_top[i]);
+        _items_p[i] -> update(_p_common_resources -> time_interval);
     }
   }
 
-  sound_level_sprites[sound_level] -> draw(x + sound_level_left, y 
-                                           + items_top[OPTIONS_ITEM_SOUND]);
-  sound_level_sprites[music_level] -> draw(x + sound_level_left, y 
-                                           + items_top[OPTIONS_ITEM_MUSIC]);
-  sound_level_sprites[sound_level] -> update();
-  sound_level_sprites[music_level] -> update();
+  _sound_level_sprites_p[_sound_level] -> draw(x + _sound_level_left, y 
+                                           + _items_top[OPTIONS_ITEM_SOUND]);
+  _sound_level_sprites_p[_music_level] -> draw(x + _sound_level_left, y 
+                                           + _items_top[OPTIONS_ITEM_MUSIC]);
+  _sound_level_sprites_p[_sound_level] -> update();
+  _sound_level_sprites_p[_music_level] -> update();
 
 }
 
 void OptionsMenuState::update()
 {
-  switch(step)
+  switch(_step)
   {
   case STEP_APPEARING:
-    appear();
+    _appear();
     break;
   case STEP_DISAPPEARING:
-    disappear();
+    _disappear();
     break;
   }
 }
 
 void OptionsMenuState::events()
 {
-  if(step != STEP_NORMAL)
+  if(_step != STEP_NORMAL)
     return;
 
-  if(common_resources -> key.escape -> get() || common_resources -> key.options -> get())
+  if(_p_common_resources -> key.escape -> get() || _p_common_resources -> key.options -> get())
   {   
-    step = STEP_DISAPPEARING;
-    selection = OPTIONS_ITEM_QUIT;
+    _step = STEP_DISAPPEARING;
+    _selection = OPTIONS_ITEM_QUIT;
   }
 
-  if(common_resources -> key.skins -> get())
+  if(_p_common_resources -> key.skins -> get())
   {   
-    step = STEP_DISAPPEARING;
+    _step = STEP_DISAPPEARING;
   }
-  if(common_resources -> key.up -> get())
+  if(_p_common_resources -> key.up -> get())
   {
-    if(selection == 0)
-      selection = OPTIONS_ITEM_QUIT;
+    if(_selection == 0)
+      _selection = OPTIONS_ITEM_QUIT;
     else
     {
-      selection --;
+      _selection --;
     }
   }
 
-  if(common_resources -> key.down -> get())
+  if(_p_common_resources -> key.down -> get())
   {
-    if(selection == OPTIONS_ITEM_QUIT)
-      selection = 0;
+    if(_selection == OPTIONS_ITEM_QUIT)
+      _selection = 0;
     else
     {
-      selection ++;
+      _selection ++;
     }
   }
 
-  if(selection == OPTIONS_ITEM_SOUND && common_resources -> key.left -> get())
+  if(_selection == OPTIONS_ITEM_SOUND && _p_common_resources -> key.left -> get())
   {
-    if(sound_level > 0)
-      sound_level--;
+    if(_sound_level > 0)
+      _sound_level--;
   }
 
-  if(selection == OPTIONS_ITEM_SOUND && common_resources -> key.right -> get())
+  if(_selection == OPTIONS_ITEM_SOUND && _p_common_resources -> key.right -> get())
   {
-    if(sound_level < 10)
-      sound_level++;
+    if(_sound_level < 10)
+      _sound_level++;
   }
 
-  if(selection == OPTIONS_ITEM_MUSIC && common_resources -> key.left -> get())
+  if(_selection == OPTIONS_ITEM_MUSIC && _p_common_resources -> key.left -> get())
   {
-    if(music_level > 0)
-      music_level--;
+    if(_music_level > 0)
+      _music_level--;
   }
 
-  if(selection == OPTIONS_ITEM_MUSIC && common_resources -> key.right -> get())
+  if(_selection == OPTIONS_ITEM_MUSIC && _p_common_resources -> key.right -> get())
   {
-    if(music_level < 10)
-      music_level++;
+    if(_music_level < 10)
+      _music_level++;
   }
 
-  if(common_resources -> key.enter -> get())
+  if(_p_common_resources -> key.enter -> get())
   {    
-    switch(selection)
+    switch(_selection)
     {
     case OPTIONS_ITEM_FULLSCREEN:
-      common_resources -> engine -> toggle_screen();
+      _p_common_resources -> p_engine -> toggle_screen();
       break;
     case OPTIONS_ITEM_CHANGESKIN:
     case OPTIONS_ITEM_QUIT:
-      step = STEP_DISAPPEARING;
+      _step = STEP_DISAPPEARING;
       break;
     }
 
   }
 }
 
-void OptionsMenuState::appear()
+void OptionsMenuState::_appear()
 { 
-  if(alpha + APPEARING_SPEED*common_resources -> time_interval >= 1.0)
+  if(_alpha + APPEARING_SPEED*_p_common_resources -> time_interval >= 1.0)
   {
-    step = STEP_NORMAL;
-    alpha = 1.0;
+    _step = STEP_NORMAL;
+    _alpha = 1.0;
   }
   else
-    alpha += APPEARING_SPEED * common_resources -> time_interval;
+    _alpha += APPEARING_SPEED * _p_common_resources -> time_interval;
 
-  background -> set_alpha(alpha);
+  _p_background -> set_alpha(_alpha);
 
   for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
-    items[i] -> set_alpha(alpha);
-    items_selected[i] -> set_alpha(alpha);
+    _items_p[i] -> set_alpha(_alpha);
+    _items_selected_p[i] -> set_alpha(_alpha);
   }
 
-  sound_level_sprites[sound_level] -> set_alpha(alpha);
-  sound_level_sprites[music_level] -> set_alpha(alpha);
+  _sound_level_sprites_p[_sound_level] -> set_alpha(_alpha);
+  _sound_level_sprites_p[_music_level] -> set_alpha(_alpha);
 
 }
 
-void OptionsMenuState::disappear()
+void OptionsMenuState::_disappear()
 {  
-  alpha -= APPEARING_SPEED * common_resources -> time_interval;
+  _alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
 
-  background -> set_alpha(alpha);
+  _p_background -> set_alpha(_alpha);
 
   for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
-    items[i] -> set_alpha(alpha);
-    items_selected[i] -> set_alpha(alpha);
+    _items_p[i] -> set_alpha(_alpha);
+    _items_selected_p[i] -> set_alpha(_alpha);
   }
 
-  sound_level_sprites[sound_level] -> set_alpha(alpha);
-  sound_level_sprites[music_level] -> set_alpha(alpha);
+  _sound_level_sprites_p[_sound_level] -> set_alpha(_alpha);
+  _sound_level_sprites_p[_music_level] -> set_alpha(_alpha);
 
 
-  if(alpha <= 0.0 || !common_resources -> engine -> is_opengl_used())
+  if(_alpha <= 0.0 || !_p_common_resources -> p_engine -> is_opengl_used())
   {
-    switch(selection)
+    switch(_selection)
     {
     case OPTIONS_ITEM_CHANGESKIN:
-      common_resources -> engine -> stop_current_state();
-      common_resources -> engine -> set_state_skin_menu();
+      _p_common_resources -> p_engine -> stop_current_state();
+      _p_common_resources -> p_engine -> set_state_skin_menu();
       break;
     default:
-      common_resources -> engine -> stop_current_state();           
+      _p_common_resources -> p_engine -> stop_current_state();           
     }
   }
  
@@ -284,15 +284,15 @@ void OptionsMenuState::disappear()
 
 void OptionsMenuState::start()
 {
-  selection = 0;
-  if(common_resources -> engine -> is_opengl_used())
+  _selection = 0;
+  if(_p_common_resources -> p_engine -> is_opengl_used())
   {
-    step = STEP_APPEARING;
-    alpha = 0.0;
+    _step = STEP_APPEARING;
+    _alpha = 0.0;
   }
   else
   {
-    step = STEP_NORMAL;
+    _step = STEP_NORMAL;
   }
 }
 

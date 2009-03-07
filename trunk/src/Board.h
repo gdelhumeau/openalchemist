@@ -30,37 +30,37 @@ class Board{
   /**
    * Board game
    */
-  Piece *board[NUMBER_OF_COLS][NUMBER_OF_LINES];
+  Piece *_p_board[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
   /**
    * Old Board game (for undoing)
    */
-  int undo_board[NUMBER_OF_COLS][NUMBER_OF_LINES];
+  int _undo_board[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
   /**
    * List of pieces which are falling
    */
-  std::vector<Piece*> falling_list;
+  std::vector<Piece*> _falling_list;
 
   /**
    * List of pieces we have to destroy (only coords)
    */
-  std::vector<Coords*> list_to_destroy;
+  std::vector<Coords*> _list_to_destroy;
 
   /**
    * List of pieces which are appearing
    */
-  std::list<Piece*> appearing_list;
+  std::list<Piece*> _appearing_list;
 
   /**
    * List of pieces we have to create (only coords)
    */
-  std::list<Coords*> list_to_create;
+  std::list<Coords*> _list_to_create;
 
 	/**
 	 * List of explorated pieces during "pieces to destroy" exploration
 	 */
-	bool board_mark[NUMBER_OF_COLS][NUMBER_OF_LINES];
+	bool _board_mark[NUMBER_OF_COLS][NUMBER_OF_LINES];
 
   public:
 
@@ -169,28 +169,28 @@ class Board{
 	/**
 	 * Detect pieces to destroy from (x,y) coords
 	 */
-	void detect_pieces_to_destroy_from(int x, int y);
+	void _detect_pieces_to_destroy_from(int x, int y);
 	
 	/**
 	 * Function called when pieces to destoyes are detected
 	 */
-	void pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces);
+	void _pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces);
 
 	/**
 	 * Funcion called when we want to create a new piece from thoses
 	 * we have destroyed
 	 */
-	void create_new_piece(std::vector<Coords*> &detected_pieces);	
+	void _create_new_piece(std::vector<Coords*> &detected_pieces);	
 
 	/**
 	 * Choose the new piece coords
 	 */
-	void choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces);	
+	void _choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces);	
 
 	/**
 	 * Check if we have unlocked a piece with the new one
 	 */
-	void unlock_piece(Coords &new_piece);
+	void _unlock_piece(Coords &new_piece);
 
 	public:
 
