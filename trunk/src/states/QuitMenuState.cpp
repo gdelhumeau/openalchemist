@@ -83,37 +83,39 @@ void QuitMenuState::unload_gfx()
 
 
 
-void QuitMenuState::action_performed(int selection)
+void QuitMenuState::action_performed(int selection, int action_type)
 {
-    int s = _choice_item.get_selection();
-    if(CHOICE_LEFT == s)
+    if(ACTION_TYPE_ENTER == action_type)
     {
-        switch(action)
+        int s = _choice_item.get_selection();
+        if(CHOICE_LEFT == s)
         {
-        case QUITMENU_EXIT:
-            _p_common_resources -> p_engine -> stop();
-            break;
-        case QUITMENU_GIVE_UP:
-        	_p_common_resources -> p_engine -> stop_current_state();
-        	_p_common_resources -> p_engine -> set_state_title();
-        	break;
-        case QUITMENU_RETRY:
-            _p_common_resources -> player1.new_game();
-            _p_common_resources -> p_engine -> stop_current_state();
-            break;
+            switch(action)
+            {
+            case QUITMENU_EXIT:
+                _p_common_resources -> p_engine -> stop();
+                break;
+            case QUITMENU_GIVE_UP:
+                _p_common_resources -> p_engine -> stop_current_state();
+                _p_common_resources -> p_engine -> set_state_title();
+                break;
+            case QUITMENU_RETRY:
+                _p_common_resources -> player1.new_game();
+                _p_common_resources -> p_engine -> stop_current_state();
+                break;
+            }
         }
-    }
-    else
-    {
-        _p_common_resources -> p_engine -> stop_current_state();
+        else
+        {
+            _p_common_resources -> p_engine -> stop_current_state();
+        }
     }
 
 }
 
 
 void QuitMenuState::update_child()
-{
-}
+{}
 
 QuitMenuState::QuitMenuState()
 {}
