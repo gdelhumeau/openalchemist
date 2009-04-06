@@ -12,7 +12,7 @@
 
 BitmapFont::BitmapFont(std::string skin)
 {
-  charSize = 13;
+  charSize = 16;
   FontPic = NULL;
   load_gfx(skin);
   fillClip();
@@ -37,7 +37,7 @@ void BitmapFont::unload_gfx()
 
 void BitmapFont::fillClip()
 {
-  for (int i=0; i<10; i++)
+  for (int i=0; i<11; i++)
   {
      charClip[i].x = i * charSize; 
      charClip[i].y = 0;
@@ -47,10 +47,7 @@ void BitmapFont::fillClip()
      charClip[i].h = 16;
      charClip[i].w = charSize;
   }
-  charClip[10].x = 10 * charSize+2; 
-  charClip[10].y = 0;
-  charClip[10].h = 16;
-  charClip[10].w = 10;
+ 
 }
 
 void BitmapFont::draw(int score_x, int score_y, std::string strScore)
