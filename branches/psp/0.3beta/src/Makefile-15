@@ -1,0 +1,21 @@
+TARGET = MyNameIsFW15
+OBJS = main.o
+
+INCDIR = 
+CFLAGS = -O2 -G0 -Wall
+CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
+ASFLAGS = $(CFLAGS)
+
+# vvvvvvvvvvvvvvv
+PSP_FW_VERSION=15
+# ^^^^^^^^^^^^^^^
+LIBDIR =
+LDFLAGS =
+
+EXTRA_TARGETS = EBOOT.PBP
+PSP_EBOOT_TITLE = MyNameIsFW15
+
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+
+all : SCEkxploit

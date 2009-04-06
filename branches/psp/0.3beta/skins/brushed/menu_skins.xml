@@ -1,0 +1,71 @@
+<!--
+    This file describes Skins Selector menu
+-->
+<resources>
+	
+	<!-- Main section -->
+	<section name="menu_skins">
+		
+		<!-- true if menu appear with alpha apparition -->
+		<boolean name = "alpha_appearing" value = "true" />
+		<integer name = "alpha_max" value = "65" />
+		
+		
+		<!-- Sprite for the background -->
+		<sprite name="background">
+			<image file="dialogs/skins/background.png">
+				<grid pos="0,0" size="463,458" />
+			</image>
+		</sprite>
+		
+		<!-- Cursor to show what is the current selection -->
+		<sprite name="cursor">
+			<image file="dialogs/skins/cursor.png" />
+		</sprite>
+		
+		<!-- Arrow down, if there is no place to display all skins -->
+		<section name="arrow_down">
+			<sprite name="sprite">
+				<image file="dialogs/skins/arrow_down.png" />
+			</sprite>
+			
+			<!-- Coords -->
+			<integer name = "left" value="375" />
+			<integer name = "top"  value="510" />
+				
+		</section>
+		
+		<!-- Arrow down, if there is no place to display all skins -->
+		<section name="arrow_up">
+			<sprite name="sprite">
+				<image file="dialogs/skins/arrow_up.png" />
+			</sprite>
+			
+			<!-- Coords -->
+			<integer name = "left" value="375" />
+			<integer name = "top"  value="125" />
+				
+		</section>
+		
+		<!-- If we can't use a skin because we have to unlock pieces first -->
+		<surface name = "logo_unavailable" file = "dialogs/skins/logo-unavailable.png"/>
+		
+		<!-- Coords for displaying skins viewer -->
+		<section name="skins-preview-coords">
+			<integer name = "top" value = "170" />
+			<integer name = "left" value = "130" />
+			<integer name = "width" value = "230" />
+			<integer name = "height" value = "170" />
+		</section>
+		
+		<section name="cursor-coords">
+			<integer name = "top" value = "160" />
+			<integer name = "left" value = "160" />
+			<integer name = "width" value = "230" />
+			<integer name = "height" value = "170" />
+		</section>
+		
+	</section>
+	
+	
+</resources>
