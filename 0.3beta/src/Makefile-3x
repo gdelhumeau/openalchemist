@@ -19,7 +19,7 @@ TARGET = pspOpenAlchemist
 PSPSDK = $(shell psp-config --pspsdk-path)
 PSPBIN = $(shell psp-config --psp-prefix)/bin
 SDL_CONFIG = $(PSPBIN)/sdl-config
-OBJS=psp_main.o psp_sdl.o InterfaceC_CPP.o GameEngine.o CommonResources.o Board.o CombosPainter.o misc.o Player.o IniFile.o Preferences.o Keys.o ProgressBar.o HumanPlayer.o DemoPlayer.o states/CommonState.o states/GameOverState.o states/InGameState.o states/OptionsMenuState.o states/PauseMenuState.o states/QuitMenuState.o states/SkinsMenuState.o states/GameState.o states/TitleState.o
+OBJS=psp_main.o psp_sdl.o InterfaceC_CPP.o GameEngine.o CommonResources.o Board.o CombosPainter.o misc.o Player.o IniFile.o Preferences.o Keys.o ProgressBar.o HumanPlayer.o DemoPlayer.o BitmapFont.o states/CommonState.o states/GameOverState.o states/InGameState.o states/OptionsMenuState.o states/PauseMenuState.o states/QuitMenuState.o states/SkinsMenuState.o states/GameState.o states/TitleState.o
 #to be added and managed later : FrontLayer.o
 DEFAULT_CFLAGS = -I/usr/local/pspdev/include/c++/4.1.0 $(shell $(SDL_CONFIG) --cflags) 
 PSP_FW_VERSION=401
@@ -44,8 +44,8 @@ LIBS += -lstdc++ -lc -lpspgu -lpspirkeyb  -lpspwlan -lpsppower -lSDL_image -lSDL
 
 BUILD_PRX=1
 PSP_EBOOT_TITLE = pspOpenAlchemist
-PSP_EBOOT_ICON = data/logo.png
-PSP_EBOOT_PIC1 = data/loading.png
+PSP_EBOOT_ICON = ../data/logo.png
+PSP_EBOOT_PIC1 = ../data/loading.png
 
 EXTRA_TARGETS = EBOOT.PBP
 
