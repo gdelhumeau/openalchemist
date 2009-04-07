@@ -21,9 +21,9 @@
 #include "Board.h"
 #include "GameEngine.h"
 
-#define TO_RAD PI/180
-#define PIECE_MOVING_SPEED 0.4
-#define PIECE_ROTATION_SPEED 0.45
+static const float TO_RAD 							= PI / 180;
+static const float PIECE_MOVING_SPEED 	= 0.4;
+static const float PIECE_ROTATION_SPEED = 0.45;
 
 Player::Player()
 {

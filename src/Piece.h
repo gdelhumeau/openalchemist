@@ -160,9 +160,9 @@ class Piece
       return _score_value;
     }
 
-  void set_piece_number(int _piece_number)
+  void set_piece_number(int piece_number)
     {
-      _piece_number = _piece_number;
+      _piece_number = piece_number;
       this -> _score_value = _score[_piece_number];
     }
 
