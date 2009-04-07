@@ -102,7 +102,6 @@ void OptionsMenuState::load_gfx(std::string skin)
     _sound_level_item.clear_choices();
 	_music_level_item.clear_choices();
 
-	std::cout << "gralala\n";
     for(int i=0; i<=10; ++i)
     {
         _sound_level_item.add_choice(new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
