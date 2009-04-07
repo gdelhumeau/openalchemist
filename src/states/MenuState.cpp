@@ -20,7 +20,7 @@ enum{
     STEP_DISAPPEARING
 };
 
-#define APPEARING_SPEED 0.003
+static const float APPEARING_SPEED = 0.003;
 
 MenuState::MenuState ()
 {

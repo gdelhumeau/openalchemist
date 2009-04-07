@@ -21,8 +21,8 @@
 #include "Board.h"
 #include "GameEngine.h"
 
-#define TO_RAD PI/180
-#define PIECE_MOVING_SPEED 0.25
+static const float TO_RAD 						= PI / 180;
+static const float PIECE_MOVING_SPEED = 0.25;
 
 
 void HumanPlayer::events()

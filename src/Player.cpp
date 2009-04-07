@@ -361,33 +361,30 @@ void Player::events()
 
 void Player::change_angle()
 {
-    // Change the order of the pieces
-    if(_aimed_angle<=_aimed_angle+90)
+    // Change the order of the pieces    
+    _aimed_angle += 90;
+    _is_placed = false;
+
+    if((_aimed_angle%180 == 90))
     {
-        _aimed_angle += 90;
-        _is_placed = false;
-
-        if((_aimed_angle%180 == 90))
+        _position_bis = 0;
+        if(_is_forced_bis)
         {
-            _position_bis = 0;
-            if(_is_forced_bis)
-            {
-            		_position ++;
-	           		_is_forced_bis = false;
-            }
+        		_position ++;
+          		_is_forced_bis = false;
         }
-        else
-        {
-            if(_position == NUMBER_OF_COLS -1)
-            {
-                _position --;
-            		_is_forced_bis = true;
-            }        
-
-            _position_bis = 1;
-        }
-
     }
+    else
+    {
+        if(_position == NUMBER_OF_COLS -1)
+        {
+            _position --;
+        		_is_forced_bis = true;
+        }        
+
+        _position_bis = 1;
+    }
+
 }
 
 void Player::move_left()

@@ -17,9 +17,11 @@
 
 #define COMBOS_SPEED 1
 
-#define MODE_APPEARING 1
-#define MODE_DISPLAY 2
-#define MODE_DISAPPEARING 3
+enum{
+	MODE_APPEARING,
+	MODE_DISPLAY,
+	MODE_DISAPPEARING	
+};
 
 CombosPainter :: CombosPainter()
 {
