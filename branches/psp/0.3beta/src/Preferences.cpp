@@ -12,8 +12,6 @@
 
 //#include <ClanLib/core.h>
 
-#include <fstream>
-
 #include "Preferences.h"
 #include "IniFile.h"
 #include "misc.h"
@@ -38,20 +36,17 @@ Preferences::Preferences()
 void Preferences::read()
 {
   std::string options_path = get_save_path();
-  std::string options_file = get_save_path() + get_path_separator() + "preferences-"+get_version()+".ini";
-  std::fstream OptionFile;
+  std::string options_file = /*get_save_path() + get_path_separator() +*/ "preferences-"+get_version()+".ini";
+  FILE * OptionFile;
   set_default();
-  printf("set_defaultpref done\n");
-  printf("option path : %s \n",options_path.c_str());
-  printf("option_file : %s \n",options_file.c_str());
-
+  
 //  try
 //  {
-    OptionFile.open(options_file.c_str(), std::fstream::in | std::fstream::out | std::fstream::app);
-    if (OptionFile.good())
+    OptionFile = fopen(options_file.c_str(), "r");
+    if (OptionFile != NULL)
     {
-	read_options_file(&OptionFile);
-	OptionFile.close();
+	read_options_file(OptionFile);
+	fclose(OptionFile);
     }
     else
     {
@@ -113,14 +108,14 @@ void Preferences::write()
 {
 
   std::string options_path = get_save_path();
-  std::string options_file = options_path + get_path_separator() + "preferences-"+get_version()+".ini";
-  std::fstream OptionFile;
+  std::string options_file = /*options_path + get_path_separator() +*/ "preferences-"+get_version()+".ini";
+  FILE * OptionFile;
 
-  OptionFile.open(options_file.c_str(), std::fstream::in | std::fstream::out | std::fstream::app);
-  if (OptionFile.good())
+  OptionFile = fopen(options_file.c_str(), "w");
+  if (OptionFile != NULL)
   {
-    write_options_file(&OptionFile);
-    OptionFile.close();
+    write_options_file(OptionFile);
+    fclose(OptionFile);
   }
 #if 0
   try
@@ -137,16 +132,15 @@ void Preferences::write()
 
 
 /** Read preferences from file */
-void Preferences::read_options_file(std::fstream *file)
+void Preferences::read_options_file(FILE *file)
 {
 /*  try{
 */
     //file->open();
-    //allready opened by caling method
+    //allready opened by calling method
 
     IniFile ini;
     ini.read(file);
-    printf("We should have read an empty ini file\n");
     render_opengl = ini.get("OpenGL", render_opengl);
     fullscreen = ini.get("Fullscreen", fullscreen);
     sound_level = ini.get("Sound Level", sound_level);
@@ -155,8 +149,6 @@ void Preferences::read_options_file(std::fstream *file)
     colorblind = ini.get("Colorblind", colorblind);
   
     std::string skin_file = ini.get("Skin", skin);
-
-    printf("Here is the name of the skin : %s\n", skin.c_str());
 
 /*  //We do not manage skins by zip archives on psp, maybe later
     try{
@@ -181,7 +173,7 @@ void Preferences::read_options_file(std::fstream *file)
 }
 
 
-void Preferences::write_options_file(std::fstream *file)
+void Preferences::write_options_file(FILE *file)
 {
   //file -> open();
 
@@ -197,7 +189,6 @@ void Preferences::write_options_file(std::fstream *file)
   
   ini.write(file);
 
-  file -> close();
 }
 
 void Preferences::set_default()

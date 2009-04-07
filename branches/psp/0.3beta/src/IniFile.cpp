@@ -50,18 +50,27 @@ std::string read_ln(CL_InputSource_File *file)
 #endif
 
 
-void IniFile::read(/*CL_InputSource_File*/ std::fstream *file)
+void IniFile::read(/*CL_InputSource_File*/ FILE *file)
 {
   clear();
   printf("inifile->read method called, clear done\n");
   //file -> open();
   // We will consider it as allready opened for conveniance
-  while(file->peek() != EOF)
-  { char tempStr[256];
+  char c_temp = fgetc(file);
+  printf("fgetc done\n");
+  while(c_temp != EOF)
+  { 
+    char tempStr[MAX_LENGTH_LINE]="";
 
     IniElement *e = new IniElement();
     std::string line;
-    file->getline(tempStr, MAX_LENGTH_LINE);
+
+    while(c_temp != '\n')
+    { 
+        sprintf(tempStr,"%s%c", tempStr, c_temp);
+        c_temp = fgetc(file);
+    }
+
     line = std::string(tempStr);
 
     if(line.length() >1)
@@ -74,12 +83,13 @@ void IniFile::read(/*CL_InputSource_File*/ std::fstream *file)
         list.insert(list.end(), e);
       }
     }
+    c_temp = fgetc(file);
 
   }
   printf("out of the loop\n");
 }
 
-void IniFile::write(/*CL_OutputSource_File*/ std::fstream *file)
+void IniFile::write(/*CL_OutputSource_File*/ FILE * OptionFile)
 {
 
 //TODO: check write error
@@ -87,14 +97,16 @@ void IniFile::write(/*CL_OutputSource_File*/ std::fstream *file)
   {
 */    //std::string section = "[Preferences]";
     //write_ln(file, section);
-    file->write("[Preferences]\n", sizeof("[Preferences]\n"));
+    //file->write("[Preferences]\n", sizeof("[Preferences]\n"));
+    fprintf(OptionFile, "[Preferences]\n");
     std::list<IniElement*>::iterator it = list.begin();
     while(it != list.end())
     {
       IniElement *e = (IniElement*)*it;
       std::string line = e -> name + " = " + e -> value + "\n";
       //write_ln(file, line);
-      file->write(line.c_str(), line.length());
+      //file->write(line.c_str(), line.length());
+      fprintf(OptionFile, "%s",line.c_str());
       // << endl;
       it++;
     }

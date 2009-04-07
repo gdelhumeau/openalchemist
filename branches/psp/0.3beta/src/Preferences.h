@@ -15,7 +15,7 @@
 #define _PREFREENCES_H_
 
 //#include <ClanLib/core.h>
-#include <fstream>
+#include <string>
 
 /** Implements the preferences that users can save */
 class Preferences
@@ -49,8 +49,8 @@ class Preferences
   void write();
 
   private:
-  void read_options_file(/*CL_InputSource_File*/ std::fstream *file);
-  void write_options_file(/*CL_OutputSource_File*/ std::fstream *file);
+  void read_options_file(/*CL_InputSource_File*/ FILE *file);
+  void write_options_file(/*CL_OutputSource_File*/ FILE *file);
   void set_default();
 
 

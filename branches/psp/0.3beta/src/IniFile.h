@@ -17,7 +17,7 @@
 #include <fstream>
 #include <list>
 
-#define MAX_LENGTH_LINE 100
+#define MAX_LENGTH_LINE 256
 
 class IniElement{
   
@@ -35,8 +35,8 @@ class IniFile{
 
   public:
 
-  void read(std::fstream *file);
-  void write(std::fstream *file);
+  void read(FILE *file);
+  void write(FILE *file);
   void clear();
 
   void add(std::string name, std::string value);
