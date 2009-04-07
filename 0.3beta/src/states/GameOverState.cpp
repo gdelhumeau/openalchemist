@@ -112,26 +112,19 @@ void GameOverState::draw()
 
   if(MODE_HIGHSCORE == mode)
   {
-    std::string new_score = /*format_number(*/to_string(common_resources -> highscore)/*)*/;
-    std::string old_score = /*format_number(*/to_string(common_resources -> old_highscore)/*)*/;
+    std::string new_score = to_string(common_resources -> highscore);
+    std::string old_score = to_string(common_resources -> old_highscore);
 
-    int new_score_real_x = score1_x; //- common_resources -> main_font -> get_width(new_score, CL_Size(0, 0)) / 2;
-    int old_score_real_x = score2_x; //- common_resources -> main_font -> get_width(old_score, CL_Size(0, 0)) / 2;
-
-	//TODO:font stuffs
-    common_resources -> main_font -> draw(new_score_real_x, score1_y, new_score);
-    common_resources -> main_font -> draw(old_score_real_x, score2_y, old_score);
+    common_resources -> main_font -> draw(score1_x, score1_y, new_score);
+    common_resources -> main_font -> draw(score2_x, score2_y, old_score);
   }
   else
   {
-    std::string current_score = /*format_number(*/to_string(common_resources -> player1.get_score())/*)*/;
-    std::string highscore = /*format_number(*/to_string(common_resources -> highscore)/*)*/;
+    std::string current_score = to_string(common_resources -> player1.get_score());
+    std::string highscore = to_string(common_resources -> highscore);
 
-    int score1_real_x = score1_x;// - common_resources -> main_font -> get_width(current_score, CL_Size(0, 0)) / 2;
-    int score2_real_x = score2_x;// - common_resources -> main_font -> get_width(highscore, CL_Size(0, 0)) / 2;
-//TODO:font stuffs
-    common_resources -> main_font -> draw(score1_real_x, score1_y, current_score);
-    common_resources -> main_font -> draw(score2_real_x, score2_y, highscore);
+    common_resources -> main_font -> draw(score1_x, score1_y, current_score);
+    common_resources -> main_font -> draw(score2_x, score2_y, highscore);
   }
 
   if(selection == GAMEOVER_SELECTION_YES)

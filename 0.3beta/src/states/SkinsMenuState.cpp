@@ -39,13 +39,15 @@ void SkinsMenuState::init()
   FILE * file;
   FILE * debugfile;
   debugfile = fopen( "debug.log", "a+");
-  file = fopen("skins.txt", "r+");
+  std::string path = get_save_path();
+  std::string file_path = /*path + get_path_separator() + */"skins-" + get_version();
+  file = fopen(file_path.c_str(), "r+");
 
 // I choose to create a property file 
 // I will have to check whether this could be managed in a save file
 //TODO : check the getted path, should be like ms0:\psp\game\savedata ...
-  std::string path = get_save_path();
-  std::string file_path = /*path + get_path_separator() + */"skins.txt"/* + get_version()*/;
+  
+  
   fprintf(debugfile,"path : %s\n", path.c_str());
   fprintf(debugfile,"file_path : %s\n", file_path.c_str());
 
