@@ -81,6 +81,7 @@ void Player::new_game()
     _aimed_angle = 0;
     _position = 2;
     _position_bis = 1;
+    _is_forced_bis = false;
     _is_placed = true;
     _undo_possible = false;
     _next_next_piece1 = 0;
@@ -369,11 +370,19 @@ void Player::change_angle()
         if((_aimed_angle%180 == 90))
         {
             _position_bis = 0;
+            if(_is_forced_bis)
+            {
+            		_position ++;
+	           		_is_forced_bis = false;
+            }
         }
         else
         {
             if(_position == NUMBER_OF_COLS -1)
+            {
                 _position --;
+            		_is_forced_bis = true;
+            }        
 
             _position_bis = 1;
         }

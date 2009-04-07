@@ -68,6 +68,11 @@ class Player{
    * Old position bis to undo
    */
   int _old_position_bis;
+  
+  /**
+   * To know if the position bis is due to right position
+   */
+  bool _is_forced_bis;
 
   /**
    * To know if pieces are moving too the left or to the right or not
