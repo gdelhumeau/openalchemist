@@ -41,7 +41,7 @@ void CommonResources::init(GameEngine *engine)
 void CommonResources::load_gfx(std::string skin)
 {
   this -> skin = skin;
-
+  main_font=NULL;
   unload_gfx();
 
 //TODO: find a way to manage this with zlib driectly
@@ -74,7 +74,7 @@ void CommonResources::load_gfx(std::string skin)
 void CommonResources::unload_gfx()
 {
  /// Build bitmapfont class
-  if(main_font)
+  if(main_font != NULL)
   {
     //delete main_font;
     main_font->unload_gfx();
@@ -134,9 +134,15 @@ void CommonResources::save_scores()
     CL_OutputSource_File file(path+"\\hightscores-"+get_version());
 #else
     CL_OutputSource_File file(path+"/hightscores-"+get_version());
-#endif
-    
-    file.open();
+#endif*/
+    FILE * HighScoreFile = fopen("highscore-0.3", "w");
+
+    if(HighScoreFile)
+    {
+	fprintf(HighScoreFile,"%d\n",highscore);
+	fclose(HighScoreFile);
+    }
+/*    file.open();
     file.write_uint32(highscore);
     file.close();
   }
