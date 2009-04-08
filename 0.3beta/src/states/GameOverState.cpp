@@ -68,38 +68,38 @@ void GameOverState::unload_gfx()
 
   if(dialog_gameover)
   {
-    delete dialog_gameover;
+    SDL_FreeSurface (dialog_gameover);
     dialog_gameover = NULL;
   }
 
   if(dialog_highscore)
   {
-    delete dialog_highscore;
+    SDL_FreeSurface (dialog_highscore);
     dialog_highscore = NULL;
   }
 
 
   if(yes_selected)
   {
-    delete yes_selected;
+    SDL_FreeSurface (yes_selected);
     yes_selected = NULL;
   }
 
   if(yes_unselected)
   {
-    delete yes_unselected;
+    SDL_FreeSurface (yes_unselected);
     yes_unselected = NULL;
   }
 
   if(no_selected)
   {
-    delete no_selected;
+    SDL_FreeSurface (no_selected);
     no_selected = NULL;
   }
 
   if(no_unselected)
   {
-    delete no_unselected;
+    SDL_FreeSurface (no_unselected);
     no_unselected = NULL;
   }
 

@@ -243,22 +243,22 @@ void Player::unload_gfx()
   {
     if(pieces_normal[i])
     {
-      delete pieces_normal[i];
+      SDL_FreeSurface (pieces_normal[i]);
       pieces_normal[i] = NULL;
     }
     if(pieces_appearing[i])
     {
-      delete pieces_appearing[i];
+      SDL_FreeSurface (pieces_appearing[i]);
       pieces_appearing[i] = NULL;
     }
     if(pieces_disappearing[i])
     {
-      delete pieces_disappearing[i];
+      SDL_FreeSurface (pieces_disappearing[i]);
       pieces_disappearing[i] = NULL;
     }
     if(pieces_mini[i])
     {
-      delete pieces_mini[i];
+      SDL_FreeSurface (pieces_mini[i]);
       pieces_mini[i] = NULL;
     }
   }

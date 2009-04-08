@@ -40,10 +40,25 @@ void CommonResources::init(GameEngine *engine)
 
 void CommonResources::load_gfx(std::string skin)
 {
+#ifndef LINUX_MODE
+  FILE * debugFile;
+  debugFile=fopen("debug.log", "a+");
+  fprintf(debugFile, "Load gfx common resources began\n");
+  fclose(debugFile);
+#endif
   this -> skin = skin;
+#ifndef LINUX_MODE
+  freopen(  "debug.log","a+",debugFile);
+  fprintf(debugFile, "Common resources skin %s ok\n",skin.c_str());
+  fclose(debugFile);
+#endif
   main_font=NULL;
   unload_gfx();
-
+#ifndef LINUX_MODE
+  freopen(  "debug.log","a+",debugFile);
+  fprintf(debugFile, "Unloadgfx done\n");
+  fclose(debugFile);
+#endif
 //TODO: find a way to manage this with zlib driectly
 //      and resources manager
 //  CL_Zip_Archive zip(skin);
@@ -54,7 +69,11 @@ void CommonResources::load_gfx(std::string skin)
   // TODO : Build a bitmap font using the png already present
   //main_font = TTF_OpenFont("font.ttf", 8);
   main_font = new BitmapFont(skin);
-  
+#ifndef LINUX_MODE
+  freopen(  "debug.log","a+",debugFile);
+  fprintf(debugFile, "New bitmap created\n");
+  fclose(debugFile);
+#endif
   // Then, propreties
   //pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
   //pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
@@ -62,9 +81,17 @@ void CommonResources::load_gfx(std::string skin)
   // and be or not managed
   pieces_width = 26;
   pieces_height = 26;
-
+#ifndef LINUX_MODE
+  freopen(  "debug.log","a+",debugFile);
+  fprintf(debugFile, "Piece sizes ok\n");
+  fclose(debugFile);
+#endif
   player1.load_gfx(skin);
-
+#ifndef LINUX_MODE
+  freopen(  "debug.log","a+",debugFile);
+  fprintf(debugFile, "Player 1 load gfx ok\n");
+  fclose(debugFile);
+#endif
   /// Do not managing skin using front layer for the moment
   //front_layer.load_gfx(skin);
 

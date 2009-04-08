@@ -49,31 +49,31 @@ void ProgressBar::unload_gfx()
 {
   if(head)
   {
-    delete head;
+    SDL_FreeSurface(head);
     head = NULL;
   }
 
   if(head_ok)
   {
-    delete head_ok;
+    SDL_FreeSurface (head_ok);
     head_ok = NULL;
   }
 
   if(foot)
   {
-    delete foot;
+    SDL_FreeSurface (foot);
     foot = NULL;
   }
 
   if(item)
   {
-    delete item;
+    SDL_FreeSurface (item);
     item = NULL;
   }
 
   if(item_ok)
   {
-    delete item_ok;
+    SDL_FreeSurface (item_ok);
     item_ok = NULL;
   }
 }
@@ -98,10 +98,6 @@ void ProgressBar::draw(int percentage)
       //item -> draw(left, head_top+head_height+i-1);
       psp_sdl_blit_on_screen_at_XY(item, left, head_top+head_height+i-1);
   }
-  ///TODO : make some calls to pspBlitOnScreen ???
-  //item -> update();
-  //item_ok -> update();
-//  psp_sdl_flip();
 
   if(percentage < 100)
   {

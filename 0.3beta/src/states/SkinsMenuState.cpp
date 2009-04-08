@@ -322,7 +322,31 @@ void SkinsMenuState::load_gfx(std::string skin)
 
 void SkinsMenuState::unload_gfx()
 {
-
+  if(background)
+  {
+    SDL_FreeSurface(background);
+    background=NULL;
+  }
+  if(logo_unavailable)
+  {
+    SDL_FreeSurface(logo_unavailable);
+    logo_unavailable=NULL;
+  }
+  if(cursor)
+  {
+    SDL_FreeSurface(cursor);
+    cursor=NULL;
+  }
+  if(arrow_down)
+  {
+    SDL_FreeSurface(arrow_down);
+    arrow_down=NULL;
+  }
+  if(arrow_up)
+  {
+    SDL_FreeSurface(arrow_up);
+    arrow_up=NULL;
+  }
 }
 
 void SkinsMenuState::draw()

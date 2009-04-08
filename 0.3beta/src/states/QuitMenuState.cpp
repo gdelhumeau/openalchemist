@@ -85,37 +85,37 @@ void QuitMenuState::unload_gfx()
 {
   if(panel_exit)
   {
-    delete panel_exit;
+    SDL_FreeSurface (panel_exit);
     panel_exit = NULL;
   }
   if(panel_give_up)
   {
-    delete panel_give_up;
+    SDL_FreeSurface (panel_give_up);
     panel_give_up = NULL;
   }
   if(panel_retry)
   {
-    delete panel_retry;
+    SDL_FreeSurface (panel_retry);
     panel_retry = NULL;
   }
   if(yes_selected)
   {
-    delete yes_selected;
+    SDL_FreeSurface (yes_selected);
     yes_selected = NULL;
   }
   if(yes_unselected)
   {
-    delete yes_unselected;
+    SDL_FreeSurface (yes_unselected);
     yes_unselected = NULL;
   }
   if(no_selected)
   {
-    delete no_selected;
+    SDL_FreeSurface (no_selected);
     no_selected = NULL;
   }
   if(no_unselected)
   {
-    delete no_unselected;
+    SDL_FreeSurface (no_unselected);
     no_unselected = NULL;
   }
 
