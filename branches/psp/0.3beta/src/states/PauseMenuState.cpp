@@ -109,7 +109,15 @@ void PauseMenuState::load_gfx(std::string skin)
 
 void PauseMenuState::unload_gfx()
 {
+  for (int i=0; i<PAUSE_NUMBER_OF_ITEMS; i++)
+  {
+     SDL_FreeSurface(items[i]);
+     SDL_FreeSurface(items_selected[i]);
+  }
 
+  SDL_FreeSurface(background);
+  SDL_FreeSurface(undo_unavailable);
+ 
 }
 
 void PauseMenuState::draw()

@@ -85,50 +85,50 @@ void TitleState::unload_gfx()
   {
     if(sentences[i])
     {
-      delete sentences[i];
+      SDL_FreeSurface (sentences[i]);
       sentences[i] = NULL;
     }
   }
   
   if(start_message)
   {
-    delete start_message;
+    SDL_FreeSurface (start_message);
     start_message = NULL;
   }
 
   if(keydemo_left)
   {
-    delete keydemo_left;
+    SDL_FreeSurface (keydemo_left);
     keydemo_left = NULL;
   }
 
   if(keydemo_up)
   {
-    delete keydemo_up;
+    SDL_FreeSurface (keydemo_up);
     keydemo_up = NULL;
   }
 
   if(keydemo_right)
   {
-    delete keydemo_right;
+    SDL_FreeSurface (keydemo_right);
     keydemo_right = NULL;
   }
 
   if(keydemo_down)
   {
-    delete keydemo_down;
+    SDL_FreeSurface (keydemo_down);
     keydemo_down = NULL;
   }
 
   if(keydemo_escape)
   {
-    delete keydemo_escape;
+    SDL_FreeSurface (keydemo_escape);
     keydemo_escape = NULL;
   }
 
   if(keydemo_options)
   {
-    delete keydemo_options;
+    SDL_FreeSurface (keydemo_options);
     keydemo_options = NULL;
   }
 
@@ -137,92 +137,56 @@ void TitleState::unload_gfx()
 void TitleState::draw()
 {
   //sentences[step] -> draw (sentences_x[step], sentences_y[step]);
-  if (sentences[step] != NULL)
+ /* if (sentences[step] != NULL)
   {
   	psp_sdl_blit_on_screen_at_XY(sentences[step], sentences_x[step], sentences_y[step]);
   }
   else
 	printf(" le pointeur sur l'image load est foireux");
-
+*/
   //start_message -> draw(start_message_x,start_message_y);
   psp_sdl_blit_on_screen_at_XY(start_message, start_message_x, start_message_y);
 
   switch(step)
   {
-  case 2:
-    //keydemo_left -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
-//			 sentences_y[step] + sentences[step] -> get_height());
+  case 2: /// Key_left Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_left,
                                  sentences_x[step]+sentences[step] -> w/2-keydemo_left -> w/2,
 			         sentences_y[step] + sentences[step] -> h);
-    //keydemo_left -> update();
-    //? TODO check that:
-    // Maybe this should be refreshed instead of screen
-    // Maybe both
-    // maybe thing about an SDL overlay method...
-    //psp_sdl_flip();
     break;
-  case 3:
-   // keydemo_right -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
-//			 sentences_y[step] + sentences[step] -> get_height());
+
+  case 3: /// Key_right Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_right, 
                                  sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
 			         sentences_y[step] + sentences[step] -> h);
-    //keydemo_right -> update();
-    //psp_sdl_flip();
     break;
-  case 4:
-    //keydemo_up -> draw(sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
-	//		 sentences_y[step] + sentences[step] -> h);
+
+  case 4: /// keydemo_up Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_up, sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
 			 sentences_y[step] + sentences[step] -> h);
-    //keydemo_up -> update();
-    //? TODO check that:
-    // Maybe this should be refreshed instead of screen
-    // Maybe both
-    // maybe thing about an SDL overlay method...
-    //psp_sdl_flip();
     break;
   case 5:
-  case 7:
-    //keydemo_down -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
-//			 sentences_y[step] + sentences[step] -> get_height());
+  case 7: /// keydemo_down Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_down,sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
 			 sentences_y[step] + sentences[step] -> h);
-    //keydemo_down -> update();
-    //psp_sdl_flip();
     break;
-  case 6:
-    //keydemo_left -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width(),
-//			 sentences_y[step] + sentences[step] -> get_height());
+  case 6: /// move Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_left, 
                          sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w,
                          sentences_y[step] + sentences[step] -> h);
-    //keydemo_left -> update();
-    //psp_sdl_flip();
-    //keydemo_right -> draw(sentences_x[step] + sentences[step] -> get_width()/2 + keydemo_left -> get_width(),
-	//		 sentences_y[step] + sentences[step] -> get_height());
-
     psp_sdl_blit_on_screen_at_XY(keydemo_right, 
                              sentences_x[step] + sentences[step] -> w/2 + keydemo_left -> w,
                              sentences_y[step] + sentences[step] -> h);
-    //keydemo_right -> update();
-    //psp_sdl_flip();
     break;
-  case 12:
-    //keydemo_escape -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,
-	//		 sentences_y[step] + sentences[step] -> get_height());
+  case 12: /// keydemo_escape Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_escape, 
              sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2, sentences_y[step] + sentences[step] -> h);
     //keydemo_escape -> update();
     //psp_sdl_flip();
     break;
-  case 13:
-    //keydemo_options -> draw(sentences_x[step] + sentences[step] -> get_width()/2 - keydemo_left -> get_width()/2,			 sentences_y[step] + sentences[step] -> get_height());
+  case 13: /// keydemo_options Demo TODO : Use clips to make draw blink, change picture
     psp_sdl_blit_on_screen_at_XY(keydemo_options, 
                    sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2, sentences_y[step] + sentences[step] -> h);
-    //keydemo_options -> update();
-   //psp_sdl_flip();
     break;
     break;
     

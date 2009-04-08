@@ -268,33 +268,87 @@ void GameEngine::set_skin(std::string skin)
   std::string old_skin = pref -> skin;
 
   try{
-
+#ifndef LINUX_MODE     
+FILE * debugFile;
+  debugFile=fopen("debug.log", "a+");
+  
+  fprintf(debugFile, "Load skin gameengine began\n");
+  fclose(debugFile);
+#endif
     pref -> skin = skin;
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "pref -> skin = skin %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
 
     resources -> load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "resources -> load_gfx(pref -> skin);n %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     title_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     common_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "common_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     ingame_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "ingame_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     gameover_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "gameover_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     pausemenu_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "pausemenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     skinsmenu_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "skinsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     optionsmenu_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "optionsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
     //optionsmenu_state.load_gfx(pref -> skin);
-
+#endif
     title_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, " title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     quitmenu_state.load_gfx(pref -> skin);
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "quitmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
     pref -> write();
-
+#ifndef LINUX_MODE     
+    freopen(  "debug.log","a+",debugFile);
+    fprintf(debugFile, "pref -> write(); %s ok\n",skin.c_str());
+    fclose(debugFile);
+#endif
   }
   catch(SDL_Error err)
   {

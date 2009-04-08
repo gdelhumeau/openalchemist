@@ -123,6 +123,18 @@ void OptionsMenuState::load_gfx(std::string skin)
 
 void OptionsMenuState::unload_gfx()
 {
+  for (int i=0; i<OPTIONS_NUMBER_OF_ITEMS; i++)
+  {
+     SDL_FreeSurface(items[i]);
+     SDL_FreeSurface(items_selected[i]);
+  }
+
+  SDL_FreeSurface(background);
+
+  for (int j=0; j<11; j++)
+  {
+     SDL_FreeSurface(sound_level_sprites[j]);
+  }
 
 }
 
