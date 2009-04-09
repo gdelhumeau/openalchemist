@@ -31,7 +31,7 @@ void ProgressBar::load_gfx(std::string skin)
   // Getting skins resources
   /*CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("progress_bar.xml", &zip, false);*/
-
+  unload_gfx();
 
   head     = IMG_Load_fromSkin(skin, "misc/bar-head.png"    );
   head_ok  = IMG_Load_fromSkin(skin, "misc/bar-head-ok.png" );
