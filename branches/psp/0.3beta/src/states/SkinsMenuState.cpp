@@ -237,6 +237,11 @@ void SkinsMenuState::init()
   // Initalizing variables
   selection_x = selection_y = 0;
   y_start = 0;
+  background       = NULL;
+  logo_unavailable = NULL;
+  cursor           = NULL;
+  arrow_down       = NULL;
+  arrow_up         = NULL;
 }
 
 void SkinsMenuState::deinit()
@@ -277,7 +282,7 @@ void SkinsMenuState::load_gfx(std::string skin)
   // Getting skins resources
   /*CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_skins.xml", &zip, false);*/
-
+  unload_gfx();
   // First, the sprites
   //background = new CL_Sprite("menu_skins/background", &gfx); 
   //logo_unavailable = new CL_Surface("menu_skins/logo_unavailable", &gfx); 

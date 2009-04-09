@@ -19,6 +19,12 @@ void GameOverState::init()
 {
   GameState::init();
   selection = GAMEOVER_SELECTION_YES;
+  dialog_gameover  = NULL;
+  dialog_highscore = NULL;
+  yes_selected     = NULL;
+  yes_unselected   = NULL;
+  no_selected      = NULL;
+  no_unselected    = NULL;
 }
 
 void GameOverState::deinit()
@@ -31,7 +37,7 @@ void GameOverState::load_gfx(std::string skin)
   // Getting skins resources
 /*  CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_gameover.xml", &zip, false);*/
-
+  unload_gfx();
   //new CL_Sprite("menu_gameover/dialog_gameover", &gfx);
   dialog_gameover = IMG_Load_fromSkin(skin, "dialogs/gameover/dialog-gameover.png");
   // new CL_Sprite("menu_gameover/dialog_highscore", &gfx);

@@ -33,6 +33,14 @@ Player::Player()
   current_piece1 = NULL;
   current_piece2 = NULL;
 
+for(int i = 0; i<NUMBER_OF_PIECES; ++i)
+  {    
+    pieces_normal[i]       = NULL;
+    pieces_appearing[i]    = NULL;
+    pieces_disappearing[i] = NULL;
+    pieces_mini[i]         = NULL;
+  }
+
   // Initializing random numbers generator
   srand(SDL_GetTicks());
 
@@ -137,6 +145,7 @@ void Player::load_gfx(std::string skin)
   //CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
   //CL_ResourceManager gfx_preview_pieces("pieces_preview.xml", &zip, false);
   //CL_ResourceManager gfx("general.xml", &zip, false);
+  unload_gfx();
 
   // Getting preferences (to know if colorbling is activated)
   Preferences *pref = pref_get_instance();

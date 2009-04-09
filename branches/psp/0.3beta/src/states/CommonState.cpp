@@ -36,6 +36,7 @@ CommonState::~CommonState()
 void CommonState::init()
 {
   GameState::init();
+  background = NULL;
 }
 
 
@@ -50,6 +51,7 @@ void CommonState::load_gfx(std::string skin)
   //CL_Zip_Archive zip(skin);
   //CL_ResourceManager gfx("general.xml",&zip, false);
   //new CL_Surface("background", &gfx);
+  unload_gfx();
   background = IMG_Load_fromSkin(skin, "misc/landscape.png");
 }
 

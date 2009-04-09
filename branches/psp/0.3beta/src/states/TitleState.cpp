@@ -26,6 +26,17 @@ void psp_sdl_blit_on_screen_at_XY(SDL_Surface * surface, int surface_x, int surf
 void TitleState::init()
 {
   GameState::init();
+  for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
+  {
+      sentences[i] = NULL;
+  }
+  start_message   = NULL;
+  keydemo_left    = NULL;
+  keydemo_up      = NULL;
+  keydemo_right   = NULL;
+  keydemo_down    = NULL;
+  keydemo_escape  = NULL;
+  keydemo_options = NULL;
 }
 
 void TitleState::deinit()
@@ -38,7 +49,7 @@ void TitleState::load_gfx(std::string skin)
   /*CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("title.xml", &zip, false);
 */
-
+  unload_gfx();
   //start_message = new CL_Sprite("title/start_message/sprite", &gfx);
   start_message = IMG_Load_fromSkin(skin, "dialogs/title/start_message.png");
   start_message_x = 220 ; //CL_Integer_to_int("title/start_message/left", &gfx);

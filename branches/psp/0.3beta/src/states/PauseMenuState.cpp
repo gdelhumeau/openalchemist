@@ -37,6 +37,13 @@ extern "C" {
 void PauseMenuState::init()
 {
   GameState::init();
+  for (int i=0; i<PAUSE_NUMBER_OF_ITEMS; i++)
+  {
+	items[i] = NULL;
+        items_selected[i] = NULL;
+  }
+  background = NULL;
+  undo_unavailable = NULL;
 }
 
 void PauseMenuState::deinit()
@@ -49,6 +56,7 @@ void PauseMenuState::load_gfx(std::string skin)
 /*  CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_pause.xml", &zip, false);
 */
+  unload_gfx();
   // First, the sprites
   //background = new CL_Sprite("menu_pause/background", &gfx); 
   background = IMG_Load_fromSkin(skin, "dialogs/pause/pause.png");
@@ -111,12 +119,28 @@ void PauseMenuState::unload_gfx()
 {
   for (int i=0; i<PAUSE_NUMBER_OF_ITEMS; i++)
   {
-     SDL_FreeSurface(items[i]);
-     SDL_FreeSurface(items_selected[i]);
+     if (items[i])
+     {
+	SDL_FreeSurface(items[i]);
+	items[i] = NULL;
+     }
+     if (items_selected[i])
+     {
+	SDL_FreeSurface(items_selected[i]);
+        items_selected[i] = NULL;
+     }
   }
-
-  SDL_FreeSurface(background);
-  SDL_FreeSurface(undo_unavailable);
+  printf("Unload des items ok\n");
+  if (background)
+  {
+    SDL_FreeSurface(background);
+    background = NULL;
+  }
+  if (undo_unavailable)
+  {
+    SDL_FreeSurface(undo_unavailable);
+    undo_unavailable = NULL;
+  }
  
 }
 

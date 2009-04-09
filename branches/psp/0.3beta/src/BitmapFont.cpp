@@ -25,6 +25,7 @@ BitmapFont::~BitmapFont()
 
 void BitmapFont::load_gfx(std::string skin)
 {
+   unload_gfx();
    FontPic = IMG_Load_fromSkin(skin, "misc/font.png");
    if (FontPic == NULL)
       printf("could not load font.png\n");
@@ -32,7 +33,11 @@ void BitmapFont::load_gfx(std::string skin)
 
 void BitmapFont::unload_gfx()
 {
-    SDL_FreeSurface(FontPic);
+    if (FontPic)
+    {
+	SDL_FreeSurface(FontPic);
+	FontPic = NULL;
+    }
 }
 
 void BitmapFont::fillClip()

@@ -53,6 +53,7 @@ void QuitMenuState::load_gfx(std::string skin)
 /*  CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_quit.xml", &zip, false);
 */
+  unload_gfx();
   //panel_exit    = new CL_Sprite("menu_quit/dialog_panel/sprite_exit", &gfx);
   //panel_give_up = new CL_Sprite("menu_quit/dialog_panel/sprite_giveup", &gfx);
   //panel_retry   = new CL_Sprite("menu_quit/dialog_panel/sprite_retry", &gfx);

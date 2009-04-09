@@ -52,12 +52,15 @@ void GameEngine::init()
   gameover_state.init();
   pausemenu_state.init();
   skinsmenu_state.init();
+printf("skinmenu state ok\n");
   optionsmenu_state.init();
+printf("optionsmenu_state init ok\n");
   title_state.init();
+printf("title_state init ok\n");
   quitmenu_state.init();
-  
+  printf("quitmennu init ok\n");
   set_skin(pref -> skin);
-
+printf("Game engine init done\n");
       
 }
 
@@ -274,12 +277,17 @@ FILE * debugFile;
   
   fprintf(debugFile, "Load skin gameengine began\n");
   fclose(debugFile);
+#else
+  printf( "Load skin gameengine began\n");
 #endif
+
     pref -> skin = skin;
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "pref -> skin = skin %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf( "pref -> skin = skin %s ok\n",skin.c_str());
 #endif
 
     resources -> load_gfx(pref -> skin);
@@ -287,42 +295,56 @@ FILE * debugFile;
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "resources -> load_gfx(pref -> skin);n %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("resources -> load_gfx(pref -> skin);n %s ok\n",skin.c_str());
 #endif
     title_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     common_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "common_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("common_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     ingame_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "ingame_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("ingame_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     gameover_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "gameover_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf( "gameover_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     pausemenu_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "pausemenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf( "pausemenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     skinsmenu_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "skinsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf( "skinsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     optionsmenu_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
@@ -330,24 +352,32 @@ FILE * debugFile;
     fprintf(debugFile, "optionsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
     //optionsmenu_state.load_gfx(pref -> skin);
+#else
+    printf("optionsmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     title_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, " title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf(" title_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     quitmenu_state.load_gfx(pref -> skin);
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "quitmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("quitmenu_state.load_gfx(pref -> skin); %s ok\n",skin.c_str());
 #endif
     pref -> write();
 #ifndef LINUX_MODE     
     freopen(  "debug.log","a+",debugFile);
     fprintf(debugFile, "pref -> write(); %s ok\n",skin.c_str());
     fclose(debugFile);
+#else
+    printf("pref -> write(); %s ok\n",skin.c_str());
 #endif
   }
   catch(SDL_Error err)

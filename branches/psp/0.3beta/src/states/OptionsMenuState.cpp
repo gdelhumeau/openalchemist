@@ -39,9 +39,21 @@ void OptionsMenuState::init()
   GameState::init();
 
   Preferences *pref = pref_get_instance();
-  
+  printf("Optionmenustate pref get instance Ok\n");
   sound_level = pref -> sound_level;
   music_level = pref -> music_level;
+  printf("Optionmenustate sound and music level Ok\n");
+
+  for (int i=0; i<OPTIONS_NUMBER_OF_ITEMS; i++)
+  {
+    items[i] = NULL;
+    items_selected[i] = NULL;
+  }
+  background = NULL;
+  for (int j=0; j<11; j++)
+  {
+     sound_level_sprites[j] = NULL;
+  }
 }
 
 void OptionsMenuState::deinit()
@@ -60,6 +72,7 @@ void OptionsMenuState::load_gfx(std::string skin)
 /*  CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_options.xml", &zip, false);
 */
+  unload_gfx();
   // First, the sprites
   //background = new CL_Sprite("menu_options/dialog_background", &gfx); 
   background = IMG_Load_fromSkin(skin, "dialogs/options/background.png");
@@ -125,15 +138,31 @@ void OptionsMenuState::unload_gfx()
 {
   for (int i=0; i<OPTIONS_NUMBER_OF_ITEMS; i++)
   {
-     SDL_FreeSurface(items[i]);
-     SDL_FreeSurface(items_selected[i]);
+     if (items[i])
+     {
+	SDL_FreeSurface(items[i]);
+	items[i] = NULL;
+     }
+     if (items_selected[i])
+     {
+	SDL_FreeSurface(items_selected[i]);
+        items_selected[i] = NULL;
+     }
   }
 
-  SDL_FreeSurface(background);
+  if (background)
+  {
+    SDL_FreeSurface(background);
+    background = NULL;
+  }
 
   for (int j=0; j<11; j++)
   {
-     SDL_FreeSurface(sound_level_sprites[j]);
+     if (sound_level_sprites[j])
+     {
+	SDL_FreeSurface(sound_level_sprites[j]);
+	sound_level_sprites[j] = NULL;
+     }
   }
 
 }
