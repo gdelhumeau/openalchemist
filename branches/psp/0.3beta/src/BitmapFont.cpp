@@ -49,7 +49,7 @@ void BitmapFont::fillClip()
   if(FontPic!=NULL)
      charClip[i].h = FontPic->h;
   else
-     charClip[i].h = 16;
+     charClip[i].h = FontPic->h;
      charClip[i].w = charSize;
   }
  

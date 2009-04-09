@@ -207,7 +207,7 @@ void TitleState::draw()
 void TitleState::update()
 {
   //start_message -> update();
-  psp_sdl_blit_on_screen(start_message);
+  //psp_sdl_blit_on_screen(start_message);
 //  psp_sdl_flip();
   if(next_time < SDL_GetTicks())
   {
