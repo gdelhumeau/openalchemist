@@ -37,6 +37,7 @@
 #define LAST_APPEAR   APPEAR_STEPS
 #define LAST_DISAPP   APPEAR_STEPS + DISAPP_STEPS
 
+#define NB_FRAME_REPEAT  8
 
 class Piece
 {
@@ -60,6 +61,7 @@ class Piece
 
   // For animation appearing/disapearing
   int graph_ctxt;
+  int frame_rate_anim;
 
   // For scores:
   int score_value;
@@ -81,12 +83,12 @@ class Piece
   {
 
     normal_sprite        = NULL;
-    appearing_surface     = NULL;
-    disappearing_surface  = NULL;
+    appearing_surface    = NULL;
+    disappearing_surface = NULL;
     mini_sprite          = NULL;
 //    current_sprite       = NULL; 
     graph_ctxt           = NORMAL_CTXT;
-
+    frame_rate_anim      = NB_FRAME_REPEAT;
     this -> piece_number = piece_number;
     this -> score_value  = score[piece_number];
     x = 0;
@@ -144,7 +146,17 @@ class Piece
 		}
 		else
 		{
-		    graph_ctxt++;
+		    if(frame_rate_anim == NB_FRAME_REPEAT)
+		    {
+			graph_ctxt++;
+			frame_rate_anim = 0;
+		//	printf("changing context piece : %d\n", graph_ctxt);
+		    }
+		    else
+		    {
+			frame_rate_anim++;
+		//	printf("frame_rate_anim : %d\n", frame_rate_anim);
+		    }
 		}
 	   }
 	
