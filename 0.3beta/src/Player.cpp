@@ -494,7 +494,7 @@ void Player::update_playing()
   // Move the pieces if the order has been changed      
   if(angle<target_angle)
   {
-    angle += 5;//resources->time_interval * 0.35;
+    angle += resources->time_interval * 0.35;
     if(angle>=target_angle)
     {
       while(target_angle>=360)
@@ -510,7 +510,7 @@ void Player::update_playing()
   {
     if( ((position * (resources -> pieces_width) + position_bis * (resources->pieces_width)/2) )>= x)
     {
-      x += 3;//(int)((resources->time_interval) / PIECE_MOVING_SPEED);
+      x += (int)((resources->time_interval) / PIECE_MOVING_SPEED);
       if(x > position * (resources->pieces_width) + (position_bis )*resources->pieces_width/2)
       {
         x = position * resources->pieces_width + (position_bis )*resources->pieces_width/2;
@@ -524,7 +524,7 @@ void Player::update_playing()
   {  
     if( ((position * (resources->pieces_width) + (position_bis )*(resources->pieces_width/2)) ) <= x)
     {
-      x -= 3;//(int)(resources->time_interval / PIECE_MOVING_SPEED);
+      x -= (int)(resources->time_interval / PIECE_MOVING_SPEED);
       if(x < position * resources->pieces_width + (position_bis)*resources->pieces_width/2)
       {
         x = position * resources->pieces_width + (position_bis)*resources->pieces_width/2;
