@@ -15,45 +15,45 @@
 //#include <ClanLib/display.h>
 #include <SDL/SDL.h>
 #include <iostream>
+#include "BitmapFont.h"
 //#include <SDL/SDL_TTF.h>
 
 class CombosPainter{
 
   private:
 
-  int score;
+  int  _score;
 
-  int mode;
+  int  _mode;
 
-  bool enabled;
+  bool _enabled;
   
   /**
    * Combo text sprite
    */
-  SDL_Surface * sprite_single;
+  SDL_Surface * _sprite_single;
 
   /**
    * Combo text sprite
    */
-  SDL_Surface * sprite_plural;
+  SDL_Surface * _sprite_plural;
 
   /**
    * Combo font
    */
-	// TODO : find a way to make a font
-  //TTF_Font * font;
+  BitmapFont * _font;
 
   /**
    * Combo coords
    */ 
-  int sprite_x, sprite_y, score_x, score_y;
+  int _sprite_x, _sprite_y, _score_x, _score_y;
 
   /**
    * Actual coords
    */
-  double sprite_current_x, sprite_current_y, score_current_x, score_current_y;
+  double _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
 
-  unsigned long int next_time;
+  unsigned long int _next_time;
 
   public:
 
