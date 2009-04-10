@@ -225,7 +225,7 @@ class Piece
   // Return true if the piece is placed
   bool fall(double time_interval)
     {
-      y += 10;//(int)(PIECE_SPEED * time_interval);
+      y += (int)(PIECE_SPEED * time_interval);
       if(y >= target_y)
       {
         y = target_y;
