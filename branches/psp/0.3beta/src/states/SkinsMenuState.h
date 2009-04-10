@@ -45,9 +45,9 @@ class Skin{
    */
   Skin()
     {
-      filename = "";
-      element  = 3;
-      logo = NULL;
+      filename   = "";
+      element    = 3;
+      logo       = NULL;
     }
 
   /**
@@ -56,8 +56,10 @@ class Skin{
   ~Skin()
     {
       if(logo)
-        //delete logo;
+      {
 	SDL_FreeSurface(logo);
+	logo = NULL;
+      }
     }
 };
 

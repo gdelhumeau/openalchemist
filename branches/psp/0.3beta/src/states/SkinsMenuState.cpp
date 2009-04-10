@@ -133,6 +133,7 @@ void SkinsMenuState::init()
     else
     {
 	fprintf(debugfile, "Unable to open skin property file\n");
+	fclose(debugfile);
         return;
     }
 
