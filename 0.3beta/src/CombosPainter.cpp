@@ -54,11 +54,11 @@ void CombosPainter :: load_gfx(std::string skin)
   _sprite_single = IMG_Load_fromSkin(skin, "misc/combos-text-single.png");
   _sprite_plural = IMG_Load_fromSkin(skin, "misc/combos-text-plural.png");
 
-  _font =  new BitmapFont(skin);
+  _font =  new BitmapFont(skin, COMBO_FONT);
   printf("New bitmap font created\n");
 
   _sprite_x =  PSP_SDL_SCREEN_WIDTH/2 ;//CL_Integer_to_int("combos/text/left", &gfx_combos);
-  _sprite_y =  PSP_SDL_SCREEN_HEIGHT/2; //CL_Integer_to_int("combos/text/top", &gfx_combos);
+  _sprite_y =  PSP_SDL_SCREEN_HEIGHT/4; //CL_Integer_to_int("combos/text/top", &gfx_combos);
 
   _score_x = PSP_SDL_SCREEN_WIDTH/2 ; //CL_Integer_to_int("combos/score/left", &gfx_combos);
   _score_y = PSP_SDL_SCREEN_HEIGHT/2 - _font -> GetCharHeight(); //CL_Integer_to_int("combos/score/top", &gfx_combos);  

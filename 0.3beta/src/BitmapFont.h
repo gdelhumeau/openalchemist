@@ -16,6 +16,10 @@
 #include "psp_sdl.h"
 #include "misc.h"
 
+#define NB_CHAR_PER_PIC 11
+#define SCORE_FONT 0
+#define COMBO_FONT 1
+
 class BitmapFont
 {
 
@@ -34,15 +38,15 @@ public:
   /**
    *  Array of each char
    */
-   SDL_Rect charClip[11];
+   SDL_Rect charClip[NB_CHAR_PER_PIC];
 
-  void load_gfx(std::string skin);
+  void load_gfx(std::string skin, int which_font);
   void unload_gfx();
   void fillClip();
   void draw(int scoreLeft, int scoreTop, std::string strScore);
   int  GetCharHeight();
 
-  BitmapFont(std::string skin);
+  BitmapFont(std::string skin, int which_font);
   ~BitmapFont();
   
    

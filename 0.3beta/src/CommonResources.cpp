@@ -68,7 +68,7 @@ void CommonResources::load_gfx(std::string skin)
   //main_font = new CL_Font("font", &gfx);
   // TODO : Build a bitmap font using the png already present
   //main_font = TTF_OpenFont("font.ttf", 8);
-  main_font = new BitmapFont(skin);
+  main_font = new BitmapFont(skin, SCORE_FONT);
 #ifndef LINUX_MODE
   freopen(  "debug.log","a+",debugFile);
   fprintf(debugFile, "New bitmap created\n");
@@ -80,7 +80,7 @@ void CommonResources::load_gfx(std::string skin)
   // TODO: size chosen in pixels, see whether needed to be set other way
   // and be or not managed
   pieces_width = 26;
-  pieces_height = 26;
+  pieces_height = 25;
 #ifndef LINUX_MODE
   freopen(  "debug.log","a+",debugFile);
   fprintf(debugFile, "Piece sizes ok\n");
@@ -104,7 +104,7 @@ void CommonResources::unload_gfx()
   if(main_font != NULL)
   {
     //delete main_font;
-    main_font->unload_gfx();
+    //main_font->unload_gfx();
     delete main_font;
     main_font = NULL;
   }
@@ -112,7 +112,7 @@ void CommonResources::unload_gfx()
   player1.unload_gfx();
   /// Do not managing skin using front layer for the moment
   //front_layer.unload_gfx();
-
+printf("common resources unload_gfx done\n");
 }
 
 void CommonResources::read_scores()

@@ -10,39 +10,60 @@
 #include "BitmapFont.h"
 #include <SDL/SDL.h>
 
-BitmapFont::BitmapFont(std::string skin)
+BitmapFont::BitmapFont(std::string skin, int which_font)
 {
-  charSize = 16;
   FontPic = NULL;
-  load_gfx(skin);
-  fillClip();
+  load_gfx(skin, which_font);
+  if (FontPic != NULL)
+  {
+    charSize = FontPic->w / NB_CHAR_PER_PIC;
+    fillClip();
+  }
 }
 
 BitmapFont::~BitmapFont()
 {
-
+   unload_gfx();
 }
 
-void BitmapFont::load_gfx(std::string skin)
+void BitmapFont::load_gfx(std::string skin, int which_font)
 {
    unload_gfx();
-   FontPic = IMG_Load_fromSkin(skin, "misc/font.png");
+   switch(which_font)
+   {
+      case SCORE_FONT:
+	FontPic = IMG_Load_fromSkin(skin, "misc/font.png");
+	printf("Score font loaded\n");
+   	break;
+
+      case COMBO_FONT:
+	FontPic = IMG_Load_fromSkin(skin, "misc/font-combos.png");
+	printf("Combo font loaded\n");
+   	break;
+   }
    if (FontPic == NULL)
       printf("could not load font.png\n");
+	
 }
 
 void BitmapFont::unload_gfx()
 {
-    if (FontPic)
+    if (FontPic != NULL)
     {
 	SDL_FreeSurface(FontPic);
 	FontPic = NULL;
     }
+printf("unload_gfx done for bitmap font\n");
+/*    for (int i=0; i<NB_CHAR_PER_PIC; i++)
+    {
+	delete &charClip[i];
+	charClip[i] = NULL;
+    }*/
 }
 
 void BitmapFont::fillClip()
 {
-  for (int i=0; i<11; i++)
+  for (int i=0; i<NB_CHAR_PER_PIC; i++)
   {
      charClip[i].x = i * charSize; 
      charClip[i].y = 0;
@@ -51,6 +72,7 @@ void BitmapFont::fillClip()
   else
      charClip[i].h = FontPic->h;
      charClip[i].w = charSize;
+
   }
  
 }
@@ -58,6 +80,7 @@ void BitmapFont::fillClip()
 void BitmapFont::draw(int score_x, int score_y, std::string strScore)
 {
   int intScore = atoi(strScore.c_str());
+  int intScoreCopy = atoi(strScore.c_str());
   int i = 0, j = 0;
   while(intScore != 0)
   {
@@ -66,7 +89,7 @@ void BitmapFont::draw(int score_x, int score_y, std::string strScore)
      psp_sdl_blit_clip_at_XY(FontPic, &charClip[charToDraw], (score_x - (i+j)*charSize), score_y);
      intScore = int(intScore/10);
      i++;
-     if((strScore.length()>3) && (i%3 == 0))
+     if((intScoreCopy>999) && (i%3 == 0))
      {  
 	  psp_sdl_blit_clip_at_XY(FontPic, &charClip[10], (score_x - (i+j)*charSize), score_y);
 	  j++;
