@@ -53,7 +53,7 @@ class CommonResources{
   /** Sprites */
   int pieces_width, pieces_height;
 
-  int time_interval;
+  double time_interval;
   int fps;
 
   u_int highscore;

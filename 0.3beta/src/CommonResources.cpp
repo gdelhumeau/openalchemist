@@ -105,6 +105,7 @@ void CommonResources::unload_gfx()
   {
     //delete main_font;
     main_font->unload_gfx();
+    delete main_font;
     main_font = NULL;
   }
 

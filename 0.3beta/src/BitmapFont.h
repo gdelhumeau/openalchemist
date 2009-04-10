@@ -40,9 +40,9 @@ public:
   void unload_gfx();
   void fillClip();
   void draw(int scoreLeft, int scoreTop, std::string strScore);
+  int  GetCharHeight();
 
   BitmapFont(std::string skin);
-  
   ~BitmapFont();
   
    

@@ -318,15 +318,15 @@ void Player::draw()
   {
     //printf("drawing player, x = %f\n",x);
     // Setting playable pieces position 
-printf("draw piece1 before x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
+//printf("draw piece1 before x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
     current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
                                    board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
-printf("draw piece1 after x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
+//printf("draw piece1 after x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
     //printf("position piece1 : x=%f, y=%f \n", board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
-printf("draw piece2 before x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
+//printf("draw piece2 before x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
     current_piece2 -> set_position(board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,
                                    board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
-printf("draw piece2 after x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
+//printf("draw piece2 after x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
     //printf("position piece2 : x=%f, y=%f \n", board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,                                  board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
 
     // Displaying playable pieces

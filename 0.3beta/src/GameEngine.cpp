@@ -122,8 +122,8 @@ void GameEngine::run()
 */
       current_state -> draw();
     // Get the Framerate
-//    resources -> fps = fps_getter.get_fps();
-//    resources -> time_interval = get_time_interval(resources->fps);
+ //   resources -> fps = fps_getter.get_fps();
+    resources -> time_interval = get_time_interval(65/*resources->fps*/);
 
 
     //CL_Display::flip();

@@ -73,5 +73,17 @@ void BitmapFont::draw(int score_x, int score_y, std::string strScore)
      }
      
    }
-
 }
+int BitmapFont::GetCharHeight()
+{
+   if (FontPic)
+    {
+	return FontPic->h;
+    }
+   else
+   {
+	return 0;
+   }
+}
+
+
