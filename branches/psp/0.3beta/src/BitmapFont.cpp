@@ -80,7 +80,6 @@ void BitmapFont::fillClip()
 void BitmapFont::draw(int score_x, int score_y, std::string strScore)
 {
   int intScore = atoi(strScore.c_str());
-  int intScoreCopy = atoi(strScore.c_str());
   int i = 0, j = 0;
   while(intScore != 0)
   {
@@ -89,7 +88,7 @@ void BitmapFont::draw(int score_x, int score_y, std::string strScore)
      psp_sdl_blit_clip_at_XY(FontPic, &charClip[charToDraw], (score_x - (i+j)*charSize), score_y);
      intScore = int(intScore/10);
      i++;
-     if((intScoreCopy>999) && (i%3 == 0))
+     if((intScore>0) && (i%3 == 0))
      {  
 	  psp_sdl_blit_clip_at_XY(FontPic, &charClip[10], (score_x - (i+j)*charSize), score_y);
 	  j++;

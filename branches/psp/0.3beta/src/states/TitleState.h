@@ -22,6 +22,18 @@
 class GameEngine;
 
 #define NUMBER_OF_SENTENCES 16
+#define NUMBER_OF_KEYS       6
+#define NUMBER_OF_PIC_BLINK  2
+#define BLINK_REMANENCE     50
+
+#define LEFT                 0
+#define UP                   1
+#define RIGHT                2
+#define DOWN                 3
+#define ESCAPE               4
+#define OPTION               5
+
+
 
 /**
  * Title State
@@ -35,8 +47,20 @@ class TitleState : public GameState{
   SDL_Surface *start_message;
   int start_message_x, start_message_y;
 
-  SDL_Surface *keydemo_left, *keydemo_up, *keydemo_right, *keydemo_down;
-  SDL_Surface *keydemo_escape, *keydemo_options;
+
+  /** Picture for keys, contain two clip to blink **/
+  SDL_Surface *keydemo_left;
+  SDL_Surface *keydemo_up;
+  SDL_Surface *keydemo_right;
+  SDL_Surface *keydemo_down;
+  SDL_Surface *keydemo_escape;
+  SDL_Surface *keydemo_options;
+
+  /** SDL coords to split picture in clip for blinking **/
+  // we assume here that all the pics representing keys are same size
+  SDL_Rect keydemo_tab_clips[NUMBER_OF_PIC_BLINK];
+
+  int blinking_steps, blink_clip;
 
   /** Help sentences **/
   SDL_Surface *sentences[NUMBER_OF_SENTENCES];
