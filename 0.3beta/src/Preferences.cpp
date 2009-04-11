@@ -46,6 +46,7 @@ void Preferences::read()
     if (OptionFile != NULL)
     {
 	read_options_file(OptionFile);
+printf("after read skin is : %s\n",skin.c_str());
 	fclose(OptionFile);
     }
     else
@@ -142,13 +143,12 @@ void Preferences::read_options_file(FILE *file)
     IniFile ini;
     ini.read(file);
     render_opengl = ini.get("OpenGL", render_opengl);
-    fullscreen = ini.get("Fullscreen", fullscreen);
-    sound_level = ini.get("Sound Level", sound_level);
-    music_level = ini.get("Music Level", music_level);
-    maxfps = ini.get("MaxFPS", maxfps);
-    colorblind = ini.get("Colorblind", colorblind);
-  
-    std::string skin_file = ini.get("Skin", skin);
+    fullscreen    = ini.get("Fullscreen", fullscreen);
+    sound_level   = ini.get("Sound Level", sound_level);
+    music_level   = ini.get("Music Level", music_level);
+    maxfps        = ini.get("MaxFPS", maxfps);
+    colorblind    = ini.get("Colorblind", colorblind);
+    skin          = ini.get("Skin", skin);
 
 /*  //We do not manage skins by zip archives on psp, maybe later
     try{

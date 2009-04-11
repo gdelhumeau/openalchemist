@@ -55,14 +55,14 @@ void CombosPainter :: load_gfx(std::string skin)
   _sprite_plural = IMG_Load_fromSkin(skin, "misc/combos-text-plural.png");
 
   _font =  new BitmapFont(skin, COMBO_FONT);
-  printf("New bitmap font created\n");
+ // printf("New bitmap font created\n");
 
   _sprite_x =  PSP_SDL_SCREEN_WIDTH/2 ;//CL_Integer_to_int("combos/text/left", &gfx_combos);
   _sprite_y =  PSP_SDL_SCREEN_HEIGHT/4; //CL_Integer_to_int("combos/text/top", &gfx_combos);
 
   _score_x = PSP_SDL_SCREEN_WIDTH/2 ; //CL_Integer_to_int("combos/score/left", &gfx_combos);
   _score_y = PSP_SDL_SCREEN_HEIGHT/2 - _font -> GetCharHeight(); //CL_Integer_to_int("combos/score/top", &gfx_combos);  
-  printf("other attributes of combo painter OK, end of load_gfx()\n");
+ // printf("other attributes of combo painter OK, end of load_gfx()\n");
 }
 
 
@@ -102,7 +102,7 @@ void CombosPainter :: set_score(int score)
   }
 
   _enabled = true;
-printf("CombosPainter : End of set_score, score is %d\n", _score);
+//printf("CombosPainter : End of set_score, score is %d\n", _score);
 }
 
 void CombosPainter :: draw()
@@ -118,7 +118,7 @@ void CombosPainter :: draw()
     psp_sdl_blit_on_screen_at_XY(_sprite_plural, (int)_sprite_current_x, (int)_sprite_y);
     
     //sprite_plural -> draw(sprite_current_x, sprite_y);
-printf("CombosPainter:end of draw(), coords : %d, %d\n",(int)_score_x, (int)_score_current_y);
+//printf("CombosPainter:end of draw(), coords : %d, %d\n",(int)_score_x, (int)_score_current_y);
   
 }
 
@@ -139,7 +139,7 @@ void CombosPainter :: update()
       break;
     }
   }
-printf("CombosPainter update done, mode is : %d\n",_mode);
+//printf("CombosPainter update done, mode is : %d\n",_mode);
 }
 
   
@@ -147,7 +147,7 @@ void CombosPainter :: update_appearing()
 {
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
-printf("begin  CombosPainter update_appearing\n");
+//printf("begin  CombosPainter update_appearing\n");
   if(_sprite_current_x > _sprite_x)
   {
     _sprite_current_x -= (int)(COMBOS_SPEED * resources -> time_interval);
@@ -168,8 +168,8 @@ printf("begin  CombosPainter update_appearing\n");
     _next_time = SDL_GetTicks() + 1500;
   }
 
-printf("CombosPainter update_appearing done, coords are : %d, %d\n",(int)_sprite_current_x,(int)_score_current_y);
-printf("targets are %d, %d\n",(int)_sprite_x,(int)_score_y);
+//printf("CombosPainter update_appearing done, coords are : %d, %d\n",(int)_sprite_current_x,(int)_score_current_y);
+//printf("targets are %d, %d\n",(int)_sprite_x,(int)_score_y);
 }
 
 
@@ -179,7 +179,7 @@ void CombosPainter :: update_display()
   {
     _mode = MODE_DISAPPEARING;
   }
-printf("CombosPainter update_display done\n");
+//printf("CombosPainter update_display done\n");
 }
 
 void CombosPainter :: update_disappearing()
@@ -201,6 +201,6 @@ void CombosPainter :: update_disappearing()
   {
     _enabled = false;
   }
-printf("CombosPainter update_disappearing done, coords are : %d, %d\n",(int)_sprite_current_x,(int)_score_current_y);
-printf("targets are %d, %d\n",(int)_sprite_x,(int)_score_y);
+//printf("CombosPainter update_disappearing done, coords are : %d, %d\n",(int)_sprite_current_x,(int)_score_current_y);
+//printf("targets are %d, %d\n",(int)_sprite_x,(int)_score_y);
 }

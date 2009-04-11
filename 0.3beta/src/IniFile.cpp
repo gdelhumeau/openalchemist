@@ -72,15 +72,17 @@ void IniFile::read(/*CL_InputSource_File*/ FILE *file)
     }
 
     line = std::string(tempStr);
-
+printf("iniread line got : %s\n",line.c_str());
     if(line.length() >1)
     {
       int separator = line.find(" = ", 0);
       if(separator)
       {
         e -> name = line.substr(0, separator);
+	printf("ini element name : %s\n",(e->name).c_str());
         e -> value = line.substr(separator + 3, line.length());
-        list.insert(list.end(), e);
+        printf("ini value : %s\n",(e->value).c_str());
+	list.insert(list.end(), e);
       }
     }
     c_temp = fgetc(file);
@@ -228,8 +230,10 @@ std::string IniFile::get(std::string name, std::string def)
   while(it != list.end())
   {
     IniElement *e = (IniElement*)*it;
+    printf("get element : %s\n",(e->name).c_str());
     if(e -> name == name)
     {
+      printf("get match : value : %s\n",(e->value).c_str());
       return e -> value;
     }
     it++;

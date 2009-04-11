@@ -104,7 +104,7 @@ void GameEngine::run()
     common_state.draw();
 
     GameState* current_state = states_stack.top();
-    current_state -> print();
+    //current_state -> print();
     current_state -> events();
     current_state -> update();
     // Drawing the front layer behind the current state or not
