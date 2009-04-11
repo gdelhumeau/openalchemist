@@ -24,6 +24,7 @@
 #include <pspctrl.h>
 #include <psptypes.h>
 #include <pspkernel.h>
+#include <psppower.h>
 #include <png.h>
 
 #include "GameEngine.h"
@@ -489,20 +490,11 @@ extern "C"
                         back_surface = splash_surface;
                 }
 
-        void
-                psp_sdl_blit_gems()
-                {
-                        SDL_BlitSurface ( gem_surface, NULL, screen_surface, NULL );
-                        SDL_BlitSurface ( gem2_surface, NULL, screen_surface, NULL );
-
-                        //back_surface = gem_surface;
-                }
 
         void
                 psp_sdl_blit_bkgnd()
                 {
                         SDL_BlitSurface ( bkgnd_surface, NULL, screen_surface, NULL );
-                        //back_surface = gem_surface;
                 }
 
         void
@@ -689,8 +681,6 @@ extern "C"
                                 return 0;
                         }
 
-                        // psp_sdl_select_font( 1 );
-
 #ifndef LINUX_MODE
                         screen_surface=SDL_SetVideoMode ( PSP_SDL_SCREEN_WIDTH,PSP_SDL_SCREEN_HEIGHT, 32,
                                         SDL_ANYFORMAT|SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_HWPALETTE );
@@ -709,13 +699,10 @@ extern "C"
                                 SDL_FreeSurface ( screen_surface );
 #ifndef LINUX_MODE
                                 pspDebugScreenPrintf ( "I could not load your fucking pictures !\n" );
-                                pspDebugScreenPrintf ( "Go fix this !!!\n" );
 #else
-                                printf ( "I could not load your fucking pistures! \n" );
-                                printf ( "Go fix this lazy girl! \n" );
+                                printf ( "I could not load your pictures! \n" );
 #endif
-                                SDL_Delay ( 1000 );
-                                goto GetOutCorrectly;
+                                return 0;
                         }
 
                         //  SDL_FillRect(screen_surface,NULL,SDL_MapRGB(screen_surface->format,0x0,0x0,0x0));
@@ -726,18 +713,15 @@ extern "C"
                         //SDL_ShowCursor(SDL_DISABLE);
 
                         psp_sdl_display_splash();
-                        CallToEngine ( screen_surface );
 
                         //game = new GameEngine(screen_surface/*window, render*/);
-                        printf ( "A priori on vient de passer le constructeur...\n" );
                         //game -> init();
-                        printf ( "On a fini l'init\n" );
                         //psp_sdl_play_gem();
                         // game -> run();
                         /* Danzeff Keyboard */
                         /*danzeff_load();
                           danzeff_set_screen(screen_surface);*/
-GetOutCorrectly:
+
 
                         return 1;
                 }
@@ -763,11 +747,12 @@ GetOutCorrectly:
                 SDL_main ( int argc,char *argv[] )
                 {
                         psp_sdl_init();
-
-                        /* psp_global_init();
-
-                           psp_editor_main_loop();*/
-
+#ifndef LINUX_MODE
+                        /* psp_global_init();*/
+                        scePowerSetClockFrequency(300, 300, 150);
+#endif
+                           /*psp_editor_main_loop();*/
+			CallToEngine ( screen_surface );
                         psp_sdl_exit ( 0 );
 
                         return 0;

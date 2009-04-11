@@ -37,7 +37,7 @@ extern "C"{
 #endif
 
 //#include "psp_irkeyb.h"
-#define DEBUG
+
 #define STDOUT_FILE  "stdout.txt"
 #define STDERR_FILE  "stderr.txt"
 
@@ -52,14 +52,15 @@ static void cleanup_output(void);
 
 #ifndef LINUX_MODE
 #ifndef PSPFW30X
-PSP_MODULE_INFO("TESTDISPLAY", 0x1000, 1, 1);
+PSP_MODULE_INFO("PSPOPENALCHEMIST", 0x1000, 1, 1);
 #else
-PSP_MODULE_INFO("TESTDISPLAY", 0x0, 1, 1);
+PSP_MODULE_INFO("PSPOPENALCHEMIST", 0x0, 1, 1);
 PSP_HEAP_SIZE_KB(16*1024);
 #endif
 PSP_MAIN_THREAD_ATTR(0);
 PSP_MAIN_THREAD_STACK_SIZE_KB(64);
 #endif
+
 
 #ifndef LINUX_MODE
 int 
@@ -145,19 +146,23 @@ user_thread(SceSize args, void *argp)
 #ifndef LINUX_MODE
   sdl_psp_setup_callbacks();
 # endif
-  SDL_main(args, (char**)argp);
+  //SDL_main(args, (char**)argp);
+
+  char *new_argv[1] = { "pspOpenAlchemist" };
+  (void)SDL_main(1, new_argv);
+
 }
 
 int 
 main(int argc, char *argv[])
 {
-  
+  int user_thid; 
 #ifndef LINUX_MODE
   pspDebugScreenInit();
 
   //psp_global_init();
 
-  pspDebugScreenPrintf("My Name is Bond, James Bond !\n");
+  //pspDebugScreenPrintf("My Name is Bond, James Bond !\n");
 #else
   printf("My Name is Bond\n");
 #endif
@@ -187,7 +192,7 @@ main(int argc, char *argv[])
 # endif
 
 #ifndef LINUX_MODE
-  int user_thid = sceKernelCreateThread( "user_thread", 
+  user_thid = sceKernelCreateThread( "user_thread", 
      (SceKernelThreadEntry)user_thread, 0x16, 256*1024, PSP_THREAD_ATTR_USER, 0 );
 
   if(user_thid >= 0) {

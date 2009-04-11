@@ -97,7 +97,6 @@ void TitleState::load_gfx(std::string skin)
   keyright_x = 220;
 
   demo_player.load_gfx(skin);
-   printf("titlestate load gfx done\n");
 }
 
 void TitleState::unload_gfx()
@@ -157,7 +156,6 @@ void TitleState::unload_gfx()
 
 void TitleState::draw()
 {
-  printf("titlestate draw began\n");
   if(blinking_steps == BLINK_REMANENCE)
   {
      blinking_steps = 0;
@@ -171,7 +169,7 @@ void TitleState::draw()
   {
      blinking_steps++;
   }
-  printf(" blinking_steps : %d, blink_clip : %d\n",blinking_steps,blink_clip);
+  
   //sentences[step] -> draw (sentences_x[step], sentences_y[step]);
   if (sentences[step] != NULL)
   {
