@@ -312,16 +312,17 @@ void SkinsMenuState::load_gfx(std::string skin)
 
   //TODO:
   // Arbitrary position need to be fixed regarding psp rendering
-  skins_preview_x = 85; //CL_Integer_to_int("menu_skins/skins-preview-coords/left", &gfx);
+  skins_preview_x = PSP_SDL_SCREEN_WIDTH/2 - (skins_board[0][0]-> logo) -> w;//85;
+ //CL_Integer_to_int("menu_skins/skins-preview-coords/left", &gfx);
   skins_preview_y = 80; //CL_Integer_to_int("menu_skins/skins-preview-coords/top", &gfx);
   
-  skins_preview_width = 80; //CL_Integer_to_int("menu_skins/skins-preview-coords/width", &gfx);
-  skins_preview_height = 68; //CL_Integer_to_int("menu_skins/skins-preview-coords/height", &gfx);
+  skins_preview_width  = (skins_board[0][0]-> logo) -> w; //CL_Integer_to_int("menu_skins/skins-preview-coords/width", &gfx);
+  skins_preview_height = logo_unavailable -> h + 5; //CL_Integer_to_int("menu_skins/skins-preview-coords/height", &gfx);
 
-  cursor_x      = 100; //CL_Integer_to_int("menu_skins/cursor-coords/left", &gfx);
-  cursor_y      = 80; //CL_Integer_to_int("menu_skins/cursor-coords/top", &gfx);
-  cursor_width  = 190; //CL_Integer_to_int("menu_skins/cursor-coords/width", &gfx);
-  cursor_height = 75; //CL_Integer_to_int("menu_skins/cursor-coords/height", &gfx);
+  cursor_x      = PSP_SDL_SCREEN_WIDTH/2 - (cursor->w); //CL_Integer_to_int("menu_skins/cursor-coords/left", &gfx);
+  cursor_y      = 73; //CL_Integer_to_int("menu_skins/cursor-coords/top", &gfx);
+  cursor_width  = cursor->w; //CL_Integer_to_int("menu_skins/cursor-coords/width", &gfx);
+  cursor_height = cursor->h; //CL_Integer_to_int("menu_skins/cursor-coords/height", &gfx);
  
   
 }
@@ -357,12 +358,6 @@ void SkinsMenuState::unload_gfx()
 
 void SkinsMenuState::draw()
 {
-
-//  int x = 400 - background -> get_width()/2;
-//  int y = 300 - background -> get_height()/2;
-//TODO : choose or determine correct position of option menu
-   // using PSP_SDL_SCREEN_WIDTH and PSP_SDL_SCREEN_HEIGHT
-//background -> draw(x,y);
    int x = PSP_SDL_SCREEN_WIDTH/2 - (background->w + background->w%2)/2;
    int y = PSP_SDL_SCREEN_HEIGHT/2 - (background->h + background->h%2)/2;;
    psp_sdl_blit_on_screen_at_XY(background, x, y);
@@ -520,7 +515,7 @@ void SkinsMenuState::events()
 }
 
 void SkinsMenuState::appear()
-{ 
+{ printf("alpha : %d\n",alpha);
   if(alpha + ( (int)(ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval)) >= ALPHA_OPAQUE)
   {
     step = STEP_NORMAL;

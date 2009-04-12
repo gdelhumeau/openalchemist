@@ -14,9 +14,10 @@ BitmapFont::BitmapFont(std::string skin, int which_font)
 {
   FontPic = NULL;
   load_gfx(skin, which_font);
+  nb_char_per_pic = NB_MAX_CHAR_PER_PIC - which_font ;
   if (FontPic != NULL)
   {
-    charSize = FontPic->w / NB_CHAR_PER_PIC;
+    charSize = FontPic->w / nb_char_per_pic;
     fillClip();
   }
 }
@@ -53,17 +54,12 @@ void BitmapFont::unload_gfx()
 	SDL_FreeSurface(FontPic);
 	FontPic = NULL;
     }
-printf("unload_gfx done for bitmap font\n");
-/*    for (int i=0; i<NB_CHAR_PER_PIC; i++)
-    {
-	delete &charClip[i];
-	charClip[i] = NULL;
-    }*/
+//printf("unload_gfx done for bitmap font\n");
 }
 
 void BitmapFont::fillClip()
 {
-  for (int i=0; i<NB_CHAR_PER_PIC; i++)
+  for (int i=0; i<nb_char_per_pic; i++)
   {
      charClip[i].x = i * charSize; 
      charClip[i].y = 0;

@@ -53,7 +53,7 @@ void FrontLayer::load_gfx(CL_ResourceManager *gfx_frontlayer)
   for(int i=1; i<=number; ++i)
   {
     FrontLayerSprite *fsprite = new FrontLayerSprite();
-    fsprite -> sprite = new CL_Sprite("frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
+    fsprite -> sprite = IMG_Load_fromSkin(skin, "frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
     fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", gfx_frontlayer);
     fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", gfx_frontlayer);
     list.insert(list.end(), fsprite);

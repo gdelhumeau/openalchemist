@@ -46,7 +46,6 @@ void Preferences::read()
     if (OptionFile != NULL)
     {
 	read_options_file(OptionFile);
-printf("after read skin is : %s\n",skin.c_str());
 	fclose(OptionFile);
     }
     else
@@ -149,7 +148,7 @@ void Preferences::read_options_file(FILE *file)
     maxfps        = ini.get("MaxFPS", maxfps);
     colorblind    = ini.get("Colorblind", colorblind);
     skin          = ini.get("Skin", skin);
-
+printf("render opengl read : %d\n",render_opengl);
 /*  //We do not manage skins by zip archives on psp, maybe later
     try{
       CL_Zip_Archive zip_test(skin_file);

@@ -128,7 +128,7 @@ class GameEngine{
   /**
    * Constructor
    */
-  GameEngine(SDL_Surface *pspScreen,/*CL_DisplayWindow *window,*/ bool opengl);
+  GameEngine(SDL_Surface *pspScreen/*CL_DisplayWindow *window,*/ );
 
   /**
    * Destructor

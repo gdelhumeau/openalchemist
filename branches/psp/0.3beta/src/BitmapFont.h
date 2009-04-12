@@ -16,7 +16,7 @@
 #include "psp_sdl.h"
 #include "misc.h"
 
-#define NB_CHAR_PER_PIC 11
+#define NB_MAX_CHAR_PER_PIC 11
 #define SCORE_FONT 0
 #define COMBO_FONT 1
 
@@ -34,11 +34,12 @@ public:
    * Size of each char
    */
    int charSize;
+   int nb_char_per_pic;
 
   /**
    *  Array of each char
    */
-   SDL_Rect charClip[NB_CHAR_PER_PIC];
+   SDL_Rect charClip[NB_MAX_CHAR_PER_PIC];
 
   void load_gfx(std::string skin, int which_font);
   void unload_gfx();

@@ -53,11 +53,11 @@ std::string read_ln(CL_InputSource_File *file)
 void IniFile::read(/*CL_InputSource_File*/ FILE *file)
 {
   clear();
-  printf("inifile->read method called, clear done\n");
-  //file -> open();
+  //printf("inifile->read method called, clear done\n");
+
   // We will consider it as allready opened for conveniance
   char c_temp = fgetc(file);
-  printf("fgetc done\n");
+  //printf("fgetc done\n");
   while(c_temp != EOF)
   { 
     char tempStr[MAX_LENGTH_LINE]="";
@@ -72,23 +72,23 @@ void IniFile::read(/*CL_InputSource_File*/ FILE *file)
     }
 
     line = std::string(tempStr);
-printf("iniread line got : %s\n",line.c_str());
+//printf("iniread line got : %s\n",line.c_str());
     if(line.length() >1)
     {
       int separator = line.find(" = ", 0);
       if(separator)
       {
         e -> name = line.substr(0, separator);
-	printf("ini element name : %s\n",(e->name).c_str());
+	//printf("ini element name : %s\n",(e->name).c_str());
         e -> value = line.substr(separator + 3, line.length());
-        printf("ini value : %s\n",(e->value).c_str());
+        //printf("ini value : %s\n",(e->value).c_str());
 	list.insert(list.end(), e);
       }
     }
     c_temp = fgetc(file);
 
   }
-  printf("out of the loop\n");
+  //printf("out of the loop\n");
 }
 
 void IniFile::write(/*CL_OutputSource_File*/ FILE * OptionFile)
@@ -230,10 +230,10 @@ std::string IniFile::get(std::string name, std::string def)
   while(it != list.end())
   {
     IniElement *e = (IniElement*)*it;
-    printf("get element : %s\n",(e->name).c_str());
+    //printf("get element : %s\n",(e->name).c_str());
     if(e -> name == name)
     {
-      printf("get match : value : %s\n",(e->value).c_str());
+      //printf("get match : value : %s\n",(e->value).c_str());
       return e -> value;
     }
     it++;

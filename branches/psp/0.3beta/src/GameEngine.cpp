@@ -18,10 +18,11 @@
 #include "CommonResources.h"
 #include "misc.h"
 
-GameEngine::GameEngine(SDL_Surface * pspScreen,/*CL_DisplayWindow *window,*/ bool opengl)
+GameEngine::GameEngine(SDL_Surface * pspScreen/*CL_DisplayWindow *window,*/)
 {
   //this -> window = window;
-  this -> opengl = opengl;
+  Preferences *pref = pref_get_instance();
+  this -> opengl = pref-> render_opengl;
 }
 
 
@@ -78,7 +79,7 @@ void GameEngine::run()
   {
 #ifndef LINUX_MODE
     SceCtrlData pad;
-    sceCtrlPeekBufferPositive(&pad, 1);
+    sceCtrlReadBufferPositive(&pad, 1);
     if ( (previousKey != pad.Buttons)|| (repeat >25))
 	{
 	   repeat = 0;
