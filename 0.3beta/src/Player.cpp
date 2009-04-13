@@ -555,32 +555,13 @@ void Player::fall()
   undo_piece2_number = current_piece2 -> get_piece_number();
   undo_angle = target_angle;
 
-  printf("piece1 before x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
-
   current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
                                  board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
 
-  printf("piece1 after x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
-
-printf("board.game_left : %d\n",board.game_left);
-printf("x : %d\n",x);
-float toPrint = TO_RAD;
-printf("cos(angle*TO_RAD) : %f\n",cos(angle*toPrint));
-printf("current_pieces_r : %d\n",current_pieces_r);
-printf("board.zone_top : %d\n",board.zone_top);
-printf("resources->pieces_height/2 : %d\n",resources->pieces_height/2);
-printf("sin((angle)*TO_RAD) : %f\n",sin((angle)*toPrint));
-
-
-//printf("piece1 x: %f y: %f\n",board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,                                board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
-printf("piece2 before x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
   current_piece2 -> set_position(board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,
                                  board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
-printf("piece2 after x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
 
   board.add_pieces(current_piece1, current_piece2);
-      
-      
 
   // We must respect the next piece order (ex: red to the left, blue to the right...)
   float piece1x = cos(angle*TO_RAD)*current_pieces_r;

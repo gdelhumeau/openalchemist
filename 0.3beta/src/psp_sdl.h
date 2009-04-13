@@ -33,9 +33,6 @@ extern "C" {
 # define PSP_SDL_EDITOR_WIDTH    480
 # define PSP_SDL_EDITOR_HEIGHT   262
 
-#define ALPHA_OPAQUE 255
-#define ALPHA_TRANSPARENT 0
-
 #ifndef LINUX_MODE
 # define PSP_LINE_SIZE  512
 # else
