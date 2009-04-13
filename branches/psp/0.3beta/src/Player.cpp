@@ -11,8 +11,6 @@
 
 #include <math.h>
 
-//#include <ClanLib/core.h>
-
 #include "Player.h"
 #include "Piece.h"
 #include "Preferences.h"
@@ -20,6 +18,7 @@
 #include "misc.h"
 #include "Board.h"
 #include "GameEngine.h"
+#include "IniFile.h"
 
 #define PI M_PI
 #define TO_RAD PI/180
@@ -137,6 +136,18 @@ void Player::new_game()
 
 void Player::load_gfx(std::string skin)
 {
+  FILE * general_ini;
+  IniFile general_resources;
+  std::string general_ini_path = "skins/" + skin + "/general.ini";
+  general_ini = fopen(general_ini_path.c_str(), "r");
+  if (general_ini != NULL)
+  {
+	general_resources.read(general_ini);
+	fclose(general_ini);
+  }
+  else
+     exit(1);
+
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
 
@@ -146,9 +157,17 @@ void Player::load_gfx(std::string skin)
   //CL_ResourceManager gfx_preview_pieces("pieces_preview.xml", &zip, false);
   //CL_ResourceManager gfx("general.xml", &zip, false);
   unload_gfx();
+  int piece_preview_1st_x     = general_resources.get("pieces_preview_x",0);
+  int piece_preview_1st_y     = general_resources.get("pieces_preview_y",0);
+  int piece_preview_space_row = general_resources.get("pieces_preview_sp_rw",0);
+  int piece_preview_space_col = general_resources.get("pieces_preview_sp_col",0);
+  int piece_preview_nb_col    = general_resources.get("pieces_preview_nb_col",1);
 
+  int piece_preview_per_col   = NUMBER_OF_PIECES / piece_preview_nb_col;
+  
   // Getting preferences (to know if colorbling is activated)
   Preferences *pref = pref_get_instance();
+
   
   // First we load the sprites
   for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
@@ -180,8 +199,10 @@ void Player::load_gfx(std::string skin)
       temp = "piece"+to_string(i)+"/little.png";
       pieces_mini[i-1] = IMG_Load_fromSkin(skin, (char*)temp.c_str()); 
     }
-    pieces_preview_x[i-1] = 30;//CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left");
-    pieces_preview_y[i-1] = i*20 +5;//CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top");
+
+    pieces_preview_x[i-1] = piece_preview_1st_x + (piece_preview_space_col)*((int)((i-1)/piece_preview_per_col));
+    printf("pieces_preview_x[i-1] = %d\n",pieces_preview_x[i-1]);
+    pieces_preview_y[i-1] = piece_preview_1st_y + (piece_preview_space_row)*((i-1)%piece_preview_per_col);
 
     if(i>3)
     {
@@ -191,20 +212,20 @@ void Player::load_gfx(std::string skin)
   }
 
   // Getting sprites position
-  next_left = 150;//CL_Integer_to_int("game/next_left", &gfx);
-  next_top = 19;//CL_Integer_to_int("game/next_top", &gfx);
+  next_left              = general_resources.get("next_left", 0);
+  next_top               = general_resources.get("next_top", 0);
 
-  // Getting game zone position
-  board.game_top = 95;//CL_Integer_to_int("game/top", &gfx);
-  board.game_left = 150;//CL_Integer_to_int("game/left", &gfx); 
-  board.zone_top = 45;//CL_Integer_to_int("zone_top", &gfx);
+  // Getting game zone postion                   
+  board.game_top         = general_resources.get("game_top", 0);
+  board.game_left        = general_resources.get("game_left", 0);
+  board.zone_top         = general_resources.get("zone_top", 0);
 
-  board.score_top = 28;//CL_Integer_to_int("score_top", &gfx);
-  board.score_right = 455;//CL_Integer_to_int("score_right", &gfx);
-  board.bonus_top = 75;//CL_Integer_to_int("bonus_score_top", &gfx);
-  board.bonus_right = 455;//CL_Integer_to_int("bonus_score_right", &gfx);
-  board.hightscore_top = 120;//CL_Integer_to_int("hight_score_top", &gfx);
-  board.hightscore_right = 455;//CL_Integer_to_int("hight_score_right", &gfx);
+  board.score_top        = general_resources.get("score_top", 0);
+  board.score_right      = general_resources.get("score_right", 0);
+  board.bonus_top        = general_resources.get("bonus_top", 0);
+  board.bonus_right      = general_resources.get("bonus_right", 0);
+  board.hightscore_top   = general_resources.get("hightscore_top", 0);
+  board.hightscore_right = general_resources.get("hightscore_right", 0);
 
   // Calculating c² = a²+b³
   current_pieces_r = resources->pieces_width/2;
@@ -284,11 +305,9 @@ void Player::draw()
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
     if(i >= board.visible_pieces)
-      //pieces_hidden[i-3] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
       psp_sdl_blit_on_screen_at_XY(pieces_hidden[i-3], pieces_preview_x[i], pieces_preview_y[i]);
       
     else
-      //pieces_mini[i] -> draw(pieces_preview_x[i], pieces_preview_y[i], 0);
       psp_sdl_blit_on_screen_at_XY(pieces_mini[i], pieces_preview_x[i], pieces_preview_y[i]);
   }
 
@@ -316,18 +335,10 @@ void Player::draw()
 
   if(GAME_MODE_PLAYING == game_mode)
   {
-    //printf("drawing player, x = %f\n",x);
-    // Setting playable pieces position 
-//printf("draw piece1 before x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
     current_piece1 -> set_position(board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,
                                    board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
-//printf("draw piece1 after x: %f y: %f\n", current_piece1->get_x(),current_piece1->get_y());
-    //printf("position piece1 : x=%f, y=%f \n", board.game_left+x+cos(angle*TO_RAD)*current_pieces_r,board.zone_top+resources->pieces_height/2+sin((angle)*TO_RAD)*current_pieces_r);
-//printf("draw piece2 before x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
     current_piece2 -> set_position(board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,
                                    board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
-//printf("draw piece2 after x: %f y: %f\n", current_piece2->get_x(),current_piece2->get_y());
-    //printf("position piece2 : x=%f, y=%f \n", board.game_left+x+cos((angle+180)*TO_RAD)*current_pieces_r,                                  board.zone_top+resources->pieces_height/2+sin((angle+180)*TO_RAD)*current_pieces_r);
 
     // Displaying playable pieces
     current_piece1 -> draw();
@@ -388,7 +399,6 @@ void Player::events()
     } 
     
     // Cheatting
-    //if(CL_Keyboard::get_keycode(CL_KEY_A) && CL_Keyboard::get_keycode(CL_KEY_L))
     case KEY_CHEAT:
     {
       printf("I got cheatting request\n");
