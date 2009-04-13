@@ -113,36 +113,16 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
     piece_on_bottom = piece1;
   }
   
-  //resources->pieces_width = 30;
   int piece_top_x = (int)((int)piece_on_top->get_x()-game_left)/(resources->pieces_width);
-  float piece_top_xf = (piece_on_top->get_x()-game_left)/(resources->pieces_width);
-  
-  printf("piece_on_top->get_x() = %f, game_left = %d, resources->pieces_width = %d\n",piece_on_top->get_x(),game_left,resources->pieces_width);
-  printf("piece_top_x if pieces_width = %d : %d, %f\n",resources->pieces_width,piece_top_x,piece_top_xf);
 
-  //resources->pieces_width = 25;
-  //piece_top_x = (int)((int)piece_on_top->get_x()-game_left)/(resources->pieces_width);
-
-  //piece_top_xf = (piece_on_top->get_x()-game_left)/(resources->pieces_width);
-  printf("piece_on_top->get_x() = %f, game_left = %d, resources->pieces_width = %d\n",piece_on_top->get_x(),game_left,resources->pieces_width);
-  printf("piece_top_x if pieces_width = %d : %d,%f\n",resources->pieces_width,piece_top_x,piece_top_xf);
-
-  //resources->pieces_width = 30;
   int piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(resources->pieces_width);  
-  float piece_bottom_xf = (piece_on_bottom->get_x()-game_left)/(resources->pieces_width);  
-  printf("piece_bottom_x if pieces_width = %d : %d, %f\n",resources->pieces_width,piece_bottom_x,piece_bottom_xf);
-  //resources->pieces_width = 25;
-  //piece_bottom_x = (int)((int)piece_on_bottom->get_x()-game_left)/(resources->pieces_width);
-  //piece_bottom_xf = (piece_on_bottom->get_x()-game_left)/(resources->pieces_width);    
-  printf("piece_bottom_x if pieces_width = %d : %d,%f\n",resources->pieces_width,piece_bottom_x,piece_bottom_xf);
-  
 
   int y_bottom = -1;
   while(y_bottom < NUMBER_OF_LINES-1 && !board[piece_bottom_x][y_bottom+1])
   {
     ++y_bottom;
-  }    
-        
+  }
+
   if(y_bottom == -1 && board[piece_bottom_x][0])
   {
     calc_score();
@@ -152,14 +132,13 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
   {
     board[piece_bottom_x][y_bottom] = piece_on_bottom;
   }
-                
-                
+
   int y_top = -1;
   while(y_top < NUMBER_OF_LINES-1 && !board[piece_top_x][y_top+1])
   {
     ++y_top;
-  }      
-        
+  }
+
   if(y_top==-1 && board[piece_top_x][0])
   {
     calc_score();
@@ -167,20 +146,16 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
     board[piece_bottom_x][y_bottom] = NULL;
   }
   else
-  {          
+  {
     board[piece_top_x][y_top] = piece_on_top;
   } 
 
-printf("piece_on_bottom if pieces_width = 25 : x= %f, y=%f\n",piece_on_bottom->get_x(),piece_on_bottom->get_y());
-printf("piece_bottom_x : %d, resources->pieces_width : %d, (piece_bottom_x*resources->pieces_width) : %d, game_left : %d, result : %d\n",piece_bottom_x,resources->pieces_width,(piece_bottom_x*resources->pieces_width),game_left,(piece_bottom_x*resources->pieces_width)+game_left);
   piece_on_bottom -> start_fall((piece_bottom_x*resources->pieces_width)+game_left,
                                 game_top+(y_bottom-2)*resources->pieces_height);
 
-printf("piece_on_bottom after star_fall if pieces_width = 25 : x= %f, y=%f\n",piece_on_bottom->get_x(),piece_on_bottom->get_y());
-
   piece_on_top -> start_fall((piece_top_x*resources->pieces_width)+game_left,
                              game_top+(y_top-2)*resources->pieces_height);
-        
+
   falling_list.clear();
   falling_list.push_back(piece_on_top);
   falling_list.push_back(piece_on_bottom);
@@ -232,14 +207,13 @@ bool Board::detect_pieces_to_destroy()
   for(int k=0; k<NUMBER_OF_COLS; ++k)
     for(int l=0; l<NUMBER_OF_LINES; ++l)
       board_mark[k][l] = false;
-      
+
   // Stack to explore the board
   std::stack<Coords*> stack;
-  
+
   // We clear the list witch will contains the pieces to make disappear
   list_to_destroy.clear();
-      
-    
+
   // We will look for all pieces in the table
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
@@ -248,9 +222,9 @@ bool Board::detect_pieces_to_destroy()
       {
         int counter = 0;            
         int score_of_root = board[i][j] -> get_piece_number();
-        
+
         std::vector<Coords*> list;
-           
+
         stack.push(new Coords(i,j));
         while(!stack.empty())
         {
@@ -259,7 +233,7 @@ bool Board::detect_pieces_to_destroy()
           int y = c->y;
           stack.pop(); 
           delete c;
-                       
+
           if(x >= 0 && x < NUMBER_OF_COLS && y >= 0 && y < NUMBER_OF_LINES 
              && board[x][y]!=NULL)
           {
@@ -271,17 +245,16 @@ bool Board::detect_pieces_to_destroy()
               stack.push(new Coords(x - 1, y));
               stack.push(new Coords(x + 1, y));
               stack.push(new Coords(x, y - 1));
-              stack.push(new Coords(x, y + 1));                                                                  
+              stack.push(new Coords(x, y + 1));
             }
-          }              
-                             
+          }
         }
 
         if(counter >= 3)
         {
           // In the case we destroy the last element
           std::vector<Coords*>::iterator it = list.begin();
-          Coords *c = (Coords*) *it;                 
+          Coords *c = (Coords*) *it;
           u_int score_of_root = board[c->x][c->y]->get_piece_number(); 
 
 	  // Last element
@@ -298,14 +271,14 @@ bool Board::detect_pieces_to_destroy()
             bonus_score += (counter - 3)*board[i][j]->get_score_value();
           }
 	  Coords new_piece(NUMBER_OF_COLS+1,-1);
-          
+
 	  //std::vector<Coords*>::iterator it = list.begin();
 	  while(it != list.end())
 	  {
 	    Coords *c = (Coords*) *it;                 
 	    board[c->x][c->y]->start_disappear();                    
 	    list_to_destroy.insert(list_to_destroy.end(),c);
-                    
+
 	    // Select the lefter and bottomer Coords for create new piece
 	    if(c->y > new_piece.y)
 	    {
@@ -325,7 +298,7 @@ bool Board::detect_pieces_to_destroy()
 	    {
 	      new_piece.piece_number = NUMBER_OF_PIECES-1;
 	    }
-            
+
 	    if(new_piece.piece_number > visible_pieces - 1)
 	    {
 	      ++visible_pieces;
@@ -338,12 +311,12 @@ bool Board::detect_pieces_to_destroy()
 
 	    ++it;
 	  }
-                
+
 	  // We don't add a new piece if we align 3 last elements
 	  if(score_of_root != NUMBER_OF_PIECES - 1)
 	    list_to_create.insert(list_to_create.end(), new Coords(&new_piece));
 	}      
-        
+
       }
     }
 
@@ -483,19 +456,19 @@ void Board::calc_score()
       }
     }
   printf("Score : %d\n", score);
-  str_score = /*format_number(*/to_string(score)/*)*/;
-  str_bonus = /*format_number(*/to_string(bonus_score)/*)*/;
-  str_hightscore = /*format_number(*/to_string(resources->highscore)/*)*/; 
+  str_score = to_string(score);
+  str_bonus = to_string(bonus_score);
+  str_hightscore = to_string(resources->highscore); 
   printf("HighScore string : %s\n",str_hightscore.c_str());
 //font stuffs
-  int score_width      = (resources->main_font->charSize) * str_score.length();
-  int bonus_width      = (resources->main_font->charSize) * str_bonus.length();
-  int hightscore_width = (resources->main_font->charSize) * str_hightscore.length();
+//  int score_width      = (resources->main_font->charSize) * str_score.length();
+//  int bonus_width      = (resources->main_font->charSize) * str_bonus.length();
+//  int hightscore_width = (resources->main_font->charSize) * str_hightscore.length();
 
 //TODO : Cleaning useless
-  score_left = score_right - score_width;
-  bonus_left = bonus_right - bonus_width;
-  hightscore_left = hightscore_right - hightscore_width;
+//  score_left = score_right - score_width;
+//  bonus_left = bonus_right - bonus_width;
+//  hightscore_left = hightscore_right - hightscore_width;
 }
 
 void Board::undo(SDL_Surface **pieces_normal, SDL_Surface** pieces_appearing, SDL_Surface** pieces_disappearing, SDL_Surface** pieces_mini)
