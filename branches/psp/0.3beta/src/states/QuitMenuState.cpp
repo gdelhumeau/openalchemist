@@ -256,45 +256,45 @@ void QuitMenuState::set_action(int a)
 
 void QuitMenuState::appear()
 {
-  if(alpha + ( (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval)) >= ALPHA_OPAQUE)
+  if(alpha + ( (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval)) >= SDL_ALPHA_OPAQUE)
   {
     step = STEP_NORMAL;
-    alpha = ALPHA_OPAQUE;
+    alpha = SDL_ALPHA_OPAQUE;
   }
   else
-    alpha += (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+    alpha += (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
 
   //current_panel  -> set_alpha(alpha);
-  SDL_SetAlpha(current_panel, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(current_panel, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //yes_selected   -> set_alpha(alpha);
-  SDL_SetAlpha(yes_selected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(yes_selected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //yes_unselected -> set_alpha(alpha);  
-  SDL_SetAlpha(yes_unselected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(yes_unselected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //no_selected    -> set_alpha(alpha);
-  SDL_SetAlpha(no_selected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(no_selected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //no_unselected  -> set_alpha(alpha);
-  SDL_SetAlpha(no_unselected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(no_unselected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   
 }
 
 
 void QuitMenuState::disappear()
 {
-  alpha -= (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+  alpha -= (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
 //current_panel  -> set_alpha(alpha);
-  SDL_SetAlpha(current_panel, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(current_panel, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //yes_selected   -> set_alpha(alpha);
-  SDL_SetAlpha(yes_selected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(yes_selected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //yes_unselected -> set_alpha(alpha);  
-  SDL_SetAlpha(yes_unselected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(yes_unselected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //no_selected    -> set_alpha(alpha);
-  SDL_SetAlpha(no_selected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(no_selected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //no_unselected  -> set_alpha(alpha);
-  SDL_SetAlpha(no_unselected, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(no_unselected, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
-  if(alpha <= ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
+  if(alpha <= SDL_ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
   {
     common_resources -> engine -> stop_current_state();
     switch(action)
@@ -313,7 +313,7 @@ void QuitMenuState::disappear()
 void QuitMenuState::start()
 {
   step = STEP_APPEARING;
-  alpha = ALPHA_TRANSPARENT;
+  alpha = SDL_ALPHA_TRANSPARENT;
 }
 
 void QuitMenuState::print()

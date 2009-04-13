@@ -280,6 +280,8 @@ void SkinsMenuState::deinit()
 
 void SkinsMenuState::load_gfx(std::string skin)
 {
+
+SDL_Surface * temp;
   // Getting skins resources
   /*CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_skins.xml", &zip, false);*/
@@ -515,30 +517,34 @@ void SkinsMenuState::events()
 }
 
 void SkinsMenuState::appear()
-{ printf("alpha : %d\n",alpha);
-  if(alpha + ( (int)(ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval)) >= ALPHA_OPAQUE)
+{
+
+ printf("alpha : %d\n",alpha);
+ 
+  if(alpha + ( (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval)) >= SDL_ALPHA_OPAQUE)
   {
     step = STEP_NORMAL;
-    alpha = ALPHA_OPAQUE;
+    alpha = SDL_ALPHA_OPAQUE;
   }
   else
-    alpha += (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+    alpha += (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+
 
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(background , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //arrow_up   -> set_alpha(alpha);
-  SDL_SetAlpha(arrow_up , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(arrow_up , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //arrow_down -> set_alpha(alpha);
-  SDL_SetAlpha(arrow_down , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(arrow_down , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //cursor     -> set_alpha(alpha);
-  SDL_SetAlpha(cursor , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(cursor , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //logo_unavailable -> set_alpha(alpha);
-  SDL_SetAlpha(logo_unavailable , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(logo_unavailable , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
   for(u_int i = 0; i < skins_list.size(); ++i)
   {
     //skins_list[i] -> logo -> set_alpha(alpha);
-    SDL_SetAlpha(skins_list[i] -> logo , SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(skins_list[i] -> logo , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   }
 
 
@@ -546,26 +552,26 @@ void SkinsMenuState::appear()
 
 void SkinsMenuState::disappear()
 {  
-  alpha -= (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+  alpha -= (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(background , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //arrow_up   -> set_alpha(alpha);
-  SDL_SetAlpha(arrow_up , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(arrow_up , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //arrow_down -> set_alpha(alpha);
-  SDL_SetAlpha(arrow_down , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(arrow_down , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //cursor     -> set_alpha(alpha);
-  SDL_SetAlpha(cursor , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(cursor , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   //logo_unavailable -> set_alpha(alpha);
-  SDL_SetAlpha(logo_unavailable , SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(logo_unavailable , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
   for(u_int i = 0; i < skins_list.size(); ++i)
   {
     //skins_list[i] -> logo -> set_alpha(alpha);
-    SDL_SetAlpha(skins_list[i] -> logo , SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(skins_list[i] -> logo , SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   }
 
-  if(alpha <= ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
+  if(alpha <= SDL_ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
   {
     common_resources -> engine -> stop_current_state();
     start();
@@ -576,9 +582,9 @@ void SkinsMenuState::disappear()
 void SkinsMenuState::start()
 {
   if(common_resources -> engine -> is_opengl_used())
-  {
+   {
     step = STEP_APPEARING;
-    alpha = ALPHA_TRANSPARENT;
+    alpha = SDL_ALPHA_TRANSPARENT;
   }
   else
   {

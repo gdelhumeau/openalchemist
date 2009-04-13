@@ -320,66 +320,66 @@ void OptionsMenuState::events()
 }	
 void OptionsMenuState::appear()
 { 
-  if(alpha + (int)(ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval) >= ALPHA_OPAQUE)
+  if(alpha + (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval) >= SDL_ALPHA_OPAQUE)
   {
     step = STEP_NORMAL;
     alpha = SDL_ALPHA_OPAQUE;
   }
   else
-    alpha += (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+    alpha += (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
   //TODO: see wether SDL has alpha features
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background,SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(background,SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   psp_sdl_blit_on_screen(background);
   for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
     //items[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     psp_sdl_blit_on_screen(items[i]);
     //items_selected[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     psp_sdl_blit_on_screen(items_selected[i]);
     
   }
 
 //  sound_level_sprites[sound_level] -> set_alpha(alpha);
 //  sound_level_sprites[music_level] -> set_alpha(alpha);
-  SDL_SetAlpha(sound_level_sprites[sound_level], SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(sound_level_sprites[sound_level], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   psp_sdl_blit_on_screen(sound_level_sprites[sound_level]);
-  SDL_SetAlpha(sound_level_sprites[music_level], SDL_SRCALPHA , alpha);
+  SDL_SetAlpha(sound_level_sprites[music_level], SDL_SRCALPHA | SDL_RLEACCEL , alpha);
   psp_sdl_blit_on_screen(sound_level_sprites[music_level]);
 
 }
 
 void OptionsMenuState::disappear()
 {  
-  alpha -= (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+  alpha -= (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background,SDL_SRCALPHA, alpha);	
+  SDL_SetAlpha(background,SDL_SRCALPHA | SDL_RLEACCEL, alpha);	
   psp_sdl_blit_on_screen(background);
 
   for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
     //items[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     psp_sdl_blit_on_screen(items[i]);
     //items_selected[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     psp_sdl_blit_on_screen(items_selected[i]);
   }
 
 //  sound_level_sprites[sound_level] -> set_alpha(alpha);
 //  sound_level_sprites[music_level] -> set_alpha(alpha);
-  SDL_SetAlpha(sound_level_sprites[sound_level], SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(sound_level_sprites[sound_level], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   psp_sdl_blit_on_screen(sound_level_sprites[sound_level]);
-  SDL_SetAlpha(sound_level_sprites[music_level], SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(sound_level_sprites[music_level], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   psp_sdl_blit_on_screen(sound_level_sprites[music_level]);
 
 
 
-  if(alpha <= ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
+  if(alpha <= SDL_ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
   {
     switch(selection)
     {

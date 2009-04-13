@@ -72,7 +72,6 @@ void Board::draw()
     }
 
   // Displaying scores
-//TODO: find font stuffs to display the scores
   resources -> main_font -> draw(score_right, score_top, str_score);
   resources -> main_font -> draw(bonus_right, bonus_top, str_bonus);
   resources -> main_font -> draw(hightscore_right, hightscore_top, str_hightscore);

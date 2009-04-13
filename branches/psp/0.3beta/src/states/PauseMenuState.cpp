@@ -279,50 +279,50 @@ void PauseMenuState::events()
 }
 void PauseMenuState::appear()
 { 
-  if(alpha + ( (int)(ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval) >= ALPHA_OPAQUE))
+  if(alpha + ( (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED*common_resources -> time_interval) >= SDL_ALPHA_OPAQUE))
   {
     step = STEP_NORMAL;
-    alpha = ALPHA_OPAQUE;
+    alpha = SDL_ALPHA_OPAQUE;
   }
   else
-    alpha += (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+    alpha += (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(background, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
   for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
   {
     //items[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     //items_selected[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   }
 
   //undo_unavailable -> set_alpha(alpha);
-  SDL_SetAlpha(undo_unavailable, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(undo_unavailable, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
 }
 
 void PauseMenuState::disappear()
 {  
-  alpha -= (int)(ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
+  alpha -= (int)(SDL_ALPHA_OPAQUE * APPEARING_SPEED * common_resources -> time_interval);
 
   //background -> set_alpha(alpha);
-  SDL_SetAlpha(background, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(background, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   
   for(int i=0; i<PAUSE_NUMBER_OF_ITEMS; ++i)
   {
     //items[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
     //items_selected[i] -> set_alpha(alpha);
-    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA, alpha);
+    SDL_SetAlpha(items_selected[i], SDL_SRCALPHA | SDL_RLEACCEL, alpha);
   }
 
   //undo_unavailable -> set_alpha(alpha);*/
-  SDL_SetAlpha(undo_unavailable, SDL_SRCALPHA, alpha);
+  SDL_SetAlpha(undo_unavailable, SDL_SRCALPHA | SDL_RLEACCEL, alpha);
 
   // all is completly disappeared
-  if(alpha <= ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
+  if(alpha <= SDL_ALPHA_TRANSPARENT || !common_resources -> engine -> is_opengl_used())
   {
     common_resources -> engine -> stop_current_state();
     switch(selection)
@@ -379,7 +379,7 @@ void PauseMenuState::start()
   if(common_resources -> engine -> is_opengl_used())
   {
     step = STEP_APPEARING;
-    alpha = ALPHA_TRANSPARENT;
+    alpha = SDL_ALPHA_TRANSPARENT;
   }
   else
   {
