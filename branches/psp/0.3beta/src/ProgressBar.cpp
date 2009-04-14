@@ -11,6 +11,7 @@
 
 #include "ProgressBar.h"
 #include "misc.h"
+#include "IniFile.h"
 
 ProgressBar::ProgressBar()
 {
@@ -32,6 +33,12 @@ void ProgressBar::load_gfx(std::string skin)
   /*CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("progress_bar.xml", &zip, false);*/
   unload_gfx();
+  FILE * progress_bar_ini;
+  std::string progress_bar_ini_path = "skins/" + skin + "/progress_bar.ini";
+  IniFile progress_bar_resources;
+  progress_bar_ini = fopen(progress_bar_ini_path.c_str(), "r");
+  if (progress_bar_ini != NULL)
+     progress_bar_resources.read(progress_bar_ini);
 
   head     = IMG_Load_fromSkin(skin, "misc/bar-head.png"    );
   head_ok  = IMG_Load_fromSkin(skin, "misc/bar-head-ok.png" );
@@ -39,9 +46,9 @@ void ProgressBar::load_gfx(std::string skin)
   item     = IMG_Load_fromSkin(skin, "misc/bar-item.png"    );
   item_ok  = IMG_Load_fromSkin(skin, "misc/bar-item-ok.png" );
 
-  left     = 395; //CL_Integer_to_int("progress_bar/left",       &gfx);
-  head_top = 135; //CL_Integer_to_int("progress_bar/head/top",   &gfx);
-  foot_top = 245; //CL_Integer_to_int("progress_bar/foot/top",   &gfx);
+  left     = progress_bar_resources.get("left",0);//395; //CL_Integer_to_int("progress_bar/left",       &gfx);
+  head_top = progress_bar_resources.get("head_top",0);//135; //CL_Integer_to_int("progress_bar/head/top",   &gfx);
+  foot_top = progress_bar_resources.get("foot_top",0);//245; //CL_Integer_to_int("progress_bar/foot/top",   &gfx);
 
 }
 

@@ -1,37 +1,28 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="10" >
-  <Doc0 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/GameEngine.cpp" >
-   <View0 Encoding="" line="20" Type="Source" />
+ <DocsAndViews NumberOfDocuments="7" >
+  <Doc0 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Player.cpp" >
+   <View0 Encoding="" line="139" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/states/SkinsMenuState.cpp" >
-   <View0 Encoding="" line="533" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Preferences.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Preferences.h" >
-   <View0 Encoding="" line="26" Type="Source" />
-  </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Preferences.cpp" >
-   <View0 Encoding="" line="20" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/psp_main.cpp" >
+  <Doc2 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/IniFile.cpp" >
    <View0 Encoding="" line="0" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Board.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Piece.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/InterfaceC_CPP.cpp" >
-   <View0 Encoding="" line="7" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Board.h" >
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/GameEngine.h" >
-   <View0 Encoding="" line="130" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/ProgressBar.cpp" >
+   <View0 Encoding="" line="36" Type="Source" />
   </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/states/OptionsMenuState.cpp" >
-   <View0 Encoding="" line="401" Type="Source" />
-  </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/psp_sdl.h" >
-   <View0 Encoding="" line="35" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/psp_sdl.cpp" >
-   <View0 Encoding="" line="688" Type="Source" />
-  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

@@ -201,7 +201,6 @@ void Player::load_gfx(std::string skin)
     }
 
     pieces_preview_x[i-1] = piece_preview_1st_x + (piece_preview_space_col)*((int)((i-1)/piece_preview_per_col));
-    printf("pieces_preview_x[i-1] = %d\n",pieces_preview_x[i-1]);
     pieces_preview_y[i-1] = piece_preview_1st_y + (piece_preview_space_row)*((i-1)%piece_preview_per_col);
 
     if(i>3)
