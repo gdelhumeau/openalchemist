@@ -102,25 +102,6 @@ void PauseMenuState::load_gfx(std::string skin)
      items_top[item]  = y_first_entry + y_space_entry*item;
   }
 
-/*
-  items_left[PAUSE_ITEM_RESUME] =   50;   //CL_Integer_to_int("menu_pause/resume/left", &gfx);
-  items_top[PAUSE_ITEM_RESUME] =    50;   //CL_Integer_to_int("menu_pause/resume/top", &gfx);
-
-  items_left[PAUSE_ITEM_UNDO] =     50;   //CL_Integer_to_int("menu_pause/undo/left", &gfx);
-  items_top[PAUSE_ITEM_UNDO] =      75;   //CL_Integer_to_int("menu_pause/undo/top", &gfx);
-
-  items_left[PAUSE_ITEM_RETRY] =    50;   //CL_Integer_to_int("menu_pause/retry/left", &gfx);
-  items_top[PAUSE_ITEM_RETRY] =    100;   //CL_Integer_to_int("menu_pause/retry/top", &gfx);
-
-  items_left[PAUSE_ITEM_OPTIONS] =  50;   //CL_Integer_to_int("menu_pause/options/left", &gfx);
-  items_top[PAUSE_ITEM_OPTIONS] =  125;   //CL_Integer_to_int("menu_pause/options/top", &gfx);
-
-  items_left[PAUSE_ITEM_GIVEUP] =   50;   //CL_Integer_to_int("menu_pause/giveup/left", &gfx);
-  items_top[PAUSE_ITEM_GIVEUP] =   150;   //CL_Integer_to_int("menu_pause/giveup/top", &gfx);
-
-  items_left[PAUSE_ITEM_QUIT] =     50;   //CL_Integer_to_int("menu_pause/quit/left", &gfx);
-  items_top[PAUSE_ITEM_QUIT] =     175;   //CL_Integer_to_int("menu_pause/quit/top", &gfx);
-  */
 }
 
 void PauseMenuState::unload_gfx()
@@ -157,7 +138,6 @@ void PauseMenuState::draw()
 // Center background dialog
    int x = PSP_SDL_SCREEN_WIDTH/2 - (background->w + background->w%2)/2;
    int y = PSP_SDL_SCREEN_HEIGHT/2 - (background->h + background->h%2)/2;
-   printf (" pause background : x=%d, y=%d\n",x,y);
    psp_sdl_blit_on_screen_at_XY(background, x, y);
 
   // Drawing 

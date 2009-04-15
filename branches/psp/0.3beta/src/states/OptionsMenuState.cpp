@@ -20,6 +20,7 @@
 #include "../misc.h"
 #include "../Preferences.h"
 #include "../psp_sdl.h"
+#include "../IniFile.h"
 
 
 #define OPTIONS_ITEM_CHANGESKIN 0
@@ -43,6 +44,7 @@ void OptionsMenuState::init()
   sound_level = pref -> sound_level;
   music_level = pref -> music_level;
   printf("Optionmenustate sound and music level Ok\n");
+  selection = 0;
 
   for (int i=0; i<OPTIONS_NUMBER_OF_ITEMS; i++)
   {
@@ -73,48 +75,55 @@ void OptionsMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_options.xml", &zip, false);
 */
   unload_gfx();
+
+  FILE * option_menu_ini;
+  std::string option_menu_ini_path = "skins/" + skin + "/menu_options.ini";
+  IniFile option_menu_resources;
+  option_menu_ini = fopen(option_menu_ini_path.c_str(), "r");
+  if (option_menu_ini != NULL)
+     option_menu_resources.read(option_menu_ini);
+
   // First, the sprites
-  //background = new CL_Sprite("menu_options/dialog_background", &gfx); 
   background = IMG_Load_fromSkin(skin, "dialogs/options/background.png");
 
-  //items[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/unselected", &gfx);
-  //items_selected[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/selected", &gfx);
   items[OPTIONS_ITEM_CHANGESKIN] = IMG_Load_fromSkin(skin, "dialogs/options/changeskin-unselected.png");
   items_selected[OPTIONS_ITEM_CHANGESKIN] = IMG_Load_fromSkin(skin, "dialogs/options/changeskin-selected.png");
 
-  //items[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
-  //items_selected[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/selected", &gfx);
   items[OPTIONS_ITEM_FULLSCREEN] = IMG_Load_fromSkin(skin, "dialogs/options/fullscreen-unselected.png");
   items_selected[OPTIONS_ITEM_FULLSCREEN] = IMG_Load_fromSkin(skin, "dialogs/options/fullscreen-selected.png");
 
-  //items[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/unselected", &gfx);
-  //items_selected[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/selected", &gfx);
   items[OPTIONS_ITEM_SOUND] = IMG_Load_fromSkin(skin, "dialogs/options/sound-unselected.png");
   items_selected[OPTIONS_ITEM_SOUND] = IMG_Load_fromSkin(skin, "dialogs/options/sound-selected.png");
 
-  //items[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/unselected", &gfx);
-  //items_selected[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/selected", &gfx);
-  items[OPTIONS_ITEM_MUSIC] = IMG_Load_fromSkin(skin, "dialogs/options/music-selected.png");
-  items_selected[OPTIONS_ITEM_MUSIC] = IMG_Load_fromSkin(skin, "dialogs/options/music-unselected.png");
+  items[OPTIONS_ITEM_MUSIC] = IMG_Load_fromSkin(skin, "dialogs/options/music-unselected.png");
+  items_selected[OPTIONS_ITEM_MUSIC] = IMG_Load_fromSkin(skin, "dialogs/options/music-selected.png");
 
-  //items[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/unselected", &gfx);
-  //items_selected[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/selected", &gfx);
   items[OPTIONS_ITEM_QUIT] = IMG_Load_fromSkin(skin, "dialogs/options/quit-unselected.png");
   items_selected[OPTIONS_ITEM_QUIT] = IMG_Load_fromSkin(skin, "dialogs/options/quit-selected.png");
 
-  
   for(int i=0; i<=10; ++i)
   {
    char path[30];
    sprintf(path, "dialogs/options/level-%d.png",i);
-   //sound_level_sprites[i] = new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx);
    sound_level_sprites[i] = IMG_Load_fromSkin(skin, path);
   }
 
 
   // Then, propreties
- //TODO : resources manager for properties
-  items_left[OPTIONS_ITEM_CHANGESKIN] = 50 ;//CL_Integer_to_int("menu_options/changeskin/left", &gfx);
+  sound_level_left = option_menu_resources.get("sound_level_left",0);
+
+  int y_first_entry = option_menu_resources.get("y_first_entry",0);
+  int x_first_entry = option_menu_resources.get("x_first_entry",0);
+  int y_space_entry = option_menu_resources.get("y_space_entry",0);
+  
+  for(int item = 0; item < OPTIONS_NUMBER_OF_ITEMS; item++)
+  {
+     items_left[item] = x_first_entry; 
+     items_top[item]  = y_first_entry + y_space_entry*item;
+  }
+
+ // resources manager for properties
+/*  items_left[OPTIONS_ITEM_CHANGESKIN] = 50 ;//CL_Integer_to_int("menu_options/changeskin/left", &gfx);
   items_top[OPTIONS_ITEM_CHANGESKIN] = 60 ; //CL_Integer_to_int("menu_options/changeskin/top", &gfx);
 
   items_left[OPTIONS_ITEM_FULLSCREEN] = 50 ;//CL_Integer_to_int("menu_options/fullscreen/left", &gfx);
@@ -130,7 +139,7 @@ void OptionsMenuState::load_gfx(std::string skin)
   items_top[OPTIONS_ITEM_QUIT] = 160 ; //CL_Integer_to_int("menu_options/quit/top", &gfx);
 
   sound_level_left = 140 ; //CL_Integer_to_int("menu_options/sound_level/left", &gfx);
-
+*/
   
 }
 
@@ -169,48 +178,38 @@ void OptionsMenuState::unload_gfx()
 
 void OptionsMenuState::draw()
 {
-//  int x = 400 - background -> get_width()/2;
-//  int y = 300 - background -> get_height()/2;
-  //TODO : choose or determine correct position of option menu
-   // using PSP_SDL_SCREEN_WIDTH and PSP_SDL_SCREEN_HEIGHT
-	//background -> draw(x,y);
    int x = PSP_SDL_SCREEN_WIDTH/2 - (background->w + background->w%2)/2;
-   int y = PSP_SDL_SCREEN_HEIGHT/10;
+   int y = PSP_SDL_SCREEN_HEIGHT/2 - (background->h + background->h%2)/2;
    psp_sdl_blit_on_screen_at_XY(background, x, y);
   // Drawing 
-  for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
+  for(int i = 0; i < OPTIONS_NUMBER_OF_ITEMS; ++i)
   {
 
     if(i == selection)
     {
      //items_selected[i] -> draw(x + items_left[i], y + items_top[i]);
-     psp_sdl_blit_on_screen_at_XY(items_selected[i],(x + items_left[i]), (y + items_top[i]));
+     psp_sdl_blit_on_screen_at_XY(items_selected[i],items_left[i], items_top[i]);
      //items_selected[i] -> update(common_resources -> time_interval);
-     //TODO: find equivalent to CL_Sprite::update
-     /* ???? SDL_Flip(screen_surface);*/
-     
     }
     else
     {
      //items[i] -> draw(x + items_left[i], y + items_top[i]);
-     psp_sdl_blit_on_screen_at_XY(items[i],x + items_left[i], y + items_top[i]);
+     psp_sdl_blit_on_screen_at_XY(items[i], items_left[i], items_top[i]);
      //items[i] -> update(common_resources -> time_interval);
-     //TODO: find equivalent to CL_Sprite::update
-     /* ???? SDL_Flip(screen_surface);*/
     }
   }
 
   // sound_level_sprites[sound_level] -> draw(x + sound_level_left, 
   //                                          y + items_top[OPTIONS_ITEM_SOUND]);
   psp_sdl_blit_on_screen_at_XY(sound_level_sprites[sound_level], 
-                               x + sound_level_left, 
-                               y + items_top[OPTIONS_ITEM_SOUND]);
+                               sound_level_left, 
+                               items_top[OPTIONS_ITEM_SOUND]);
   
   //sound_level_sprites[music_level] -> draw(x + sound_level_left, 
   //                                         y + items_top[OPTIONS_ITEM_MUSIC]);
   psp_sdl_blit_on_screen_at_XY(sound_level_sprites[music_level],
-                               x + sound_level_left,
-                               y + items_top[OPTIONS_ITEM_MUSIC]);
+                               sound_level_left,
+                               items_top[OPTIONS_ITEM_MUSIC]);
   
 // TODO : SDL_Flip ??
 //  sound_level_sprites[sound_level] -> update();
