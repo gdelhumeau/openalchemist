@@ -43,8 +43,10 @@ void GameOverState::load_gfx(std::string skin)
   // new CL_Sprite("menu_gameover/dialog_highscore", &gfx);
   dialog_highscore = IMG_Load_fromSkin(skin, "dialogs/gameover/dialog-highscore.png");
 
-  dialog_x = PSP_SDL_SCREEN_WIDTH/2 - (dialog_gameover->w + dialog_gameover->w%2)/2; //CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
-  dialog_y = PSP_SDL_SCREEN_HEIGHT/2 - (dialog_gameover->h + dialog_gameover->h%2)/2;  //CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
+  dialog_x = PSP_SDL_SCREEN_WIDTH/2 - (dialog_gameover->w + dialog_gameover->w%2)/2; 	
+//CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
+  dialog_y = PSP_SDL_SCREEN_HEIGHT/2 - (dialog_gameover->h + dialog_gameover->h%2)/2;  
+//CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
 
   score1_x = PSP_SDL_SCREEN_WIDTH/2; //CL_Integer_to_int("menu_gameover/score1_left", &gfx);
   score1_y = 80;  //CL_Integer_to_int("menu_gameover/score1_top", &gfx);
@@ -52,11 +54,9 @@ void GameOverState::load_gfx(std::string skin)
   score2_x = PSP_SDL_SCREEN_WIDTH/2; //CL_Integer_to_int("menu_gameover/score2_left", &gfx);
   score2_y = 130; //CL_Integer_to_int("menu_gameover/score2_top", &gfx);
 
-  //yes_selected = new CL_Sprite("menu_gameover/new_game_question/yes/selected", &gfx);
-  //yes_unselected = new CL_Sprite("menu_gameover/new_game_question/yes/unselected", &gfx);
   yes_selected = IMG_Load_fromSkin(skin, "dialogs/gameover/yes-selected.png");
   yes_unselected = IMG_Load_fromSkin(skin, "dialogs/gameover/yes-unselected.png");
-  //were CL_Sprites too for the NO...
+
   no_selected = IMG_Load_fromSkin(skin, "dialogs/gameover/no-selected.png");
   no_unselected = IMG_Load_fromSkin(skin, "dialogs/gameover/no-unselected.png");
 
