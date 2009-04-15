@@ -18,6 +18,7 @@
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
+#include "../IniFile.h"
 extern "C" {
 #include "../psp_sdl.h"
 }
@@ -57,44 +58,51 @@ void PauseMenuState::load_gfx(std::string skin)
   CL_ResourceManager gfx("menu_pause.xml", &zip, false);
 */
   unload_gfx();
+  FILE * pause_menu_ini;
+  std::string pause_menu_ini_path = "skins/" + skin + "/menu_pause.ini";
+  IniFile pause_menu_resources;
+  pause_menu_ini = fopen(pause_menu_ini_path.c_str(), "r");
+  if (pause_menu_ini != NULL)
+     pause_menu_resources.read(pause_menu_ini);
+
   // First, the sprites
-  //background = new CL_Sprite("menu_pause/background", &gfx); 
   background = IMG_Load_fromSkin(skin, "dialogs/pause/pause.png");
 
-  //items[PAUSE_ITEM_RESUME] = new CL_Sprite("menu_pause/resume/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_RESUME] = new CL_Sprite("menu_pause/resume/selected", &gfx);
   items[PAUSE_ITEM_RESUME] = IMG_Load_fromSkin(skin, "dialogs/pause/resume-unselected.png");
   items_selected[PAUSE_ITEM_RESUME] = IMG_Load_fromSkin(skin, "dialogs/pause/resume-selected.png");
 
-  //items[PAUSE_ITEM_UNDO] = new CL_Sprite("menu_pause/undo/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_UNDO] = new CL_Sprite("menu_pause/undo/selected", &gfx);
-  //undo_unavailable = new CL_Sprite("menu_pause/undo/unavailable", &gfx);
   items[PAUSE_ITEM_UNDO] = IMG_Load_fromSkin(skin, "dialogs/pause/undo-unselected.png");
   items_selected[PAUSE_ITEM_UNDO] = IMG_Load_fromSkin(skin, "dialogs/pause/undo-selected.png");
   undo_unavailable = IMG_Load_fromSkin(skin, "dialogs/pause/undo-unavailable.png");
 
-  //items[PAUSE_ITEM_RETRY] = new CL_Sprite("menu_pause/retry/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_RETRY] = new CL_Sprite("menu_pause/retry/selected", &gfx);
   items[PAUSE_ITEM_RETRY] = IMG_Load_fromSkin(skin, "dialogs/pause/retry-unselected.png");
   items_selected[PAUSE_ITEM_RETRY] = IMG_Load_fromSkin(skin, "dialogs/pause/retry-selected.png");
 
-  //items[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu_pause/options/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_OPTIONS] = new CL_Sprite("menu_pause/options/selected", &gfx);
   items[PAUSE_ITEM_OPTIONS] = IMG_Load_fromSkin(skin, "dialogs/pause/options-unselected.png");
   items_selected[PAUSE_ITEM_OPTIONS] = IMG_Load_fromSkin(skin, "dialogs/pause/options-selected.png");
 
-  //items[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu_pause/giveup/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_GIVEUP] = new CL_Sprite("menu_pause/giveup/selected", &gfx);
   items[PAUSE_ITEM_GIVEUP] = IMG_Load_fromSkin(skin, "dialogs/pause/giveup-unselected.png");
   items_selected[PAUSE_ITEM_GIVEUP] = IMG_Load_fromSkin(skin, "dialogs/pause/giveup-selected.png");
 
-  //items[PAUSE_ITEM_QUIT] = new CL_Sprite("menu_pause/quit/unselected", &gfx);
-  //items_selected[PAUSE_ITEM_QUIT] = new CL_Sprite("menu_pause/quit/selected", &gfx);
   items[PAUSE_ITEM_QUIT] = IMG_Load_fromSkin(skin, "dialogs/pause/quit-unselected.png");
   items_selected[PAUSE_ITEM_QUIT] = IMG_Load_fromSkin(skin, "dialogs/pause/quit-selected.png");
 
 
   // Then, propreties
+
+  // Compute y coord of first option entry
+  // Considering that all entries have same height
+  int y_first_entry = pause_menu_resources.get("y_first_entry",0);
+  int x_first_entry = pause_menu_resources.get("x_first_entry",0);
+  int y_space_entry = pause_menu_resources.get("y_space_entry",0);
+
+  for(int item = 0; item < PAUSE_NUMBER_OF_ITEMS; item++)
+  {
+     items_left[item] = x_first_entry; 
+     items_top[item]  = y_first_entry + y_space_entry*item;
+  }
+
+/*
   items_left[PAUSE_ITEM_RESUME] =   50;   //CL_Integer_to_int("menu_pause/resume/left", &gfx);
   items_top[PAUSE_ITEM_RESUME] =    50;   //CL_Integer_to_int("menu_pause/resume/top", &gfx);
 
@@ -112,7 +120,7 @@ void PauseMenuState::load_gfx(std::string skin)
 
   items_left[PAUSE_ITEM_QUIT] =     50;   //CL_Integer_to_int("menu_pause/quit/left", &gfx);
   items_top[PAUSE_ITEM_QUIT] =     175;   //CL_Integer_to_int("menu_pause/quit/top", &gfx);
-  
+  */
 }
 
 void PauseMenuState::unload_gfx()
@@ -146,13 +154,10 @@ void PauseMenuState::unload_gfx()
 
 void PauseMenuState::draw()
 {
-//TODO : choose or determine correct position of option menu
-// using PSP_SDL_SCREEN_WIDTH and PSP_SDL_SCREEN_HEIGHT
-	//  int x = 400 - background -> get_width()/2;
-	//  int y = 300 - background -> get_height()/2;
-	//  background -> draw(x,y);
+// Center background dialog
    int x = PSP_SDL_SCREEN_WIDTH/2 - (background->w + background->w%2)/2;
-   int y = PSP_SDL_SCREEN_HEIGHT/10;
+   int y = PSP_SDL_SCREEN_HEIGHT/2 - (background->h + background->h%2)/2;
+   printf (" pause background : x=%d, y=%d\n",x,y);
    psp_sdl_blit_on_screen_at_XY(background, x, y);
 
   // Drawing 
@@ -162,29 +167,21 @@ void PauseMenuState::draw()
     if(i == selection)
     {
       //items_selected[i] -> draw(x + items_left[i], y + items_top[i]);
-      psp_sdl_blit_on_screen_at_XY(items_selected[i], x + items_left[i], y + items_top[i]);
+      psp_sdl_blit_on_screen_at_XY(items_selected[i], items_left[i], items_top[i]);
       //items_selected[i] -> update(common_resources -> time_interval);
-      //TODO: find equivalent to CL_Sprite::update
-      /* ???? SDL_Flip(screen_surface);*/
-     
     }
     else
     {
       if(i != PAUSE_ITEM_UNDO || common_resources -> player1.is_undo_available())
       {
         //items[i] -> draw(x + items_left[i], y + items_top[i]);
-	psp_sdl_blit_on_screen_at_XY(items[i], x + items_left[i], y + items_top[i]);
-       // items[i] -> update();
-        //TODO: find equivalent to CL_Sprite::update
-      /* ???? SDL_Flip(screen_surface);*/
+	psp_sdl_blit_on_screen_at_XY(items[i], items_left[i], items_top[i]);
       }
       else
       {
         //undo_unavailable -> draw(x + items_left[i], y + items_top[i]);
-        psp_sdl_blit_on_screen_at_XY(undo_unavailable,x + items_left[i], y + items_top[i]);
+        psp_sdl_blit_on_screen_at_XY(undo_unavailable, items_left[i], items_top[i]);
        // undo_unavailable -> update(common_resources -> time_interval);
-        //TODO: find equivalent to CL_Sprite::update
-      /* ???? SDL_Flip(screen_surface);*/
       }
     }
   }
