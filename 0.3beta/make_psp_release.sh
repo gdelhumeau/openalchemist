@@ -1,4 +1,5 @@
 #!/bin/sh
+mkdir -p PSP/GAME5XX/pspOpenAlchemist
 cd src/
 make clean
 make -f Makefile-3x
@@ -27,12 +28,15 @@ cp remove_xml.sh PSP/GAME5XX/pspOpenAlchemist
 echo ++++++++++++++++++++
 echo + Remove svn files +
 echo ++++++++++++++++++++
-sh PSP/GAME5XX/pspOpenAlchemist/remove_svn.sh
-sh PSP/GAME5XX/pspOpenAlchemist/remove_xml.sh
-rm PSP/GAME5XX/pspOpenAlchemist/remove_svn.sh
-rm PSP/GAME5XX/pspOpenAlchemist/remove_xml.sh
+cd PSP/GAME5XX/pspOpenAlchemist
+sh remove_svn.sh
+sh remove_xml.sh
+rm remove_svn.sh
+rm remove_xml.sh
+cd ../../..
 echo ++++++++++++++++++++++
 echo + Making the archive +
 echo ++++++++++++++++++++++
 tar -czvf release/pspOpenAlchemist_0.3beta.zip PSP
+rm -rf PSP
 echo done
