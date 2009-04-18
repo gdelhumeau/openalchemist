@@ -37,6 +37,6 @@ cd ../../..
 echo ++++++++++++++++++++++
 echo + Making the archive +
 echo ++++++++++++++++++++++
-tar -czvf release/pspOpenAlchemist_0.3beta.zip PSP
-rm -rf PSP
+tar -zcvf release/pspOpenAlchemist_0.3beta.zip PSP
+#rm -rf PSP
 echo done
