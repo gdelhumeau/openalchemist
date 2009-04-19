@@ -20,15 +20,19 @@
 
 #define PIECE_SPEED 0.5
 
-#define NORMAL_CTXT   0
+#define NORMAL_CTXT    0
 
-#define APPEAR_STEP1  1
-#define APPEAR_STEP2  2
-#define APPEAR_STEP3  3
+#define APPEAR_STEP1   1
+#define APPEAR_STEP2   2
+#define APPEAR_STEP3   3
+//#define APPEAR_STEP4   4
+//#define APPEAR_STEP5   5
 
-#define DISAPP_STEP1  4
-#define DISAPP_STEP2  5
-#define DISAPP_STEP3  6
+#define DISAPP_STEP1   4
+#define DISAPP_STEP2   5
+#define DISAPP_STEP3   6
+//#define DISAPP_STEP4   9
+//#define DISAPP_STEP5  10
 
 #define APPEAR_STEPS  3
 #define DISAPP_STEPS  3
@@ -37,6 +41,8 @@
 #define LAST_APPEAR   APPEAR_STEPS
 #define LAST_DISAPP   APPEAR_STEPS + DISAPP_STEPS
 
+
+#define NB_SLICES        5
 #define NB_FRAME_REPEAT  8
 
 class Piece
@@ -52,7 +58,7 @@ class Piece
 
   SDL_Rect appearing_sprites   [APPEAR_STEPS];
   SDL_Rect disappearing_sprites[DISAPP_STEPS];
-
+//  SDL_Rect piece_in_slices     [NB_SLICES];
 
 //  SDL_Surface *current_sprite;
   
@@ -124,8 +130,16 @@ class Piece
 	disappearing_sprites[i].x = i* (disappearing_surface->w / DISAPP_STEPS);
 	disappearing_sprites[i].y = 0;
 	disappearing_sprites[i].h = disappearing_surface->h;
-	disappearing_sprites[i].w = (disappearing_surface->w / DISAPP_STEPS);
+	disappearing_sprites[i].w = (disappearing_surface->w) / DISAPP_STEPS;
     }
+
+  /*  for(int i=0; i < NB_SLICES; i++)
+    {
+	piece_in_slices[i].x = i * (normal_sprite->w / NB_SLICES);
+	piece_in_slices[i].y = 0;
+	piece_in_slices[i].h = normal_sprite -> h;
+	piece_in_slices[i].w = (normal_sprite -> w / NB_SLICES);
+    }*/
   }
  
   // Methods to display - be carefull, if current_prite is not initialized
@@ -136,10 +150,21 @@ class Piece
 	   else
 	   {
 		if (graph_ctxt < DISAPP_STEP1)
+		{
+		    /*for(int i=0; i<graph_ctxt; i++)
+		    {
+			psp_sdl_blit_clip_at_XY(normal_sprite, &piece_in_slices[i], int(x) + i*(piece_in_slices[i].w), int(y));
+		    }*/
 		    psp_sdl_blit_clip_at_XY ( appearing_surface, &appearing_sprites[graph_ctxt], (int) x, (int) y );
+		}
 		else
-		    psp_sdl_blit_clip_at_XY ( disappearing_surface, &disappearing_sprites[graph_ctxt], (int) x, (int) y );
-
+		{
+		   /* for(int i=0 ; i< LAST_DISAPP - graph_ctxt; i++)
+		    {
+			psp_sdl_blit_clip_at_XY(normal_sprite, &piece_in_slices[i], int(x) + i*(piece_in_slices[i].w), int(y));
+		    }*/
+		    psp_sdl_blit_clip_at_XY ( disappearing_surface, &disappearing_sprites[graph_ctxt-APPEAR_STEPS], (int) x, (int) y );
+		}
 		if((graph_ctxt == LAST_APPEAR) || (graph_ctxt == LAST_DISAPP))
 		{
 		    graph_ctxt = NORMAL_CTXT;
@@ -150,12 +175,10 @@ class Piece
 		    {
 			graph_ctxt++;
 			frame_rate_anim = 0;
-		//	printf("changing context piece : %d\n", graph_ctxt);
 		    }
 		    else
 		    {
 			frame_rate_anim++;
-		//	printf("frame_rate_anim : %d\n", frame_rate_anim);
 		    }
 		}
 	   }
@@ -206,7 +229,8 @@ class Piece
      // if(appearing_sprite -> is_finished())
       //{
         //current_sprite = normal_sprite;
-        return true;
+        return  (graph_ctxt == NORMAL_CTXT);
+        //return true;
       //}
    
       //return false;
@@ -226,7 +250,8 @@ class Piece
 //      if(disappearing_sprite -> is_finished())
 //      {
         //current_sprite = normal_sprite;
-        return true;
+        //return true;
+	return  (graph_ctxt == LAST_DISAPP);
 //      }
 //      return false;
 
