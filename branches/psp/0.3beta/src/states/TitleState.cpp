@@ -32,12 +32,12 @@ void TitleState::init()
       sentences[i] = NULL;
   }
   start_message   = NULL;
-  keydemo_left    = NULL;
-  keydemo_up      = NULL;
-  keydemo_right   = NULL;
-  keydemo_down    = NULL;
-  keydemo_escape  = NULL;
-  keydemo_options = NULL;
+
+  for(int i = 0; i < NUMBER_OF_KEYS; i++)
+  {
+       keydemo[i] = NULL;
+  }
+
   blinking_steps  = 0;
   blink_clip      = 0;
 }
@@ -55,8 +55,8 @@ void TitleState::load_gfx(std::string skin)
   unload_gfx();
   //start_message = new CL_Sprite("title/start_message/sprite", &gfx);
   start_message = IMG_Load_fromSkin(skin, "dialogs/title/start_message.png");
-  start_message_x = (PSP_SDL_SCREEN_WIDTH/2) - (start_message->w/2) ; //CL_Integer_to_int("title/start_message/left", &gfx);
-  start_message_y = PSP_SDL_SCREEN_HEIGHT/5 ;  //CL_Integer_to_int("title/start_message/top", &gfx);
+//  start_message_x = PSP_SDL_SCREEN_WIDTH - start_message->w ; //CL_Integer_to_int("title/start_message/left", &gfx);
+//  start_message_y = PSP_SDL_SCREEN_HEIGHT - start_message->h ;  //CL_Integer_to_int("title/start_message/top", &gfx);
 
   for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
   {
@@ -75,27 +75,38 @@ void TitleState::load_gfx(std::string skin)
   //keydemo_down    = new CL_Sprite("title/keydemo/down", &gfx);
   //keydemo_escape  = new CL_Sprite("title/keydemo/escape", &gfx);
   //keydemo_options = new CL_Sprite("title/keydemo/options", &gfx);
-  keydemo_left    = IMG_Load_fromSkin(skin, "dialogs/title/key-left.png"); 
-  keydemo_up      = IMG_Load_fromSkin(skin, "dialogs/title/key-up.png");
-  keydemo_right   = IMG_Load_fromSkin(skin, "dialogs/title/key-right.png");
-  keydemo_down    = IMG_Load_fromSkin(skin, "dialogs/title/key-down.png");
-  keydemo_escape  = IMG_Load_fromSkin(skin, "dialogs/title/key-escape.png");
-  keydemo_options = IMG_Load_fromSkin(skin, "dialogs/title/key-options.png");
+/*  keydemo[LEFT]    = IMG_Load_fromSkin(skin, "dialogs/title/key-left.png"); 
+  keydemo[UP]      = IMG_Load_fromSkin(skin, "dialogs/title/key-up.png");
+  keydemo[RIGHT]   = IMG_Load_fromSkin(skin, "dialogs/title/key-right.png");
+  keydemo[DOWN]    = IMG_Load_fromSkin(skin, "dialogs/title/key-down.png");*/
+  keydemo[ESCAPE]  = IMG_Load_fromSkin(skin, "dialogs/title/key-escape.png");
+  keydemo[OPTIONS] = IMG_Load_fromSkin(skin, "dialogs/title/key-options.png");
+
+  keydemo[LEFT]    = IMG_Load_fromSkin("common", "left_clip.png"); 
+  keydemo[UP]      = IMG_Load_fromSkin("common", "up_clip.png");
+  keydemo[RIGHT]   = IMG_Load_fromSkin("common", "right_clip.png");
+  keydemo[DOWN]    = IMG_Load_fromSkin("common", "down_clip.png");
+  keydemo[ROTATE]  = IMG_Load_fromSkin("common", "cross_clip.png");
+//  keydemo[ESCAPE]  = IMG_Load_fromSkin(skin, "dialogs/title/key-escape.png");
+//  keydemo[OPTIONS] = IMG_Load_fromSkin(skin, "dialogs/title/key-options.png");
 
   /* We assume that all those pics are same size and ratio, so we take one to compute clips coord */
-  for (int i = 0; i<NUMBER_OF_PIC_BLINK ; i++)
+  for (int j = 0; j<NUMBER_OF_KEYS; j++)
   {
-    keydemo_tab_clips[i].x = i*(keydemo_left->w / NUMBER_OF_PIC_BLINK);
-    keydemo_tab_clips[i].y = 0;
-    keydemo_tab_clips[i].w = (keydemo_left->w / NUMBER_OF_PIC_BLINK);
-    keydemo_tab_clips[i].h = keydemo_left -> h;
+    for (int i = 0; i<NUMBER_OF_PIC_BLINK ; i++)
+    {
+      keydemo_tab_clips[i][j].x = i*(keydemo[j] -> w / NUMBER_OF_PIC_BLINK);
+      keydemo_tab_clips[i][j].y = 0;
+      keydemo_tab_clips[i][j].w = (keydemo[j] -> w / NUMBER_OF_PIC_BLINK);
+      keydemo_tab_clips[i][j].h = keydemo[j] -> h;
+    }
   }
 
-  keyleft_x = 120;
-  keyleft_y = keyright_y = keydown_y = keyup_y = 150;
-  keyup_x = keydown_x = 190;
-  keyright_x = 220;
-
+  arrow_key_x = 125;
+  arrow_key_y = 160;
+  round_key_x = arrow_key_x + keydemo[LEFT]->w/2 - keydemo[ROTATE]->w/2;
+  round_key_y = arrow_key_y + keydemo[LEFT]->h/2 - keydemo[ROTATE]->h/2;
+  
   demo_player.load_gfx(skin);
 }
 
@@ -116,42 +127,15 @@ void TitleState::unload_gfx()
     start_message = NULL;
   }
 
-  if(keydemo_left)
+  for(int i = 0; i < NUMBER_OF_KEYS; i++)
   {
-    SDL_FreeSurface (keydemo_left);
-    keydemo_left = NULL;
+    if(keydemo[i]!=NULL)
+    {
+       SDL_FreeSurface(keydemo[i]);
+       keydemo[i] = NULL;
+    }
   }
-
-  if(keydemo_up)
-  {
-    SDL_FreeSurface (keydemo_up);
-    keydemo_up = NULL;
-  }
-
-  if(keydemo_right)
-  {
-    SDL_FreeSurface (keydemo_right);
-    keydemo_right = NULL;
-  }
-
-  if(keydemo_down)
-  {
-    SDL_FreeSurface (keydemo_down);
-    keydemo_down = NULL;
-  }
-
-  if(keydemo_escape)
-  {
-    SDL_FreeSurface (keydemo_escape);
-    keydemo_escape = NULL;
-  }
-
-  if(keydemo_options)
-  {
-    SDL_FreeSurface (keydemo_options);
-    keydemo_options = NULL;
-  }
-
+ 
 }
 
 void TitleState::draw()
@@ -180,48 +164,92 @@ void TitleState::draw()
   
   //start_message -> draw(start_message_x,start_message_y);
   if(blink_clip != 0)
-    psp_sdl_blit_on_screen_at_XY(start_message, start_message_x, start_message_y);
+    psp_sdl_blit_on_screen_at_XY(start_message, PSP_SDL_SCREEN_WIDTH - start_message->w, 
+					        PSP_SDL_SCREEN_HEIGHT - start_message->h );
 
   switch(step)
   {
-  case 2: /// Key_left Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_left, &keydemo_tab_clips[blink_clip],
-                                 sentences_x[step]+sentences[step] -> w/2-keydemo_left -> w/2,
-			         sentences_y[step] + sentences[step] -> h);
+  case 2: /// Key_left Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[LEFT], &keydemo_tab_clips[blink_clip][LEFT],
+                                 arrow_key_x,
+			         arrow_key_y);
+// Draw fix pads also
+    psp_sdl_blit_clip_at_XY(keydemo[RIGHT], &keydemo_tab_clips[0][RIGHT],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[UP], &keydemo_tab_clips[0][UP],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[DOWN], &keydemo_tab_clips[0][DOWN],
+                                 arrow_key_x,
+			         arrow_key_y);
+
     break;
 
-  case 3: /// Key_right Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_right, &keydemo_tab_clips[blink_clip], 
-                                 sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
-			         sentences_y[step] + sentences[step] -> h);
+  case 3: /// Key_right Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[RIGHT], &keydemo_tab_clips[blink_clip][RIGHT], 
+                                 arrow_key_x,
+			         arrow_key_y);
+// Draw fix pads also
+    psp_sdl_blit_clip_at_XY(keydemo[LEFT], &keydemo_tab_clips[0][LEFT],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[UP], &keydemo_tab_clips[0][UP],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[DOWN], &keydemo_tab_clips[0][DOWN],
+                                 arrow_key_x,
+			         arrow_key_y);
     break;
 
-  case 4: /// keydemo_up Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_up, &keydemo_tab_clips[blink_clip], sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
-			 sentences_y[step] + sentences[step] -> h);
+  case 4: /// keydemo rotate Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[ROTATE], &keydemo_tab_clips[blink_clip][ROTATE], 
+				round_key_x,
+				round_key_y);
     break;
   case 5:
-  case 7: /// keydemo_down Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_down, &keydemo_tab_clips[blink_clip], sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2,
-			 sentences_y[step] + sentences[step] -> h);
+  case 7: /// keydemo FALL Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[DOWN], &keydemo_tab_clips[blink_clip][DOWN], 
+				arrow_key_x,
+				arrow_key_y);
+// Draw fix pads also
+    psp_sdl_blit_clip_at_XY(keydemo[LEFT], &keydemo_tab_clips[0][LEFT],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[UP], &keydemo_tab_clips[0][UP],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[RIGHT], &keydemo_tab_clips[0][RIGHT],
+                                 arrow_key_x,
+			         arrow_key_y);
     break;
-  case 6: /// move Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_left, &keydemo_tab_clips[blink_clip],
-                         sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w,
-                         sentences_y[step] + sentences[step] -> h);
-    psp_sdl_blit_clip_at_XY(keydemo_right, &keydemo_tab_clips[blink_clip],
-                             sentences_x[step] + sentences[step] -> w/2 + keydemo_left -> w,
-                             sentences_y[step] + sentences[step] -> h);
+  case 6: /// move Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[RIGHT], &keydemo_tab_clips[blink_clip][RIGHT], 
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[LEFT], &keydemo_tab_clips[(blink_clip+1)%2][LEFT],
+                                 arrow_key_x,
+			         arrow_key_y);
+// Draw fix pads also
+    psp_sdl_blit_clip_at_XY(keydemo[UP], &keydemo_tab_clips[0][UP],
+                                 arrow_key_x,
+			         arrow_key_y);
+    psp_sdl_blit_clip_at_XY(keydemo[DOWN], &keydemo_tab_clips[0][DOWN],
+                                 arrow_key_x,
+			         arrow_key_y);
+
     break;
-  case 12: /// keydemo_escape Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_escape, &keydemo_tab_clips[blink_clip],
-             sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2, sentences_y[step] + sentences[step] -> h);
+  case 12: /// keydemo_escape Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[ESCAPE], &keydemo_tab_clips[blink_clip][ESCAPE],
+				sentences_x[step] + sentences[step] -> w/2 - keydemo[ESCAPE] -> w/2, 
+				sentences_y[step] + sentences[step] -> h);
     //keydemo_escape -> update();
     //psp_sdl_flip();
     break;
-  case 13: /// keydemo_options Demo TODO : Use clips to make draw blink, change picture
-    psp_sdl_blit_clip_at_XY(keydemo_options, &keydemo_tab_clips[blink_clip],
-                   sentences_x[step] + sentences[step] -> w/2 - keydemo_left -> w/2, sentences_y[step] + sentences[step] -> h);
+  case 13: /// keydemo_options Demo 
+    psp_sdl_blit_clip_at_XY(keydemo[OPTIONS], &keydemo_tab_clips[blink_clip][OPTIONS],
+				sentences_x[step] + sentences[step] -> w/2 - keydemo[OPTIONS] -> w/2, 
+				sentences_y[step] + sentences[step] -> h);
     break;
     break;
     
@@ -239,7 +267,7 @@ void TitleState::update()
     step = (step + 1) % NUMBER_OF_SENTENCES;
     next_time = SDL_GetTicks() + sentences_time[step];
     //sentences[step] -> update();
-    psp_sdl_blit_on_screen(start_message);
+    //psp_sdl_blit_on_screen(start_message);
   //  psp_sdl_flip();
   }
 
@@ -394,12 +422,10 @@ bool TitleState::front_layer_behind()
 TitleState::TitleState()
 {
   start_message   = NULL;
-  keydemo_left    = NULL;
-  keydemo_up      = NULL;
-  keydemo_right   = NULL;
-  keydemo_down    = NULL;
-  keydemo_escape  = NULL;
-  keydemo_options = NULL;
+  for(int i = 0; i < NUMBER_OF_KEYS; i++)
+  {
+       keydemo[i] = NULL;
+  }
 
   for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
   {

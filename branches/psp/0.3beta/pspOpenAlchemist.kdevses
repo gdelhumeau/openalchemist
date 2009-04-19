@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="7" >
+ <DocsAndViews NumberOfDocuments="10" >
   <Doc0 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Player.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -21,8 +21,17 @@
    <View0 Encoding="" Type="Source" />
   </Doc5>
   <Doc6 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/ProgressBar.cpp" >
-   <View0 Encoding="" line="36" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/DemoPlayer.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/states/TitleState.cpp" >
+   <View0 Encoding="" line="92" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/states/TitleState.h" >
+   <View0 Encoding="" line="62" Type="Source" />
+  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
