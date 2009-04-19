@@ -22,7 +22,7 @@
 class GameEngine;
 
 #define NUMBER_OF_SENTENCES 16
-#define NUMBER_OF_KEYS       6
+#define NUMBER_OF_KEYS       7
 #define NUMBER_OF_PIC_BLINK  2
 #define BLINK_REMANENCE     50
 
@@ -31,7 +31,8 @@ class GameEngine;
 #define RIGHT                2
 #define DOWN                 3
 #define ESCAPE               4
-#define OPTION               5
+#define OPTIONS              5
+#define ROTATE               6
 
 
 
@@ -45,20 +46,22 @@ class TitleState : public GameState{
   DemoPlayer demo_player;
 
   SDL_Surface *start_message;
-  int start_message_x, start_message_y;
+ // int start_message_x, start_message_y;
 
 
   /** Picture for keys, contain two clip to blink **/
-  SDL_Surface *keydemo_left;
-  SDL_Surface *keydemo_up;
-  SDL_Surface *keydemo_right;
-  SDL_Surface *keydemo_down;
-  SDL_Surface *keydemo_escape;
-  SDL_Surface *keydemo_options;
+  //SDL_Surface *keydemo_left;
+  //SDL_Surface *keydemo_up;
+  //SDL_Surface *keydemo_right;
+  //SDL_Surface *keydemo_down;
+  //SDL_Surface *keydemo_escape;
+  //SDL_Surface *keydemo_options;
+
+  SDL_Surface *keydemo[NUMBER_OF_KEYS];
 
   /** SDL coords to split picture in clip for blinking **/
   // we assume here that all the pics representing keys are same size
-  SDL_Rect keydemo_tab_clips[NUMBER_OF_PIC_BLINK];
+  SDL_Rect keydemo_tab_clips[NUMBER_OF_PIC_BLINK][NUMBER_OF_KEYS];
 
   int blinking_steps, blink_clip;
 
@@ -72,7 +75,8 @@ class TitleState : public GameState{
   int sentences_time[NUMBER_OF_SENTENCES];
 
   /** Keyboard demo coords **/
-  int keyleft_x, keyleft_y, keyup_x, keyup_y, keyright_x, keyright_y, keydown_x, keydown_y;
+  int arrow_key_x, arrow_key_y;
+  int round_key_x, round_key_y;
 
   /** Time when will come the next step **/
   u_int next_time;
