@@ -16,6 +16,7 @@
 //#include <ClanLib/display.h>
 #include <list>
 #include <SDL/SDL.h>
+#include <string>
 
 class FrontLayerSprite{
 

@@ -93,7 +93,10 @@ void GameEngine::run()
 	 ( (previousKey == pad.Buttons) && (SDL_GetTicks() > KeyDownTime) )/*(repeat >25)*/)
 	{
 	   /*repeat = 0;*/
-	   KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
+	   if (previousKey == pad.Buttons)
+	   	KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
+	   if (previousKey != pad.Buttons)
+		KeyDownTime = SDL_GetTicks() + REPEAT_WAIT;
            resources -> CurrentKeyPressed = pad.Buttons;
            previousKey = pad.Buttons;
 	}
@@ -109,7 +112,11 @@ void GameEngine::run()
 	   printf("KeyDownTime = %d\n", KeyDownTime);
 	   printf("SDL_GetTicks() - KeyDownTime = %d\n", (SDL_GetTicks() - KeyDownTime));
 
-	   KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
+	   if (previousKey == event.key.keysym.sym)
+	   	KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
+	   if (previousKey != event.key.keysym.sym)
+		KeyDownTime = SDL_GetTicks() + REPEAT_WAIT;
+
 	   printf("previous key : %d\n",previousKey);
            resources -> CurrentKeyPressed = event.key.keysym.sym;
            previousKey = event.key.keysym.sym;
