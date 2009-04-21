@@ -18,7 +18,7 @@
 #define KEY_ENTER          PSP_CTRL_CROSS 
 #define KEY_OPTIONS        PSP_CTRL_LTRIGGER    
 #define KEY_SKINS          PSP_CTRL_RTRIGGER   
-#define KEY_CHEAT	   PSP_CTRL_SQUARE
+#define KEY_CHEAT	   PSP_CTRL_SQUARE | PSP_CTRL_RTRIGGER | PSP_CTRL_LTRIGGER
 #define KEY_CHANGE_ANGLE   PSP_CTRL_CROSS
 
 #else
@@ -35,7 +35,7 @@
 #define KEY_OPTIONS        SDLK_F9
 #define KEY_SKINS          SDLK_F10
 #define KEY_CHEAT	   SDLK_a
-#define KEY_CHANGE_ANGLE   SDLK_UP
+#define KEY_CHANGE_ANGLE   SDLK_p
 #endif
 
 

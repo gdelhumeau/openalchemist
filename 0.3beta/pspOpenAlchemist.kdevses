@@ -1,37 +1,16 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="10" >
-  <Doc0 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Player.cpp" >
-   <View0 Encoding="" Type="Source" />
+ <DocsAndViews NumberOfDocuments="3" >
+  <Doc0 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/BitmapFont.cpp" >
+   <View0 Encoding="" line="4" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Preferences.cpp" >
-   <View0 Encoding="" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/CommonResources.cpp" >
+   <View0 Encoding="" line="44" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/IniFile.cpp" >
-   <View0 Encoding="" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/states/SkinsMenuState.cpp" >
+   <View0 Encoding="" line="40" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Board.cpp" >
-   <View0 Encoding="" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Piece.h" >
-   <View0 Encoding="" Type="Source" />
-  </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/Board.h" >
-   <View0 Encoding="" Type="Source" />
-  </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork2/psp/0.3beta/src/ProgressBar.cpp" >
-   <View0 Encoding="" Type="Source" />
-  </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/DemoPlayer.cpp" >
-   <View0 Encoding="" Type="Source" />
-  </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/states/TitleState.cpp" >
-   <View0 Encoding="" line="92" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/states/TitleState.h" >
-   <View0 Encoding="" line="62" Type="Source" />
-  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

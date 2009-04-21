@@ -42,10 +42,19 @@ LDFLAGS =
 LIBS += -lstdc++ -lc -lpspgu -lpspirkeyb  -lpspwlan -lpsppower -lSDL_image -lSDL -lpng -ljpeg -lpspaudio -lpspgu -lpsphprm -lz -lm $(clanlib_LIBS)
 
 
-BUILD_PRX=1
+BUILD_PRX = 1
 PSP_EBOOT_TITLE = pspOpenAlchemist
 PSP_EBOOT_ICON = ../data/logo.png
 PSP_EBOOT_PIC1 = ../data/loading.png
+
+# Define the overridable parameters for EBOOT.PBP
+#PSP_EBOOT_SFO = PARAM.SFO
+#PSP_EBOOT_ICON1 = NULL
+#PSP_EBOOT_UNKPNG = NULL
+#PSP_EBOOT_PIC1 = NULL
+#PSP_EBOOT_SND0 = NULL
+#PSP_EBOOT_PSAR = NULL
+#PSP_EBOOT = EBOOT.PBP
 
 EXTRA_TARGETS = EBOOT.PBP
 
