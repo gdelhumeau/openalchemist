@@ -20,13 +20,20 @@
 
 #include "FrontLayer.h"
 #include "misc.h"
+#include "IniFile.h"
+#include "psp_sdl.h"
+
+FrontLayerSprite::FrontLayerSprite()
+{
+	this->sprite = NULL;
+}
 
 void FrontLayer::load_gfx(std::string skin)
 {
 //  CL_Zip_Archive zip(skin);
 
   // Look if frontlayer.xml is existing
-  enabled = false;
+/*  enabled = false;
   std::vector<CL_Zip_FileEntry> file_list = zip.get_file_list();
   for(u_int i=0; i<file_list.size(); ++i)
   {
@@ -38,24 +45,43 @@ void FrontLayer::load_gfx(std::string skin)
   {   
     CL_ResourceManager gfx_frontlayer("frontlayer.xml", &zip, false);
     load_gfx(&gfx_frontlayer);
-  } 
-
+  }*/
+  FILE * frontLayerIniHandle;
+  std::string frontLayerIni = "skins/" + skin + "/front_layer.ini";
+  frontLayerIniHandle = fopen(frontLayerIni.c_str(), "r");
+  if (frontLayerIniHandle != NULL)
+  {printf("we could open frontlayer ini \n");
+     load_gfx(frontLayerIniHandle, skin);
+     enabled = true;
+  }
+  else
+  {
+     enabled = false;
+  }
 }
 
 
-void FrontLayer::load_gfx(CL_ResourceManager *gfx_frontlayer)
+void FrontLayer::load_gfx(FILE* FrontLayerIniFile, std::string skin)
 {
 
-  int number = CL_Integer_to_int("frontlayer/number_of_sprites", gfx_frontlayer);
+  IniFile front_layer_resources;
+  front_layer_resources.read(FrontLayerIniFile);
+
+  int number = front_layer_resources.get("nb_sprites", 0);
   
   list.clear();
-  
+  char image_name[256];
+  char coord_name[256];
   for(int i=1; i<=number; ++i)
   {
     FrontLayerSprite *fsprite = new FrontLayerSprite();
-    fsprite -> sprite = IMG_Load_fromSkin(skin, "frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
-    fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", gfx_frontlayer);
-    fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", gfx_frontlayer);
+    sprintf(image_name,"pic%d", i);
+    std::string image = front_layer_resources.get(std::string(image_name),std::string("toto"));
+    fsprite -> sprite = IMG_Load_fromSkin(skin, (char*)image.c_str());
+    sprintf(coord_name,"%dx", i);
+    fsprite -> left = front_layer_resources.get(std::string(coord_name),0);
+    sprintf(coord_name,"%dy", i);
+    fsprite -> top = front_layer_resources.get(std::string(coord_name),0);
     list.insert(list.end(), fsprite);
   }
 }
@@ -65,7 +91,8 @@ void FrontLayer::unload_gfx()
 
   std::list<FrontLayerSprite*>::iterator it = list.begin();
   while(!list.empty())
-  {
+  {//TODO
+    //SDL_FreeSurface(it->sprite);
     delete *it;
     it = list.erase(it);
   }
@@ -80,8 +107,7 @@ void FrontLayer::draw()
   while(it != list.end())
   {
     FrontLayerSprite *fsprite = (FrontLayerSprite*)*it;
-    fsprite -> sprite -> draw(fsprite -> left, fsprite -> top);
-    fsprite -> sprite -> update();
+    psp_sdl_blit_on_screen_at_XY(fsprite -> sprite, fsprite -> left, fsprite -> top);
     it++;
   }
 }

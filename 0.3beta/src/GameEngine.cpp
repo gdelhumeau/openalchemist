@@ -93,7 +93,6 @@ void GameEngine::run()
 	 ( (previousKey == pad.Buttons) && (SDL_GetTicks() > KeyDownTime) )/*(repeat >25)*/)
 	{
 	   /*repeat = 0;*/
-	   printf("previous key : %d\n",previousKey);
 	   KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
            resources -> CurrentKeyPressed = pad.Buttons;
            previousKey = pad.Buttons;
@@ -130,7 +129,7 @@ void GameEngine::run()
     current_state -> update();
     // Drawing the front layer behind the current state or not
 ///TODO : we do not manage the front layer yet, see that later
-/*    if(current_state -> front_layer_behind())
+    if(current_state -> front_layer_behind())
     {
       resources -> front_layer.draw();
       current_state -> draw();
@@ -140,7 +139,7 @@ void GameEngine::run()
       current_state -> draw();
       resources -> front_layer.draw();            
     }
-*/
+
       current_state -> draw();
     // Get the Framerate
  //   resources -> fps = fps_getter.get_fps();

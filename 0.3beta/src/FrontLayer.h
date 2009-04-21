@@ -23,14 +23,15 @@ class FrontLayerSprite{
   SDL_Surface *sprite;
   u_int left, top;
 
+  FrontLayerSprite();
+
 };
 
 
 class FrontLayer{
 
   private:
-// TODO : find a resources manager
-  void load_gfx(/*CL_ResourceManager *gfx_frontlayer*/);
+  void load_gfx(FILE * front_layer_ini, std::string skin);
 
 
   public:

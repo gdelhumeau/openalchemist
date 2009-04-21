@@ -22,7 +22,7 @@ STATIC_LIBS = `sdl-config --static-libs`
 BUILD_PATH = linux_built
 
 # liste des objets à compiler
-OBJS=psp_main.o psp_sdl.o InterfaceC_CPP.o GameEngine.o CommonResources.o Board.o CombosPainter.o misc.o Player.o IniFile.o Preferences.o Keys.o ProgressBar.o HumanPlayer.o DemoPlayer.o BitmapFont.o states/CommonState.o states/GameOverState.o states/InGameState.o states/OptionsMenuState.o states/PauseMenuState.o states/QuitMenuState.o states/SkinsMenuState.o states/GameState.o states/TitleState.o
+OBJS=psp_main.o psp_sdl.o InterfaceC_CPP.o GameEngine.o CommonResources.o Board.o CombosPainter.o misc.o Player.o IniFile.o Preferences.o Keys.o ProgressBar.o HumanPlayer.o DemoPlayer.o BitmapFont.o FrontLayer.o states/CommonState.o states/GameOverState.o states/InGameState.o states/OptionsMenuState.o states/PauseMenuState.o states/QuitMenuState.o states/SkinsMenuState.o states/GameState.o states/TitleState.o
 # all = on compile tous les execs
 all: openalchemist
 	@echo "OK"
