@@ -102,7 +102,7 @@ void CommonResources::load_gfx(std::string skin)
   printf("Player 1 load gfx ok\n");
 #endif
   /// Do not managing skin using front layer for the moment
-  //front_layer.load_gfx(skin);
+  front_layer.load_gfx(skin);
 
 }
 
@@ -120,7 +120,7 @@ void CommonResources::unload_gfx()
 
   player1.unload_gfx();
   /// Do not managing skin using front layer for the moment
-  //front_layer.unload_gfx();
+  front_layer.unload_gfx();
 printf("common resources unload_gfx done\n");
 }
 
