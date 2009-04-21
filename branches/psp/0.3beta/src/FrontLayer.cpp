@@ -47,10 +47,11 @@ void FrontLayer::load_gfx(std::string skin)
     load_gfx(&gfx_frontlayer);
   }*/
   FILE * frontLayerIniHandle;
-  std::string frontLayerIni = "skins/" + skin + "/front_layer.ini";
+  std::string frontLayerIni = "skins/" + skin + "/frontlayer.ini";
   frontLayerIniHandle = fopen(frontLayerIni.c_str(), "r");
   if (frontLayerIniHandle != NULL)
-  {printf("we could open frontlayer ini \n");
+  {
+     printf("------------> we could open frontlayer ini \n");
      load_gfx(frontLayerIniHandle, skin);
      enabled = true;
   }
@@ -77,6 +78,7 @@ void FrontLayer::load_gfx(FILE* FrontLayerIniFile, std::string skin)
     FrontLayerSprite *fsprite = new FrontLayerSprite();
     sprintf(image_name,"pic%d", i);
     std::string image = front_layer_resources.get(std::string(image_name),std::string("toto"));
+    printf("image = %s\n", image.c_str());
     fsprite -> sprite = IMG_Load_fromSkin(skin, (char*)image.c_str());
     sprintf(coord_name,"%dx", i);
     fsprite -> left = front_layer_resources.get(std::string(coord_name),0);
@@ -108,6 +110,7 @@ void FrontLayer::draw()
   {
     FrontLayerSprite *fsprite = (FrontLayerSprite*)*it;
     psp_sdl_blit_on_screen_at_XY(fsprite -> sprite, fsprite -> left, fsprite -> top);
+    printf ("draw element frontlayer at x: %d, y: %d\n", fsprite -> left, fsprite -> top);
     it++;
   }
 }

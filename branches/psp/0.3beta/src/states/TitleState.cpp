@@ -102,8 +102,8 @@ void TitleState::load_gfx(std::string skin)
     }
   }
 
-  arrow_key_x = 125;
-  arrow_key_y = 160;
+  arrow_key_x = 130;
+  arrow_key_y = 180;
   round_key_x = arrow_key_x + keydemo[LEFT]->w/2 - keydemo[ROTATE]->w/2;
   round_key_y = arrow_key_y + keydemo[LEFT]->h/2 - keydemo[ROTATE]->h/2;
   
