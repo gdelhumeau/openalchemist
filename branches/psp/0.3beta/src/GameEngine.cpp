@@ -18,6 +18,10 @@
 #include "CommonResources.h"
 #include "misc.h"
 
+#define REPEAT_WAIT 400
+#define REPEAT_INTERVAL 100
+
+
 GameEngine::GameEngine(SDL_Surface * pspScreen/*CL_DisplayWindow *window,*/)
 {
   //this -> window = window;
@@ -69,9 +73,14 @@ void GameEngine::run()
 {
   int previousKey = 0;
   int repeat = 0;
+
+  int KeyDownTime = SDL_GetTicks() + REPEAT_WAIT;
+
   set_state_title();
   CommonResources *resources = common_resources_get_instance();
   resources -> player1.new_game();
+
+
 
   running = true;
 
@@ -80,10 +89,12 @@ void GameEngine::run()
 #ifndef LINUX_MODE
     SceCtrlData pad;
     sceCtrlReadBufferPositive(&pad, 1);
-    if ( (previousKey != pad.Buttons)|| (repeat >25))
+    if ( (previousKey != pad.Buttons)|| 
+	 ( (previousKey == pad.Buttons) && (SDL_GetTicks() > KeyDownTime) )/*(repeat >25)*/)
 	{
-	   repeat = 0;
+	   /*repeat = 0;*/
 	   printf("previous key : %d\n",previousKey);
+	   KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
            resources -> CurrentKeyPressed = pad.Buttons;
            previousKey = pad.Buttons;
 	}
@@ -91,13 +102,22 @@ void GameEngine::run()
     SDL_Event event;
     SDL_PollEvent(&event);
     if (event.type == SDL_KEYDOWN)
-       if ( (previousKey != event.key.keysym.sym) || (repeat >25))
+       if ( (previousKey != event.key.keysym.sym) ||
+            ( (previousKey == event.key.keysym.sym) && (SDL_GetTicks() > KeyDownTime) ) /*(repeat >25)*/)
 	{
-	   repeat = 0;
+	   /*repeat = 0;*/
+	   printf("SDL_GetTicks() = %d\n", SDL_GetTicks());
+	   printf("KeyDownTime = %d\n", KeyDownTime);
+	   printf("SDL_GetTicks() - KeyDownTime = %d\n", (SDL_GetTicks() - KeyDownTime));
+
+	   KeyDownTime = SDL_GetTicks() + REPEAT_INTERVAL;
 	   printf("previous key : %d\n",previousKey);
            resources -> CurrentKeyPressed = event.key.keysym.sym;
            previousKey = event.key.keysym.sym;
 	}
+       
+
+
 #endif
     repeat++;
     common_state.events();

@@ -36,6 +36,7 @@ void HumanPlayer::events()
    {
     // Change the order of the pieces 
     case KEY_CHANGE_ANGLE:
+    case KEY_UP:
     {
       change_angle();
       resources->CurrentKeyPressed = 0;

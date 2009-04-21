@@ -363,6 +363,7 @@ void Player::events()
    {
     // Change the order of the pieces 
     case KEY_CHANGE_ANGLE:
+    case KEY_UP:
     {
       printf("I got change angle event\n");
       change_angle();
