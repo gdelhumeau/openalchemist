@@ -1,16 +1,25 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="3" >
-  <Doc0 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/BitmapFont.cpp" >
-   <View0 Encoding="" line="4" Type="Source" />
+ <DocsAndViews NumberOfDocuments="6" >
+  <Doc0 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/FrontLayer.h" >
+   <View0 Encoding="" line="26" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/CommonResources.cpp" >
-   <View0 Encoding="" line="44" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/states/SkinsMenuState.h" >
+   <View0 Encoding="" line="30" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/psp/dev/svnWork2/branches/psp/0.3beta/src/states/SkinsMenuState.cpp" >
-   <View0 Encoding="" line="40" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/FrontLayer.cpp" >
+   <View0 Encoding="" line="112" Type="Source" />
   </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/misc.h" >
+   <View0 Encoding="" line="24" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/GameEngine.cpp" >
+   <View0 Encoding="" line="102" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/chrystele/dev/psp/svnWork3/psp/0.3beta/src/CommonResources.cpp" >
+   <View0 Encoding="" line="0" Type="Source" />
+  </Doc5>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
@@ -18,7 +27,7 @@
    <showInternalCommands value="0" />
   </kdevdebugger>
   <kdevastyle>
-   <Extensions ext="*.cpp *.h,*.c *.h,*.cxx *.hxx,*.c++ *.h++,*.cc *.hh,*.C *.H,*.diff,*.inl,*.java,*.moc,*.patch,*.tlh,*.xpm" />
+   <Extensions ext="*.cpp *.h *.hpp,*.c *.h,*.cxx *.hxx,*.c++ *.h++,*.cc *.hh,*.C *.H,*.diff ,*.inl,*.java,*.moc,*.patch,*.tlh,*.xpm" />
    <AStyle IndentPreprocessors="0" FillCount="4" PadParenthesesOut="1" IndentNamespaces="1" IndentLabels="1" Fill="Tabs" MaxStatement="40" Brackets="Break" MinConditional="-1" IndentBrackets="0" PadParenthesesUn="1" BlockBreak="0" KeepStatements="1" KeepBlocks="1" BlockIfElse="0" IndentSwitches="1" PadOperators="0" FStyle="UserDefined" IndentCases="0" FillEmptyLines="0" BracketsCloseHeaders="0" BlockBreakAll="0" PadParenthesesIn="1" IndentClasses="1" IndentBlocks="0" FillForce="0" />
   </kdevastyle>
   <kdevbookmarks>
