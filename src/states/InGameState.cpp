@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "../memory.h"
 #include "InGameState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"

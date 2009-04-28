@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "memory.h"
 #include <math.h>
 
 #include <ClanLib/core.h>
@@ -21,6 +22,7 @@
 #include "Board.h"
 #include "GameEngine.h"
 
+
 void DemoPlayer::events()
 {
  
@@ -32,7 +34,7 @@ void DemoPlayer::new_game()
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
 
-  // Creating new pieces for playable pieces and next pieces
+  // Creating my_new pieces for playable pieces and next pieces
   _p_current_piece1 = new Piece(2);
   _p_current_piece2 = new Piece(1);
   _p_next_piece1 = new Piece(2);

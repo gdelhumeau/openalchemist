@@ -30,6 +30,8 @@ class IniFile{
   std::list<IniElement*> list;
 
   public:
+	IniFile();
+	~IniFile();
 
   void read(CL_InputSource_File *file);
   void write(CL_OutputSource_File *file);

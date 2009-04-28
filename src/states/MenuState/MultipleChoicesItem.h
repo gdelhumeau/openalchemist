@@ -45,6 +45,8 @@ class MultipleChoicesItem : public MenuItem{
 	void set_current_choice(unsigned int choice);
 	
 	void clear_choices();
+
+	void unload_gfx();
 	
 	MultipleChoicesItem();
 	~MultipleChoicesItem();	

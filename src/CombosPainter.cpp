@@ -9,11 +9,11 @@
 
 *********************************************************************/
 
+#include <ClanLib/core.h>
 #include "CombosPainter.h"
 #include "CommonResources.h"
 #include "misc.h"
-
-#include <ClanLib/core.h>
+#include "memory.h"
 
 #define COMBOS_SPEED 1
 
@@ -42,6 +42,7 @@ CombosPainter :: ~CombosPainter()
 void CombosPainter :: load_gfx(std::string skin)
 {
 
+	unload_gfx();
   // Getting resources
   //CommonResources *resources = common_resources_get_instance();
 
@@ -49,9 +50,9 @@ void CombosPainter :: load_gfx(std::string skin)
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx_combos("combos.xml", &zip, false);
 
-  _p_sprite_single = new CL_Sprite("combos/text/sprite_single", &gfx_combos);
-  _p_sprite_plural = new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
-  _p_font = new CL_Font("combos/font", &gfx_combos);
+  _p_sprite_single = my_new CL_Sprite("combos/text/sprite_single", &gfx_combos);
+  _p_sprite_plural = my_new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
+  _p_font = my_new CL_Font("combos/font", &gfx_combos);
 
   _sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
   _sprite_y =  CL_Integer_to_int("combos/text/top", &gfx_combos);
@@ -66,17 +67,17 @@ void CombosPainter :: unload_gfx()
 {
   if(_p_sprite_single)
   {
-    delete _p_sprite_single;
+    my_delete(_p_sprite_single);
     _p_sprite_single = NULL;
   }
   if(_p_sprite_plural)
   {
-    delete _p_sprite_plural;
+    my_delete(_p_sprite_plural);
     _p_sprite_plural = NULL;
   }
   if(_p_font)
   {
-    delete _p_font;
+    my_delete(_p_font);
     _p_font = NULL;
   }
 }

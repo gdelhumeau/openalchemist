@@ -55,7 +55,7 @@ class Skin{
   ~Skin()
     {
       if(logo)
-        delete logo;
+        my_delete(logo);
     }
 };
 

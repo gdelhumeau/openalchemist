@@ -1,43 +1,42 @@
 #include <ClanLib/display.h>
 
 #include "Keys.h"
+#include "memory.h"
 
 // Constructor
 Keys::Keys()
 {
   // We create all the usefull KeysboardKeys
-  fullscreen   = new KeyboardKey(CL_KEY_F11   , false);
-  retry        = new KeyboardKey(CL_KEY_F2    , false);
-//  change_angle = new KeyboardKey(CL_KEY_UP    , true );
-  left         = new KeyboardKey(CL_KEY_LEFT  , true );
-  right        = new KeyboardKey(CL_KEY_RIGHT , true );
-//  falling      = new KeyboardKey(CL_KEY_DOWN  , false);
-  undo         = new KeyboardKey(CL_KEY_F5    , false);
-  escape       = new KeyboardKey(CL_KEY_ESCAPE, false);
-  pause        = new KeyboardKey(CL_KEY_PAUSE , false);
-  up           = new KeyboardKey(CL_KEY_UP    , true );
-  down         = new KeyboardKey(CL_KEY_DOWN  , true );
-  enter        = new KeyboardKey(CL_KEY_ENTER , false);
-  options      = new KeyboardKey(CL_KEY_F9    , false);
-  skins        = new KeyboardKey(CL_KEY_F10   , false);
+  fullscreen   = my_new KeyboardKey(CL_KEY_F11   , false);
+  retry        = my_new KeyboardKey(CL_KEY_F2    , false);
+//  change_angle = my_new KeyboardKey(CL_KEY_UP    , true );
+  left         = my_new KeyboardKey(CL_KEY_LEFT  , true );
+  right        = my_new KeyboardKey(CL_KEY_RIGHT , true );
+//  falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
+  undo         = my_new KeyboardKey(CL_KEY_F5    , false);
+  escape       = my_new KeyboardKey(CL_KEY_ESCAPE, false);
+  pause        = my_new KeyboardKey(CL_KEY_PAUSE , false);
+  up           = my_new KeyboardKey(CL_KEY_UP    , true );
+  down         = my_new KeyboardKey(CL_KEY_DOWN  , true );
+  enter        = my_new KeyboardKey(CL_KEY_ENTER , false);
+  options      = my_new KeyboardKey(CL_KEY_F9    , false);
+  skins        = my_new KeyboardKey(CL_KEY_F10   , false);
   
 }
 
 // Destructor
 Keys::~Keys()
 {
-  delete fullscreen;
-  delete retry;
-//  delete change_angle;
-  delete left;
-  delete right; 
-//  delete falling; 
-  delete undo;
-  delete escape;
-  delete pause;
-  delete up;
-  delete down;
-  delete enter;
-  delete options;
-  delete skins;
+  my_delete( fullscreen );
+  my_delete( retry );
+  my_delete( left );
+  my_delete( right ); 
+  my_delete( undo );
+  my_delete( escape );
+  my_delete( pause );
+  my_delete( up );
+  my_delete( down );
+  my_delete( enter );
+  my_delete( options );
+  my_delete( skins );
 }

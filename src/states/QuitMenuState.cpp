@@ -9,6 +9,7 @@
  
 *********************************************************************/
 
+#include "../memory.h"
 #include <iostream>
 #include "QuitMenuState.h"
 #include "../CommonResources.h"
@@ -30,24 +31,26 @@ void QuitMenuState::deinit()
 
 void QuitMenuState::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
     // Getting skins resources
     CL_Zip_Archive zip(skin);
     CL_ResourceManager gfx("menu_quit.xml", &zip, false);
 
-    panel_exit    = new CL_Sprite("menu_quit/dialog_panel/sprite_exit", &gfx);
-    panel_give_up = new CL_Sprite("menu_quit/dialog_panel/sprite_giveup", &gfx);
-    panel_retry   = new CL_Sprite("menu_quit/dialog_panel/sprite_retry", &gfx);
+    panel_exit    = my_new CL_Sprite("menu_quit/dialog_panel/sprite_exit", &gfx);
+    panel_give_up = my_new CL_Sprite("menu_quit/dialog_panel/sprite_giveup", &gfx);
+    panel_retry   = my_new CL_Sprite("menu_quit/dialog_panel/sprite_retry", &gfx);
 
     panel_x = CL_Integer_to_int("menu_quit/dialog_panel/left", &gfx);
     panel_y = CL_Integer_to_int("menu_quit/dialog_panel/top", &gfx);
 
-    CL_Sprite * yes_selected   = new CL_Sprite("menu_quit/dialog_yes/selected", &gfx);
-    CL_Sprite * yes_unselected = new CL_Sprite("menu_quit/dialog_yes/unselected", &gfx);
+    CL_Sprite * yes_selected   = my_new CL_Sprite("menu_quit/dialog_yes/selected", &gfx);
+    CL_Sprite * yes_unselected = my_new CL_Sprite("menu_quit/dialog_yes/unselected", &gfx);
     int yes_x = CL_Integer_to_int("menu_quit/dialog_yes/left", &gfx);
     int yes_y = CL_Integer_to_int("menu_quit/dialog_yes/top", &gfx);
 
-    CL_Sprite * no_selected   = new CL_Sprite("menu_quit/dialog_no/selected", &gfx);
-    CL_Sprite * no_unselected = new CL_Sprite("menu_quit/dialog_no/unselected", &gfx);
+    CL_Sprite * no_selected   = my_new CL_Sprite("menu_quit/dialog_no/selected", &gfx);
+    CL_Sprite * no_unselected = my_new CL_Sprite("menu_quit/dialog_no/unselected", &gfx);
     int no_x = CL_Integer_to_int("menu_quit/dialog_no/left", &gfx);
     int no_y = CL_Integer_to_int("menu_quit/dialog_no/top", &gfx);
 
@@ -63,17 +66,17 @@ void QuitMenuState::unload_gfx()
 {
     if(panel_exit)
     {
-        delete panel_exit;
+        my_delete(panel_exit);
         panel_exit = NULL;
     }
     if(panel_give_up)
     {
-        delete panel_give_up;
+        my_delete(panel_give_up);
         panel_give_up = NULL;
     }
     if(panel_retry)
     {
-        delete panel_retry;
+        my_delete(panel_retry);
         panel_retry = NULL;
     }
 

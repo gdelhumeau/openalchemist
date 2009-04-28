@@ -11,6 +11,7 @@
 
 #include "ProgressBar.h"
 #include "misc.h"
+#include "memory.h"
 
 ProgressBar::ProgressBar()
 {
@@ -28,16 +29,18 @@ ProgressBar::~ProgressBar()
 
 void ProgressBar::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
   // Getting skins resources
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("progress_bar.xml", &zip, false);
 
 
-  _p_head     = new CL_Sprite("progress_bar/head/sprite",    &gfx);
-  _p_head_ok  = new CL_Sprite("progress_bar/head/sprite_ok", &gfx);
-  _p_foot     = new CL_Sprite("progress_bar/foot/sprite",    &gfx);
-  _p_item     = new CL_Sprite("progress_bar/item/sprite",    &gfx);
-  _p_item_ok  = new CL_Sprite("progress_bar/item/sprite_ok", &gfx);
+  _p_head     = my_new CL_Sprite("progress_bar/head/sprite",    &gfx);
+  _p_head_ok  = my_new CL_Sprite("progress_bar/head/sprite_ok", &gfx);
+  _p_foot     = my_new CL_Sprite("progress_bar/foot/sprite",    &gfx);
+  _p_item     = my_new CL_Sprite("progress_bar/item/sprite",    &gfx);
+  _p_item_ok  = my_new CL_Sprite("progress_bar/item/sprite_ok", &gfx);
 
   _left     = CL_Integer_to_int("progress_bar/left",       &gfx);
   _head_top = CL_Integer_to_int("progress_bar/head/top",   &gfx);
@@ -49,31 +52,31 @@ void ProgressBar::unload_gfx()
 {
   if(_p_head)
   {
-    delete _p_head;
+    my_delete(_p_head);
     _p_head = NULL;
   }
 
   if(_p_head_ok)
   {
-    delete _p_head_ok;
+    my_delete(_p_head_ok);
     _p_head_ok = NULL;
   }
 
   if(_p_foot)
   {
-    delete _p_foot;
+    my_delete(_p_foot);
     _p_foot = NULL;
   }
 
   if(_p_item)
   {
-    delete _p_item;
+    my_delete(_p_item);
     _p_item = NULL;
   }
 
   if(_p_item_ok)
   {
-    delete _p_item_ok;
+    my_delete(_p_item_ok);
     _p_item_ok = NULL;
   }
 }

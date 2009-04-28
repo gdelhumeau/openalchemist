@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "MenuItem.h"
+#include "../../memory.h"
 
 
 MenuItem::MenuItem()

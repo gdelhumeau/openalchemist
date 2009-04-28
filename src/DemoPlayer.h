@@ -35,7 +35,7 @@ class DemoPlayer : public Player{
   void events();
 
   /**
-   * Make a new game
+   * Make a my_new game
    */
   void new_game();
   

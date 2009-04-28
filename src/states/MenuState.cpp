@@ -9,7 +9,7 @@
  
  *********************************************************************/
 
-
+#include "../memory.h"
 #include "MenuState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"

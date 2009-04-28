@@ -9,6 +9,7 @@
  
  *********************************************************************/
 
+#include "memory.h"
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
@@ -32,9 +33,6 @@ void GameEngine::init()
 {
     _running = true;
 
-    _p_loading_screen = new LoadingScreen();
-    _p_loading_screen -> set_progression(0.0f);
-
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();
 
@@ -49,14 +47,21 @@ void GameEngine::init()
     _optionsmenu_state.init();
     _title_state.init();
     _quitmenu_state.init();
-
-    _p_loading_screen -> set_progression(1.0f / 12.0f);
-
-    set_skin(pref -> skin);
+    
+	  set_skin(pref -> skin);
     resize(_p_window -> get_width(), _p_window -> get_height());
+}
 
-    delete _p_loading_screen;
-    _p_loading_screen = NULL;
+void GameEngine::deinit()
+{
+    //_common_state.deinit();
+    //_ingame_state.deinit();
+    //_gameover_state.deinit();
+    _pausemenu_state.deinit();
+    _skinsmenu_state.deinit();
+    _optionsmenu_state.deinit();
+    //_title_state.deinit();
+    //_quitmenu_state.deinit();
 }
 
 void GameEngine::run()
@@ -322,6 +327,9 @@ bool GameEngine::is_fullscreen()
 
 void GameEngine::set_skin(std::string skin)
 {
+	  _p_loading_screen = my_new LoadingScreen();
+    _p_loading_screen -> set_progression(0.0f);
+	
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();
 
@@ -421,6 +429,9 @@ void GameEngine::set_skin(std::string skin)
             throw err;
         }
     }
+	
+		my_delete(_p_loading_screen);
+		_p_loading_screen = NULL;
 }
 
 void GameEngine::set_skin_element(u_int element)

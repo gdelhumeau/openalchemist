@@ -12,6 +12,7 @@
 #ifndef _FRONTLAYER_H_
 #define _FRONTLAYER_H_
 
+#include "memory.h"
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
@@ -20,6 +21,20 @@ class FrontLayerSprite{
   public:
   CL_Sprite *p_sprite;
   u_int left, top;
+
+	FrontLayerSprite()
+	{
+		p_sprite = NULL;
+	}
+
+	~FrontLayerSprite()
+	{
+		if(p_sprite)
+		{
+			my_delete(p_sprite);
+			p_sprite = NULL;
+		}
+	}
 
 };
 

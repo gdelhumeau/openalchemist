@@ -12,6 +12,7 @@
 #include <iostream>
 #include "../../CommonResources.h"
 #include "DualChoiceItem.h"
+#include "../../memory.h"
 
 DualChoiceItem::DualChoiceItem()
 {
@@ -54,22 +55,22 @@ void DualChoiceItem::unload_gfx()
 {
     if (_p_normal_sprite_left != NULL)
     {
-        delete _p_normal_sprite_left;
+        my_delete( _p_normal_sprite_left);
         _p_normal_sprite_left = NULL;
     }
     if (_p_selected_sprite_left != NULL)
     {
-        delete _p_selected_sprite_left;
+        my_delete(_p_selected_sprite_left);
         _p_selected_sprite_left = NULL;
     }
     if (_p_normal_sprite_right != NULL)
     {
-        delete _p_normal_sprite_right;
+        my_delete(_p_normal_sprite_right);
         _p_normal_sprite_right = NULL;
     }
     if (_p_selected_sprite_right != NULL)
     {
-        delete _p_selected_sprite_right;
+        my_delete(_p_selected_sprite_right);
         _p_selected_sprite_right = NULL;
     }
   
