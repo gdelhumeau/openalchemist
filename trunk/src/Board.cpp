@@ -9,8 +9,8 @@
 
 *********************************************************************/
 
+#include "memory.h"
 #include "Board.h"
-
 #include "CommonResources.h"
 #include "GameEngine.h"
 #include "misc.h"
@@ -37,7 +37,7 @@ void Board::clear()
     for(int j = 0; j < NUMBER_OF_LINES; ++j)
       if(_p_board[i][j])
       {
-        delete _p_board[i][j];
+        my_delete(_p_board[i][j]);
         _p_board[i][j] = NULL;
       }
 
@@ -236,7 +236,7 @@ void Board::_detect_pieces_to_destroy_from(int i,
 			
 		// Stack to explore the board
 		std::stack<Coords*> stack;
-		stack.push(new Coords(i,j));
+		stack.push(my_new Coords(i,j));
 		
 		// while we have coordinates to explore
 		while(!stack.empty())
@@ -246,7 +246,7 @@ void Board::_detect_pieces_to_destroy_from(int i,
 			int x = c->x;
 			int y = c->y;
 			stack.pop(); 
-			delete c;
+			my_delete(c);
 			
 			if(x >= 0 && x < NUMBER_OF_COLS && y >= 0 && y < NUMBER_OF_LINES 
 				 && _p_board[x][y]!=NULL)
@@ -255,15 +255,15 @@ void Board::_detect_pieces_to_destroy_from(int i,
 				if(!_board_mark[x][y] && _p_board[x][y]->get_piece_number() == root_number)
 				{
 					// We add this pieces to the detected_pieces list
-					detected_pieces.insert(detected_pieces.end(),new Coords(x,y));
+					detected_pieces.insert(detected_pieces.end(),my_new Coords(x,y));
 					_board_mark[x][y] = true;
 					counter ++;
 					
 					// We will explore neighboors
-					stack.push(new Coords(x - 1, y));
-					stack.push(new Coords(x + 1, y));
-					stack.push(new Coords(x, y - 1));
-					stack.push(new Coords(x, y + 1));                                                                  
+					stack.push(my_new Coords(x - 1, y));
+					stack.push(my_new Coords(x + 1, y));
+					stack.push(my_new Coords(x, y - 1));
+					stack.push(my_new Coords(x, y + 1));                                                                  
 				}
 			}              
 			
@@ -303,11 +303,11 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces)
 
 void Board::_create_new_piece(std::vector<Coords*> &detected_pieces)
 {
-	// Determining the new piece coords
+	// Determining the my_new piece coords
 	Coords new_piece(NUMBER_OF_COLS+1,-1);	
 	_choose_new_piece_coords(new_piece, detected_pieces);
 	
-	// Determining the new piece number
+	// Determining the my_new piece number
 	new_piece.piece_number = 
 		_p_board[detected_pieces[0]->x][detected_pieces[0]->y]->get_piece_number()+1;    
 	if(new_piece.piece_number >= NUMBER_OF_PIECES)
@@ -315,12 +315,12 @@ void Board::_create_new_piece(std::vector<Coords*> &detected_pieces)
 		new_piece.piece_number = NUMBER_OF_PIECES-1;
 	}
 	
-	// Maybe we have unlocked new element ?
+	// Maybe we have unlocked my_new element ?
 	_unlock_piece(new_piece);
 	
-	// We add the new piece except if we have aligned 3 last elements
+	// We add the my_new piece except if we have aligned 3 last elements
 	if(new_piece.piece_number != NUMBER_OF_PIECES - 1)
-		_list_to_create.insert(_list_to_create.end(), new Coords(&new_piece));	
+		_list_to_create.insert(_list_to_create.end(), my_new Coords(&new_piece));	
 }
 
 void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces)
@@ -332,7 +332,7 @@ void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &de
 		_p_board[c->x][c->y]->start_disappear();                    
 		_list_to_destroy.insert(_list_to_destroy.end(),c);
 		
-		// Select the lefter and bottomer Coords for create new piece
+		// Select the lefter and bottomer Coords for create my_new piece
 		if(c->y > new_piece.y)
 		{
 			new_piece.x = c->x;
@@ -384,9 +384,9 @@ bool Board::destroy()
       }
       else
       {
-        delete _p_board[c->x][c->y];
+        my_delete(_p_board[c->x][c->y]);
         _p_board[c->x][c->y] = NULL;
-        delete c;
+        my_delete(c);
         _list_to_destroy[i] = NULL;
       }
     }
@@ -417,7 +417,7 @@ void Board::create_new_pieces(CL_Sprite **pieces_normal,
       
 
       int score = c->piece_number;
-      Piece *p = new Piece(score);  
+      Piece *p = my_new Piece(score);  
       p -> set_position(c->x*resources->pieces_width+game_left,
                         game_top+(c->y-2)*resources->pieces_height);
                
@@ -430,7 +430,7 @@ void Board::create_new_pieces(CL_Sprite **pieces_normal,
       _p_board[c->x][c->y] = p; 
       _appearing_list.insert(_appearing_list.begin(), p);
 
-      delete c;
+      my_delete(c);
       it = _list_to_create.erase(it);
     }
   }
@@ -530,16 +530,16 @@ void Board::undo(CL_Sprite **pieces_normal,
     resources -> save_scores();
   }
 
-  // Delete the pieces in the board and replace by new ones
+  // Delete the pieces in the board and replace by my_new ones
   for(int i=0; i<NUMBER_OF_COLS; ++i)
     for(int j=0; j<NUMBER_OF_LINES; ++j)
     {
-      if(_p_board[i][j]) delete _p_board[i][j];
+      if(_p_board[i][j]) my_delete(_p_board[i][j]);
       _p_board[i][j] = NULL;
       
       if(_undo_board[i][j] >= 0)
       {
-        _p_board[i][j] = new Piece(_undo_board[i][j]);
+        _p_board[i][j] = my_new Piece(_undo_board[i][j]);
         _p_board[i][j] -> set_sprites(pieces_normal[_undo_board[i][j]], pieces_appearing[_undo_board[i][j]],
                                    pieces_disappearing[_undo_board[i][j]], pieces_mini[_undo_board[i][j]]);
         _p_board[i][j] -> set_position(i*resources->pieces_width+game_left,game_top+(j-2)*resources->pieces_height);

@@ -8,6 +8,7 @@
  
  
 *********************************************************************/
+#include "memory.h"
 
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
@@ -17,6 +18,7 @@
 
 #include "Preferences.h"
 #include "GameEngine.h"
+#include "CommonResources.h"
 #include "misc.h"
 
 #define RENDER_SDL false
@@ -51,14 +53,14 @@ public:
         if(RENDER_OPENGL == _render)
         {
             CL_SetupGL::init();
-            _p_window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+            _p_window = my_new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
             //window -> set_size(800,600);
             CL_System::keep_alive();
         }
         else
         {
             CL_SetupSDL::init();
-            _p_window = new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
+            _p_window = my_new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
         }
 
         Preferences *p_pref = pref_get_instance();
@@ -76,7 +78,7 @@ public:
         // Add a callback when user close the window
         _quit_event = CL_Display::sig_window_close().connect(this, &Application::stop);
 
-        _p_game = new GameEngine(_p_window, _render);
+        _p_game = my_new GameEngine(_p_window, _render);
 
         // Add a callback when user resize the window
         //resize_event = window -> sig_resize().connect(game, &GameEngine::resize);
@@ -96,10 +98,12 @@ public:
     void quit()
     {
         CL_Display::sig_window_close().disconnect(_quit_event);
+			
+				_p_game -> deinit();
 
-        delete _p_game;
+        my_delete(_p_game);
 
-        delete _p_window;
+        my_delete(_p_window);
 
         if(_render == RENDER_OPENGL)
         {
@@ -113,8 +117,10 @@ public:
         CL_SetupDisplay::deinit();
         CL_SetupCore::deinit();
 
-        delete pref_get_instance();
+        my_delete(pref_get_instance());
+			  my_delete(common_resources_get_instance());
 
+				term_memory();
         exit(0);
     }
 
@@ -124,6 +130,7 @@ public:
      */
     virtual int main(int argc, char **argv)
     {
+			  init_memory();
         bool dont_run_game = false;
         Preferences *_p_pref = pref_get_instance();
         _render = _p_pref -> render_opengl;
@@ -215,8 +222,8 @@ public:
                 std::cout << err.message.c_str() << std::endl;
             }
         }
-
-
+			
+				term_memory();
 
         return 0;
     }

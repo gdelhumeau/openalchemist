@@ -12,24 +12,25 @@
 #include <ClanLib/core.h>
 #include "LoadingScreen.h"
 #include "misc.h"
+#include "memory.h"
 
 LoadingScreen::LoadingScreen()
 {
     std::string file_path = get_data_path();
-    _p_logo = new CL_Surface(file_path + get_path_separator() +
+    _p_logo = my_new CL_Surface(file_path + get_path_separator() +
                              "loading.png");
                              
-    _p_progression = new CL_Surface(file_path + get_path_separator() +
+    _p_progression = my_new CL_Surface(file_path + get_path_separator() +
                              	    "progression.png");
-    _p_progression_cursor = new CL_Surface(file_path + get_path_separator() +
+    _p_progression_cursor = my_new CL_Surface(file_path + get_path_separator() +
                                            "progression-cursor.png");
 }
 
 LoadingScreen::~LoadingScreen()
 {
-    delete _p_logo;
-    delete _p_progression;
-    delete _p_progression_cursor;
+    my_delete(_p_logo);
+    my_delete(_p_progression);
+    my_delete(_p_progression_cursor);
 }
 
 void LoadingScreen::set_progression(float progression)

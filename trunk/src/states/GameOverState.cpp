@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "../memory.h"
 #include "GameOverState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
@@ -27,12 +28,14 @@ void GameOverState::deinit()
 
 void GameOverState::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
   // Getting skins resources
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_gameover.xml", &zip, false);
 
-  _p_dialog_gameover = new CL_Sprite("menu_gameover/dialog_gameover", &gfx);
-  _p_dialog_highscore = new CL_Sprite("menu_gameover/dialog_highscore", &gfx);
+  _p_dialog_gameover = my_new CL_Sprite("menu_gameover/dialog_gameover", &gfx);
+  _p_dialog_highscore = my_new CL_Sprite("menu_gameover/dialog_highscore", &gfx);
   _dialog_x = CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
   _dialog_y = CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
   _score1_x = CL_Integer_to_int("menu_gameover/score1_left", &gfx);
@@ -40,11 +43,11 @@ void GameOverState::load_gfx(std::string skin)
   _score2_x = CL_Integer_to_int("menu_gameover/score2_left", &gfx);
   _score2_y = CL_Integer_to_int("menu_gameover/score2_top", &gfx);
 
-  _p_yes_selected = new CL_Sprite("menu_gameover/new_game_question/yes/selected", &gfx);
-  _p_yes_unselected = new CL_Sprite("menu_gameover/new_game_question/yes/unselected", &gfx);
+  _p_yes_selected = my_new CL_Sprite("menu_gameover/new_game_question/yes/selected", &gfx);
+  _p_yes_unselected = my_new CL_Sprite("menu_gameover/new_game_question/yes/unselected", &gfx);
 
-  _p_no_selected = new CL_Sprite("menu_gameover/new_game_question/no/selected", &gfx);
-  _p_no_unselected = new CL_Sprite("menu_gameover/new_game_question/no/unselected", &gfx);
+  _p_no_selected = my_new CL_Sprite("menu_gameover/new_game_question/no/selected", &gfx);
+  _p_no_unselected = my_new CL_Sprite("menu_gameover/new_game_question/no/unselected", &gfx);
 
   _yes_x = CL_Integer_to_int("menu_gameover/new_game_question/yes/left", &gfx);
   _yes_y = CL_Integer_to_int("menu_gameover/new_game_question/yes/top", &gfx);
@@ -59,38 +62,38 @@ void GameOverState::unload_gfx()
 
   if(_p_dialog_gameover)
   {
-    delete _p_dialog_gameover;
+    my_delete(_p_dialog_gameover);
     _p_dialog_gameover = NULL;
   }
 
   if(_p_dialog_highscore)
   {
-    delete _p_dialog_highscore;
+    my_delete(_p_dialog_highscore);
     _p_dialog_highscore = NULL;
   }
 
 
   if(_p_yes_selected)
   {
-    delete _p_yes_selected;
+    my_delete(_p_yes_selected);
     _p_yes_selected = NULL;
   }
 
   if(_p_yes_unselected)
   {
-    delete _p_yes_unselected;
+    my_delete(_p_yes_unselected);
     _p_yes_unselected = NULL;
   }
 
   if(_p_no_selected)
   {
-    delete _p_no_selected;
+    my_delete(_p_no_selected);
     _p_no_selected = NULL;
   }
 
   if(_p_no_unselected)
   {
-    delete _p_no_unselected;
+    my_delete(_p_no_unselected);
     _p_no_unselected = NULL;
   }
 

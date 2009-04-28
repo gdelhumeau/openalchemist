@@ -11,9 +11,12 @@
 
 #include "FrontLayer.h"
 #include "misc.h"
+#include "memory.h"
 
 void FrontLayer::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
   CL_Zip_Archive zip(skin);
 
   // Look if frontlayer.xml is existing
@@ -43,8 +46,8 @@ void FrontLayer::_load_gfx(CL_ResourceManager *gfx_frontlayer)
   
   for(int i=1; i<=number; ++i)
   {
-    FrontLayerSprite *fsprite = new FrontLayerSprite();
-    fsprite -> p_sprite = new CL_Sprite("frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
+    FrontLayerSprite *fsprite = my_new FrontLayerSprite();
+    fsprite -> p_sprite = my_new CL_Sprite("frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
     fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", gfx_frontlayer);
     fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", gfx_frontlayer);
     list.insert(list.end(), fsprite);
@@ -57,7 +60,7 @@ void FrontLayer::unload_gfx()
   std::list<FrontLayerSprite*>::iterator it = list.begin();
   while(!list.empty())
   {
-    delete *it;
+    my_delete(*it);
     it = list.erase(it);
   }
 

@@ -12,6 +12,7 @@
 #include <ClanLib/core.h>
 
 #include "IniFile.h"
+#include "memory.h"
 
 void write_ln(CL_OutputSource_File *file, std::string string)
 {
@@ -41,6 +42,24 @@ std::string read_ln(CL_InputSource_File *file)
   return s;
 }
 
+IniFile::IniFile()
+{
+	
+}
+
+
+IniFile::~IniFile()
+{
+	std::list<IniElement*>::iterator it = list.begin();
+  while(it != list.end())
+  {
+    IniElement *e = (IniElement*)*it;
+    my_delete(e);
+    it++;
+  }
+	list.clear();
+}
+
 
 void IniFile::read(CL_InputSource_File *file)
 {
@@ -49,7 +68,7 @@ void IniFile::read(CL_InputSource_File *file)
   file -> open();
   while(file -> tell() != file -> size())
   {
-    IniElement *e = new IniElement();
+    IniElement *e = my_new IniElement();
     std::string line = read_ln(file);
 
     if(line.length() >1)
@@ -98,7 +117,7 @@ void IniFile::clear()
   while(!list.empty())
   {
     IniElement *e = (IniElement*) *it;
-    delete e;
+    my_delete(e);
     it = list.erase(it);
   }
 }
@@ -117,7 +136,7 @@ void IniFile::add(std::string name, std::string value)
     it++;
   }
 
-  IniElement *e = new IniElement();
+  IniElement *e = my_new IniElement();
   e -> name = name;
   e -> value = value;
   list.insert(list.end(), e);
@@ -140,7 +159,7 @@ void IniFile::add(std::string name, bool value)
     it++;
   }
 
-  IniElement *e = new IniElement();
+  IniElement *e = my_new IniElement();
   e -> name = name;
 
   if(value)
@@ -171,7 +190,7 @@ void IniFile::add(std::string name, int value)
     it++;
   }
 
-  IniElement *e = new IniElement();
+  IniElement *e = my_new IniElement();
   e -> name = name;
   try
   {

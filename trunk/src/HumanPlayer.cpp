@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "memory.h"
 #include <math.h>
 
 #include <ClanLib/core.h>
@@ -23,7 +24,6 @@
 
 static const float TO_RAD 						= PI / 180;
 static const float PIECE_MOVING_SPEED = 0.25;
-
 
 void HumanPlayer::events()
 {

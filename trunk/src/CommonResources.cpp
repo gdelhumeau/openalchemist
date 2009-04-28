@@ -15,6 +15,7 @@
 #include "Preferences.h"
 #include "misc.h"
 #include "Piece.h"
+#include "memory.h"
 
 const int Piece::_score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
@@ -46,7 +47,7 @@ void CommonResources::load_gfx(std::string skin)
   CL_ResourceManager gfx("general.xml",&zip, false);
   CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
 
-  p_main_font = new CL_Font("font", &gfx);
+  p_main_font = my_new CL_Font("font", &gfx);
 
   // Then, propreties
   pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
@@ -62,7 +63,7 @@ void CommonResources::unload_gfx()
 {
   if(p_main_font)
   {
-    delete p_main_font;
+    my_delete(p_main_font);
     p_main_font = NULL;
   }
 
@@ -117,6 +118,9 @@ void CommonResources::save_scores()
 
 CommonResources* common_resources_get_instance()
 {
-  static CommonResources instance;
-  return &instance;
+  static CommonResources* instance = NULL;
+	if(!instance)
+		instance = new CommonResources();
+	
+  return instance;
 }

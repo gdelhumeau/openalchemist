@@ -9,6 +9,7 @@
  
  *********************************************************************/
 
+#include "../memory.h"
 #include <ClanLib/core.h>
 
 #include "PauseMenuState.h"
@@ -38,60 +39,64 @@ void PauseMenuState::init ()
 }
 
 void PauseMenuState::deinit ()
-{ }
+{ 
+	unload_gfx();
+}
 
 void PauseMenuState::load_gfx (std::string skin)
 {
+	unload_gfx();
+	
     // Getting skins resources
     CL_Zip_Archive zip (skin);
     CL_ResourceManager gfx ("menu_pause.xml", &zip, false);
 
     // First, the sprites
-    _background = new CL_Sprite ("menu_pause/background", &gfx);
+    _background = my_new CL_Sprite ("menu_pause/background", &gfx);
 
     int x = 400 - _background -> get_width () / 2;
     int y = 300 - _background -> get_height () / 2;
 
 
     // resume
-    _resume_item.set_gfx (new CL_Sprite ("menu_pause/resume/unselected", &gfx),
-                         new CL_Sprite ("menu_pause/resume/selected", &gfx),
+    _resume_item.set_gfx (my_new CL_Sprite ("menu_pause/resume/unselected", &gfx),
+                         my_new CL_Sprite ("menu_pause/resume/selected", &gfx),
                          NULL);
     _resume_item.set_x (x + CL_Integer_to_int ("menu_pause/resume/left", &gfx));
     _resume_item.set_y (y + CL_Integer_to_int ("menu_pause/resume/top", &gfx));
 
     // undo
-    _undo_item.set_gfx (new CL_Sprite ("menu_pause/undo/unselected", &gfx),
-                       new CL_Sprite ("menu_pause/undo/selected", &gfx),
-                       new CL_Sprite ("menu_pause/undo/unavailable", &gfx));
+    _undo_item.set_gfx (my_new CL_Sprite ("menu_pause/undo/unselected", &gfx),
+                       my_new CL_Sprite ("menu_pause/undo/selected", &gfx),
+                       my_new CL_Sprite ("menu_pause/undo/unavailable", &gfx));
     _undo_item.set_x (x + CL_Integer_to_int ("menu_pause/undo/left", &gfx));
     _undo_item.set_y (y + CL_Integer_to_int ("menu_pause/undo/top", &gfx));
     _undo_item.set_locked (true);
 
     // retry
-    _retry_item.set_gfx (new CL_Sprite ("menu_pause/retry/unselected", &gfx),
-                        new CL_Sprite ("menu_pause/retry/selected", &gfx),
+    _retry_item.set_gfx (my_new CL_Sprite ("menu_pause/retry/unselected", &gfx),
+                        my_new CL_Sprite ("menu_pause/retry/selected", &gfx),
                         NULL);
     _retry_item.set_x (x + CL_Integer_to_int ("menu_pause/retry/left", &gfx));
     _retry_item.set_y (y + CL_Integer_to_int ("menu_pause/retry/top", &gfx));
 
     // options
-    _options_item.set_gfx (new CL_Sprite ("menu_pause/options/unselected", &gfx),
-                          new CL_Sprite ("menu_pause/options/selected", &gfx),
+    _options_item.set_gfx (my_new CL_Sprite ("menu_pause/options/unselected", &gfx),
+                          my_new CL_Sprite ("menu_pause/options/selected", &gfx),
                           NULL);
     _options_item.set_x (x + CL_Integer_to_int ("menu_pause/options/left", &gfx));
     _options_item.set_y (y + CL_Integer_to_int ("menu_pause/options/top", &gfx));
 
     // give up
-    _giveup_item.set_gfx (new CL_Sprite ("menu_pause/giveup/unselected", &gfx),
-                         new CL_Sprite ("menu_pause/giveup/selected", &gfx),
-                         new CL_Sprite ("menu_pause/giveup/unavailable", &gfx));
+    _giveup_item.set_gfx (my_new CL_Sprite ("menu_pause/giveup/unselected", &gfx),
+                         my_new CL_Sprite ("menu_pause/giveup/selected", &gfx),
+                         my_new CL_Sprite ("menu_pause/giveup/unavailable", &gfx));
     _giveup_item.set_x (x + CL_Integer_to_int ("menu_pause/giveup/left", &gfx));
     _giveup_item.set_y (y + CL_Integer_to_int ("menu_pause/giveup/top", &gfx));
 
     // quit
-    _quit_item.set_gfx (new CL_Sprite ("menu_pause/quit/unselected", &gfx),
-                       new CL_Sprite ("menu_pause/quit/selected", &gfx),
+    _quit_item.set_gfx (my_new CL_Sprite ("menu_pause/quit/unselected", &gfx),
+                       my_new CL_Sprite ("menu_pause/quit/selected", &gfx),
                        NULL);
     _quit_item.set_x (x + CL_Integer_to_int ("menu_pause/quit/left", &gfx));
     _quit_item.set_y (y + CL_Integer_to_int ("menu_pause/quit/top", &gfx));
@@ -104,6 +109,12 @@ void PauseMenuState::unload_gfx ()
     _resume_item.unload_gfx ();
     _undo_item.unload_gfx ();
     _retry_item.unload_gfx ();
+	
+	if(_background)
+	{
+		my_delete(_background);
+		_background = NULL;
+	}
 }
 
 void PauseMenuState::action_performed (int selection, int action_type)
@@ -173,7 +184,9 @@ void PauseMenuState::update_child ()
 }
 
 PauseMenuState::PauseMenuState ()
-{}
+{
+	_background = NULL;
+}
 
 PauseMenuState::~PauseMenuState ()
 {

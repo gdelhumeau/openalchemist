@@ -9,6 +9,7 @@
  
 *********************************************************************/
 
+#include "../memory.h"
 #include <ClanLib/core.h>
 
 #include "OptionsMenuState.h"
@@ -28,6 +29,7 @@ enum{
 
 OptionsMenuState::OptionsMenuState()
 {
+	_background = NULL;
 }
 
 OptionsMenuState::~OptionsMenuState()
@@ -57,46 +59,50 @@ void OptionsMenuState::deinit()
     p_pref -> music_level = _music_level;
 
     p_pref -> write();
+	
+		unload_gfx();
 }
 
 void OptionsMenuState::load_gfx(std::string skin)
 {
+		unload_gfx();
+	
     // Getting skins resources
     CL_Zip_Archive zip(skin);
     CL_ResourceManager gfx("menu_options.xml", &zip, false);
 
     // First, the sprites
-    _background = new CL_Sprite("menu_options/dialog_background", &gfx);
+    _background = my_new CL_Sprite("menu_options/dialog_background", &gfx);
 
 
     int x = 400 - _background -> get_width () / 2;
     int y = 300 - _background -> get_height () / 2;
 
     /*
-        _items_p[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/unselected", &gfx);
-        _items_selected_p[OPTIONS_ITEM_CHANGESKIN] = new CL_Sprite("menu_options/changeskin/selected", &gfx);
+        _items_p[OPTIONS_ITEM_CHANGESKIN] = my_new CL_Sprite("menu_options/changeskin/unselected", &gfx);
+        _items_selected_p[OPTIONS_ITEM_CHANGESKIN] = my_new CL_Sprite("menu_options/changeskin/selected", &gfx);
      
-        _items_p[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
-        _items_selected_p[OPTIONS_ITEM_FULLSCREEN] = new CL_Sprite("menu_options/fullscreen/selected", &gfx);
+        _items_p[OPTIONS_ITEM_FULLSCREEN] = my_new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
+        _items_selected_p[OPTIONS_ITEM_FULLSCREEN] = my_new CL_Sprite("menu_options/fullscreen/selected", &gfx);
      
-        _items_p[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/unselected", &gfx);
-        _items_selected_p[OPTIONS_ITEM_SOUND] = new CL_Sprite("menu_options/sound/selected", &gfx);
+        _items_p[OPTIONS_ITEM_SOUND] = my_new CL_Sprite("menu_options/sound/unselected", &gfx);
+        _items_selected_p[OPTIONS_ITEM_SOUND] = my_new CL_Sprite("menu_options/sound/selected", &gfx);
      
-        _items_p[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/unselected", &gfx);
-        _items_selected_p[OPTIONS_ITEM_MUSIC] = new CL_Sprite("menu_options/music/selected", &gfx);
+        _items_p[OPTIONS_ITEM_MUSIC] = my_new CL_Sprite("menu_options/music/unselected", &gfx);
+        _items_selected_p[OPTIONS_ITEM_MUSIC] = my_new CL_Sprite("menu_options/music/selected", &gfx);
      
-        _items_p[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/unselected", &gfx);
-        _items_selected_p[OPTIONS_ITEM_QUIT] = new CL_Sprite("menu_options/quit/selected", &gfx);
+        _items_p[OPTIONS_ITEM_QUIT] = my_new CL_Sprite("menu_options/quit/unselected", &gfx);
+        _items_selected_p[OPTIONS_ITEM_QUIT] = my_new CL_Sprite("menu_options/quit/selected", &gfx);
         */
 
-    _sound_level_item.set_description_sprites(new CL_Sprite("menu_options/sound/unselected", &gfx),
-            new CL_Sprite("menu_options/sound/selected", &gfx));
+    _sound_level_item.set_description_sprites(my_new CL_Sprite("menu_options/sound/unselected", &gfx),
+            my_new CL_Sprite("menu_options/sound/selected", &gfx));
 
-    _music_level_item.set_description_sprites(new CL_Sprite("menu_options/music/unselected", &gfx),
-            new CL_Sprite("menu_options/music/selected", &gfx));
+    _music_level_item.set_description_sprites(my_new CL_Sprite("menu_options/music/unselected", &gfx),
+            my_new CL_Sprite("menu_options/music/selected", &gfx));
 
-    _quit_item.set_gfx(new CL_Sprite("menu_options/quit/unselected", &gfx),
-                       new CL_Sprite("menu_options/quit/selected", &gfx),
+    _quit_item.set_gfx(my_new CL_Sprite("menu_options/quit/unselected", &gfx),
+                       my_new CL_Sprite("menu_options/quit/selected", &gfx),
                        NULL);
                        
     _sound_level_item.clear_choices();
@@ -104,8 +110,8 @@ void OptionsMenuState::load_gfx(std::string skin)
 
     for(int i=0; i<=10; ++i)
     {
-        _sound_level_item.add_choice(new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
-        _music_level_item.add_choice(new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
+        _sound_level_item.add_choice(my_new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
+        _music_level_item.add_choice(my_new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
     }
 
 
@@ -148,7 +154,15 @@ void OptionsMenuState::load_gfx(std::string skin)
 }
 
 void OptionsMenuState::unload_gfx()
-{}
+{
+	if(_background)
+	{
+		my_delete(_background);
+		_background = NULL;
+	}
+	_sound_level_item.unload_gfx();
+	_music_level_item.unload_gfx();	
+}
 
 void OptionsMenuState::action_performed(int selection, int action_type)
 {

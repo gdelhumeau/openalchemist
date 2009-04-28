@@ -247,7 +247,7 @@ class Player{
   void draw();
   
   /**
-   * Make a new party
+   * Make a my_new party
    */
   void new_game();
   

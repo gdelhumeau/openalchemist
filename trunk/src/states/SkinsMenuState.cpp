@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "../memory.h"
 #include <ClanLib/core.h>
 
 #include "SkinsMenuState.h"
@@ -38,7 +39,7 @@ void SkinsMenuState::init()
     CL_InputSource_File file(file_path);
     while(file.tell() != file.size())
     {     
-      Skin *sp = new Skin();
+      Skin *sp = my_new Skin();
       sp -> filename = file.read_string();
       sp -> element = file.read_uint8();
 
@@ -46,14 +47,14 @@ void SkinsMenuState::init()
       {
 	// We load the logo sprite in the gfx ressources file
 	CL_ResourceManager gfx("general.xml", new CL_Zip_Archive(sp -> filename), true);
-	sp -> logo = new CL_Surface("logo", &gfx);
+	sp -> logo = my_new CL_Surface("logo", &gfx);
 	_skins_list.insert(_skins_list.end(), sp);
       }
       catch(CL_Error e)
       {
 	// We forget this skin
 	std::cout << "We don't use " << sp -> filename << " because it doesn't exist." << std::endl;
-	delete sp;
+	my_delete(sp);
       }
       
     }
@@ -80,7 +81,7 @@ void SkinsMenuState::init()
           std::string filename = dir+scanner.get_name();
           // We load the logo sprite in the gfx ressources file
           CL_ResourceManager gfx("general.xml", new CL_Zip_Archive(filename), true);
-          CL_Surface *logo = new CL_Surface("logo", &gfx);
+          CL_Surface *logo = my_new CL_Surface("logo", &gfx);
 
           bool found = false;
           for(u_int i = 0; i < _skins_list.size(); ++i)
@@ -93,7 +94,7 @@ void SkinsMenuState::init()
           }
           if(!found)
           {
-            Skin *sp = new Skin();
+            Skin *sp = my_new Skin();
             sp -> filename = filename;
             sp -> element = 3;
             sp -> logo = logo;
@@ -158,7 +159,8 @@ void SkinsMenuState::init()
 
 void SkinsMenuState::deinit()
 {
-  // Saving progression skin file
+	
+  /*// Saving progression skin file
   std::string file_path = get_save_path() + get_path_separator() + "skins-" + get_version();
 
   try
@@ -175,35 +177,51 @@ void SkinsMenuState::deinit()
   catch(CL_Error e)
   {
     std::cout << "Error while reading " << file_path << "file, probably doesn't exist yet." << std::endl;
-  }
+  }*/
 
   for(u_int i = 0; i < _skins_list.size(); ++i)
   {
-    delete _skins_list[i];
+		if(_skins_list[i] -> logo)
+		{
+			my_delete(_skins_list[i] -> logo);
+			_skins_list[i] -> logo = NULL;
+		}
+		Skin* sk = _skins_list[i];
+		if(sk)
+		{
+			my_delete(sk);
+			sk = NULL;
+		}
   }
 
   _skins_list.clear();
 
-  delete skins_board[0];
-  delete skins_board[1];
+	/*
+	if(skins_board[0])
+	delete[] (skins_board[0]);
+	if(skins_board[1])
+	delete[] (skins_board[1]);*/
+	
 }
 
 void SkinsMenuState::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
   // Getting skins resources
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("menu_skins.xml", &zip, false);
 
   // First, the sprites
-  _p_background = new CL_Sprite("menu_skins/background", &gfx); 
-  _p_logo_unavailable = new CL_Surface("menu_skins/logo_unavailable", &gfx); 
+  _p_background = my_new CL_Sprite("menu_skins/background", &gfx); 
+  _p_logo_unavailable = my_new CL_Surface("menu_skins/logo_unavailable", &gfx); 
 
-  _p_cursor = new CL_Sprite("menu_skins/cursor", &gfx);
-  _p_arrow_down = new CL_Sprite("menu_skins/arrow_down/sprite", &gfx);
+  _p_cursor = my_new CL_Sprite("menu_skins/cursor", &gfx);
+  _p_arrow_down = my_new CL_Sprite("menu_skins/arrow_down/sprite", &gfx);
   _arrow_down_left = CL_Integer_to_int("menu_skins/arrow_down/left", &gfx);
   _arrow_down_top = CL_Integer_to_int("menu_skins/arrow_down/top", &gfx);
 
-  _p_arrow_up = new CL_Sprite("menu_skins/arrow_up/sprite", &gfx);
+  _p_arrow_up = my_new CL_Sprite("menu_skins/arrow_up/sprite", &gfx);
   _arrow_up_left = CL_Integer_to_int("menu_skins/arrow_up/left", &gfx);
   _arrow_up_top = CL_Integer_to_int("menu_skins/arrow_up/top", &gfx);
 
@@ -222,7 +240,36 @@ void SkinsMenuState::load_gfx(std::string skin)
 
 void SkinsMenuState::unload_gfx()
 {
+	if(_p_background)
+	{
+		my_delete( _p_background);
+		_p_background = NULL;
+	}
+	
+	if(_p_logo_unavailable)
+	{
+		my_delete( _p_logo_unavailable);
+		_p_logo_unavailable = NULL;
+	}
+	
+	if(_p_cursor)
+	{
+		my_delete( _p_cursor);
+		_p_cursor = NULL;
+	}
+	
+	if(_p_arrow_down)
+	{
+		my_delete( _p_arrow_down);
+		_p_arrow_down = NULL;
+	}
 
+	if(_p_arrow_up)
+	{
+		my_delete( _p_arrow_up);
+		_p_arrow_up = NULL;
+	}
+	
 }
 
 void SkinsMenuState::draw()
@@ -434,12 +481,18 @@ void SkinsMenuState::set_skin_elements(u_int element)
 
 SkinsMenuState::SkinsMenuState()
 {
-
+	_p_background				= NULL;
+	_p_logo_unavailable = NULL;
+	_p_cursor						= NULL;
+	_p_arrow_down				= NULL;
+	_p_arrow_up					= NULL;
+	
 }
 
 SkinsMenuState::~SkinsMenuState()
 {
   deinit();
+	unload_gfx();
 
 }
 

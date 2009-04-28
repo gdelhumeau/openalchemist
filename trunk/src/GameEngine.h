@@ -84,6 +84,7 @@ class GameEngine{
    * Initializing game engine
    */
   void init();
+	void deinit();
 
   /**
    * Main loop

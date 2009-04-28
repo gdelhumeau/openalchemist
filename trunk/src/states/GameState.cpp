@@ -9,12 +9,10 @@
 
 *********************************************************************/
 
-
+#include <iostream>
 #include "GameState.h"
 #include "../CommonResources.h"
-
-#include <iostream>
-
+#include "../memory.h"
 
 GameState::GameState()
 {

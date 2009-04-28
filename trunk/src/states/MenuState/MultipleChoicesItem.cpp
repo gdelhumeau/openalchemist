@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include "MultipleChoicesItem.h"
-
+#include "../../memory.h"
 
 MultipleChoicesItem::MultipleChoicesItem()
 {
@@ -23,17 +23,24 @@ MultipleChoicesItem::MultipleChoicesItem()
 
 MultipleChoicesItem::~MultipleChoicesItem()
 {
-    if(_p_description_normal)
+   unload_gfx();
+}
+
+void MultipleChoicesItem::unload_gfx()
+{
+	  if(_p_description_normal)
     {
-        delete _p_description_normal;
+        my_delete(_p_description_normal);
+				_p_description_normal = NULL;
     }
     if(_p_description_selected)
     {
-        delete _p_description_selected;
+        my_delete(_p_description_selected);
+				_p_description_selected = NULL;
     }
-    for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
+	  for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
     {
-        delete _choices_list_p[i];
+        my_delete(_choices_list_p[i]);
     }
     _choices_list_p.clear();
 }

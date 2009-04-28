@@ -10,6 +10,7 @@
 *********************************************************************/
 
 #include "misc.h"
+#include "memory.h"
 
 /**
  * This function return the current version name
@@ -24,10 +25,8 @@ std::string get_version()
  */
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
-  CL_Integer *cl_int = new CL_Integer(ressource_name, gfx);
-  int to_return = (int)*cl_int;
-  delete cl_int;
-  return to_return;
+	CL_Integer cl_int(ressource_name, gfx);
+  return (int)cl_int;
 }
 
 /**
@@ -35,10 +34,8 @@ int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx
  */
 int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
-  CL_Boolean *cl_bool = new CL_Boolean(ressource_name, gfx);
-  bool to_return = (bool)*cl_bool;
-  delete cl_bool;
-  return to_return;
+  CL_Boolean cl_bool(ressource_name, gfx);
+  return (bool) cl_bool;
 }
 
 std::string get_save_path()

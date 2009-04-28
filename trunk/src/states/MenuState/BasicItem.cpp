@@ -9,6 +9,7 @@
 
  *********************************************************************/
 
+#include "../../memory.h"
 #include <iostream>
 #include "BasicItem.h"
 
@@ -38,17 +39,17 @@ void BasicItem::unload_gfx()
 {
     if (normal_sprite != NULL)
     {
-        delete normal_sprite;
+        my_delete(normal_sprite);
         normal_sprite = NULL;
     }
     if (selected_sprite != NULL)
     {
-        delete selected_sprite;
+        my_delete(selected_sprite);
         selected_sprite = NULL;
     }
     if (locked_sprite != NULL)
     {
-        delete locked_sprite;
+        my_delete(locked_sprite);
         locked_sprite = NULL;
     }
 }

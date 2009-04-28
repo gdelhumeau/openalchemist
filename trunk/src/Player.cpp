@@ -9,6 +9,7 @@
  
 *********************************************************************/
 
+#include "memory.h"
 #include <math.h>
 
 #include <ClanLib/core.h>
@@ -37,10 +38,10 @@ Player::Player()
     srand(CL_System::get_time());
 
     // Making key objects
-    _p_key_change_angle = new KeyboardKey(CL_KEY_UP    , true );
-    _p_key_left         = new KeyboardKey(CL_KEY_LEFT  , true );
-    _p_key_right        = new KeyboardKey(CL_KEY_RIGHT , true );
-    _p_key_falling      = new KeyboardKey(CL_KEY_DOWN  , false);
+    _p_key_change_angle = my_new KeyboardKey(CL_KEY_UP    , true );
+    _p_key_left         = my_new KeyboardKey(CL_KEY_LEFT  , true );
+    _p_key_right        = my_new KeyboardKey(CL_KEY_RIGHT , true );
+    _p_key_falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
 
     _combo = 0;
 
@@ -51,6 +52,10 @@ Player::Player()
         _p_pieces_appearing[i] = NULL;
         _p_pieces_disappearing[i] = NULL;
         _p_pieces_mini[i] = NULL;
+				if(i < NUMBER_OF_PIECES - 3)
+				{
+					_p_pieces_hidden[i] = NULL;
+				}
     }
 
 }
@@ -59,10 +64,10 @@ Player::~Player()
 {
     unload_gfx();
     // Deleting key objects
-    delete _p_key_change_angle;
-    delete _p_key_left;
-    delete _p_key_right;
-    delete _p_key_falling;
+    my_delete(_p_key_change_angle);
+    my_delete(_p_key_left);
+    my_delete(_p_key_right);
+    my_delete(_p_key_falling);
 }
 
 void Player::new_game()
@@ -70,11 +75,11 @@ void Player::new_game()
     // Getting resources
     CommonResources *resources = common_resources_get_instance();
 
-    // Creating new pieces for playable pieces and next pieces
-    _p_current_piece1 = new Piece(rand()%3);
-    _p_current_piece2 = new Piece(rand()%3);
-    _p_next_piece1 = new Piece(rand()%3);
-    _p_next_piece2 = new Piece(rand()%3);
+    // Creating my_new pieces for playable pieces and next pieces
+    _p_current_piece1 = my_new Piece(rand()%3);
+    _p_current_piece2 = my_new Piece(rand()%3);
+    _p_next_piece1 = my_new Piece(rand()%3);
+    _p_next_piece2 = my_new Piece(rand()%3);
 
     // Setting playable pieces position
     _angle = 0.0;
@@ -125,6 +130,8 @@ void Player::new_game()
 
 void Player::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
     // Getting resources
     CommonResources *resources = common_resources_get_instance();
 
@@ -141,24 +148,24 @@ void Player::load_gfx(std::string skin)
     for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
     {
         if(pref -> colorblind)
-            _p_pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
+            _p_pieces_normal[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
         else
-            _p_pieces_normal[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
+            _p_pieces_normal[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
 
-        _p_pieces_appearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
-        _p_pieces_disappearing[i-1] = new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
+        _p_pieces_appearing[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
+        _p_pieces_disappearing[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
 
         if(pref -> colorblind)
-            _p_pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
+            _p_pieces_mini[i-1] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
         else
-            _p_pieces_mini[i-1] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
+            _p_pieces_mini[i-1] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
 
         _pieces_preview_x[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left", &gfx_preview_pieces);
         _pieces_preview_y[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top", &gfx_preview_pieces);
 
         if(i>3)
         {
-            _p_pieces_hidden[i-4] = new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
+            _p_pieces_hidden[i-4] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
         }
     }
 
@@ -181,7 +188,7 @@ void Player::load_gfx(std::string skin)
     // Calculating c² = a²+b³
     _current_pieces_r = resources->pieces_width/2;
 
-    // Then, we apply new sprites
+    // Then, we appmy_new ew sprites
     if(_p_next_piece1 && _p_next_piece2 && _p_current_piece1 && _p_current_piece2)
     {
         int value;
@@ -224,23 +231,28 @@ void Player::unload_gfx()
     {
         if(_p_pieces_normal[i])
         {
-            delete _p_pieces_normal[i];
-            _p_pieces_normal[i] = NULL;
+	         my_delete(_p_pieces_normal[i]);
+           _p_pieces_normal[i] = NULL;
         }
         if(_p_pieces_appearing[i])
         {
-            delete _p_pieces_appearing[i];
+       		my_delete( _p_pieces_appearing[i]);
             _p_pieces_appearing[i] = NULL;
         }
         if(_p_pieces_disappearing[i])
         {
-            delete _p_pieces_disappearing[i];
+      		 my_delete(_p_pieces_disappearing[i]);
             _p_pieces_disappearing[i] = NULL;
         }
         if(_p_pieces_mini[i])
         {
-            delete _p_pieces_mini[i];
+       		my_delete(_p_pieces_mini[i]);
             _p_pieces_mini[i] = NULL;
+        }
+			  if(i>2 && _p_pieces_hidden[i-3])
+        {
+          my_delete(_p_pieces_hidden[i-3]);
+					_p_pieces_hidden[i-3] = NULL;
         }
     }
 
@@ -513,13 +525,13 @@ void Player::fall()
 
     if(piece1x < piece2x)
     {
-        _p_current_piece1 = new Piece(_p_next_piece1->get_piece_number());
-        _p_current_piece2 = new Piece(_p_next_piece2->get_piece_number());
+        _p_current_piece1 = my_new Piece(_p_next_piece1->get_piece_number());
+        _p_current_piece2 = my_new Piece(_p_next_piece2->get_piece_number());
     }
     else
     {
-        _p_current_piece1 = new Piece(_p_next_piece2->get_piece_number());
-        _p_current_piece2 = new Piece(_p_next_piece1->get_piece_number());
+        _p_current_piece1 = my_new Piece(_p_next_piece2->get_piece_number());
+        _p_current_piece2 = my_new Piece(_p_next_piece1->get_piece_number());
     }
 
 

@@ -15,14 +15,14 @@
 #include "Preferences.h"
 #include "IniFile.h"
 #include "misc.h"
-
+#include "memory.h"
 
 /** Implementing a singleton instance of Preference */
 Preferences* pref_get_instance()
 {
   static Preferences *instance = NULL;
   if(instance == NULL)
-    instance = new Preferences();
+    instance = my_new Preferences();
   return instance;
 }
 

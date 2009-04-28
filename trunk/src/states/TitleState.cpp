@@ -9,13 +9,13 @@
 
 *********************************************************************/
 
+#include "../memory.h"
 #include <ClanLib/core.h>
 
 #include "TitleState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
-
 
 
 void TitleState::init()
@@ -29,28 +29,30 @@ void TitleState::deinit()
 
 void TitleState::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
 	// Getting skins resources
 	CL_Zip_Archive zip(skin);
 	CL_ResourceManager gfx("title.xml", &zip, false);
 	
-	_p_start_message = new CL_Sprite("title/start_message/sprite", &gfx);
+	_p_start_message = my_new CL_Sprite("title/start_message/sprite", &gfx);
 	_start_message_x = CL_Integer_to_int("title/start_message/left", &gfx);
 	_start_message_y = CL_Integer_to_int("title/start_message/top", &gfx);
 	
 	for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
 	{
-		_sentences_p[i] = new CL_Sprite("title/help/"+to_string(i+1)+"/sentence", &gfx);
+		_sentences_p[i] = my_new CL_Sprite("title/help/"+to_string(i+1)+"/sentence", &gfx);
 		_sentences_x[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/left", &gfx);
 		_sentences_y[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/top", &gfx);
 		_sentences_time[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/time", &gfx);
 	}
 	
-	_p_keydemo_left    = new CL_Sprite("title/keydemo/left", &gfx);
-	_p_keydemo_up      = new CL_Sprite("title/keydemo/up", &gfx);
-	_p_keydemo_right   = new CL_Sprite("title/keydemo/right", &gfx);
-	_p_keydemo_down    = new CL_Sprite("title/keydemo/down", &gfx);
-	_p_keydemo_escape  = new CL_Sprite("title/keydemo/escape", &gfx);
-	_p_keydemo_options = new CL_Sprite("title/keydemo/options", &gfx);
+	_p_keydemo_left    = my_new CL_Sprite("title/keydemo/left", &gfx);
+	_p_keydemo_up      = my_new CL_Sprite("title/keydemo/up", &gfx);
+	_p_keydemo_right   = my_new CL_Sprite("title/keydemo/right", &gfx);
+	_p_keydemo_down    = my_new CL_Sprite("title/keydemo/down", &gfx);
+	_p_keydemo_escape  = my_new CL_Sprite("title/keydemo/escape", &gfx);
+	_p_keydemo_options = my_new CL_Sprite("title/keydemo/options", &gfx);
 	
 	_keyleft_x = 50;
 	_keyleft_y = _keyright_y = _keydown_y = 100;
@@ -68,50 +70,50 @@ void TitleState::unload_gfx()
 	{
 		if(_sentences_p[i])
 		{
-			delete _sentences_p[i];
+			my_delete(_sentences_p[i]);
 			_sentences_p[i] = NULL;
 		}
 	}
 	
 	if(_p_start_message)
 	{
-		delete _p_start_message;
+		my_delete(_p_start_message);
 		_p_start_message = NULL;
 	}
 	
 	if(_p_keydemo_left)
 	{
-		delete _p_keydemo_left;
+		my_delete(_p_keydemo_left);
 		_p_keydemo_left = NULL;
 	}
 	
 	if(_p_keydemo_up)
 	{
-		delete _p_keydemo_up;
+		my_delete(_p_keydemo_up);
 		_p_keydemo_up = NULL;
 	}
 	
 	if(_p_keydemo_right)
 	{
-		delete _p_keydemo_right;
+		my_delete(_p_keydemo_right);
 		_p_keydemo_right = NULL;
 	}
 	
 	if(_p_keydemo_down)
 	{
-		delete _p_keydemo_down;
+		my_delete(_p_keydemo_down);
 		_p_keydemo_down = NULL;
 	}
 	
 	if(_p_keydemo_escape)
 	{
-		delete _p_keydemo_escape;
+		my_delete(_p_keydemo_escape);
 		_p_keydemo_escape = NULL;
 	}
 	
 	if(_p_keydemo_options)
 	{
-		delete _p_keydemo_options;
+		my_delete(_p_keydemo_options);
 		_p_keydemo_options = NULL;
 	}
 	
@@ -256,7 +258,7 @@ void TitleState::update()
 		case 9:
 			break;
 			
-			// ...and a new one is created !
+			// ...and a my_new one is created !
 		case 10:
 			break;
 			
@@ -276,7 +278,7 @@ void TitleState::update()
 		case 14:
 			break;
 			
-			// ...so start a new game and have fun !
+			// ...so start a my_new game and have fun !
 		case 15:
 			break;
 	}

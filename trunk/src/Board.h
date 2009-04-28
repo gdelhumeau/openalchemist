@@ -132,7 +132,7 @@ class Board{
   ~Board();
 
   /**
-   * Clearing the board (delete all elements)
+   * Clearing the board (my_delete all elements)
    */
   void clear();
 
@@ -153,7 +153,7 @@ class Board{
 
 
   /**
-   * Making pieces fall and create new ones
+   * Making pieces fall and create my_new ones
    * @return true if every pieces are corectly placed
    */
   bool fall_and_create();
@@ -177,18 +177,18 @@ class Board{
 	void _pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces);
 
 	/**
-	 * Funcion called when we want to create a new piece from thoses
+	 * Funcion called when we want to create a my_new piece from thoses
 	 * we have destroyed
 	 */
 	void _create_new_piece(std::vector<Coords*> &detected_pieces);	
 
 	/**
-	 * Choose the new piece coords
+	 * Choose the my_new piece coords
 	 */
 	void _choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces);	
 
 	/**
-	 * Check if we have unlocked a piece with the new one
+	 * Check if we have unlocked a piece with the my_new one
 	 */
 	void _unlock_piece(Coords &new_piece);
 
@@ -201,7 +201,7 @@ class Board{
   bool destroy();
 
   /**
-   * Creating new pieces - sprites are needed for this operation
+   * Creating my_new pieces - sprites are needed for this operation
    */
   void create_new_pieces(CL_Sprite **pieces_normal, CL_Sprite **pieces_appearing, CL_Sprite **pieces_disappearing,
                          CL_Sprite **pieces_mini);

@@ -9,6 +9,7 @@
 
 *********************************************************************/
 
+#include "../memory.h"
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
@@ -44,10 +45,12 @@ void CommonState::deinit()
 
 void CommonState::load_gfx(std::string skin)
 {
+	unload_gfx();
+	
   CL_Zip_Archive zip(skin);
   CL_ResourceManager gfx("general.xml",&zip, false);
 
-  _p_background = new CL_Surface("background", &gfx);
+  _p_background = my_new CL_Surface("background", &gfx);
 }
 
 
@@ -55,7 +58,7 @@ void CommonState::unload_gfx()
 {
   if(_p_background)
   {
-    delete _p_background;
+    my_delete(_p_background);
     _p_background = NULL;
   }
 
