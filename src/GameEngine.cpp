@@ -32,6 +32,8 @@ GameEngine::~GameEngine()
 void GameEngine::init()
 {
     _running = true;
+	
+		common_resources_init();
 
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();

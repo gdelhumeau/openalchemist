@@ -19,6 +19,8 @@
 
 const int Piece::_score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
+CommonResources* p_instance = NULL;
+
 CommonResources::CommonResources()
 {
   p_main_font = NULL;
@@ -27,7 +29,7 @@ CommonResources::CommonResources()
 
 CommonResources::~CommonResources()
 {
-  unload_gfx();
+	unload_gfx();
 }
 
 void CommonResources::init(GameEngine *engine)
@@ -117,10 +119,25 @@ void CommonResources::save_scores()
 
 
 CommonResources* common_resources_get_instance()
+{ 
+	if(!p_instance)
+	{
+		std::cout << "Common Resources Init must be called" << std::endl;
+	}
+	return p_instance;
+}
+
+void common_resources_init()
 {
-  static CommonResources* instance = NULL;
-	if(!instance)
-		instance = new CommonResources();
-	
-  return instance;
+	if(!p_instance)
+		p_instance = my_new CommonResources();
+}
+
+void common_resources_term()
+{
+	if(p_instance)
+	{
+		my_delete(p_instance);
+		p_instance = NULL;
+	}
 }

@@ -87,6 +87,14 @@ void CommonState::events()
   {
     _p_common_resources -> p_engine -> toggle_screen();
   }
+	if(CL_Keyboard::get_keycode(CL_KEY_S))
+	{
+		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/aqua.zip");
+	}
+	if(CL_Keyboard::get_keycode(CL_KEY_D))
+	{
+		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/vectoriel.zip");
+	}
 }
 
 bool CommonState::front_layer_behind()

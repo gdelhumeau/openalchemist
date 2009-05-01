@@ -35,10 +35,10 @@ void DemoPlayer::new_game()
   CommonResources *resources = common_resources_get_instance();
 
   // Creating my_new pieces for playable pieces and next pieces
-  _p_current_piece1 = new Piece(2);
-  _p_current_piece2 = new Piece(1);
-  _p_next_piece1 = new Piece(2);
-  _p_next_piece2 = new Piece(2);
+  _p_current_piece1 = my_new Piece(2);
+  _p_current_piece2 = my_new Piece(1);
+  _p_next_piece1 = my_new Piece(2);
+  _p_next_piece2 = my_new Piece(2);
 
   // Setting playable pieces position
   _angle = 0.0;
