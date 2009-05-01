@@ -40,9 +40,10 @@ void FrontLayer::load_gfx(std::string skin)
 void FrontLayer::_load_gfx(CL_ResourceManager *gfx_frontlayer)
 {
 
+	unload_gfx();
+	
   int number = CL_Integer_to_int("frontlayer/number_of_sprites", gfx_frontlayer);
-  
-  list.clear();
+ 
   
   for(int i=1; i<=number; ++i)
   {
@@ -65,6 +66,7 @@ void FrontLayer::unload_gfx()
   }
 
   is_enabled = false;
+  list.clear();
 
 }
 

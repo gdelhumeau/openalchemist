@@ -63,6 +63,8 @@ class CommonResources{
 
 };
 
+void common_resources_init();
+void common_resources_term();
 CommonResources* common_resources_get_instance();
 
 #endif

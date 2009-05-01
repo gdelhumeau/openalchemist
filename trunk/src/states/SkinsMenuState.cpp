@@ -196,8 +196,8 @@ void SkinsMenuState::deinit()
 
   _skins_list.clear();
 
-	/*
-	if(skins_board[0])
+	
+	/*if(skins_board[0])
 	delete[] (skins_board[0]);
 	if(skins_board[1])
 	delete[] (skins_board[1]);*/
@@ -242,7 +242,7 @@ void SkinsMenuState::unload_gfx()
 {
 	if(_p_background)
 	{
-		my_delete( _p_background);
+		my_delete(_p_background);
 		_p_background = NULL;
 	}
 	

@@ -50,14 +50,7 @@ IniFile::IniFile()
 
 IniFile::~IniFile()
 {
-	std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
-  {
-    IniElement *e = (IniElement*)*it;
-    my_delete(e);
-    it++;
-  }
-	list.clear();
+	clear();
 }
 
 
@@ -81,6 +74,10 @@ void IniFile::read(CL_InputSource_File *file)
         list.insert(list.end(), e);
       }
     }
+		else
+		{
+			my_delete(e);
+		}
 
   }
 }
@@ -117,9 +114,13 @@ void IniFile::clear()
   while(!list.empty())
   {
     IniElement *e = (IniElement*) *it;
-    my_delete(e);
+		if(e)
+		{
+	    my_delete(e);
+		}
     it = list.erase(it);
   }
+	list.clear();
 }
 
 void IniFile::add(std::string name, std::string value)

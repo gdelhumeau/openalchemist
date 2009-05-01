@@ -62,12 +62,33 @@ Player::Player()
 
 Player::~Player()
 {
-    unload_gfx();
-    // Deleting key objects
-    my_delete(_p_key_change_angle);
-    my_delete(_p_key_left);
-    my_delete(_p_key_right);
-    my_delete(_p_key_falling);
+	unload_gfx();
+	// Deleting key objects
+	my_delete(_p_key_change_angle);
+	my_delete(_p_key_left);
+	my_delete(_p_key_right);
+	my_delete(_p_key_falling);
+	
+	if(_p_current_piece1)
+	{
+		my_delete(_p_current_piece1);
+		_p_current_piece1 = NULL;
+	}
+	if(_p_current_piece2)
+	{
+		my_delete(_p_current_piece2);
+		_p_current_piece2 = NULL;
+	}
+	if(_p_next_piece1)
+	{
+		my_delete(_p_next_piece1);
+		_p_next_piece1 = NULL;
+	}
+	if(_p_next_piece2)
+	{
+		my_delete(_p_next_piece2);
+		_p_next_piece2 = NULL;
+	}
 }
 
 void Player::new_game()
@@ -516,6 +537,9 @@ void Player::fall()
                                    _board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
 
     _board.add_pieces(_p_current_piece1, _p_current_piece2);
+	
+	  _p_current_piece1 = NULL;
+	  _p_current_piece2 = NULL;
 
 
 
