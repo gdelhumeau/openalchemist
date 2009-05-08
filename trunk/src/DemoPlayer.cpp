@@ -31,6 +31,8 @@ void DemoPlayer::events()
 
 void DemoPlayer::new_game()
 {
+	term_game();
+		
   // Getting resources
   CommonResources *resources = common_resources_get_instance();
 
