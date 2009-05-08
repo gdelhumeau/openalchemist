@@ -119,6 +119,8 @@ class GameEngine{
 
 	void change_screen_size();
 
+	void refresh_framerate_limit();
+
   /**
    * Returning Frame Rate
    */

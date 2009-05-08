@@ -32,6 +32,7 @@ private:
     MultipleChoicesItem _render_item;
     MultipleChoicesItem _screensize_item;
     MultipleChoicesItem _fullscreen_item;
+    MultipleChoicesItem _framerate_item;
     MultipleChoicesItem _sound_level_item;
     MultipleChoicesItem _music_level_item;
 
@@ -49,6 +50,7 @@ public:
     void unload_gfx();
     void action_performed(int selection, int action_type);
     void update_child();
+		void toggle_screen();
 
     OptionsMenuState();
     ~OptionsMenuState();

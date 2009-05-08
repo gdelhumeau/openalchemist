@@ -123,7 +123,55 @@
 		<!-- Fullscreen choices -->		
 		<section name="fullscreen-choices">
 			<integer name="left" value="300" />
-		</section>			
+		</section>		
+		
+		<!-- Framerate item -->
+		<section name="framerate">
+			<sprite name="selected">
+				<image file="dialogs/options/framerate-selected.png" />
+				
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/options/framerate-unselected.png" />
+				
+			</sprite>
+			
+			<integer name="top" value="250" />
+			<integer name="left" value="65" />			
+		</section>	
+		
+		<!-- Framerate choices -->
+		<section name="framerate-choices">
+			<integer name="left" value="250" />
+			
+			<sprite name="30">
+				<image file="dialogs/options/framerate-30.png" />
+			</sprite>
+			
+			<sprite name="40">
+				<image file="dialogs/options/framerate-40.png" />
+			</sprite>
+			
+			<sprite name="50">
+				<image file="dialogs/options/framerate-50.png" />
+			</sprite>
+			
+			<sprite name="60">
+				<image file="dialogs/options/framerate-60.png" />
+			</sprite>
+			
+			<sprite name="80">
+				<image file="dialogs/options/framerate-80.png" />
+			</sprite>
+			
+			<sprite name="100">
+				<image file="dialogs/options/framerate-100.png" />
+			</sprite>
+			
+			<sprite name="no-limit">
+				<image file="dialogs/options/framerate-no-limit.png" />
+			</sprite>
+		</section>	
 		
 		<!-- Sound level item -->
 		<section name="sound">
