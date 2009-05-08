@@ -19,22 +19,75 @@
 			</image>
 		</sprite>
 		
-		<!-- Changeskin item -->  		
-		<section name="changeskin">
+		<!-- Render item -->
+		<section name="render">
 			<sprite name="selected">
-				<image file="dialogs/options/changeskin-selected.png" />
+				<image file="dialogs/options/render-selected.png" />
 				
 			</sprite>
 			<sprite name="unselected">
-				<image file="dialogs/options/changeskin-unselected.png" />
-				
+				<image file="dialogs/options/render-unselected.png" />				
 			</sprite>
 			
-			<integer name="top" value="180" />
-			<integer name="left" value="60" />
-			
+			<integer name="top" value="120" />
+			<integer name="left" value="65" />			
 		</section>
 		
+		<!-- Render choices -->
+		<section name="render-choices">
+			<integer name="left" value="170" />
+			
+			<sprite name="opengl">
+				<image file="dialogs/options/render-opengl.png" />
+			</sprite>
+			
+			<sprite name="sdl">
+				<image file="dialogs/options/render-sdl.png" />
+			</sprite>
+		</section>
+		
+		<!-- Screen size item -->
+		<section name="screensize">
+			<sprite name="selected">
+				<image file="dialogs/options/screensize-selected.png" />
+				
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/options/screensize-unselected.png" />				
+			</sprite>
+			<sprite name="locked">
+				<image file="dialogs/options/screensize-locked.png" />				
+			</sprite>
+			
+			<integer name="top" value="170" />
+			<integer name="left" value="65" />			
+		</section>
+		
+		<!-- Screensize choices -->
+		<section name="screensize-choices">
+			<integer name="left" value="200" />
+			
+			<sprite name="320x240">
+				<image file="dialogs/options/screensize-320x240.png" />
+			</sprite>
+			
+			<sprite name="640x480">
+				<image file="dialogs/options/screensize-640x480.png" />
+			</sprite>
+			
+			<sprite name="640x480-wide">
+				<image file="dialogs/options/screensize-640x480-wide.png" />
+			</sprite>
+			
+			<sprite name="800x600">
+				<image file="dialogs/options/screensize-800x600.png" />
+			</sprite>
+			
+			<sprite name="800x600-wide">
+				<image file="dialogs/options/screensize-800x600-wide.png" />
+			</sprite>
+		</section>		
+				
 		<!-- Fullscreen item -->
 		<section name="fullscreen">
 			<sprite name="selected">
@@ -47,9 +100,14 @@
 			</sprite>
 			
 			<integer name="top" value="230" />
-			<integer name="left" value="60" />
+			<integer name="left" value="65" />
 			
 		</section>
+		
+		<!-- Fullscreen choices -->		
+		<section name="fullscreen-choices">
+			<integer name="left" value="300" />
+		</section>			
 		
 		<!-- Sound level item -->
 		<section name="sound">
@@ -99,6 +157,14 @@
 			
 			
 		</section>
+		
+		<sprite name="item-yes">
+			<image file="dialogs/yes.png" />
+		</sprite>
+		
+		<sprite name="item-no">
+			<image file="dialogs/no.png" />
+		</sprite>
 		
 		<!-- Sound level numbers -->
 		<section name="sound_level">

@@ -19,6 +19,7 @@ MultipleChoicesItem::MultipleChoicesItem()
     _selection = 0;
     _p_description_normal = NULL;
     _p_description_selected = NULL;
+    _p_description_locked = NULL;
 }
 
 MultipleChoicesItem::~MultipleChoicesItem()
@@ -28,7 +29,7 @@ MultipleChoicesItem::~MultipleChoicesItem()
 
 void MultipleChoicesItem::unload_gfx()
 {
-	  if(_p_description_normal)
+		if(_p_description_normal)
     {
         my_delete(_p_description_normal);
 				_p_description_normal = NULL;
@@ -37,7 +38,12 @@ void MultipleChoicesItem::unload_gfx()
     {
         my_delete(_p_description_selected);
 				_p_description_selected = NULL;
-    }
+    }		
+		if(_p_description_locked)
+    {
+        my_delete(_p_description_locked);
+				_p_description_locked = NULL;
+    }		
 	  for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
     {
         my_delete(_choices_list_p[i]);
@@ -45,7 +51,9 @@ void MultipleChoicesItem::unload_gfx()
     _choices_list_p.clear();
 }
 
-void MultipleChoicesItem::set_description_sprites(CL_Sprite * p_normal_sprite, CL_Sprite * p_selected_sprite)
+void MultipleChoicesItem::set_description_sprites(CL_Sprite * p_normal_sprite,
+																									CL_Sprite * p_selected_sprite,
+																									CL_Sprite * p_locked_sprite)
 {
     if(_p_description_normal)
     {
@@ -57,7 +65,13 @@ void MultipleChoicesItem::set_description_sprites(CL_Sprite * p_normal_sprite, C
     {
         delete _p_description_selected;
     }
-    _p_description_selected = p_selected_sprite;
+		_p_description_selected = p_selected_sprite;
+		
+		if(_p_description_locked)
+    {
+        delete _p_description_locked;
+    }
+    _p_description_locked = p_locked_sprite;
 }
 
 void MultipleChoicesItem::add_choice(CL_Sprite * p_sprite)
@@ -89,7 +103,12 @@ void MultipleChoicesItem::draw()
         _p_description_selected -> set_alpha(alpha);
         _p_description_selected -> draw(x, y);
     }
-    else
+    else if(locked)
+		{
+				_p_description_locked -> set_alpha(alpha);
+        _p_description_locked -> draw(x, y);
+		}
+		else				
     {
         _p_description_normal -> set_alpha(alpha);
         _p_description_normal -> draw(x, y);

@@ -10,3 +10,4 @@ TODO for 0.4
 - Un système de menu mieux codés
 - Bugs dans les undo
 - Refaire le demo player
+- memory leaks [OK]

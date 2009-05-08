@@ -27,6 +27,8 @@
 
 class LoadingScreen;
 
+#define RENDER_SDL false
+#define RENDER_OPENGL true
 
 /**
  * GameEngine class - controls the states
@@ -115,10 +117,7 @@ class GameEngine{
    */
   void toggle_screen();
 
-	/**
-	 * Called when the window is resized by the user
-   */
-	void resize(int width, int height);
+	void change_screen_size();
 
   /**
    * Returning Frame Rate

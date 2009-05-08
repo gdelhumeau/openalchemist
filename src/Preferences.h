@@ -16,7 +16,6 @@
 
 #include <ClanLib/core.h>
 
-
 /** Implements the preferences that users can save */
 class Preferences
 {
@@ -44,6 +43,9 @@ class Preferences
 	/** Saves if user have a wide screen */
 	bool widescreen;
 
+	/** Saves screen size */
+	int screen_size;
+
   /** Saves the last skin used */
   std::string skin;
 
@@ -61,5 +63,14 @@ class Preferences
 
 
 Preferences* pref_get_instance();
+
+enum{
+		SCREEN_SIZE_320x240	= 0,
+		SCREEN_SIZE_640x480,
+		SCREEN_SIZE_640x480_WIDE,
+		SCREEN_SIZE_800x600,
+		SCREEN_SIZE_800x600_WIDE,		
+};
+
 
 #endif
