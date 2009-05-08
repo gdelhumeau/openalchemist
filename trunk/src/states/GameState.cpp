@@ -34,7 +34,7 @@ void GameState::init()
 
 void GameState::deinit()
 {
-  std::cout << "GameState class may not be used cause it is an abstract class" << std::endl;
+ 
 }
 
 

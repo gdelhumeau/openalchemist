@@ -29,6 +29,7 @@ class MultipleChoicesItem : public MenuItem{
 	std::vector<CL_Sprite*> _choices_list_p;
 	CL_Sprite * _p_description_normal;
 	CL_Sprite * _p_description_selected;
+	CL_Sprite * _p_description_locked;
 		
 	public:
 		
@@ -39,10 +40,13 @@ class MultipleChoicesItem : public MenuItem{
 	void set_choice_x(int x){_choice_x = x;}
 	void set_choice_y(int y){_choice_y = y;}
 	
-	void set_description_sprites(CL_Sprite * p_normal_sprite, CL_Sprite * p_selected_sprite);
+	void set_description_sprites(CL_Sprite * p_normal_sprite,
+															 CL_Sprite * p_selected_sprite, 
+															 CL_Sprite * p_locked_sprite);
 	
 	void add_choice(CL_Sprite * p_sprite);
 	void set_current_choice(unsigned int choice);
+	unsigned int get_current_choice(){ return _selection; }
 	
 	void clear_choices();
 

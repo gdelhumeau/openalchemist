@@ -21,9 +21,6 @@
 #include "CommonResources.h"
 #include "misc.h"
 
-#define RENDER_SDL false
-#define RENDER_OPENGL true
-
 /**
  * Main application
  */
@@ -54,7 +51,6 @@ public:
         {
             CL_SetupGL::init();
             _p_window = my_new CL_DisplayWindow("OpenAlchemist",800,600, false, false, 2);
-            //window -> set_size(800,600);
             CL_System::keep_alive();
         }
         else
@@ -66,13 +62,7 @@ public:
         Preferences *p_pref = pref_get_instance();
         if (p_pref -> fullscreen)
         {
-            _p_window -> set_fullscreen(800,600,0,0);
-            if (p_pref -> widescreen && RENDER_OPENGL == _render)
-            {
-                CL_GraphicContext *gc = _p_window -> get_gc();
-                gc -> set_scale(0.83, 1.0);
-                gc -> add_translate(80, 0, 0);
-            }
+            _p_window -> set_fullscreen(800,600,0,0);           
         }
 
         // Add a callback when user close the window

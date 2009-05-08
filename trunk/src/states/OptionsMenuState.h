@@ -29,6 +29,9 @@ class OptionsMenuState : public MenuState
 {
 
 private:
+    MultipleChoicesItem _render_item;
+    MultipleChoicesItem _screensize_item;
+    MultipleChoicesItem _fullscreen_item;
     MultipleChoicesItem _sound_level_item;
     MultipleChoicesItem _music_level_item;
 

@@ -39,6 +39,7 @@ void GameEngine::init()
     Preferences *pref = pref_get_instance();
 
     _fps_getter.set_fps_limit(pref -> maxfps);
+		change_screen_size();
 
     resources -> init(this);
     _common_state.init();
@@ -51,24 +52,25 @@ void GameEngine::init()
     _quitmenu_state.init();
     
 	  set_skin(pref -> skin);
-    resize(_p_window -> get_width(), _p_window -> get_height());
 }
 
 void GameEngine::deinit()
 {
-    //_common_state.deinit();
-    //_ingame_state.deinit();
-    //_gameover_state.deinit();
+    _common_state.deinit();
+    _ingame_state.deinit();
+    _gameover_state.deinit();
     _pausemenu_state.deinit();
     _skinsmenu_state.deinit();
-    _optionsmenu_state.deinit();
-    //_title_state.deinit();
-    //_quitmenu_state.deinit();
+ 	  _optionsmenu_state.deinit();
+    _title_state.deinit();
+    _quitmenu_state.deinit();
 }
 
 void GameEngine::run()
 {
     init();
+		
+		Preferences *p_pref = pref_get_instance();	
 
     if(_running)
     {
@@ -104,8 +106,12 @@ void GameEngine::run()
             resources -> fps = _fps_getter.get_fps();
             resources -> time_interval = get_time_interval(resources->fps);
 
-
             CL_Display::flip();
+						
+						if(_render_mode == RENDER_OPENGL && !p_pref -> fullscreen)
+						{
+							change_screen_size();
+						}
 
             // This call updates input and performs other "housekeeping"
             // Call this each frame
@@ -179,137 +185,128 @@ void GameEngine::set_state_skin_menu()
         _states_stack.push(&_skinsmenu_state);
         _skinsmenu_state.start();
         _pausemenu_state.start();
-        _optionsmenu_state.start();
-    }
+				_optionsmenu_state.start();
+		}
 }
 
 void GameEngine::set_state_quit_menu(int action)
 {
-    if (_states_stack.top() != &_quitmenu_state)
-    {
-        _quitmenu_state.set_action(action);
-        _states_stack.push(&_quitmenu_state);
-        _pausemenu_state.start();
-        _quitmenu_state.start();
-    }
+		if (_states_stack.top() != &_quitmenu_state)
+		{
+				_quitmenu_state.set_action(action);
+				_states_stack.push(&_quitmenu_state);
+				_pausemenu_state.start();
+				_quitmenu_state.start();
+		}
 }
 
 void GameEngine::stop_current_state()
 {
-    _states_stack.pop();
+		_states_stack.pop();
 }
+
+void GameEngine::change_screen_size()
+{
+		Preferences *pref = pref_get_instance();	
+		
+		int width = 800;
+		int height = 600;
+		bool wide = false;
+		
+		if(_render_mode == RENDER_OPENGL)
+		{
+				switch(pref -> screen_size)
+				{
+						case SCREEN_SIZE_320x240:
+								width = 320;
+								height = 240;
+								wide = true;
+								break;
+								
+						case SCREEN_SIZE_640x480:
+								width = 640;
+								height = 480;
+								wide = false;
+								break;
+								
+						case SCREEN_SIZE_640x480_WIDE:
+								width = 640;
+								height = 480;
+								wide = true;
+								break;
+								
+						case SCREEN_SIZE_800x600:
+								width = 800;
+								height = 600;
+								wide = false;
+								break;
+								
+						case SCREEN_SIZE_800x600_WIDE:
+								width = 800;
+								height = 600;
+								wide = true;
+								break;								
+				}
+		}
+		
+		if(pref -> fullscreen)
+		{
+				_p_window->set_fullscreen(width,height,0,0);
+				CL_Mouse::hide();
+				
+				if(_render_mode == RENDER_OPENGL)
+				{
+						if(!wide)
+						{
+								CL_GraphicContext *gc = _p_window -> get_gc();
+								double scale_width = width / 800.0;
+								double scale_height = height / 600.0;
+								gc -> set_scale(scale_width, scale_height);
+						}
+						else
+						{
+								CL_Display::clear(CL_Color(0, 0, 0));
+							  CL_Display::flip();
+								
+								int new_width = 2 * width - 16.0 / 10.0 * height;
+								int dx = (width - new_width) / 2;								
+
+								CL_GraphicContext *gc = _p_window -> get_gc();
+								double scale_width = new_width / 800.0;
+								double scale_height = height / 600.0;
+								gc -> set_scale(scale_width, scale_height);								
+								gc -> add_translate(dx, 0, 0);			
+                
+						}
+				
+				}
+		}
+		else
+		{
+				_p_window -> set_windowed();
+				CL_Mouse::show();		
+				
+				if(_render_mode == RENDER_OPENGL)
+				{		
+						_p_window -> set_size(width, height);
+						
+						CL_GraphicContext *gc = _p_window -> get_gc();
+						double scale_width = width  / 800.0;
+						double scale_height = height / 600.0;
+						gc -> set_scale(scale_width, scale_height);						
+						
+				}
+		}			
+}
+
 
 void GameEngine::toggle_screen()
 {
-    /*Preferences *pref = pref_get_instance();
-     pref -> fullscreen = !pref -> fullscreen;
-
-     if(pref -> fullscreen)
-     {
-             window->set_fullscreen(800,600,0,0);
-             CL_Mouse::hide();
-
-             if(pref -> widescreen && opengl)
-             {
-                     CL_GraphicContext *gc = window -> get_gc();
-                     gc -> set_scale(0.83, 1.0);
-                     gc -> add_translate(80, 0, 0);					
-             }
-     }
-     else
-     {
-             window->set_windowed();
-             CL_Mouse::show();
-
-             CL_GraphicContext *gc = window -> get_gc();
-             gc -> set_scale(1.0, 1.0);
-             gc -> set_translate(0, 0, 0);
-
-     }
-
-     pref -> write();*/
-
-    if (_p_window -> get_width() == 800)
-    {
-
-        _p_window -> set_size(640, 480);
-        CL_GraphicContext *gc = _p_window -> get_gc();
-        double scale_width = 640 / 800.0;
-        double scale_height = 480 / 600.0;
-        gc -> set_scale(scale_width, scale_height);
-        gc -> add_translate(0, 150, 0);
-    }
-    else
-    {
-        _p_window -> set_size(800, 600);
-        CL_GraphicContext *gc = _p_window -> get_gc();
-        gc -> set_scale(1.0, 1.0);
-    }
-
-
+    Preferences *pref = pref_get_instance();
+    pref -> fullscreen = !pref -> fullscreen;
+		change_screen_size();
 }
 
-/**
- * Called when user resize the window
- */
-void GameEngine::resize(int width, int height)
-{
-    //static int old_width = 0;
-    //static int old_height = 0;
-
-    if (!_p_window -> is_fullscreen())
-    {
-        CL_GraphicContext *gc = _p_window -> get_gc();
-
-        double ratio = (double) width / (double) height;
-
-        /*if(old_width != width || old_height != height)
-         {			
-                 old_width = width;
-                 old_height = height;			
-
-                 if(ratio > 800.0 / 600.0 * 1.01)
-                 {
-                         width = height * 1.33;
-                         window -> set_size(width, height);
-                 }
-                 else if (ratio < 800.0 / 600.0 * 0.99)
-                 {
-                         height = width * 0.75;
-                         window -> set_size(width, height);
-                 }
-
-                 double scale_width = width / 800.0;
-                 double scale_height= height / 600.0;
-                 gc -> set_scale(scale_width, scale_height);
-         }
-         else*/
-        {
-
-            if (ratio > 800.0 / 600.0 * 1.01)
-            {
-                double n_width = height * 1.333333;
-                int dx = (width - n_width) / 2;
-                double scale_width = n_width / 800.0;
-                double scale_height = height / 600.0;
-                gc -> set_scale(scale_width, scale_height);
-                gc -> add_translate(dx, 0, 0);
-
-            }
-            else if (ratio < 800.0 / 600.0 * 0.99)
-            {
-                double n_height = width * 0.75;
-                int dy = (height - n_height) / 2;
-                double scale_width = width / 800.0;
-                double scale_height = n_height / 600.0;
-                gc -> set_scale(scale_width, scale_height);
-                gc -> add_translate(0, dy, 0);
-            }
-
-        }
-
-    }
-}
 
 int GameEngine::get_fps()
 {
