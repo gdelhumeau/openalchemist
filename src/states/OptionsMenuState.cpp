@@ -21,8 +21,8 @@
 enum{
 		OPTIONS_ITEM_RENDER,
 		OPTIONS_ITEM_SCREENSIZE,
-    //OPTIONS_ITEM_CHANGESKIN,
     OPTIONS_ITEM_FULLSCREEN,
+		OPTIONS_ITEM_FRAMERATE,
     OPTIONS_ITEM_SOUND,
     OPTIONS_ITEM_MUSIC,
     OPTIONS_ITEM_QUIT
@@ -55,6 +55,7 @@ void OptionsMenuState::init()
     _items.insert (_items.end (), &_render_item);
 		_items.insert (_items.end (), &_screensize_item);
 		_items.insert (_items.end (), &_fullscreen_item);
+		_items.insert (_items.end (), &_framerate_item);
     _items.insert (_items.end (), &_sound_level_item);
     _items.insert (_items.end (), &_music_level_item);
     _items.insert (_items.end (), &_quit_item);
@@ -113,6 +114,7 @@ void OptionsMenuState::load_gfx(std::string skin)
 		_screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/800x600", &gfx));
 		_screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/800x600-wide", &gfx));
 		
+		_fullscreen_item.clear_choices();
 		_fullscreen_item.set_description_sprites(
 																				 my_new CL_Sprite("menu_options/fullscreen/unselected", &gfx),
 																				 my_new CL_Sprite("menu_options/fullscreen/selected", &gfx),
@@ -121,6 +123,20 @@ void OptionsMenuState::load_gfx(std::string skin)
 	
 		_fullscreen_item.add_choice(my_new CL_Sprite("menu_options/item-no", &gfx));
 		_fullscreen_item.add_choice(my_new CL_Sprite("menu_options/item-yes", &gfx));
+		
+		_framerate_item.set_description_sprites(
+																				 my_new CL_Sprite("menu_options/framerate/unselected", &gfx),
+																				 my_new CL_Sprite("menu_options/framerate/selected", &gfx),
+																				 NULL
+																				 );
+			
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/30", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/40", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/50", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/60", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/80", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/100", &gfx));
+		_framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/no-limit", &gfx));
 	
     /*
         _items_p[OPTIONS_ITEM_CHANGESKIN] = my_new CL_Sprite("menu_options/changeskin/unselected", &gfx);
@@ -214,7 +230,13 @@ void OptionsMenuState::load_gfx(std::string skin)
     _fullscreen_item.set_y(y + CL_Integer_to_int("menu_options/fullscreen/top", &gfx));
 		
 		_fullscreen_item.set_choice_x(x + CL_Integer_to_int("menu_options/fullscreen-choices/left", &gfx));
-    _fullscreen_item.set_choice_y(y + CL_Integer_to_int("menu_options/fullscreen/top", &gfx));		
+    _fullscreen_item.set_choice_y(y + CL_Integer_to_int("menu_options/fullscreen/top", &gfx));	
+		
+		_framerate_item.set_x(x + CL_Integer_to_int("menu_options/framerate/left", &gfx));
+    _framerate_item.set_y(y + CL_Integer_to_int("menu_options/framerate/top", &gfx));
+		
+		_framerate_item.set_choice_x(x + CL_Integer_to_int("menu_options/framerate-choices/left", &gfx));
+    _framerate_item.set_choice_y(y + CL_Integer_to_int("menu_options/framerate/top", &gfx));	
     
     _quit_item.set_x(x + CL_Integer_to_int("menu_options/quit/left", &gfx));
     _quit_item.set_y(y + CL_Integer_to_int("menu_options/quit/top", &gfx));
@@ -237,7 +259,35 @@ void OptionsMenuState::load_gfx(std::string skin)
 		{
 				_fullscreen_item.set_current_choice(ITEM_NO);
 		}
-
+		if(p_pref -> maxfps <= 30)
+		{
+				_framerate_item.set_current_choice(0);
+		}
+		else if(p_pref -> maxfps <= 40)
+		{
+				_framerate_item.set_current_choice(1);
+		}
+		else if(p_pref -> maxfps <= 50)
+		{
+				_framerate_item.set_current_choice(2);
+		}
+		else if(p_pref -> maxfps <= 60)
+		{
+				_framerate_item.set_current_choice(3);
+		}
+		else if(p_pref -> maxfps <= 80)
+		{
+				_framerate_item.set_current_choice(4);
+		}
+		else if(p_pref -> maxfps <= 100)
+		{
+				_framerate_item.set_current_choice(5);
+		}
+		else
+		{
+				_framerate_item.set_current_choice(6);
+		}
+		
 }
 
 void OptionsMenuState::unload_gfx()
@@ -250,6 +300,7 @@ void OptionsMenuState::unload_gfx()
 	_render_item.unload_gfx();
 	_screensize_item.unload_gfx();
 	_fullscreen_item.unload_gfx();
+	_framerate_item.unload_gfx();
 	_sound_level_item.unload_gfx();
 	_music_level_item.unload_gfx();	
 }
@@ -301,45 +352,51 @@ void OptionsMenuState::update_child()
 		if(display_changed)
 		{
 				_p_common_resources -> p_engine -> change_screen_size();
-//				std::cout << "Call here change screen size function" << std::endl;
 		}
+		
+		if(p_pref -> maxfps != (int) _framerate_item.get_current_choice())
+		{
+				switch(_framerate_item.get_current_choice())
+				{
+						case 0:
+								p_pref -> maxfps = 30;
+								break;
+						case 1:
+								p_pref -> maxfps = 40;
+								break;
+						case 2:
+								p_pref -> maxfps = 50;
+								break;
+						case 3:
+								p_pref -> maxfps = 60;
+								break;
+						case 4:
+								p_pref -> maxfps = 80;
+								break;
+						case 5:
+								p_pref -> maxfps = 100;
+								break;
+						case 6:
+								p_pref -> maxfps = 1000;
+								break;						
+				}
+				_p_common_resources -> p_engine -> refresh_framerate_limit();
+		}
+		
+		
 }
 
-
-/*
-void OptionsMenuState::draw()
+void OptionsMenuState::toggle_screen()
 {
-	
-    int x = 400 - _p_background -> get_width()/2;
-    int y = 300 - _p_background -> get_height()/2;
-    _p_background -> draw(x,y);
- 
-    // Drawing
-    for(int i=0; i<OPTIONS_NUMBER_OF_ITEMS; ++i)
-    {
- 
-        if(i == _selection)
-        {
-            _items_selected_p[i] -> draw(x + _items_left[i], y + _items_top[i]);
-            _items_selected_p[i] -> update(_p_common_resources -> time_interval);
- 
-        }
-        else
-        {
-            _items_p[i] -> draw(x + _items_left[i], y + _items_top[i]);
-            _items_p[i] -> update(_p_common_resources -> time_interval);
-        }
-    }
- 
-    _sound_level_sprites_p[_sound_level] -> draw(x + _sound_level_left, y
-            + _items_top[OPTIONS_ITEM_SOUND]);
-    _sound_level_sprites_p[_music_level] -> draw(x + _sound_level_left, y
-            + _items_top[OPTIONS_ITEM_MUSIC]);
-    _sound_level_sprites_p[_sound_level] -> update();
-    _sound_level_sprites_p[_music_level] -> update();
- 
-}*/
-
-
+		Preferences *p_pref = pref_get_instance();		
+		if(p_pref -> fullscreen)
+		{
+				_fullscreen_item.set_current_choice(ITEM_YES);
+		}
+		else
+		{
+				_fullscreen_item.set_current_choice(ITEM_NO);
+		}	
+}
 
 

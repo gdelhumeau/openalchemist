@@ -51,7 +51,7 @@ void GameEngine::init()
     _title_state.init();
     _quitmenu_state.init();
     
-	  set_skin(pref -> skin);
+		set_skin(pref -> skin);
 }
 
 void GameEngine::deinit()
@@ -303,10 +303,16 @@ void GameEngine::change_screen_size()
 void GameEngine::toggle_screen()
 {
     Preferences *pref = pref_get_instance();
-    pref -> fullscreen = !pref -> fullscreen;
+    pref -> fullscreen = !pref -> fullscreen;		
 		change_screen_size();
+		_optionsmenu_state.toggle_screen();
 }
 
+void GameEngine::refresh_framerate_limit()
+{
+		Preferences *pref = pref_get_instance();
+		_fps_getter.set_fps_limit(pref -> maxfps);
+}
 
 int GameEngine::get_fps()
 {
