@@ -93,10 +93,12 @@ Player::~Player()
 
 void Player::new_game()
 {
+		term_game();
+		
     // Getting resources
     CommonResources *resources = common_resources_get_instance();
 
-    // Creating my_new pieces for playable pieces and next pieces
+    // Creating my_new pieces for playable pieces and next pieces		
     _p_current_piece1 = my_new Piece(rand()%3);
     _p_current_piece2 = my_new Piece(rand()%3);
     _p_next_piece1 = my_new Piece(rand()%3);
@@ -147,6 +149,33 @@ void Player::new_game()
     _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
                                   _p_pieces_disappearing[value], _p_pieces_mini[value]);
 
+}
+
+void Player::term_game()
+{
+		if(_p_current_piece1)
+		{
+			my_delete(_p_current_piece1);
+			_p_current_piece1 = NULL;
+		}
+		
+		if(_p_current_piece2)
+		{
+			my_delete(_p_current_piece2);
+			_p_current_piece2 = NULL;
+		}
+		
+		if(_p_next_piece1)
+		{
+			my_delete(_p_next_piece1);
+			_p_next_piece1 = NULL;
+		}
+		
+		if(_p_next_piece2)
+		{
+			my_delete(_p_next_piece2);
+			_p_next_piece2 = NULL;
+		}
 }
 
 void Player::load_gfx(std::string skin)

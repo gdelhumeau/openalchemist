@@ -247,9 +247,14 @@ class Player{
   void draw();
   
   /**
-   * Make a my_new party
+   * Make a new party
    */
   void new_game();
+
+	/**
+	 * Terminate the party
+	 */
+	void term_game();
   
   /**
    * Update playable pieces and board
