@@ -11,12 +11,12 @@
 
 # Variables
 CXX = g++
-CXXFLAGS = -Wall `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8` -g
-LIBS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8 clanSDL-0.8`
+CXXFLAGS = -Wall `pkg-config --cflags clanCore-1.0 clanDisplay-1.0 clanApp-1.0 clanGL-1.0 clanSDL-1.0 clanSound-1.0` -g -D DEBUG
+LIBS = `pkg-config --libs clanCore-1.0 clanDisplay-1.0 clanApp-1.0 clanGL-1.0 clanSDL-1.0 clanSound-1.0 clanVorbis-1.0`
 STATIC_LIBS = /usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`
 
 # liste des objets à compiler
-OBJS=bin/Application.o bin/Preferences.o bin/IniFile.o bin/GameEngine.o bin/states/GameState.o bin/states/CommonState.o bin/misc.o bin/CommonResources.o bin/Player.o bin/HumanPlayer.o bin/DemoPlayer.o bin/Board.o bin/states/InGameState.o bin/states/GameOverState.o bin/ProgressBar.o bin/FrontLayer.o bin/states/PauseMenuState.o bin/states/SkinsMenuState.o bin/Keys.o bin/states/OptionsMenuState.o bin/states/TitleState.o bin/states/QuitMenuState.o bin/CombosPainter.o bin/states/MenuState/MenuItem.o bin/states/MenuState/BasicItem.o bin/states/MenuState/DualChoiceItem.o bin/states/MenuState.o bin/LoadingScreen.o bin/states/MenuState/MultipleChoicesItem.o bin/memory.o
+OBJS=bin/Application.o bin/Preferences.o bin/IniFile.o bin/GameEngine.o bin/states/GameState.o bin/states/CommonState.o bin/misc.o bin/CommonResources.o bin/Player.o bin/HumanPlayer.o bin/DemoPlayer.o bin/Board.o bin/states/InGameState.o bin/states/GameOverState.o bin/ProgressBar.o bin/FrontLayer.o bin/states/PauseMenuState.o bin/states/SkinsMenuState.o bin/Keys.o bin/states/OptionsMenuState.o bin/states/TitleState.o bin/states/QuitMenuState.o bin/CombosPainter.o bin/states/MenuState/MenuItem.o bin/states/MenuState/BasicItem.o bin/states/MenuState/DualChoiceItem.o bin/states/MenuState.o bin/LoadingScreen.o bin/states/MenuState/MultipleChoicesItem.o bin/memory.o bin/MusicManager.o
 
 # all = on compile tous les execs
 all: openalchemist
