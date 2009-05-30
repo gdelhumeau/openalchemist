@@ -19,7 +19,7 @@
 
 const int Piece::_score[12] = { 1, 3, 9, 30, 90, 300, 900, 3000, 9000, 30000, 90000, 300000 };
 
-CommonResources* p_instance = NULL;
+static CommonResources* p_instance = NULL;
 
 CommonResources::CommonResources()
 {

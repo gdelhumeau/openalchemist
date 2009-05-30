@@ -27,6 +27,8 @@
 
 class LoadingScreen;
 
+// test modif a
+
 #define RENDER_SDL false
 #define RENDER_OPENGL true
 

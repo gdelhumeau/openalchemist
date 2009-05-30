@@ -18,6 +18,7 @@
 #include "CommonResources.h"
 #include "misc.h"
 #include "LoadingScreen.h"
+#include "MusicManager.h"
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
@@ -34,6 +35,7 @@ void GameEngine::init()
     _running = true;
 	
 		common_resources_init();
+		g_music_manager.init();
 
     CommonResources *resources = common_resources_get_instance();
     Preferences *pref = pref_get_instance();
@@ -64,6 +66,8 @@ void GameEngine::deinit()
  	  _optionsmenu_state.deinit();
     _title_state.deinit();
     _quitmenu_state.deinit();
+		
+		g_music_manager.term();
 }
 
 void GameEngine::run()

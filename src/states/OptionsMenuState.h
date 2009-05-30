@@ -38,11 +38,6 @@ private:
 
     BasicItem _quit_item;
 
-
-    int _sound_level;
-    int _music_level;
-
-
 public:
     void init();
     void deinit();
