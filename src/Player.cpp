@@ -21,6 +21,7 @@
 #include "misc.h"
 #include "Board.h"
 #include "GameEngine.h"
+#include "MusicManager.h"
 
 static const float TO_RAD 		= PI / 180;
 static const float PIECE_MOVING_SPEED 	= 0.4;
@@ -598,6 +599,8 @@ void Player::fall()
 
 
   _game_mode = GAME_MODE_FALLING_AND_CREATING;
+
+  g_music_manager.play_sound(SOUND_FALL);
 }
 
 void Player::_update_falling_and_creating()
@@ -625,6 +628,7 @@ void Player::_update_falling_and_creating()
     {
       _game_mode = GAME_MODE_DESTROYING;
       //game_mode = GAME_MODE_TO_PLAYING;
+      g_music_manager.play_sound(SOUND_DESTROY);
     }
     else
     {
@@ -659,6 +663,9 @@ void Player::_update_destroying()
 
     _board.detect_pieces_to_fall();
     _game_mode = GAME_MODE_FALLING_AND_CREATING;
+
+    g_music_manager.play_sound(SOUND_CREATION);
+
   }
 
 }

@@ -35,6 +35,8 @@ private:
 	CL_SetupVorbis * _p_setup_vorbis;
 	CL_SoundBuffer_Session _playback;
 	CL_SoundBuffer* _sounds_p[NB_SOUNDS];
+	CL_SoundBuffer_Session _sounds_playback[NB_SOUNDS];
+	int _sounds_position[NB_SOUNDS];
 
 public:
 
@@ -48,6 +50,8 @@ public:
 	void term();
 
 	void play_sound(int sound_index);
+	void pause_fx();
+	void unpause_fx();
 
 };
 

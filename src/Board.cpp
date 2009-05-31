@@ -14,6 +14,7 @@
 #include "CommonResources.h"
 #include "GameEngine.h"
 #include "misc.h"
+#include "MusicManager.h"
 
 Board::Board()
 {
@@ -331,6 +332,7 @@ void Board::_create_new_piece(std::vector<Coords*> &detected_pieces)
 	// We add the my_new piece except if we have aligned 3 last elements
 	if (new_piece.piece_number != NUMBER_OF_PIECES - 1)
 		_list_to_create.insert(_list_to_create.end(), my_new Coords(&new_piece));
+
 }
 
 void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces)
