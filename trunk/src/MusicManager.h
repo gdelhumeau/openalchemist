@@ -38,6 +38,8 @@ private:
 	CL_SoundBuffer_Session _sounds_playback[NB_SOUNDS];
 	int _sounds_position[NB_SOUNDS];
 
+	float _sounds_volume;
+
 public:
 
 	MusicManager();
