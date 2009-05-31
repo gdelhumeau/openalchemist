@@ -26,6 +26,7 @@ MusicManager::MusicManager()
     _sounds_p[i] = NULL;
     _sounds_position[i] = 0;
   }
+  _sounds_volume = 1;
 }
 
 MusicManager::~MusicManager()
@@ -46,6 +47,7 @@ void MusicManager::init()
   _playback.set_looping(true);
   _playback.play();
   _playback.set_volume(p_pref -> music_level / 100.f);
+  _sounds_volume = p_pref -> sound_level / 100.0f;
   _sounds_p[SOUND_MOVE] = my_new CL_SoundBuffer("sounds/move.wav", false);
   _sounds_p[SOUND_FALL] = my_new CL_SoundBuffer("sounds/fall.wav", false);
   _sounds_p[SOUND_CREATION] = my_new CL_SoundBuffer("sounds/creation.wav", false);
@@ -95,7 +97,7 @@ void MusicManager::set_music_volume(float volume)
 
 void MusicManager::set_sounds_volume(float volume)
 {
-  
+  _sounds_volume = volume;
 }
 
 
@@ -105,6 +107,7 @@ void MusicManager::play_sound(int sound_index)
   {
     _sounds_playback[sound_index].set_position(0);
     _sounds_playback[sound_index].play();
+    _sounds_playback[sound_index].set_volume(_sounds_volume);
   }
 }
 
@@ -130,6 +133,7 @@ void MusicManager::unpause_fx()
     {
       _sounds_playback[i].set_position(_sounds_position[i]);
       _sounds_playback[i].play();
+      _sounds_playback[i].set_volume(_sounds_volume);
       _sounds_position[i] = 0;
     }  
 

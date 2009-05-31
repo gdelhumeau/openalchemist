@@ -127,23 +127,6 @@ void OptionsMenuState::load_gfx(std::string skin)
   _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/100", &gfx));
   _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/no-limit", &gfx));
 	
-  /*
-    _items_p[OPTIONS_ITEM_CHANGESKIN] = my_new CL_Sprite("menu_options/changeskin/unselected", &gfx);
-    _items_selected_p[OPTIONS_ITEM_CHANGESKIN] = my_new CL_Sprite("menu_options/changeskin/selected", &gfx);
-     
-    _items_p[OPTIONS_ITEM_FULLSCREEN] = my_new CL_Sprite("menu_options/fullscreen/unselected", &gfx);
-    _items_selected_p[OPTIONS_ITEM_FULLSCREEN] = my_new CL_Sprite("menu_options/fullscreen/selected", &gfx);
-     
-    _items_p[OPTIONS_ITEM_SOUND] = my_new CL_Sprite("menu_options/sound/unselected", &gfx);
-    _items_selected_p[OPTIONS_ITEM_SOUND] = my_new CL_Sprite("menu_options/sound/selected", &gfx);
-     
-    _items_p[OPTIONS_ITEM_MUSIC] = my_new CL_Sprite("menu_options/music/unselected", &gfx);
-    _items_selected_p[OPTIONS_ITEM_MUSIC] = my_new CL_Sprite("menu_options/music/selected", &gfx);
-     
-    _items_p[OPTIONS_ITEM_QUIT] = my_new CL_Sprite("menu_options/quit/unselected", &gfx);
-    _items_selected_p[OPTIONS_ITEM_QUIT] = my_new CL_Sprite("menu_options/quit/selected", &gfx);
-  */
-
   _sound_level_item.set_description_sprites(
     my_new CL_Sprite("menu_options/sound/unselected", &gfx),
     my_new CL_Sprite("menu_options/sound/selected", &gfx),
@@ -357,12 +340,14 @@ void OptionsMenuState::update_child()
   {
     p_pref -> sound_level = (int) _sound_level_item.get_current_choice() * 10;
     g_music_manager.set_sounds_volume(p_pref -> sound_level / 100.0f);
+    p_pref -> write();
   }
 		
   if((int)_music_level_item.get_current_choice() != p_pref -> music_level / 10)
   {
     p_pref -> music_level = (int) _music_level_item.get_current_choice() * 10;
     g_music_manager.set_music_volume(p_pref -> music_level / 100.0f);
+    p_pref -> write();
   }
 		
 }
