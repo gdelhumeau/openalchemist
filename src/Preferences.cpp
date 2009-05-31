@@ -1,11 +1,11 @@
 /********************************************************************
- OpenAlchemist
+                          OpenAlchemist
  
- File : Preferences.cpp
- Description : implement the Preference class, which contains
- options that user can save
- License : GNU General Public License 2 or +
- Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+  File : Preferences.cpp
+  Description : implement the Preference class, which contains
+                options that user can save
+  License : GNU General Public License 2 or +
+  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
  
  
 *********************************************************************/
@@ -183,8 +183,8 @@ void Preferences::set_default()
 {
   render_opengl = true;
   maxfps = 65;
-  sound_level = 50;
-  music_level = 50;
+  sound_level = 100;
+  music_level = 30;
   fullscreen = false;
   widescreen = false;
   colorblind = false;
