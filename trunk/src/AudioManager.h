@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : MusicManager.h
+  File : AudioManager.h
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -26,7 +26,7 @@ enum SOUNDS{
 
 };
 
-class MusicManager{
+class AudioManager{
 
 private:
 
@@ -42,8 +42,8 @@ private:
 
 public:
 
-	MusicManager();
-	~MusicManager();
+	AudioManager();
+	~AudioManager();
 
 	void set_music_volume(float volume);
 	void set_sounds_volume(float volume);
@@ -57,6 +57,6 @@ public:
 
 };
 
-extern MusicManager g_music_manager;
+extern AudioManager g_audio_manager;
 
 #endif

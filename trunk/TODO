@@ -6,8 +6,8 @@ TODO for 0.4
 - Sounds & music
 - une touche d'aide, press H for help? --> liste des commandes, etc?
 - WideScreen [OK]
-- Compatible petite résolution
-- Un système de menu mieux codés
+- Compatible petite résolution [OK]
+- Un système de menu mieux codés [OK] - sauf skins mais tant pis
 - Bugs dans les undo
 - Refaire le demo player
 - memory leaks [OK]

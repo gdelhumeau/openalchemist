@@ -21,7 +21,7 @@
 #include "misc.h"
 #include "Board.h"
 #include "GameEngine.h"
-#include "MusicManager.h"
+#include "AudioManager.h"
 
 
 static const float TO_RAD 						= PI / 180;
@@ -38,21 +38,21 @@ void HumanPlayer::events()
     if(_p_key_change_angle->get())
     {
       change_angle();
-      g_music_manager.play_sound(SOUND_MOVE);
+      g_audio_manager.play_sound(SOUND_MOVE);
     }
 
     // Look the key to know if we have to move the pieces to the left
     if(_p_key_left->get())
     {
       move_left();
-      g_music_manager.play_sound(SOUND_MOVE);
+      g_audio_manager.play_sound(SOUND_MOVE);
     }
 
     // Look the key to know if we have to move the pieces to the right
     if(_p_key_right->get())
     {
       move_right();
-      g_music_manager.play_sound(SOUND_MOVE);
+      g_audio_manager.play_sound(SOUND_MOVE);
     }
 
     // It's time for the pieces to fall

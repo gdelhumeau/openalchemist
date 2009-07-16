@@ -38,7 +38,7 @@ class Piece
   int _piece_number;
 
   // Real coords on the screen
-  double _x, _y;
+  float _x, _y;
 
   // Goal target coord
   int _target_y;

@@ -18,7 +18,7 @@
 #include "CommonResources.h"
 #include "misc.h"
 #include "LoadingScreen.h"
-#include "MusicManager.h"
+#include "AudioManager.h"
 
 GameEngine::GameEngine(CL_DisplayWindow *window, bool opengl)
 {
@@ -35,7 +35,7 @@ void GameEngine::init()
   _running = true;
 	
   common_resources_init();
-  g_music_manager.init();
+  g_audio_manager.init();
 
   CommonResources *resources = common_resources_get_instance();
   Preferences *pref = pref_get_instance();
@@ -67,7 +67,7 @@ void GameEngine::deinit()
   _title_state.deinit();
   _quitmenu_state.deinit();
 		
-  g_music_manager.term();
+  g_audio_manager.term();
 }
 
 void GameEngine::run()
@@ -149,7 +149,7 @@ void GameEngine::set_state_pause_menu()
   {
     _states_stack.push(&_pausemenu_state);
     _pausemenu_state.start();
-    g_music_manager.pause_fx();
+    g_audio_manager.pause_fx();
   }
 }
 
@@ -158,7 +158,7 @@ void GameEngine::set_state_ingame()
   CommonResources *common_resources = common_resources_get_instance();
   common_resources -> p_current_player = &(common_resources -> player1);
   _states_stack.push(&_ingame_state);
-  g_music_manager.unpause_fx();
+  g_audio_manager.unpause_fx();
 }
 
 void GameEngine::set_state_gameover(int mode)
@@ -211,7 +211,7 @@ void GameEngine::stop_current_state()
   _states_stack.pop();
   if(_states_stack.top() == &_ingame_state)
   {
-    g_music_manager.unpause_fx();
+    g_audio_manager.unpause_fx();
   }
 }
 

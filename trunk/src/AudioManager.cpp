@@ -1,7 +1,7 @@
 /********************************************************************
                           OpenAlchemist
 
-  File : MusicManager.cpp
+  File : AudioManager.cpp
   Description : 
   License : GNU General Public License 2 or +
   Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
@@ -9,14 +9,14 @@
 
 *********************************************************************/
 
-#include "MusicManager.h"
+#include "AudioManager.h"
 #include "Preferences.h"
 #include "memory.h"
 #include <iostream>
 
-MusicManager g_music_manager;
+AudioManager g_audio_manager;
 
-MusicManager::MusicManager()
+AudioManager::AudioManager()
 {
   _p_setup_sound = NULL;
   _p_output = NULL;
@@ -29,12 +29,12 @@ MusicManager::MusicManager()
   _sounds_volume = 1;
 }
 
-MusicManager::~MusicManager()
+AudioManager::~AudioManager()
 {
 }
 
 
-void MusicManager::init()
+void AudioManager::init()
 {
   // Getting resources
   Preferences *p_pref = pref_get_instance();
@@ -58,7 +58,7 @@ void MusicManager::init()
   _sounds_playback[SOUND_DESTROY] = _sounds_p[SOUND_DESTROY]->prepare();
 }
 
-void MusicManager::term()
+void AudioManager::term()
 {
   _playback.stop();
 		
@@ -89,19 +89,19 @@ void MusicManager::term()
   }
 }
 
-void MusicManager::set_music_volume(float volume)
+void AudioManager::set_music_volume(float volume)
 {
   _playback.set_volume(volume);
 }
 
 
-void MusicManager::set_sounds_volume(float volume)
+void AudioManager::set_sounds_volume(float volume)
 {
   _sounds_volume = volume;
 }
 
 
-void MusicManager::play_sound(int sound_index)
+void AudioManager::play_sound(int sound_index)
 {
   if(_sounds_p[sound_index])
   {
@@ -114,7 +114,7 @@ void MusicManager::play_sound(int sound_index)
 }
 
 
-void MusicManager::pause_fx()
+void AudioManager::pause_fx()
 {
   for(int i=0; i<NB_SOUNDS; ++i)
   {
@@ -127,7 +127,7 @@ void MusicManager::pause_fx()
   }
 }
 
-void MusicManager::unpause_fx()
+void AudioManager::unpause_fx()
 {
   for(int i=0; i<NB_SOUNDS; ++i)
   {
