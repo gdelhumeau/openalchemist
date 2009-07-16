@@ -45,7 +45,7 @@ class Board{
   /**
    * List of pieces we have to destroy (only coords)
    */
-  std::vector<Coords*> _list_to_destroy;
+  std::vector<Coords> _list_to_destroy;
 
   /**
    * List of pieces which are appearing
@@ -55,7 +55,7 @@ class Board{
   /**
    * List of pieces we have to create (only coords)
    */
-  std::list<Coords*> _list_to_create;
+  std::list<Coords> _list_to_create;
 
 	/**
 	 * List of explorated pieces during "pieces to destroy" exploration
@@ -174,18 +174,18 @@ class Board{
 	/**
 	 * Function called when pieces to destoyes are detected
 	 */
-	void _pieces_to_destroy_detected(std::vector<Coords*> &detected_pieces);
+	void _pieces_to_destroy_detected(std::vector<Coords> &detected_pieces);
 
 	/**
 	 * Funcion called when we want to create a my_new piece from thoses
 	 * we have destroyed
 	 */
-	void _create_new_piece(std::vector<Coords*> &detected_pieces);	
+	void _create_new_piece(std::vector<Coords> &detected_pieces);	
 
 	/**
 	 * Choose the my_new piece coords
 	 */
-	void _choose_new_piece_coords(Coords &new_piece, std::vector<Coords*> &detected_pieces);	
+	void _choose_new_piece_coords(Coords &new_piece, std::vector<Coords> &detected_pieces);	
 
 	/**
 	 * Check if we have unlocked a piece with the my_new one
