@@ -110,7 +110,6 @@ void MusicManager::play_sound(int sound_index)
     _sounds_playback[sound_index].set_position(0);
     _sounds_playback[sound_index].play();
     _sounds_playback[sound_index].set_volume(_sounds_volume);
-    std::cout << "haha"<<std::endl;
   }
 }
 
