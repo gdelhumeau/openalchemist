@@ -7,6 +7,8 @@ OpenAlchemist is based on ClanLib 0.8. You must install it before compiling this
 
 You may have to edit the /etc/ld.so.conf and add to it "/etc/local/lib". Then run "ldconfig" as root.
 
+You also need the "zip" program, in order to make skins archives.
+
 II) How to compile/install it
 
 There is two ways :
@@ -40,3 +42,4 @@ If you want to make a derivated project with OpenAlchemist code or graphs, you c
 VII) Special Thanks
 
 Special thanks to silkut for his win32 port and MrPouit for his ubuntu packages.
+Also thanks to the ClanLib team.

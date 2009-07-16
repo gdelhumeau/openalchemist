@@ -17,7 +17,7 @@
 #include "../GameEngine.h"
 #include "../misc.h"
 #include "../Preferences.h"
-#include "../MusicManager.h"
+#include "../AudioManager.h"
 
 enum{
   OPTIONS_ITEM_RENDER,
@@ -339,14 +339,14 @@ void OptionsMenuState::update_child()
   if((int)_sound_level_item.get_current_choice() != p_pref -> sound_level / 10)
   {
     p_pref -> sound_level = (int) _sound_level_item.get_current_choice() * 10;
-    g_music_manager.set_sounds_volume(p_pref -> sound_level / 100.0f);
+    g_audio_manager.set_sounds_volume(p_pref -> sound_level / 100.0f);
     p_pref -> write();
   }
 		
   if((int)_music_level_item.get_current_choice() != p_pref -> music_level / 10)
   {
     p_pref -> music_level = (int) _music_level_item.get_current_choice() * 10;
-    g_music_manager.set_music_volume(p_pref -> music_level / 100.0f);
+    g_audio_manager.set_music_volume(p_pref -> music_level / 100.0f);
     p_pref -> write();
   }
 		
