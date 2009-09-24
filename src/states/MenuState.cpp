@@ -32,60 +32,30 @@ bool MenuState::front_layer_behind ()
     return true;
 }
 
-void MenuState::init ()
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
-}
-
-void MenuState::deinit ()
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
-}
-
-void MenuState::load_gfx (std::string skin)
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
-}
-
-void MenuState::unload_gfx ()
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
-}
-
-void MenuState::action_performed (int selection, int action_type)
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class (action_performed)" << std::endl;
-}
-
-void MenuState::update_child ()
-{
-    std::cout << "MenuState class may not be used cause it is an abstract class" << std::endl;
-}
-
-void MenuState::_set_background_sprite (CL_Sprite *background)
+void MenuState::_set_background_sprite (CL_Sprite & background)
 {
     this -> _background = background;
 }
 
-void MenuState::draw ()
+void MenuState::draw (CL_GraphicContext & gc)
 {
     // Displaying background
-    int x = 400 - _background -> get_width () / 2;
-    int y = 300 - _background -> get_height () / 2;
-    _background -> draw (x, y);
+    int x = 400 - _background.get_width () / 2;
+    int y = 300 - _background.get_height () / 2;
+    _background.draw (gc, x, y);
 	
     // Displaying items
     std::vector<MenuItem*>::iterator it = _items.begin ();
     while (it != _items.end ())
     {
         MenuItem *item = (MenuItem*) * it;
-        item -> draw ();
+        item -> draw (gc);
         ++it;
     }
 
 }
 
-void MenuState::update ()
+void MenuState::update (CL_GraphicContext & gc)
 {
     switch (_step)
     {
@@ -99,17 +69,17 @@ void MenuState::update ()
     this -> update_child ();
 }
 
-void MenuState::events ()
+void MenuState::events (CL_DisplayWindow & window)
 {
     // Leaving the state
-    if (_p_common_resources -> key.escape->get () || _p_common_resources -> key.pause->get ())
+    if (_p_common_resources -> key.escape->get (window) || _p_common_resources -> key.pause->get (window))
     {
         _start_disappear ();
         _selection = -1;
     }
 
     // Key ENTER
-    if (_p_common_resources -> key.enter -> get ())
+    if (_p_common_resources -> key.enter -> get (window))
     {
     	if(_items[_selection] -> quit_menu_on_action())
     	{
@@ -119,14 +89,14 @@ void MenuState::events ()
     }
     
     // Key LEFT
-    if (_p_common_resources -> key.left -> get ())
+    if (_p_common_resources -> key.left -> get (window))
     {
     	_items[_selection] -> action_performed(ACTION_TYPE_LEFT);
     	this -> action_performed (_selection, ACTION_TYPE_LEFT);
     }
     
     // Key RIGHT
-    if (_p_common_resources -> key.right -> get ())
+    if (_p_common_resources -> key.right -> get (window))
     {
     	_items[_selection] -> action_performed(ACTION_TYPE_RIGHT);
     	this -> action_performed (_selection, ACTION_TYPE_RIGHT);
@@ -134,7 +104,7 @@ void MenuState::events ()
     
 
     // Key UP
-    if (_p_common_resources -> key.up -> get ())
+    if (_p_common_resources -> key.up -> get (window))
     {
         _items[_selection] -> set_selected (false);
         bool changed = false;
@@ -158,7 +128,7 @@ void MenuState::events ()
     }
 
     // Key DOWN
-    if (_p_common_resources -> key.down -> get ())
+    if (_p_common_resources -> key.down -> get (window))
     {
         _items[_selection] -> set_selected (false);
         bool changed = false;
@@ -224,7 +194,7 @@ void MenuState::_appear ()
     }
 
     // Updating background sprite
-    _background -> set_alpha (_alpha);
+    _background.set_alpha (_alpha);
 
     // Updating items
     std::vector<MenuItem*>::iterator it = _items.begin ();
@@ -243,7 +213,7 @@ void MenuState::_disappear ()
     _alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
 
     // Updating background sprite
-    _background -> set_alpha (_alpha);
+    _background.set_alpha (_alpha);
 
     // Updating items
     std::vector<MenuItem*>::iterator it = _items.begin ();

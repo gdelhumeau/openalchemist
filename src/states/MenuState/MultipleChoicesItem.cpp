@@ -17,9 +17,6 @@ MultipleChoicesItem::MultipleChoicesItem()
 {
     _choices_list_p.clear();
     _selection = 0;
-    _p_description_normal = NULL;
-    _p_description_selected = NULL;
-    _p_description_locked = NULL;
 }
 
 MultipleChoicesItem::~MultipleChoicesItem()
@@ -29,54 +26,33 @@ MultipleChoicesItem::~MultipleChoicesItem()
 
 void MultipleChoicesItem::unload_gfx()
 {
-		if(_p_description_normal)
-    {
-        my_delete(_p_description_normal);
-				_p_description_normal = NULL;
-    }
-    if(_p_description_selected)
-    {
-        my_delete(_p_description_selected);
-				_p_description_selected = NULL;
-    }		
-		if(_p_description_locked)
-    {
-        my_delete(_p_description_locked);
-				_p_description_locked = NULL;
-    }		
-	  for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
-    {
-        my_delete(_choices_list_p[i]);
-    }
     _choices_list_p.clear();
 }
 
-void MultipleChoicesItem::set_description_sprites(CL_Sprite * p_normal_sprite,
-																									CL_Sprite * p_selected_sprite,
-																									CL_Sprite * p_locked_sprite)
+void MultipleChoicesItem::set_description_sprites(CL_GraphicContext &gc,
+                                                  CL_ResourceManager & gfx,
+                                                  std::string normal,
+                                                  std::string selected,
+                                                  std::string locked)
 {
-    if(_p_description_normal)
-    {
-        delete _p_description_normal;
-    }
-    _p_description_normal = p_normal_sprite;
-
-    if(_p_description_selected)
-    {
-        delete _p_description_selected;
-    }
-		_p_description_selected = p_selected_sprite;
-		
-		if(_p_description_locked)
-    {
-        delete _p_description_locked;
-    }
-    _p_description_locked = p_locked_sprite;
+    _p_description_normal = CL_Sprite(gc, normal, &gfx);
+		_p_description_selected = CL_Sprite(gc, selected, &gfx);
+		if(locked == "")
+		{
+			_has_locked = false;
+		}
+		else
+		{
+    	_p_description_locked = CL_Sprite(gc, locked, &gfx);
+			_has_locked = true;
+		}
 }
 
-void MultipleChoicesItem::add_choice(CL_Sprite * p_sprite)
+void MultipleChoicesItem::add_choice(CL_GraphicContext & gc,
+                                     CL_ResourceManager & gfx,
+                                     std::string name)
 {
-    _choices_list_p.push_back(p_sprite);
+    _choices_list_p.push_back(CL_Sprite(gc, name, &gfx));
 }
 
 void MultipleChoicesItem::set_current_choice(unsigned int choice)
@@ -88,35 +64,31 @@ void MultipleChoicesItem::set_current_choice(unsigned int choice)
 }
 
 void MultipleChoicesItem::clear_choices()
-{
-    for(unsigned int i = 0; i < _choices_list_p.size(); ++i)
-    {
-        delete _choices_list_p[i];
-    }
+{    
     _choices_list_p.clear();
 }
 
-void MultipleChoicesItem::draw()
+void MultipleChoicesItem::draw(CL_GraphicContext &gc)
 {
     if(selected)
     {
-        _p_description_selected -> set_alpha(alpha);
-        _p_description_selected -> draw(x, y);
+        _p_description_selected.set_alpha(alpha);
+        _p_description_selected.draw(gc, x, y);
     }
     else if(locked)
 		{
-				_p_description_locked -> set_alpha(alpha);
-        _p_description_locked -> draw(x, y);
+				_p_description_locked.set_alpha(alpha);
+        _p_description_locked.draw(gc, x, y);
 		}
 		else				
     {
-        _p_description_normal -> set_alpha(alpha);
-        _p_description_normal -> draw(x, y);
+        _p_description_normal.set_alpha(alpha);
+        _p_description_normal.draw(gc, x, y);
     }
     if(_selection < _choices_list_p.size())
     {
-        _choices_list_p[_selection] -> set_alpha(alpha);
-        _choices_list_p[_selection] -> draw(_choice_x, _choice_y);
+        _choices_list_p[_selection].set_alpha(alpha);
+        _choices_list_p[_selection].draw(gc, _choice_x, _choice_y);
     }
 }
 

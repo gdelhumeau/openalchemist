@@ -18,7 +18,6 @@
 #include "MenuState/BasicItem.h"
 #include "MenuState/MultipleChoicesItem.h"
 
-#define OPTIONS_NUMBER_OF_ITEMS 5
 
 class GameEngine;
 
@@ -41,7 +40,7 @@ private:
 public:
     void init();
     void deinit();
-    void load_gfx(std::string skin);
+    void load_gfx(CL_GraphicContext &gc, std::string skin);
     void unload_gfx();
     void action_performed(int selection, int action_type);
     void update_child();

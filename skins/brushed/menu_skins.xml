@@ -48,7 +48,9 @@
 		</section>
 		
 		<!-- If we can't use a skin because we have to unlock pieces first -->
-		<surface name = "logo_unavailable" file = "dialogs/skins/logo-unavailable.png"/>
+		<image name = "logo_unavailable">
+			<image-file file = "dialogs/skins/logo-unavailable.png"/>	
+		</image>	
 		
 		<!-- Coords for displaying skins viewer -->
 		<section name="skins-preview-coords">

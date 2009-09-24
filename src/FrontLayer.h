@@ -16,25 +16,11 @@
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
-class FrontLayerSprite{
+struct FrontLayerSprite{
 
   public:
-  CL_Sprite *p_sprite;
-  u_int left, top;
-
-	FrontLayerSprite()
-	{
-		p_sprite = NULL;
-	}
-
-	~FrontLayerSprite()
-	{
-		if(p_sprite)
-		{
-			my_delete(p_sprite);
-			p_sprite = NULL;
-		}
-	}
+  CL_Sprite p_sprite;
+  unsigned int left, top;
 
 };
 
@@ -42,16 +28,16 @@ class FrontLayerSprite{
 class FrontLayer{
 
   private:
-  void _load_gfx(CL_ResourceManager *p_gfx_frontlayer);
+  void _load_gfx(CL_GraphicContext & gc, CL_ResourceManager *p_gfx_frontlayer);
 
 
   public:
   bool is_enabled;
   
   std::list<FrontLayerSprite*> list;
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext & gc, std::string skin);
   void unload_gfx();
-  void draw();
+  void draw(CL_GraphicContext & gc);
 
 };
 

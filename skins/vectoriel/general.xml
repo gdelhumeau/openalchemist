@@ -5,10 +5,14 @@
 <resources>
 	
 	<!-- This logo is painted in Skin Selector Menu -->
-	<surface name = "logo" file = "misc/logo.png"/>	
+	<image name = "logo">
+		<image-file file = "misc/logo.png"/>	
+	</image>
 		
 	<!-- Background image -->
-	<surface name = "background" file = "misc/landscape.png"/>
+	<image name = "background">
+		<image-file file = "misc/landscape.png"/>	
+	</image>
 	
 	<!-- Zone top represents the zone where are the pieces you control -->
 	<integer name = "zone_top" value = "110" />

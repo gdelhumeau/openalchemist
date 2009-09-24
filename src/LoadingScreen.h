@@ -21,13 +21,17 @@ public:
     LoadingScreen();
     ~LoadingScreen();
 
+		void init(CL_GraphicContext &gc, CL_DisplayWindow & window);
     void set_progression(float progression);
 
 private:
 
-    CL_Surface * _p_logo;
-    CL_Surface * _p_progression;
-    CL_Surface * _p_progression_cursor;
+    CL_Image _p_logo;
+    CL_Image _p_progression;
+    CL_Image _p_progression_cursor;
+
+		CL_GraphicContext * _p_gc;
+		CL_DisplayWindow * _p_window;
 
 };
 

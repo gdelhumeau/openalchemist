@@ -12,6 +12,7 @@
 #include "AudioManager.h"
 #include "Preferences.h"
 #include "memory.h"
+#include "misc.h"
 #include <iostream>
 
 AudioManager g_audio_manager;
@@ -42,16 +43,20 @@ void AudioManager::init()
   _p_setup_sound = my_new CL_SetupSound();
   _p_output = my_new CL_SoundOutput(44100);
   _p_setup_vorbis = my_new CL_SetupVorbis();
-  CL_SoundBuffer vorbis("music/Cavern_Of_Time.ogg", true);
+	_p_setup_vorbis -> init();
+	std::string dir = CL_System::get_exe_path();
+	std::string dir_music = dir + "music" + get_path_separator();
+	std::string dir_sound = dir + "sounds" + get_path_separator();
+  CL_SoundBuffer vorbis(dir_music + "Cavern_Of_Time.ogg", true);
   _playback = vorbis.prepare();
   _playback.set_looping(true);
   _playback.play();
   _playback.set_volume(p_pref -> music_level / 100.f);
   _sounds_volume = p_pref -> sound_level / 100.0f;
-  _sounds_p[SOUND_MOVE] = my_new CL_SoundBuffer("sounds/move.wav", false);
-  _sounds_p[SOUND_FALL] = my_new CL_SoundBuffer("sounds/fall.wav", false);
-  _sounds_p[SOUND_CREATION] = my_new CL_SoundBuffer("sounds/creation.wav", false);
-  _sounds_p[SOUND_DESTROY] = my_new CL_SoundBuffer("sounds/destroy.wav", false);
+  _sounds_p[SOUND_MOVE] = my_new CL_SoundBuffer(dir_sound+"move.wav", false);
+  _sounds_p[SOUND_FALL] = my_new CL_SoundBuffer(dir_sound+"fall.wav", false);
+  _sounds_p[SOUND_CREATION] = my_new CL_SoundBuffer(dir_sound+"creation.wav", false);
+  _sounds_p[SOUND_DESTROY] = my_new CL_SoundBuffer(dir_sound+"destroy.wav", false);
   _sounds_playback[SOUND_MOVE] = _sounds_p[SOUND_MOVE]->prepare();
   _sounds_playback[SOUND_FALL] = _sounds_p[SOUND_FALL]->prepare();
   _sounds_playback[SOUND_CREATION] = _sounds_p[SOUND_CREATION]->prepare();
@@ -61,6 +66,7 @@ void AudioManager::init()
 void AudioManager::term()
 {
   _playback.stop();
+	_p_setup_vorbis -> deinit();
 		
   if(_p_setup_sound)
   {

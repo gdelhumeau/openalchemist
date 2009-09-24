@@ -23,7 +23,7 @@
 #include "GameEngine.h"
 
 
-void DemoPlayer::events()
+void DemoPlayer::events(CL_DisplayWindow & window)
 {
  
 
@@ -69,20 +69,20 @@ void DemoPlayer::new_game()
   int value;
   value = _p_next_piece1 -> get_piece_number();
   
-  _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-                             _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+                             &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
   
   value = _p_next_piece2 -> get_piece_number();
-  _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-                             _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+                             &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
   
   value = _p_current_piece1 ->  get_piece_number();
-  _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-                                _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+                                &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
   
   value = _p_current_piece2 ->  get_piece_number();
-  _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-                                _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+                                &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
 }
 

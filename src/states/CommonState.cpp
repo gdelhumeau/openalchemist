@@ -22,7 +22,6 @@
 
 CommonState::CommonState()
 {
-  _p_background = NULL;
 }
 
 
@@ -43,55 +42,53 @@ void CommonState::deinit()
 }
 
 
-void CommonState::load_gfx(std::string skin)
+void CommonState::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
-	
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("general.xml",&zip, false);
 
-  _p_background = my_new CL_Surface("background", &gfx);
+	CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");	
+  CL_ResourceManager gfx("general.xml",vd);
+
+  _background = CL_Image(gc, "background", &gfx);
 }
 
 
 void CommonState::unload_gfx()
 {
-  if(_p_background)
-  {
-    my_delete(_p_background);
-    _p_background = NULL;
-  }
-
+  
 }
 
 
-void CommonState::draw()
+void CommonState::draw(CL_GraphicContext & gc)
 {
-  _p_background -> draw(0, 0);
-  _p_common_resources -> p_main_font -> draw(580,550,to_string(_p_common_resources -> p_engine -> get_fps()));
+  _background.draw(gc, 0, 0);
+  _p_common_resources -> main_font.draw_text(gc, 580.0f,550.0f,
+                                             to_string(_p_common_resources -> p_engine -> get_fps()));
 
   if(_p_common_resources -> p_current_player)
-    _p_common_resources -> p_current_player -> draw();
+    _p_common_resources -> p_current_player -> draw(gc);
 }
 
 
-void CommonState::update()
+void CommonState::update(CL_GraphicContext & gc)
 {
 
 }
 
 
-void CommonState::events()
+void CommonState::events(CL_DisplayWindow & window)
 {
-  if(_p_common_resources->key.fullscreen -> get())
+  if(_p_common_resources->key.fullscreen -> get(window))
   {
     _p_common_resources -> p_engine -> toggle_screen();
   }
-	if(CL_Keyboard::get_keycode(CL_KEY_S))
+	CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+	if(keyboard.get_keycode(CL_KEY_S))
 	{
 		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/aqua.zip");
 	}
-	if(CL_Keyboard::get_keycode(CL_KEY_D))
+	if(keyboard.get_keycode(CL_KEY_D))
 	{
 		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/vectoriel.zip");
 	}

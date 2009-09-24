@@ -12,56 +12,38 @@
 #include <ClanLib/core.h>
 
 #include "IniFile.h"
-#include "memory.h"
 
-void write_ln(CL_OutputSource_File *file, std::string string)
+void write_ln(CL_File *file, std::string string)
 {
 #ifdef WIN32
   string += "\r\n";
 #else
   string += "\n";
 #endif
-  for(u_int i=0; i<string.length(); ++i)
-  {
-    char c = *string.substr(i,i+1).c_str();
-    file -> write_char8(c);
-  }
+  file->write(string.c_str(), string.length());
 }
 
-std::string read_ln(CL_InputSource_File *file)
+std::string read_ln(CL_File *file)
 {
-
   std::string s = "";
-  char c = file -> read_char8();
-  while(c != '\n' && c != '\r' && file -> tell() != file->size())
+  char c = file -> read_uint8();
+  while(c != '\n' && c != '\r' && file->get_position() != file->get_size())
   {
     s += c;
-    c = file -> read_char8();
+    c = file -> read_uint8();
   }
 
   return s;
 }
 
-IniFile::IniFile()
-{
-	
-}
 
-
-IniFile::~IniFile()
-{
-	clear();
-}
-
-
-void IniFile::read(CL_InputSource_File *file)
+void IniFile::read(CL_File *file)
 {
   clear();
-      
-  file -> open();
-  while(file -> tell() != file -> size())
+
+  while(file->get_position() != file->get_size())
   {
-    IniElement *e = my_new IniElement();
+    IniElement *e = new IniElement();
     std::string line = read_ln(file);
 
     if(line.length() >1)
@@ -74,15 +56,11 @@ void IniFile::read(CL_InputSource_File *file)
         list.insert(list.end(), e);
       }
     }
-		else
-		{
-			my_delete(e);
-		}
 
   }
 }
 
-void IniFile::write(CL_OutputSource_File *file)
+void IniFile::write(CL_File *file)
 {
 
   try
@@ -99,7 +77,7 @@ void IniFile::write(CL_OutputSource_File *file)
     }
 
   }
-  catch(CL_Error)
+	catch(CL_Exception& exception)
   {
     std::cout << "Error while writing Ini." << std::endl;
   }
@@ -114,13 +92,9 @@ void IniFile::clear()
   while(!list.empty())
   {
     IniElement *e = (IniElement*) *it;
-		if(e)
-		{
-	    my_delete(e);
-		}
+    delete e;
     it = list.erase(it);
   }
-	list.clear();
 }
 
 void IniFile::add(std::string name, std::string value)
@@ -137,7 +111,7 @@ void IniFile::add(std::string name, std::string value)
     it++;
   }
 
-  IniElement *e = my_new IniElement();
+  IniElement *e = new IniElement();
   e -> name = name;
   e -> value = value;
   list.insert(list.end(), e);
@@ -160,7 +134,7 @@ void IniFile::add(std::string name, bool value)
     it++;
   }
 
-  IniElement *e = my_new IniElement();
+  IniElement *e = new IniElement();
   e -> name = name;
 
   if(value)
@@ -180,10 +154,10 @@ void IniFile::add(std::string name, int value)
     if(e -> name == name)
     {
       try{
-        e -> value = CL_String::from_int(value);
+        e -> value = CL_StringHelp::int_to_text(value);
         return;
       }
-      catch(CL_Error e)
+	catch(CL_Exception& exception)
       {
         std::cout << value << " is not a correct int." << std::endl;
       }
@@ -191,13 +165,13 @@ void IniFile::add(std::string name, int value)
     it++;
   }
 
-  IniElement *e = my_new IniElement();
+  IniElement *e = new IniElement();
   e -> name = name;
   try
   {
-    e -> value = CL_String::from_int(value);
+        e -> value = CL_StringHelp::int_to_text(value);
   }
-  catch(CL_Error e)
+	catch(CL_Exception& exception)
   {
     std::cout << value << " is not a correct int." << std::endl;
   }
@@ -228,7 +202,7 @@ bool IniFile::get(std::string name, bool def)
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
     {
-      return CL_String::to_bool(e -> value);
+       return CL_StringHelp::text_to_bool(e-> value);
     }
     it++;
   }
@@ -245,9 +219,9 @@ int IniFile::get(std::string name, int def)
     {
       try
       {
-        return CL_String::to_int(e -> value);
+       return CL_StringHelp::text_to_int(e-> value);
       }
-      catch(CL_Error e)
+			catch(CL_Exception& exception)
       {
         return def;
       }
@@ -256,6 +230,3 @@ int IniFile::get(std::string name, int def)
   }
   return def;
 }
-
-  
-  

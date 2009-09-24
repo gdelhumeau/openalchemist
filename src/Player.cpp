@@ -11,6 +11,7 @@
 
 #include "memory.h"
 #include <math.h>
+#include <cstdlib>
 
 #include <ClanLib/core.h>
 
@@ -23,6 +24,7 @@
 #include "GameEngine.h"
 #include "AudioManager.h"
 
+static const float PI = 3.1415926535897932384f;
 static const float TO_RAD 		= PI / 180;
 static const float PIECE_MOVING_SPEED 	= 0.4;
 static const float PIECE_ROTATION_SPEED = 0.45;
@@ -44,20 +46,7 @@ Player::Player()
   _p_key_right        = my_new KeyboardKey(CL_KEY_RIGHT , true );
   _p_key_falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
 
-  _combo = 0;
-
-  // Setting the pieces sprites to NULL
-  for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-  {
-    _p_pieces_normal[i] = NULL;
-    _p_pieces_appearing[i] = NULL;
-    _p_pieces_disappearing[i] = NULL;
-    _p_pieces_mini[i] = NULL;
-    if(i < NUMBER_OF_PIECES - 3)
-    {
-      _p_pieces_hidden[i] = NULL;
-    }
-  }
+  _combo = 0;  
 
 }
 
@@ -135,20 +124,20 @@ void Player::new_game()
   int value;
   value = _p_next_piece1 -> get_piece_number();
 
-  _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				_p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				&_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   value = _p_next_piece2 -> get_piece_number();
-  _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				_p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				&_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   value = _p_current_piece1 ->  get_piece_number();
-  _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				   _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				   &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   value = _p_current_piece2 ->  get_piece_number();
-  _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				   _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				   &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
 }
 
@@ -179,7 +168,7 @@ void Player::term_game()
   }
 }
 
-void Player::load_gfx(std::string skin)
+void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
   unload_gfx();
 	
@@ -187,10 +176,11 @@ void Player::load_gfx(std::string skin)
   CommonResources *resources = common_resources_get_instance();
 
   // Getting skins resources
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
-  CL_ResourceManager gfx_preview_pieces("pieces_preview.xml", &zip, false);
-  CL_ResourceManager gfx("general.xml", &zip, false);
+  CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");
+  CL_ResourceManager gfx_pieces("pieces.xml", vd);
+  CL_ResourceManager gfx_preview_pieces("pieces_preview.xml", vd);
+  CL_ResourceManager gfx("general.xml", vd);
 
   // Getting preferences (to know if colorbling is activated)
   Preferences *pref = pref_get_instance();
@@ -199,24 +189,24 @@ void Player::load_gfx(std::string skin)
   for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
   {
     if(pref -> colorblind)
-      _p_pieces_normal[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
+      _p_pieces_normal[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
     else
-      _p_pieces_normal[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
+      _p_pieces_normal[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
 
-    _p_pieces_appearing[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
-    _p_pieces_disappearing[i-1] = my_new CL_Sprite("pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
+    _p_pieces_appearing[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
+    _p_pieces_disappearing[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
 
     if(pref -> colorblind)
-      _p_pieces_mini[i-1] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
+      _p_pieces_mini[i-1] = CL_Sprite(gc, "pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
     else
-      _p_pieces_mini[i-1] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
+      _p_pieces_mini[i-1] = CL_Sprite(gc, "pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
 
     _pieces_preview_x[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/left", &gfx_preview_pieces);
     _pieces_preview_y[i-1] = CL_Integer_to_int("pieces_preview/piece_"+to_string(i)+"/top", &gfx_preview_pieces);
 
     if(i>3)
     {
-      _p_pieces_hidden[i-4] = my_new CL_Sprite("pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
+      _p_pieces_hidden[i-4] = CL_Sprite(gc, "pieces_preview/piece_"+to_string(i)+"/hidden", &gfx_preview_pieces);
     }
   }
 
@@ -245,20 +235,20 @@ void Player::load_gfx(std::string skin)
     int value;
     value = _p_next_piece1 -> get_piece_number();
 
-    _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				  _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_next_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				  &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _p_next_piece2 -> get_piece_number();
-    _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				  _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_next_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				  &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _p_current_piece1 ->  get_piece_number();
-    _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				     _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_current_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				     &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _p_current_piece2 ->  get_piece_number();
-    _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				     _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_current_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				     &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     _p_next_piece1 -> set_position(_next_left, _next_top);
     _p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
@@ -268,49 +258,19 @@ void Player::load_gfx(std::string skin)
   _board.apply_skin(_p_pieces_normal, _p_pieces_appearing, _p_pieces_disappearing, _p_pieces_mini);
 
   // Loading gfx for progress bar
-  _progress_bar.load_gfx(skin);
+  _progress_bar.load_gfx(gc, skin);
 
   // Loading gfx for combos painter
-  _combos_painter.load_gfx(skin);
+  _combos_painter.load_gfx(gc, skin);
 
 }
 
 void Player::unload_gfx()
 {
-  // Delete the pieces sprites
-  for(int i = 0; i<NUMBER_OF_PIECES; ++i)
-  {
-    if(_p_pieces_normal[i])
-    {
-      my_delete(_p_pieces_normal[i]);
-      _p_pieces_normal[i] = NULL;
-    }
-    if(_p_pieces_appearing[i])
-    {
-      my_delete( _p_pieces_appearing[i]);
-      _p_pieces_appearing[i] = NULL;
-    }
-    if(_p_pieces_disappearing[i])
-    {
-      my_delete(_p_pieces_disappearing[i]);
-      _p_pieces_disappearing[i] = NULL;
-    }
-    if(_p_pieces_mini[i])
-    {
-      my_delete(_p_pieces_mini[i]);
-      _p_pieces_mini[i] = NULL;
-    }
-    if(i>2 && _p_pieces_hidden[i-3])
-    {
-      my_delete(_p_pieces_hidden[i-3]);
-      _p_pieces_hidden[i-3] = NULL;
-    }
-  }
-
-  _progress_bar.unload_gfx();
+   _progress_bar.unload_gfx();
 }
 
-void Player::draw()
+void Player::draw(CL_GraphicContext & gc)
 {
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
@@ -319,13 +279,13 @@ void Player::draw()
   for(int i=0; i<NUMBER_OF_PIECES; ++i)
   {
     if(i >= _board.visible_pieces)
-      _p_pieces_hidden[i-3] -> draw(_pieces_preview_x[i], _pieces_preview_y[i], 0);
+      _p_pieces_hidden[i-3].draw(gc, _pieces_preview_x[i], _pieces_preview_y[i]);
     else
-      _p_pieces_mini[i] -> draw(_pieces_preview_x[i], _pieces_preview_y[i], 0);
+      _p_pieces_mini[i].draw(gc, _pieces_preview_x[i], _pieces_preview_y[i]);
   }
 
   // Drawing board
-  _board.draw();
+  _board.draw(gc);
 
   // Drawing the progress bar
   // TODO : must work with differents difficulties
@@ -334,16 +294,16 @@ void Player::draw()
     int percentage = (int)((double)(_board.score + _board.bonus_score) / (double)resources -> highscore * 100.0);
     if(percentage > 100)
       percentage = 100;
-    _progress_bar.draw(percentage);
+    _progress_bar.draw(gc, percentage);
   }
   else
   {
-    _progress_bar.draw(100);
+    _progress_bar.draw(gc, 100);
   }
 
   // Drawing next pieces
-  _p_next_piece1 -> draw_mini();
-  _p_next_piece2 -> draw_mini();
+  _p_next_piece1 -> draw_mini(gc);
+  _p_next_piece2 -> draw_mini(gc);
 
 
   if(GAME_MODE_PLAYING == _game_mode)
@@ -356,8 +316,8 @@ void Player::draw()
 				      _board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
 
     // Displaying playable pieces
-    _p_current_piece1 -> draw();
-    _p_current_piece2 -> draw();
+    _p_current_piece1 -> draw(gc);
+    _p_current_piece2 -> draw(gc);
   }
 
   // Drawing combo
@@ -366,10 +326,10 @@ void Player::draw()
     _combos_painter.set_score(_combo - 1);
   }
 
-  _combos_painter.draw();
+  _combos_painter.draw(gc);
 }
 
-void Player::events()
+void Player::events(CL_DisplayWindow & window)
 {
   // Getting resources
   static CommonResources *resources = common_resources_get_instance();
@@ -377,31 +337,32 @@ void Player::events()
   if(GAME_MODE_PLAYING == _game_mode)
   {
     // Change the order of the pieces
-    if(_p_key_change_angle->get())
+    if(_p_key_change_angle->get(window))
     {
       change_angle();
     }
 
     // Look the key to know if we have to move the pieces to the left
-    if(_p_key_left->get())
+    if(_p_key_left->get(window))
     {
       move_left();
     }
 
     // Look the key to know if we have to move the pieces to the right
-    if(_p_key_right->get())
+    if(_p_key_right->get(window))
     {
       move_right();
     }
 
     // It's time for the pieces to fall
-    if(_p_key_falling -> get())
+    if(_p_key_falling -> get(window))
     {
       _is_falling_requested = true;
     }
 
     // Cheatting
-    if(CL_Keyboard::get_keycode(CL_KEY_A) && CL_Keyboard::get_keycode(CL_KEY_L))
+		CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+    if(keyboard.get_keycode(CL_KEY_A) && keyboard.get_keycode(CL_KEY_L))
     {
       _board.unlocked_pieces = NUMBER_OF_PIECES;
       _board.visible_pieces = NUMBER_OF_PIECES;
@@ -409,13 +370,13 @@ void Player::events()
   }
 
   // Undo the last move
-  if(resources->key.undo -> get())
+  if(resources->key.undo -> get(window))
   {
     undo();
   }
 
   // Retry current game
-  if(resources -> key.retry -> get())
+  if(resources -> key.retry -> get(window))
   {
     resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
   }
@@ -590,12 +551,12 @@ void Player::fall()
 
 
   int value = _p_current_piece1 -> get_piece_number();
-  _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				   _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				   &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   value = _p_current_piece2 -> get_piece_number();
-  _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				   _p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_current_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				   &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
 
   _game_mode = GAME_MODE_FALLING_AND_CREATING;
@@ -698,12 +659,12 @@ void Player::_prepare_to_play()
 
   int value;
   value = _p_next_piece1 -> get_piece_number();
-  _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				_p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				&_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   value = _p_next_piece2 -> get_piece_number();
-  _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				_p_pieces_disappearing[value], _p_pieces_mini[value]);
+  _p_next_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				&_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
   _board.calc_score();
 
@@ -727,23 +688,23 @@ void Player::undo()
 
     int value = _p_current_piece1 -> get_piece_number();
     _p_next_piece1 -> set_piece_number(value);
-    _p_next_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				  _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_next_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				  &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _p_current_piece2 -> get_piece_number();
     _p_next_piece2 -> set_piece_number(value);
-    _p_next_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				  _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_next_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				  &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _undo_piece1_number;
     _p_current_piece1 -> set_piece_number(value);
-    _p_current_piece1 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				     _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_current_piece1 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				     &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
     value = _undo_piece2_number;
     _p_current_piece2 -> set_piece_number(value);
-    _p_current_piece2 -> set_sprites(_p_pieces_normal[value], _p_pieces_appearing[value],
-				     _p_pieces_disappearing[value], _p_pieces_mini[value]);
+    _p_current_piece2 -> set_sprites(&_p_pieces_normal[value], &_p_pieces_appearing[value],
+				     &_p_pieces_disappearing[value], &_p_pieces_mini[value]);
 
 
     _position = _undo_position;

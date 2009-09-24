@@ -32,7 +32,7 @@ class HumanPlayer : public Player{
   /**
    * Checking key events
    */
-  void events();
+  void events(CL_DisplayWindow & window);
   
   virtual bool is_human(){ return true; }
 

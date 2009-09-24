@@ -41,7 +41,6 @@ enum{
 
 OptionsMenuState::OptionsMenuState()
 {
-  _background = NULL;
 }
 
 OptionsMenuState::~OptionsMenuState()
@@ -67,89 +66,79 @@ void OptionsMenuState::deinit()
   unload_gfx();
 }
 
-void OptionsMenuState::load_gfx(std::string skin)
+void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
   unload_gfx();
 	
   // Getting skins resources
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("menu_options.xml", &zip, false);
+  CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");	
+  CL_ResourceManager gfx("menu_options.xml",vd);
 
   // First, the sprites
-  _background = my_new CL_Sprite("menu_options/dialog_background", &gfx);
+  _background = CL_Sprite(gc, "menu_options/dialog_background", &gfx);
 
 
-  int x = 400 - _background -> get_width () / 2;
-  int y = 300 - _background -> get_height () / 2;
+  int x = 400 - _background.get_width () / 2;
+  int y = 300 - _background.get_height () / 2;
 		
-  _render_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/render/unselected", &gfx),
-    my_new CL_Sprite("menu_options/render/selected", &gfx),
-    NULL
+  _render_item.set_description_sprites(gc, gfx,
+                                       "menu_options/render/unselected",
+                                       "menu_options/render/selected");		
+  _render_item.add_choice(gc, gfx, "menu_options/render-choices/opengl");
+  _render_item.add_choice(gc, gfx, "menu_options/render-choices/sdl");
+		
+  _screensize_item.set_description_sprites(gc, gfx,
+    "menu_options/screensize/unselected",
+    "menu_options/screensize/selected",
+    "menu_options/screensize/locked"
     );
 		
-  _render_item.add_choice(my_new CL_Sprite("menu_options/render-choices/opengl", &gfx));
-  _render_item.add_choice(my_new CL_Sprite("menu_options/render-choices/sdl", &gfx));
-		
-  _screensize_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/screensize/unselected", &gfx),
-    my_new CL_Sprite("menu_options/screensize/selected", &gfx),
-    my_new CL_Sprite("menu_options/screensize/locked", &gfx)
-    );
-		
-  _screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/320x240", &gfx));
-  _screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/640x480", &gfx));
-  _screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/640x480-wide", &gfx));
-  _screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/800x600", &gfx));
-  _screensize_item.add_choice(my_new CL_Sprite("menu_options/screensize-choices/800x600-wide", &gfx));
+  _screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/320x240");
+  _screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/640x480");
+  _screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/640x480-wide");
+  _screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/800x600");
+  _screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/800x600-wide");
 		
   _fullscreen_item.clear_choices();
-  _fullscreen_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/fullscreen/unselected", &gfx),
-    my_new CL_Sprite("menu_options/fullscreen/selected", &gfx),
-    NULL
-    );
+  _fullscreen_item.set_description_sprites(gc, gfx,
+		"menu_options/fullscreen/unselected",
+		"menu_options/fullscreen/selected");
 	
-  _fullscreen_item.add_choice(my_new CL_Sprite("menu_options/item-no", &gfx));
-  _fullscreen_item.add_choice(my_new CL_Sprite("menu_options/item-yes", &gfx));
+  _fullscreen_item.add_choice(gc,  gfx, "menu_options/item-no");
+  _fullscreen_item.add_choice(gc,  gfx, "menu_options/item-yes");
 		
-  _framerate_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/framerate/unselected", &gfx),
-    my_new CL_Sprite("menu_options/framerate/selected", &gfx),
-    NULL
-    );
+  _framerate_item.set_description_sprites(gc, gfx,
+    "menu_options/framerate/unselected",
+    "menu_options/framerate/selected");
 			
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/30", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/40", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/50", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/60", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/80", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/100", &gfx));
-  _framerate_item.add_choice(my_new CL_Sprite("menu_options/framerate-choices/no-limit", &gfx));
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/30");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/40");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/50");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/60");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/80");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/100");
+  _framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/no-limit");
 	
-  _sound_level_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/sound/unselected", &gfx),
-    my_new CL_Sprite("menu_options/sound/selected", &gfx),
-    NULL
-    );
+  _sound_level_item.set_description_sprites(gc, gfx, 
+     "menu_options/sound/unselected",
+    "menu_options/sound/selected");
 
-  _music_level_item.set_description_sprites(
-    my_new CL_Sprite("menu_options/music/unselected", &gfx),
-    my_new CL_Sprite("menu_options/music/selected", &gfx),
-    NULL
-    );
+  _music_level_item.set_description_sprites(gc, gfx, 
+   	"menu_options/music/unselected",
+    "menu_options/music/selected");
 
-  _quit_item.set_gfx(my_new CL_Sprite("menu_options/quit/unselected", &gfx),
-		     my_new CL_Sprite("menu_options/quit/selected", &gfx),
-		     NULL);
+  _quit_item.set_gfx(gc, gfx, 
+                     "menu_options/quit/unselected",
+                     "menu_options/quit/selected");
                        
   _sound_level_item.clear_choices();
   _music_level_item.clear_choices();
 
   for(int i=0; i<=10; ++i)
   {
-    _sound_level_item.add_choice(my_new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
-    _music_level_item.add_choice(my_new CL_Sprite("menu_options/sound_level/"+to_string(i), &gfx));
+    _sound_level_item.add_choice(gc, gfx, "menu_options/sound_level/"+to_string(i));
+    _music_level_item.add_choice(gc, gfx, "menu_options/sound_level/"+to_string(i));
   }
 
   _sound_level_item.set_x(x + CL_Integer_to_int("menu_options/sound/left", &gfx));
@@ -192,14 +181,15 @@ void OptionsMenuState::load_gfx(std::string skin)
   _quit_item.set_y(y + CL_Integer_to_int("menu_options/quit/top", &gfx));
 		
   Preferences *p_pref = pref_get_instance();		
-  if(p_pref -> render_opengl)
+
+	/*if(p_pref -> render_opengl)
   {
     _render_item.set_current_choice(RENDER_CHOICE_OPENGL);
   }
   else
   {
     _render_item.set_current_choice(RENDER_CHOICE_SDL);
-  }
+  }*/
   _screensize_item.set_current_choice(p_pref -> screen_size);
   if(p_pref -> fullscreen)
   {
@@ -245,11 +235,6 @@ void OptionsMenuState::load_gfx(std::string skin)
 
 void OptionsMenuState::unload_gfx()
 {
-  if(_background)
-  {
-    my_delete(_background);
-    _background = NULL;
-  }
   _render_item.unload_gfx();
   _screensize_item.unload_gfx();
   _fullscreen_item.unload_gfx();
@@ -280,12 +265,12 @@ void OptionsMenuState::update_child()
   Preferences *p_pref = pref_get_instance();
   switch(_render_item.get_current_choice())
   {
-  case RENDER_CHOICE_OPENGL:
+ /* case RENDER_CHOICE_OPENGL:
     p_pref -> render_opengl = true;
     break;
   case RENDER_CHOICE_SDL:
     p_pref -> render_opengl = false;
-    break;											
+    break;											*/
   }
 		
   bool display_changed = false;

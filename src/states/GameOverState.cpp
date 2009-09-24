@@ -26,16 +26,17 @@ void GameOverState::deinit()
 
 }
 
-void GameOverState::load_gfx(std::string skin)
+void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
 	
   // Getting skins resources
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("menu_gameover.xml", &zip, false);
+	CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");	
+  CL_ResourceManager gfx("menu_gameover.xml",vd);
 
-  _p_dialog_gameover = my_new CL_Sprite("menu_gameover/dialog_gameover", &gfx);
-  _p_dialog_highscore = my_new CL_Sprite("menu_gameover/dialog_highscore", &gfx);
+  _p_dialog_gameover = CL_Sprite(gc, "menu_gameover/dialog_gameover", &gfx);
+  _p_dialog_highscore = CL_Sprite(gc, "menu_gameover/dialog_highscore", &gfx);
   _dialog_x = CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
   _dialog_y = CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
   _score1_x = CL_Integer_to_int("menu_gameover/score1_left", &gfx);
@@ -43,11 +44,11 @@ void GameOverState::load_gfx(std::string skin)
   _score2_x = CL_Integer_to_int("menu_gameover/score2_left", &gfx);
   _score2_y = CL_Integer_to_int("menu_gameover/score2_top", &gfx);
 
-  _p_yes_selected = my_new CL_Sprite("menu_gameover/new_game_question/yes/selected", &gfx);
-  _p_yes_unselected = my_new CL_Sprite("menu_gameover/new_game_question/yes/unselected", &gfx);
+  _p_yes_selected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/selected", &gfx);
+  _p_yes_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/unselected", &gfx);
 
-  _p_no_selected = my_new CL_Sprite("menu_gameover/new_game_question/no/selected", &gfx);
-  _p_no_unselected = my_new CL_Sprite("menu_gameover/new_game_question/no/unselected", &gfx);
+  _p_no_selected = CL_Sprite(gc, "menu_gameover/new_game_question/no/selected", &gfx);
+  _p_no_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/no/unselected", &gfx);
 
   _yes_x = CL_Integer_to_int("menu_gameover/new_game_question/yes/left", &gfx);
   _yes_y = CL_Integer_to_int("menu_gameover/new_game_question/yes/top", &gfx);
@@ -60,48 +61,13 @@ void GameOverState::load_gfx(std::string skin)
 void GameOverState::unload_gfx()
 {
 
-  if(_p_dialog_gameover)
-  {
-    my_delete(_p_dialog_gameover);
-    _p_dialog_gameover = NULL;
-  }
-
-  if(_p_dialog_highscore)
-  {
-    my_delete(_p_dialog_highscore);
-    _p_dialog_highscore = NULL;
-  }
-
-
-  if(_p_yes_selected)
-  {
-    my_delete(_p_yes_selected);
-    _p_yes_selected = NULL;
-  }
-
-  if(_p_yes_unselected)
-  {
-    my_delete(_p_yes_unselected);
-    _p_yes_unselected = NULL;
-  }
-
-  if(_p_no_selected)
-  {
-    my_delete(_p_no_selected);
-    _p_no_selected = NULL;
-  }
-
-  if(_p_no_unselected)
-  {
-    my_delete(_p_no_unselected);
-    _p_no_unselected = NULL;
-  }
+  
 
 }
 
-void GameOverState::draw()
+void GameOverState::draw(CL_GraphicContext & gc)
 {
-  _p_dialog -> draw(_dialog_x, _dialog_y);
+  _p_dialog.draw(gc, _dialog_x, _dialog_y);
 
 
   if(MODE_HIGHSCORE == _mode)
@@ -110,13 +76,13 @@ void GameOverState::draw()
     std::string old_score = format_number(to_string(_p_common_resources -> old_highscore));
 
     int new_score_real_x = _score1_x -
-      _p_common_resources -> p_main_font -> get_width(new_score, CL_Size(0, 0)) / 2;
+      _p_common_resources -> main_font.get_text_size(gc, new_score).width / 2;
 
     int old_score_real_x = _score2_x - 
-      _p_common_resources -> p_main_font -> get_width(old_score, CL_Size(0, 0)) / 2;
+      _p_common_resources -> main_font.get_text_size(gc, old_score).width / 2;
 
-    _p_common_resources -> p_main_font -> draw(new_score_real_x, _score1_y, new_score);
-    _p_common_resources -> p_main_font -> draw(old_score_real_x, _score2_y, old_score);
+    _p_common_resources -> main_font.draw_text(gc, new_score_real_x, _score1_y, new_score);
+    _p_common_resources -> main_font.draw_text(gc, old_score_real_x, _score2_y, old_score);
   }
   else
   {
@@ -124,35 +90,35 @@ void GameOverState::draw()
     std::string highscore = format_number(to_string(_p_common_resources -> highscore));
 
     int score1_real_x = _score1_x -
-      _p_common_resources -> p_main_font -> get_width(current_score, CL_Size(0, 0)) / 2;
+      _p_common_resources -> main_font.get_text_size(gc, current_score).width / 2;
 
     int score2_real_x = _score2_x - 
-      _p_common_resources -> p_main_font -> get_width(highscore, CL_Size(0, 0)) / 2;
+      _p_common_resources -> main_font.get_text_size(gc, highscore).width / 2;
 
-    _p_common_resources -> p_main_font -> draw(score1_real_x, _score1_y, current_score);
-    _p_common_resources -> p_main_font -> draw(score2_real_x, _score2_y, highscore);
+    _p_common_resources -> main_font.draw_text(gc, score1_real_x, _score1_y, current_score);
+    _p_common_resources -> main_font.draw_text(gc, score2_real_x, _score2_y, highscore);
   }
 
   if(_selection == GAMEOVER_SELECTION_YES)
   {
-    _p_yes_selected -> draw(_yes_x, _yes_y);
-    _p_no_unselected  -> draw(_no_x, _no_y);
+    _p_yes_selected.draw(gc, _yes_x, _yes_y);
+    _p_no_unselected.draw(gc, _no_x, _no_y);
   }
   else
   {
-    _p_yes_unselected -> draw(_yes_x, _yes_y);
-    _p_no_selected  -> draw(_no_x, _no_y);
+    _p_yes_unselected.draw(gc, _yes_x, _yes_y);
+    _p_no_selected.draw(gc, _no_x, _no_y);
   }
 }
 
-void GameOverState::update()
+void GameOverState::update(CL_GraphicContext & gc)
 {
   
 }
 
-void GameOverState::events()
+void GameOverState::events(CL_DisplayWindow & window)
 {
-  if(_p_common_resources -> key.enter -> get())
+  if(_p_common_resources -> key.enter -> get(window))
   {
 
     if(_selection == GAMEOVER_SELECTION_YES)
@@ -168,37 +134,38 @@ void GameOverState::events()
     }
   }
 
-  if(_p_common_resources -> key.retry -> get())
+  if(_p_common_resources -> key.retry -> get(window))
   {
     _p_common_resources -> p_engine -> stop_current_state();
     _p_common_resources -> p_engine -> set_state_ingame();
     _p_common_resources -> player1.new_game();
   }
 
-  if(_p_common_resources -> key.undo -> get())
+  if(_p_common_resources -> key.undo -> get(window))
   {
     _p_common_resources -> p_engine -> set_state_ingame();
     _p_common_resources -> player1.undo();
   }
 
-  if(_p_common_resources -> key.escape -> get() || _p_common_resources ->key.pause->get())
+  if(_p_common_resources -> key.escape -> get(window) ||
+     _p_common_resources ->key.pause->get(window))
   {
     _p_common_resources -> p_engine -> stop_current_state();
     _p_common_resources -> p_engine -> set_state_title();
 //    common_resources -> engine -> set_state_pause_menu();
   }
 
-  if(_p_common_resources->key.skins -> get())
+  if(_p_common_resources->key.skins -> get(window))
   {
     _p_common_resources -> p_engine -> set_state_skin_menu();
   }
 
-  if(_p_common_resources -> key.left -> get())
+  if(_p_common_resources -> key.left -> get(window))
   {
     _selection = GAMEOVER_SELECTION_YES;
   }
 
-  if(_p_common_resources -> key.right -> get())
+  if(_p_common_resources -> key.right -> get(window))
   {
     _selection = GAMEOVER_SELECTION_NO;
   }
@@ -232,13 +199,7 @@ void GameOverState::start()
 
 GameOverState::GameOverState()
 {
-  _p_dialog_gameover  = NULL;
-  _p_dialog_highscore = NULL;
-
-  _p_yes_selected     = NULL;
-  _p_yes_unselected   = NULL;
-  _p_no_selected      = NULL;
-  _p_no_unselected    = NULL;
+ 
 }
 
 GameOverState::~GameOverState()

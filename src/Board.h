@@ -82,22 +82,22 @@ class Board{
   /**
    * Score
    */
-  u_int score;
+  unsigned int score;
 
   /**
    * Bonus score
    */
-  u_int bonus_score;
+  unsigned int bonus_score;
 
   /**
    * Old score
    */
-  u_int undo_score;
+  unsigned int undo_score;
 
   /**
    * Old Bonus score
    */
-  u_int undo_bonus_score;
+  unsigned int undo_bonus_score;
 
   /**
    * Score in string format
@@ -139,12 +139,12 @@ class Board{
   /**
    * Applying current to the board by giving sprites references
    */
-  void apply_skin(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini);
+  void apply_skin(CL_Sprite *pieces_normal, CL_Sprite* pieces_appearing, CL_Sprite* pieces_disappearing, CL_Sprite* pieces_mini);
 
   /**
    * Drawing the board
    */
-  void draw();
+  void draw(CL_GraphicContext & gc);
 
   /**
    * Adding pieces to the game board - making them fall
@@ -201,10 +201,10 @@ class Board{
   bool destroy();
 
   /**
-   * Creating my_new pieces - sprites are needed for this operation
+   * Creating new pieces - sprites are needed for this operation
    */
-  void create_new_pieces(CL_Sprite **pieces_normal, CL_Sprite **pieces_appearing, CL_Sprite **pieces_disappearing,
-                         CL_Sprite **pieces_mini);
+  void create_new_pieces(CL_Sprite *pieces_normal, CL_Sprite *pieces_appearing, CL_Sprite *pieces_disappearing,
+                         CL_Sprite *pieces_mini);
 
   /**
    * Detecting pieces which have to fall
@@ -225,7 +225,7 @@ class Board{
   /**
    * Undoing last action
    */
-  void undo(CL_Sprite **pieces_normal, CL_Sprite** pieces_appearing, CL_Sprite** pieces_disappearing, CL_Sprite** pieces_mini);
+  void undo( CL_Sprite *pieces_normal, CL_Sprite* pieces_appearing, CL_Sprite* pieces_disappearing, CL_Sprite* pieces_mini);
 
 };
 

@@ -23,7 +23,6 @@ static CommonResources* p_instance = NULL;
 
 CommonResources::CommonResources()
 {
-  p_main_font = NULL;
   p_current_player = NULL;
 }
 
@@ -39,39 +38,33 @@ void CommonResources::init(GameEngine *engine)
   
 }
 
-void CommonResources::load_gfx(std::string skin)
+void CommonResources::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
   this -> skin = skin;
 
   unload_gfx();
 
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx("general.xml",&zip, false);
-  CL_ResourceManager gfx_pieces("pieces.xml", &zip, false);
+  CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");	
+  CL_ResourceManager gfx("general.xml", vd);
+  CL_ResourceManager gfx_pieces("pieces.xml", vd);
 
-  p_main_font = my_new CL_Font("font", &gfx);
+  main_font = CL_Font_Sprite(gc, "font", &gfx);
 
   // Then, propreties
   pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
   pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
 
-  player1.load_gfx(skin);
-  front_layer.load_gfx(skin);
+  player1.load_gfx(gc, skin);
+  front_layer.load_gfx(gc, skin);
 
 }
 
 
 void CommonResources::unload_gfx()
 {
-  if(p_main_font)
-  {
-    my_delete(p_main_font);
-    p_main_font = NULL;
-  }
-
   player1.unload_gfx();
   front_layer.unload_gfx();
-
 }
 
 void CommonResources::read_scores()
@@ -82,13 +75,12 @@ void CommonResources::read_scores()
 
   try
   {
-    CL_InputSource_File file(path+get_path_separator()+"hightscores-"+get_version());
+    CL_File file(path+get_path_separator()+"hightscores-"+get_version());
 
-    file.open();
     highscore = file.read_uint32();
         
   }
-  catch(CL_Error e)
+  catch(CL_Exception & e)
   {
     std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
     highscore = 0;
@@ -102,16 +94,15 @@ void CommonResources::save_scores()
   try
   {
 #ifdef WIN32
-    CL_OutputSource_File file(path+"\\hightscores-"+get_version());
+    CL_File file(path+"\\hightscores-"+get_version());
 #else
-    CL_OutputSource_File file(path+"/hightscores-"+get_version());
+    CL_File file(path+"/hightscores-"+get_version());
 #endif
     
-    file.open();
     file.write_uint32(highscore);
     file.close();
   }
-  catch(CL_Error e)
+  catch(CL_Exception & e)
   {
     std::cout << "Can't write hightscores file. \n";
   }

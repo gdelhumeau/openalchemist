@@ -11,6 +11,7 @@
 
 #include "misc.h"
 #include "memory.h"
+#include <cstdlib>
 
 /**
  * This function return the current version name
@@ -25,8 +26,7 @@ std::string get_version()
  */
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
-	CL_Integer cl_int(ressource_name, gfx);
-  return (int)cl_int;
+	return gfx->get_integer_resource(ressource_name, 0);
 }
 
 /**
@@ -34,8 +34,7 @@ int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx
  */
 int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
-  CL_Boolean cl_bool(ressource_name, gfx);
-  return (bool) cl_bool;
+  return gfx->get_boolean_resource(ressource_name, false);
 }
 
 std::string get_save_path()
@@ -59,7 +58,8 @@ std::string get_skins_path()
 #ifdef DATA_DIR
   std::string dir = DATA_DIR;
 #else
-  std::string dir = CL_System::get_exe_path() + get_path_separator() + "skins";
+  std::string dir = CL_System::get_exe_path();
+	dir += "skins";
 #endif
 
   return dir;
@@ -74,7 +74,7 @@ std::string get_data_path()
   std::string file_path = DATA_DIR;
   file_path += "/";
 #else
-  std::string file_path = CL_System::get_exe_path() + "/data";
+  std::string file_path = CL_System::get_exe_path() + "data";
 #endif
 #endif
   return file_path;
