@@ -24,9 +24,9 @@ class ProgressBar{
   /**
    * Sprites for progress bar
    */
-  CL_Sprite *_p_head, *_p_head_ok;
-  CL_Sprite *_p_foot;
-  CL_Sprite *_p_item, *_p_item_ok;
+  CL_Sprite _p_head, _p_head_ok;
+  CL_Sprite _p_foot;
+  CL_Sprite _p_item, _p_item_ok;
   
   /**
    * Progress bar coords
@@ -51,7 +51,7 @@ class ProgressBar{
   /**
    * Loading GFX
    */
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext & gc, std::string skin);
 
   /**
    * Unloading GFX
@@ -61,7 +61,7 @@ class ProgressBar{
   /**
    * Drawing the percentage bar
    */
-  void draw(int percentage);
+  void draw(CL_GraphicContext & gc, int percentage);
   
 
 };

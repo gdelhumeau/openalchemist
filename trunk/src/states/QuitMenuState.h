@@ -39,7 +39,7 @@ private:
 
     DualChoiceItem _choice_item;
 
-    CL_Sprite * panel_give_up, *panel_retry, *panel_exit;
+    CL_Sprite panel_give_up, panel_retry, panel_exit;
     int panel_x, panel_y;
 
     int yes_x, yes_y;
@@ -55,7 +55,7 @@ private:
 public:
     void init();
     void deinit();
-    void load_gfx(std::string skin);
+    void load_gfx(CL_GraphicContext &gc, std::string skin);
     void unload_gfx();
 
     void action_performed(int selection, int action_type);

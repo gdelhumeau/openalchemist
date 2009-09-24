@@ -41,49 +41,49 @@ void Preferences::read()
 		
   try
   {
-    CL_InputSource_File file(options_file);
+    CL_File file(options_file);
     read_options_file(&file);
   }
-  catch(CL_Error e)
+  catch(CL_Exception& e)
   {
     // File doesn't exist
     try
     {
-      CL_OutputSource_File file(options_file);
+      CL_File file(options_file);
       set_default();
       write();
     }
-    catch(CL_Error e)
+    catch(CL_Exception& e)
     {
       // Directory may doesn't exist
-      if(!CL_Directory::change_to(options_path))
+      if(!CL_Directory::set_current(options_path))
       {
-	if(CL_Directory::create(options_path))
-	{
-	  // Now we can create the file
-	  try
-	  {
-	    CL_OutputSource_File file(options_file);
-	    set_default();
-	    write();
-	  }
-	  catch(CL_Error e)
-	  {
-	    std::cout << "Can't create " << options_file <<".\n";
-	    set_default();
-	  }
+				if(CL_Directory::create(options_path))
+				{
+					// Now we can create the file
+					try
+					{
+						CL_File file(options_file);
+						set_default();
+						write();
+					}
+					catch(CL_Exception & e)
+					{
+						std::cout << "Can't create " << options_file <<".\n";
+						set_default();
+					}
 										
-	}
-	else
-	{
-	  std::cout << "Can't access to " << options_path << ".\n";
-	  set_default();
-	}
+				}
+				else
+				{
+					std::cout << "Can't access to " << options_path << ".\n";
+					set_default();
+				}
       }
       else
       {
-	std::cout << "Can't access to " << options_file <<".\n";
-	set_default();
+				std::cout << "Can't access to " << options_file <<".\n";
+				set_default();
       }
 						
     }
@@ -100,10 +100,10 @@ void Preferences::write()
 		
   try
   {
-    CL_OutputSource_File file(options_file);
+    CL_File file(options_file, CL_File::create_always, CL_File::access_write);
     write_options_file(&file);
   }
-  catch(CL_Error e)
+  catch(CL_Exception & e)
   {
     std::cout << "Can't write file " << options_file <<".\n";
   }
@@ -111,16 +111,34 @@ void Preferences::write()
 
 
 /** Read preferences from file */
-void Preferences::read_options_file(CL_InputSource_File *file)
+void Preferences::read_options_file(CL_File *file)
 {
   try{
-				
-    file->open();
-				
-    IniFile ini;
+
+		IniFile ini;
     ini.read(file);
 				
-    render_opengl = ini.get("OpenGL", render_opengl);
+    render_target = GDI;
+
+		std::string default_target = "OPENGL_1";
+		std::string rt = ini.get("Render Target", default_target);
+		if(rt == "OPENGL_1")
+		{
+			render_target = OPENGL_1;
+		}
+		else if(rt == "GDI")
+		{
+			render_target = GDI;
+		}
+		else if(rt == "OPENGL_2")
+		{
+			render_target = OPENGL_2;
+		}
+		else if(rt == "SDL")
+		{
+			render_target = SDL;
+		}
+
     fullscreen = ini.get("Fullscreen", fullscreen);
     screen_size = ini.get("Screen Size", screen_size);
     sound_level = ini.get("Sound Level", sound_level);
@@ -129,11 +147,12 @@ void Preferences::read_options_file(CL_InputSource_File *file)
     colorblind = ini.get("Colorblind", colorblind);
 				
     std::string skin_file = ini.get("Skin", skin);
-    try{
-      CL_Zip_Archive zip_test(skin_file);
+    try
+		{
+      CL_ZipArchive zip_test(skin_file);
       skin = skin_file;
     }
-    catch(CL_Error e)
+    catch(CL_Exception & e)
     {
       std::cout << "Skin " << skin_file << " was not found or is not a zip file, we use " << skin << " instead."  << std::endl;
     }
@@ -152,20 +171,37 @@ void Preferences::read_options_file(CL_InputSource_File *file)
     file -> close();
 				
   }
-  catch(CL_Error e)
+  catch(CL_Exception & e)
   {
     std::cout << "Error while reading options file \n";
   }
 }
 
 
-void Preferences::write_options_file(CL_OutputSource_File *file)
+void Preferences::write_options_file(CL_File *file)
 {
-  file -> open();
-		
+	
   IniFile ini;
   ini.clear();
-  ini.add("OpenGL", render_opengl);
+
+	std::string rt = "GDI";
+	switch(render_target)
+	{
+		case GDI:
+			rt = "GDI";
+			break;
+		case OPENGL_1:
+			rt = "OPENGL_1";
+			break;
+		case OPENGL_2:
+			rt = "OPENGL_2";
+			break;
+		case SDL:
+			rt = "SDL";
+			break;
+	}
+	
+  ini.add("Render Target", rt);
   ini.add("Fullscreen", fullscreen);
   ini.add("Screen Size", screen_size);
   ini.add("Sound Level", sound_level);
@@ -181,7 +217,7 @@ void Preferences::write_options_file(CL_OutputSource_File *file)
 
 void Preferences::set_default()
 {
-  render_opengl = true;
+	render_target = OPENGL_1;
   maxfps = 65;
   sound_level = 100;
   music_level = 30;

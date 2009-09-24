@@ -15,9 +15,7 @@
 
 BasicItem::BasicItem()
 {
-    normal_sprite = NULL;
-    selected_sprite = NULL;
-    locked_sprite = NULL;
+
 }
 
 BasicItem::~BasicItem()
@@ -25,51 +23,46 @@ BasicItem::~BasicItem()
     unload_gfx();
 }
 
-void BasicItem::set_gfx(CL_Sprite *normal_sprite,
-                        CL_Sprite *selected_sprite,
-                        CL_Sprite *locked_sprite)
+void BasicItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager &gfx,
+	             					std::string normal,
+                        std::string selected,
+                        std::string locked)
 {
-    unload_gfx();
-    this -> normal_sprite = normal_sprite;
-    this -> selected_sprite = selected_sprite;
-    this -> locked_sprite = locked_sprite;
+  unload_gfx();
+	_normal_sprite = CL_Sprite(gc, normal, &gfx);
+	_selected_sprite = CL_Sprite(gc, selected, &gfx);
+	if(locked != "")
+	{
+		_has_locked = true;
+		_locked_sprite = CL_Sprite(gc, locked, &gfx);;
+	}
+	else
+	{
+		_has_locked = false;
+	}
 }
 
 void BasicItem::unload_gfx()
 {
-    if (normal_sprite != NULL)
-    {
-        my_delete(normal_sprite);
-        normal_sprite = NULL;
-    }
-    if (selected_sprite != NULL)
-    {
-        my_delete(selected_sprite);
-        selected_sprite = NULL;
-    }
-    if (locked_sprite != NULL)
-    {
-        my_delete(locked_sprite);
-        locked_sprite = NULL;
-    }
+   
 }
 
-void BasicItem::draw()
+void BasicItem::draw(CL_GraphicContext &gc)
 {
     if (selected)
     {
-        selected_sprite -> set_alpha(alpha);
-        selected_sprite -> draw(x, y);
+        _selected_sprite.set_alpha(alpha);
+        _selected_sprite.draw(gc, x, y);
     }
     else if (locked)
     {
-        locked_sprite -> set_alpha(alpha);
-        locked_sprite -> draw(x, y);
+        _locked_sprite.set_alpha(alpha);
+        _locked_sprite.draw(gc, x, y);
     }
     else
     {
-        normal_sprite -> set_alpha(alpha);
-        normal_sprite -> draw(x, y);
+        _normal_sprite.set_alpha(alpha);
+        _normal_sprite.draw(gc, x, y);
     }
 }
 

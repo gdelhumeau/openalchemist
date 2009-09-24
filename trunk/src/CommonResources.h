@@ -28,7 +28,9 @@ class CommonResources{
 
   public:
   GameEngine *p_engine;
-  CL_Font *p_main_font;
+  CL_Font main_font;
+	CL_GraphicContext * p_gc;
+	CL_DisplayWindow * p_window;
 
   int score;
 
@@ -47,12 +49,12 @@ class CommonResources{
   double time_interval;
   int fps;
 
-  u_int highscore;
-  u_int old_highscore;
+  unsigned int highscore;
+  unsigned int old_highscore;
 
 
-  void init(GameEngine *engine);
-  void load_gfx(std::string skin);
+  void init(GameEngine *p_engine);
+  void load_gfx(CL_GraphicContext &gc, std::string skin);
   void unload_gfx();
 
   void read_scores();

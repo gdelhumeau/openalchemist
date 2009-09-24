@@ -32,12 +32,12 @@ class Skin{
   /**
    * Unlocked elements
    */
-  u_int element; 
+  unsigned int element; 
 
   /**
    * Skin logo presentation
    */
-  CL_Surface *logo;
+  CL_Image logo;
 
   /**
    * Constructor
@@ -46,7 +46,6 @@ class Skin{
     {
       filename = "";
       element  = 3;
-      logo = NULL;
     }
 
   /**
@@ -54,8 +53,6 @@ class Skin{
    */
   ~Skin()
     {
-      if(logo)
-        my_delete(logo);
     }
 };
 
@@ -69,79 +66,79 @@ class SkinsMenuState : public GameState{
   /**
    * Step (Normal, Appearing, Disappearing)
    */
-  int _step;
+  int step;
 
   /**
    * Alpha blending
    */
-  float _alpha;
+  float alpha;
 
   /**
    * Menu background
    */
-  CL_Sprite *_p_background;  
+  CL_Sprite background;  
 
   /**
    * Unavaible skin logo
    */
-  CL_Surface *_p_logo_unavailable;
+  CL_Image logo_unavailable;
 
   /**
    * Cursor
    */
-  CL_Sprite *_p_cursor;
+  CL_Sprite cursor;
 
   /**
    * Arrow Up (displayed when skin list is more long than a screen)
    */
-  CL_Sprite *_p_arrow_down;
+  CL_Sprite arrow_down;
 
   /**
    * Arrow down
    */
-  CL_Sprite *_p_arrow_up;
+  CL_Sprite arrow_up;
 
   /**
    * Arrows coords
    */
-  int _arrow_down_left, _arrow_down_top;
-  int _arrow_up_left, _arrow_up_top;
+  int arrow_down_left, arrow_down_top;
+  int arrow_up_left, arrow_up_top;
 
   /**
    * Selection coords
    */
-  int _selection_x, _selection_y;
+  int selection_x, selection_y;
 
   /**
    * Number of lines in the skins board 
    */
-  int _number_y;
+  int number_y;
 
   /**
    * Start for drawing in the sin board (scroll)
    */
-  int _y_start;
+  int y_start;
 
   /**
    * Skins preview coords
    */
-  int _skins_preview_x;
-  int _skins_preview_y;
-  int _skins_preview_width;
-  int _skins_preview_height;
+  int skins_preview_x;
+  int skins_preview_y;
+  int skins_preview_width;
+  int skins_preview_height;
 
   /**
    * Skins preview cursor coords
    */
-  int _cursor_x;
-  int _cursor_y;
-  int _cursor_width;
-  int _cursor_height;
+  int cursor_x;
+  int cursor_y;
+  int cursor_width;
+  int cursor_height;
 
   /**
    * Skins skins list (read in the .openalchemist/skins file) 
    */
-  std::vector<Skin*> _skins_list;
+  std::vector<Skin*> skins_list;
 
   /**
    * Skins board. Board which contains skins to draw in the menu
@@ -151,21 +148,21 @@ class SkinsMenuState : public GameState{
   /**
    * Makes menu appear
    */
-  void _appear();
+  void appear();
 
   /**
    * Makes menu disappear
    */
-  void _disappear();
+  void disappear();
 
   public:
-  void init();
+  void init(CL_GraphicContext &gc);
   void deinit();
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext &gc, std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
+  void draw(CL_GraphicContext &gc);
+  void update(CL_GraphicContext &gc);
+  void events(CL_DisplayWindow &window);
 
   /**
    * Starts appear
@@ -174,7 +171,7 @@ class SkinsMenuState : public GameState{
 
   bool front_layer_behind();
 
-  void set_skin_elements(u_int element);
+  void set_skin_elements(unsigned int element);
 
   SkinsMenuState();
   ~SkinsMenuState();

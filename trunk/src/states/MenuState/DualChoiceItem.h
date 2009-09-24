@@ -28,10 +28,10 @@ enum
 class DualChoiceItem : public MenuItem
 {
 protected:
-    CL_Sprite *_p_normal_sprite_left;
-    CL_Sprite *_p_selected_sprite_left;
-    CL_Sprite *_p_normal_sprite_right;
-    CL_Sprite *_p_selected_sprite_right;
+    CL_Sprite _p_normal_sprite_left;
+    CL_Sprite _p_selected_sprite_left;
+    CL_Sprite _p_normal_sprite_right;
+    CL_Sprite _p_selected_sprite_right;
 
 	int _selection;
 	
@@ -39,16 +39,15 @@ protected:
 
 public:
 
-    void set_gfx(CL_Sprite *normal_sprite_left,
-                 CL_Sprite *selected_sprite_left,
-                 CL_Sprite *normal_sprite_right,
-                 CL_Sprite *selected_sprite_right);
+    void set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	            	std::string normal_left, std::string selected_left,
+                std::string normal_right, std::string selected_right);
     void unload_gfx();
     
     void set_x2(int x);
     void set_y2(int y);
 
-    void draw();
+    void draw(CL_GraphicContext &gc);
     void action_performed(int action_type);
     
     int get_selection(){ return _selection; }

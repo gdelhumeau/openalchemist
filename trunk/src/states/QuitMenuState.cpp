@@ -20,41 +20,35 @@ void QuitMenuState::init()
 {
     _items.clear();
     _items.insert (_items.end (), &_choice_item);
-
-    panel_exit     = NULL;
-    panel_give_up  = NULL;
-    panel_retry    = NULL;
 }
 
 void QuitMenuState::deinit()
 {}
 
-void QuitMenuState::load_gfx(std::string skin)
+void QuitMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
-	unload_gfx();
+		unload_gfx();
 	
     // Getting skins resources
-    CL_Zip_Archive zip(skin);
-    CL_ResourceManager gfx("menu_quit.xml", &zip, false);
+    CL_VirtualFileSystem vfs(skin, true);
+  	CL_VirtualDirectory vd(vfs, "./");	
+  	CL_ResourceManager gfx("menu_quit.xml",vd);
 
-    panel_exit    = my_new CL_Sprite("menu_quit/dialog_panel/sprite_exit", &gfx);
-    panel_give_up = my_new CL_Sprite("menu_quit/dialog_panel/sprite_giveup", &gfx);
-    panel_retry   = my_new CL_Sprite("menu_quit/dialog_panel/sprite_retry", &gfx);
+    panel_exit    = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_exit", &gfx);
+    panel_give_up = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_giveup", &gfx);
+    panel_retry   = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_retry", &gfx);
 
     panel_x = CL_Integer_to_int("menu_quit/dialog_panel/left", &gfx);
     panel_y = CL_Integer_to_int("menu_quit/dialog_panel/top", &gfx);
 
-    CL_Sprite * yes_selected   = my_new CL_Sprite("menu_quit/dialog_yes/selected", &gfx);
-    CL_Sprite * yes_unselected = my_new CL_Sprite("menu_quit/dialog_yes/unselected", &gfx);
     int yes_x = CL_Integer_to_int("menu_quit/dialog_yes/left", &gfx);
     int yes_y = CL_Integer_to_int("menu_quit/dialog_yes/top", &gfx);
 
-    CL_Sprite * no_selected   = my_new CL_Sprite("menu_quit/dialog_no/selected", &gfx);
-    CL_Sprite * no_unselected = my_new CL_Sprite("menu_quit/dialog_no/unselected", &gfx);
     int no_x = CL_Integer_to_int("menu_quit/dialog_no/left", &gfx);
     int no_y = CL_Integer_to_int("menu_quit/dialog_no/top", &gfx);
 
-    _choice_item.set_gfx(yes_unselected, yes_selected, no_unselected, no_selected);
+    _choice_item.set_gfx(gc, gfx, "menu_quit/dialog_yes/unselected", "menu_quit/dialog_yes/selected",
+                         "menu_quit/dialog_no/unselected", "menu_quit/dialog_no/selected");
     _choice_item.set_x(yes_x);
     _choice_item.set_x2(no_x);
     _choice_item.set_y(yes_y);
@@ -63,23 +57,7 @@ void QuitMenuState::load_gfx(std::string skin)
 }
 
 void QuitMenuState::unload_gfx()
-{
-    if(panel_exit)
-    {
-        my_delete(panel_exit);
-        panel_exit = NULL;
-    }
-    if(panel_give_up)
-    {
-        my_delete(panel_give_up);
-        panel_give_up = NULL;
-    }
-    if(panel_retry)
-    {
-        my_delete(panel_retry);
-        panel_retry = NULL;
-    }
-
+{    
     _choice_item.unload_gfx();
 
 }

@@ -13,6 +13,7 @@
 #ifndef _INIFILE_H_
 #define _INIFILE_H_
 
+#include <list>
 #include <ClanLib/core.h>
 
 class IniElement{
@@ -30,11 +31,9 @@ class IniFile{
   std::list<IniElement*> list;
 
   public:
-	IniFile();
-	~IniFile();
 
-  void read(CL_InputSource_File *file);
-  void write(CL_OutputSource_File *file);
+  void read(CL_File *file);
+  void write(CL_File *file);
   void clear();
 
   void add(std::string name, std::string value);

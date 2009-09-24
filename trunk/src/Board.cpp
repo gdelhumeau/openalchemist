@@ -43,10 +43,10 @@ void Board::clear()
 	
 }
 
-void Board::apply_skin(CL_Sprite** pieces_normal,
-											 CL_Sprite** pieces_appearing,
-											 CL_Sprite** pieces_disappearing,
-											 CL_Sprite** pieces_mini)
+void Board::apply_skin(CL_Sprite* pieces_normal,
+											 CL_Sprite* pieces_appearing,
+											 CL_Sprite* pieces_disappearing,
+											 CL_Sprite* pieces_mini)
 {
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
 		for (int j = 0; j < NUMBER_OF_LINES; ++j)
@@ -54,13 +54,13 @@ void Board::apply_skin(CL_Sprite** pieces_normal,
 		if (_p_board[i][j])
 		{
 			int value = _p_board[i][j] -> get_piece_number();
-			_p_board[i][j] -> set_sprites(pieces_normal[value], pieces_appearing[value],
-																		pieces_disappearing[value], pieces_mini[value]);
+			_p_board[i][j] -> set_sprites(&pieces_normal[value], &pieces_appearing[value],
+																		&pieces_disappearing[value], &pieces_mini[value]);
 		}
 	}
 }
 
-void Board::draw()
+void Board::draw(CL_GraphicContext & gc)
 {
 	// Getting resources
 	static CommonResources *resources = common_resources_get_instance();
@@ -70,14 +70,14 @@ void Board::draw()
 	{
 		if (_p_board[i][j])
 		{
-			_p_board[i][j] -> draw();
+			_p_board[i][j] -> draw(gc);
 		}
 	}
 	
 	// Displaying scores
-	resources -> p_main_font -> draw(score_left, score_top, str_score);
-	resources -> p_main_font -> draw(bonus_left, bonus_top, str_bonus);
-	resources -> p_main_font -> draw(hightscore_left, hightscore_top, str_hightscore);
+	resources -> main_font.draw_text(gc, score_left, score_top, str_score);
+	resources -> main_font.draw_text(gc, bonus_left, bonus_top, str_bonus);
+	resources -> main_font.draw_text(gc, hightscore_left, hightscore_top, str_hightscore);
 	
 }
 
@@ -171,7 +171,7 @@ bool Board::fall_and_create()
 	static CommonResources *resources = common_resources_get_instance();
 	
 	bool all_pieces_are_placed = true;
-	for (u_int i = 0; i < _falling_list.size(); ++i)
+	for (unsigned int i = 0; i < _falling_list.size(); ++i)
 	{
 		if (_falling_list[i])
 		{
@@ -283,7 +283,7 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 {
 	
 	Coords c = detected_pieces[0];
-	u_int piece_number = _p_board[c.x][c.y]->get_piece_number();
+	unsigned int piece_number = _p_board[c.x][c.y]->get_piece_number();
 	
 	int counter = detected_pieces.size();
 	
@@ -398,10 +398,10 @@ bool Board::destroy()
 	return end;
 }
 
-void Board::create_new_pieces(CL_Sprite **pieces_normal,
-															CL_Sprite **pieces_appearing,
-															CL_Sprite **pieces_disappearing,
-															CL_Sprite **pieces_mini)
+void Board::create_new_pieces(CL_Sprite *pieces_normal,
+															CL_Sprite *pieces_appearing,
+															CL_Sprite *pieces_disappearing,
+															CL_Sprite *pieces_mini)
 {
 	// Getting resources
 	static CommonResources *resources = common_resources_get_instance();
@@ -423,8 +423,8 @@ void Board::create_new_pieces(CL_Sprite **pieces_normal,
 			p -> set_position(c.x * resources->pieces_width + game_left,
 												game_top + (c.y - 2) * resources->pieces_height);
 			
-			p -> set_sprites(pieces_normal[score], pieces_appearing[score],
-											 pieces_disappearing[score], pieces_mini[score]);
+			p -> set_sprites(&pieces_normal[score], &pieces_appearing[score],
+											 &pieces_disappearing[score], &pieces_mini[score]);
 			
 			
 			p -> start_appear();
@@ -507,19 +507,20 @@ void Board::calc_score()
 	str_bonus = format_number(to_string(bonus_score));
 	str_hightscore = format_number(to_string(resources->highscore));
 	
-	int score_width = resources->p_main_font->get_width(str_score, CL_Size(0, 0));
-	int bonus_width = resources->p_main_font->get_width(str_bonus, CL_Size(0, 0));
-	int hightscore_width = resources->p_main_font->get_width(str_hightscore, CL_Size(0, 0));
+	int score_width = resources->main_font.get_text_size(*resources->p_gc, str_score).width;
+  int bonus_width = resources->main_font.get_text_size(*resources->p_gc, str_bonus).width;
+  int hightscore_width = resources->main_font.get_text_size(*resources->p_gc, str_hightscore).width;
 	
 	score_left = score_right - score_width;
 	bonus_left = bonus_right - bonus_width;
 	hightscore_left = hightscore_right - hightscore_width;
 }
 
-void Board::undo(CL_Sprite **pieces_normal,
-								 CL_Sprite** pieces_appearing,
-								 CL_Sprite** pieces_disappearing,
-								 CL_Sprite** pieces_mini)
+void Board::undo(
+                 CL_Sprite *pieces_normal,
+								 CL_Sprite* pieces_appearing,
+								 CL_Sprite* pieces_disappearing,
+								 CL_Sprite* pieces_mini)
 {
 	// Getting resources
 	static CommonResources *resources = common_resources_get_instance();
@@ -540,8 +541,8 @@ void Board::undo(CL_Sprite **pieces_normal,
 		if (_undo_board[i][j] >= 0)
 		{
 			_p_board[i][j] = my_new Piece(_undo_board[i][j]);
-			_p_board[i][j] -> set_sprites(pieces_normal[_undo_board[i][j]], pieces_appearing[_undo_board[i][j]],
-																		pieces_disappearing[_undo_board[i][j]], pieces_mini[_undo_board[i][j]]);
+			_p_board[i][j] -> set_sprites(&pieces_normal[_undo_board[i][j]], &pieces_appearing[_undo_board[i][j]],
+																		&pieces_disappearing[_undo_board[i][j]], &pieces_mini[_undo_board[i][j]]);
 			_p_board[i][j] -> set_position(i * resources->pieces_width + game_left, game_top + (j - 2) * resources->pieces_height);
 		}
 	}

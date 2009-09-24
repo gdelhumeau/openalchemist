@@ -25,10 +25,6 @@ enum{
 
 CombosPainter :: CombosPainter()
 {
-  _p_sprite_single = NULL;
-  _p_sprite_plural = NULL;
-  _p_font          = NULL;
-
   _next_time = 0;
   _is_enabled = false;
   _mode = MODE_APPEARING;
@@ -39,7 +35,7 @@ CombosPainter :: ~CombosPainter()
   unload_gfx();
 }
 
-void CombosPainter :: load_gfx(std::string skin)
+void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
 {
 
 	unload_gfx();
@@ -47,12 +43,13 @@ void CombosPainter :: load_gfx(std::string skin)
   //CommonResources *resources = common_resources_get_instance();
 
   // Getting skins resources
-  CL_Zip_Archive zip(skin);
-  CL_ResourceManager gfx_combos("combos.xml", &zip, false);
+  CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");
+  CL_ResourceManager gfx_combos("combos.xml", vd);
 
-  _p_sprite_single = my_new CL_Sprite("combos/text/sprite_single", &gfx_combos);
-  _p_sprite_plural = my_new CL_Sprite("combos/text/sprite_plural", &gfx_combos);
-  _p_font = my_new CL_Font("combos/font", &gfx_combos);
+  _p_sprite_single = CL_Sprite(gc, "combos/text/sprite_single", &gfx_combos);
+  _p_sprite_plural = CL_Sprite(gc, "combos/text/sprite_plural", &gfx_combos);
+  _p_font = CL_Font_Sprite(gc, "combos/font", &gfx_combos);
 
   _sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
   _sprite_y =  CL_Integer_to_int("combos/text/top", &gfx_combos);
@@ -60,26 +57,14 @@ void CombosPainter :: load_gfx(std::string skin)
   _score_x =  CL_Integer_to_int("combos/score/left", &gfx_combos);
   _score_y =  CL_Integer_to_int("combos/score/top", &gfx_combos);  
 
+	_font_height = _p_font.get_font_metrics(gc).get_height();
+
 }
 
 
 void CombosPainter :: unload_gfx()
 {
-  if(_p_sprite_single)
-  {
-    my_delete(_p_sprite_single);
-    _p_sprite_single = NULL;
-  }
-  if(_p_sprite_plural)
-  {
-    my_delete(_p_sprite_plural);
-    _p_sprite_plural = NULL;
-  }
-  if(_p_font)
-  {
-    my_delete(_p_font);
-    _p_font = NULL;
-  }
+ 
 }
 
 void CombosPainter :: set_score(int score)
@@ -88,7 +73,7 @@ void CombosPainter :: set_score(int score)
 
   if(!_is_enabled)
   {
-    _score_current_y  = - _p_font -> get_height();
+    _score_current_y  = - _font_height;
     _sprite_current_x = 800;
     _mode = MODE_APPEARING;
   }
@@ -101,16 +86,16 @@ void CombosPainter :: set_score(int score)
 
 }
 
-void CombosPainter :: draw()
+void CombosPainter :: draw(CL_GraphicContext &gc)
 {
   if(!_is_enabled)
     return;
 
-  _p_font -> draw(_score_x, _score_current_y, to_string(_score));
+  _p_font.draw_text(gc, _score_x, _score_current_y, to_string(_score));
   if(_score == 1)
-    _p_sprite_single -> draw(_sprite_current_x, _sprite_y);
+    _p_sprite_single.draw(gc, _sprite_current_x, _sprite_y);
   else
-    _p_sprite_plural -> draw(_sprite_current_x, _sprite_y);
+    _p_sprite_plural.draw(gc, _sprite_current_x, _sprite_y);
 
   
 }
@@ -180,12 +165,12 @@ void CombosPainter :: _update_disappearing()
     _sprite_current_x += COMBOS_SPEED * resources -> time_interval;
   }
  
-  if(_score_current_y > -_p_font -> get_height())
+  if(_score_current_y > -_font_height)
   {
     _score_current_y -= COMBOS_SPEED * resources -> time_interval;
   }
 
-  if(_score_current_y < - _p_font -> get_height() && _sprite_current_x > 800)
+  if(_score_current_y < - _font_height && _sprite_current_x > 800)
   {
     _is_enabled = false;
   }

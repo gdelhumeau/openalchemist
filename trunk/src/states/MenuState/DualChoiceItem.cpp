@@ -16,10 +16,6 @@
 
 DualChoiceItem::DualChoiceItem()
 {
-    _p_normal_sprite_left = NULL;
-    _p_selected_sprite_left = NULL;
-    _p_normal_sprite_right = NULL;
-    _p_selected_sprite_right = NULL;
 	_selection = CHOICE_LEFT;
 }
 
@@ -38,66 +34,45 @@ void DualChoiceItem::set_y2(int y)
 	_y2 = y;
 }
 
-void DualChoiceItem::set_gfx(CL_Sprite *normal_sprite_left_,
-			     CL_Sprite *selected_sprite_left_,
-			     CL_Sprite *normal_sprite_right_,
-			     CL_Sprite *selected_sprite_right_)
+void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	            	std::string normal_left, std::string selected_left,
+                std::string normal_right, std::string selected_right)
 {
   unload_gfx();
-	_p_normal_sprite_left  = normal_sprite_left_;
-	_p_selected_sprite_left = selected_sprite_left_;
-	_p_normal_sprite_right = normal_sprite_right_;
-	_p_selected_sprite_right = selected_sprite_right_;
-   
+	_p_normal_sprite_left  = CL_Sprite(gc, normal_left, &gfx);
+	_p_selected_sprite_left = CL_Sprite(gc, selected_left, &gfx);
+	_p_normal_sprite_right = CL_Sprite(gc, normal_right, &gfx);
+	_p_selected_sprite_right = CL_Sprite(gc, selected_right, &gfx);   
 }
 
 void DualChoiceItem::unload_gfx()
 {
-    if (_p_normal_sprite_left != NULL)
-    {
-        my_delete( _p_normal_sprite_left);
-        _p_normal_sprite_left = NULL;
-    }
-    if (_p_selected_sprite_left != NULL)
-    {
-        my_delete(_p_selected_sprite_left);
-        _p_selected_sprite_left = NULL;
-    }
-    if (_p_normal_sprite_right != NULL)
-    {
-        my_delete(_p_normal_sprite_right);
-        _p_normal_sprite_right = NULL;
-    }
-    if (_p_selected_sprite_right != NULL)
-    {
-        my_delete(_p_selected_sprite_right);
-        _p_selected_sprite_right = NULL;
-    }
+  
   
 }
 
-void DualChoiceItem::draw()
+void DualChoiceItem::draw(CL_GraphicContext &gc)
 {
-	_p_selected_sprite_left  -> update();
-	_p_selected_sprite_right -> update();
-	_p_normal_sprite_left    -> update();
-	_p_normal_sprite_right   -> update();
+	_p_selected_sprite_left  .update();
+	_p_selected_sprite_right .update();
+	_p_normal_sprite_left    .update();
+	_p_normal_sprite_right   .update();
 	
 	if(_selection == CHOICE_LEFT)
 	{
-		_p_selected_sprite_left -> set_alpha(alpha);
-		_p_normal_sprite_right -> set_alpha(alpha);
+		_p_selected_sprite_left.set_alpha(alpha);
+		_p_normal_sprite_right.set_alpha(alpha);
 		
-		_p_selected_sprite_left -> draw(x, y);
-		_p_normal_sprite_right -> draw(_x2, _y2);
+		_p_selected_sprite_left.draw(gc, x, y);
+		_p_normal_sprite_right.draw(gc, _x2, _y2);
 	}
 	else
 	{
-		_p_normal_sprite_left -> set_alpha(alpha);
-		_p_selected_sprite_right -> set_alpha(alpha);
+		_p_normal_sprite_left.set_alpha(alpha);
+		_p_selected_sprite_right.set_alpha(alpha);
 		
-		_p_normal_sprite_left -> draw(x, y);
-		_p_selected_sprite_right -> draw(_x2, _y2);
+		_p_normal_sprite_left.draw(gc, x, y);
+		_p_selected_sprite_right.draw(gc, _x2, _y2);
 	}
 }
 
@@ -112,5 +87,5 @@ void DualChoiceItem::action_performed(int action_type)
  	if(ACTION_TYPE_RIGHT == action_type)
  	{
  		_selection = CHOICE_RIGHT;
-  	}
+  }
 }

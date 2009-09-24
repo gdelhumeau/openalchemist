@@ -31,14 +31,14 @@ class TitleState : public GameState{
 
   DemoPlayer _demo_player;
 
-  CL_Sprite *_p_start_message;
+  CL_Sprite _p_start_message;
   int _start_message_x, _start_message_y;
 
-  CL_Sprite *_p_keydemo_left, *_p_keydemo_up, *_p_keydemo_right, *_p_keydemo_down;
-  CL_Sprite *_p_keydemo_escape, *_p_keydemo_options;
+  CL_Sprite _p_keydemo_left, _p_keydemo_up, _p_keydemo_right, _p_keydemo_down;
+  CL_Sprite _p_keydemo_escape, _p_keydemo_options;
 
   /** Help sentences **/
-  CL_Sprite *_sentences_p[NUMBER_OF_SENTENCES];
+  CL_Sprite _sentences_p[NUMBER_OF_SENTENCES];
 
   /** Help sentences coords **/
   int _sentences_x[NUMBER_OF_SENTENCES], _sentences_y[NUMBER_OF_SENTENCES];
@@ -51,23 +51,23 @@ class TitleState : public GameState{
           _keydown_x, _keydown_y;
 
   /** Time when will come the next step **/
-  u_int _next_time;
+  unsigned int _next_time;
 
   /** Current Step **/
   short int _step;
 
   bool _new_game, _fall, _change_angle, _select_the_position;
 
-	CL_Font * _p_font;
+	CL_Font _p_font;
 
   public:
   void init();
   void deinit();
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext &gc, std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
+  void draw(CL_GraphicContext &gc);
+  void update(CL_GraphicContext &gc);
+  void events(CL_DisplayWindow & window);
 
   bool front_layer_behind();
 

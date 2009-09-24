@@ -33,15 +33,15 @@ class GameOverState : public GameState{
 
   private:
 
-  CL_Sprite * _p_dialog, * _p_dialog_gameover, * _p_dialog_highscore;
+  CL_Sprite _p_dialog, _p_dialog_gameover, _p_dialog_highscore;
   int _dialog_x, _dialog_y;
   int _score1_x;
   int _score1_y;
   int _score2_x;
   int _score2_y;
 
-  CL_Sprite * _p_yes_selected, *_p_yes_unselected;
-  CL_Sprite * _p_no_selected, *_p_no_unselected;
+  CL_Sprite _p_yes_selected, _p_yes_unselected;
+  CL_Sprite _p_no_selected, _p_no_unselected;
   int _yes_x, _yes_y;
   int _no_x, _no_y;
 
@@ -51,11 +51,11 @@ class GameOverState : public GameState{
   public:
   void init();
   void deinit();
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext &gc, std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
+  void draw(CL_GraphicContext &gc);
+  void update(CL_GraphicContext &gc);
+  void events(CL_DisplayWindow & window);
 
   bool front_layer_behind();
 

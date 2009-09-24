@@ -15,6 +15,7 @@
 #include <stack>
 #include <ClanLib/display.h>
 
+#include "FrameRateCounter.h"
 #include "states/GameState.h"
 #include "states/CommonState.h"
 #include "states/InGameState.h"
@@ -26,11 +27,6 @@
 #include "states/QuitMenuState.h"
 
 class LoadingScreen;
-
-// test modif a
-
-#define RENDER_SDL false
-#define RENDER_OPENGL true
 
 /**
  * GameEngine class - controls the states
@@ -47,9 +43,10 @@ class GameEngine{
   /**
    * Window
    */
-  CL_DisplayWindow *_p_window;
+  CL_DisplayWindow _main_window;
+	CL_Slot _quit_event;
 
-
+				
   /**
    * To know if OpenGL is used
    */
@@ -89,6 +86,7 @@ class GameEngine{
    */
   void init();
 	void deinit();
+	void set_window();
 
   /**
    * Main loop
@@ -137,12 +135,12 @@ class GameEngine{
 
   void set_skin(std::string skin);
 
-  void set_skin_element(u_int element);
+  void set_skin_element(unsigned int element);
 
   /**
    * Constructor
    */
-  GameEngine(CL_DisplayWindow *window, bool opengl);
+  GameEngine();
 
   /**
    * Destructor

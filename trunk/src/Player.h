@@ -126,27 +126,27 @@ class Player{
   /** 
    * Contains the normal pieces sprites
    */
-  CL_Sprite *_p_pieces_normal[NUMBER_OF_PIECES];
+  CL_Sprite _p_pieces_normal[NUMBER_OF_PIECES];
 
   /**
    * Contains the appearing pieces sprites
    */
-  CL_Sprite *_p_pieces_appearing[NUMBER_OF_PIECES];
+  CL_Sprite _p_pieces_appearing[NUMBER_OF_PIECES];
 
   /**
    * Contains the disappearing pieces sprites
    */
-  CL_Sprite *_p_pieces_disappearing[NUMBER_OF_PIECES];
+  CL_Sprite _p_pieces_disappearing[NUMBER_OF_PIECES];
 
   /**
    * Contains the mini pieces sprites
    */
-  CL_Sprite *_p_pieces_mini[NUMBER_OF_PIECES];
+  CL_Sprite _p_pieces_mini[NUMBER_OF_PIECES];
 
   /**
    * Contains the hidden pieces sprites
    */
-  CL_Sprite *_p_pieces_hidden[NUMBER_OF_PIECES - 3];
+  CL_Sprite _p_pieces_hidden[NUMBER_OF_PIECES - 3];
 
   /**
    * 
@@ -229,7 +229,7 @@ class Player{
   /**
    * Load GFX
    */
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext & gc, std::string skin);
 
   /**
    * Unload GFX
@@ -239,12 +239,12 @@ class Player{
   /**
    * Checking key events
    */
-  void events();    
+  void events(CL_DisplayWindow & window);    
   
   /**
    * Draw player (board and playable pieces)
    */
-  void draw();
+  void draw(CL_GraphicContext & gc);
   
   /**
    * Make a new party
@@ -264,7 +264,7 @@ class Player{
   /**
    * Get score
    */
-  u_int get_score();  
+  unsigned int get_score();  
 
   /**
    * Returning if undo is available

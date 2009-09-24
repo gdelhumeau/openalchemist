@@ -42,9 +42,10 @@ public:
   /**
    * Return if the key is activated 
    */
-  bool get()
+  bool get(CL_DisplayWindow & window)
   {
-    if(CL_Keyboard::get_keycode(_key))
+		CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+		if(keyboard.get_keycode(_key))
     {
       if(!_is_key_active || (_should_repeat && CL_System::get_time()>_next_time))
       {

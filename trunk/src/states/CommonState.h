@@ -26,16 +26,16 @@ class GameEngine;
 class CommonState : public GameState{
 
   private:
-  CL_Surface *_p_background;
+  CL_Image _background;
 
   public:
   void init();
   void deinit();
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext & gc, std::string skin);
   void unload_gfx();
-  void draw();
-  void update();
-  void events();
+  void draw(CL_GraphicContext & gc);
+  void update(CL_GraphicContext & gc);
+  void events(CL_DisplayWindow & window);
 
   bool front_layer_behind();
 

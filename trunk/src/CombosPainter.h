@@ -27,17 +27,17 @@ class CombosPainter{
   /**
    * Combo text sprite
    */
-  CL_Sprite * _p_sprite_single;
+  CL_Sprite _p_sprite_single;
 
   /**
    * Combo text sprite
    */
-  CL_Sprite * _p_sprite_plural;
+  CL_Sprite _p_sprite_plural;
 
   /**
    * Combo font
    */
-  CL_Font * _p_font;
+  CL_Font _p_font;
 
   /**
    * Combo coords
@@ -51,14 +51,16 @@ class CombosPainter{
 
   unsigned long int _next_time;
 
+	float _font_height;
+
   public:
 
   CombosPainter();
   ~CombosPainter();
-  void load_gfx(std::string skin);
+  void load_gfx(CL_GraphicContext &gc, std::string skin);
   void unload_gfx();
   void set_score(int score);
-  void draw();
+  void draw(CL_GraphicContext &gc);
   void update();
 
   private:

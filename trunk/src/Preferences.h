@@ -22,8 +22,16 @@ class Preferences
 
   public:
 
+  enum RenderTarget
+	{
+		GDI,
+		OPENGL_1,
+		OPENGL_2,
+		SDL
+	};
+
   /** Render used */
-  bool render_opengl;
+  RenderTarget render_target;
 
   /** Fps Limit */
   int maxfps;
@@ -54,8 +62,8 @@ class Preferences
   void write();
 
   private:
-  void read_options_file(CL_InputSource_File *file);
-  void write_options_file(CL_OutputSource_File *file);
+  void read_options_file(CL_File *file);
+  void write_options_file(CL_File *file);
   void set_default();
 
 

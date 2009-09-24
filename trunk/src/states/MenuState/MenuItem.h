@@ -12,6 +12,8 @@
 #ifndef _MENU_ITEM_H_
 #define _MENU_ITEM_H_
 
+#include <ClanLib/display.h>
+
 enum ACTION_TYPE
 {
 	ACTION_TYPE_ENTER,
@@ -33,8 +35,8 @@ class MenuItem{
 	
 	public:
 		
-	virtual void draw();
-	virtual void action_performed(int action_type);
+	virtual void draw(CL_GraphicContext &gc) = 0;
+	virtual void action_performed(int action_type) = 0;
 	virtual bool quit_menu_on_action() = 0;
 
 	void set_x(int x);

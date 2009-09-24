@@ -27,32 +27,33 @@ void TitleState::deinit()
 {
 }
 
-void TitleState::load_gfx(std::string skin)
+void TitleState::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
 	
 	// Getting skins resources
-	CL_Zip_Archive zip(skin);
-	CL_ResourceManager gfx("title.xml", &zip, false);
+	CL_VirtualFileSystem vfs(skin, true);
+  CL_VirtualDirectory vd(vfs, "./");	
+  CL_ResourceManager gfx("title.xml",vd);
 	
-	_p_start_message = my_new CL_Sprite("title/start_message/sprite", &gfx);
+	_p_start_message = CL_Sprite(gc, "title/start_message/sprite", &gfx);
 	_start_message_x = CL_Integer_to_int("title/start_message/left", &gfx);
 	_start_message_y = CL_Integer_to_int("title/start_message/top", &gfx);
 	
 	for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
 	{
-		_sentences_p[i] = my_new CL_Sprite("title/help/"+to_string(i+1)+"/sentence", &gfx);
+		_sentences_p[i] = CL_Sprite(gc, "title/help/"+to_string(i+1)+"/sentence", &gfx);
 		_sentences_x[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/left", &gfx);
 		_sentences_y[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/top", &gfx);
 		_sentences_time[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/time", &gfx);
 	}
 	
-	_p_keydemo_left    = my_new CL_Sprite("title/keydemo/left", &gfx);
-	_p_keydemo_up      = my_new CL_Sprite("title/keydemo/up", &gfx);
-	_p_keydemo_right   = my_new CL_Sprite("title/keydemo/right", &gfx);
-	_p_keydemo_down    = my_new CL_Sprite("title/keydemo/down", &gfx);
-	_p_keydemo_escape  = my_new CL_Sprite("title/keydemo/escape", &gfx);
-	_p_keydemo_options = my_new CL_Sprite("title/keydemo/options", &gfx);
+	_p_keydemo_left    = CL_Sprite(gc, "title/keydemo/left", &gfx);
+	_p_keydemo_up      = CL_Sprite(gc, "title/keydemo/up", &gfx);
+	_p_keydemo_right   = CL_Sprite(gc, "title/keydemo/right", &gfx);
+	_p_keydemo_down    = CL_Sprite(gc, "title/keydemo/down", &gfx);
+	_p_keydemo_escape  = CL_Sprite(gc, "title/keydemo/escape", &gfx);
+	_p_keydemo_options = CL_Sprite(gc, "title/keydemo/options", &gfx);
 	
 	_keyleft_x = 50;
 	_keyleft_y = _keyright_y = _keydown_y = 100;
@@ -60,128 +61,78 @@ void TitleState::load_gfx(std::string skin)
 	_keyup_y = 50;
 	_keyright_x = 150;
 	
-	_demo_player.load_gfx(skin);
+	_demo_player.load_gfx(gc, skin);
 	
 }
 
 void TitleState::unload_gfx()
 {
-	for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
-	{
-		if(_sentences_p[i])
-		{
-			my_delete(_sentences_p[i]);
-			_sentences_p[i] = NULL;
-		}
-	}
-	
-	if(_p_start_message)
-	{
-		my_delete(_p_start_message);
-		_p_start_message = NULL;
-	}
-	
-	if(_p_keydemo_left)
-	{
-		my_delete(_p_keydemo_left);
-		_p_keydemo_left = NULL;
-	}
-	
-	if(_p_keydemo_up)
-	{
-		my_delete(_p_keydemo_up);
-		_p_keydemo_up = NULL;
-	}
-	
-	if(_p_keydemo_right)
-	{
-		my_delete(_p_keydemo_right);
-		_p_keydemo_right = NULL;
-	}
-	
-	if(_p_keydemo_down)
-	{
-		my_delete(_p_keydemo_down);
-		_p_keydemo_down = NULL;
-	}
-	
-	if(_p_keydemo_escape)
-	{
-		my_delete(_p_keydemo_escape);
-		_p_keydemo_escape = NULL;
-	}
-	
-	if(_p_keydemo_options)
-	{
-		my_delete(_p_keydemo_options);
-		_p_keydemo_options = NULL;
-	}
 	
 }
 
-void TitleState::draw()
+void TitleState::draw(CL_GraphicContext & gc)
 {
 	
-	_sentences_p[_step] -> draw (_sentences_x[_step], _sentences_y[_step]);
+	_sentences_p[_step].draw (gc, _sentences_x[_step], _sentences_y[_step]);
 	
-	_p_start_message -> draw(_start_message_x,_start_message_y);
+	_p_start_message.draw(gc, _start_message_x,_start_message_y);
 	
 	switch(_step)
 	{
 		case 2:
-			_p_keydemo_left -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-													 _sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_left -> update();
+			_p_keydemo_left.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+													 _sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_left.update();
 			break;
 		case 3:
-			_p_keydemo_right -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-														_sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_right -> update();
+			_p_keydemo_right.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+														_sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_right.update();
 			break;
 		case 4:
-			_p_keydemo_up -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-												 _sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_up -> update();
+			_p_keydemo_up.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+												 _sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_up.update();
 			break;
 		case 5:
 		case 7:
-			_p_keydemo_down -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-													 _sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_down -> update();
+			_p_keydemo_down.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+													 _sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_down.update();
 			break;
 		case 6:
-			_p_keydemo_left -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width(),
-													 _sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_left -> update();
+			_p_keydemo_left.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width(),
+													 _sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_left.update();
 			
-			_p_keydemo_right -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 + _p_keydemo_left -> get_width(),
-														_sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_right -> update();
+			_p_keydemo_right.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 + _p_keydemo_left.get_width(),
+														_sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_right.update();
 			break;
 		case 12:
-			_p_keydemo_escape -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-														 _sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_escape -> update();
+			_p_keydemo_escape.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+														 _sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_escape.update();
 			break;
 		case 13:
-			_p_keydemo_options -> draw(_sentences_x[_step] + _sentences_p[_step] -> get_width()/2 - _p_keydemo_left -> get_width()/2,
-															_sentences_y[_step] + _sentences_p[_step] -> get_height());
-			_p_keydemo_options -> update();
+			_p_keydemo_options.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
+															_sentences_y[_step] + _sentences_p[_step].get_height());
+			_p_keydemo_options.update();
 			break;
 			break;
 			
 	}
 }
 
-void TitleState::update()
+void TitleState::update(CL_GraphicContext & gc)
 {
-	_p_start_message -> update();
+	_p_start_message.update();
 	
 	if(_next_time < CL_System::get_time())
 	{
 		_step = (_step + 1) % NUMBER_OF_SENTENCES;
 		_next_time = CL_System::get_time() + _sentences_time[_step];
-		_sentences_p[_step] -> update();
+		_sentences_p[_step].update();
 	}
 	
 	switch(_step)
@@ -286,25 +237,26 @@ void TitleState::update()
 	_demo_player.update();
 }
 
-void TitleState::events()
+void TitleState::events(CL_DisplayWindow & window)
 {
-	if(_p_common_resources -> key.enter -> get() || CL_Keyboard::get_keycode(CL_KEY_SPACE))
+	CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+	if(_p_common_resources -> key.enter -> get(window) || keyboard.get_keycode(CL_KEY_SPACE))
 	{
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.new_game();
 	}
 	
-	if(_p_common_resources-> key.escape -> get() || _p_common_resources -> key.pause -> get())
+	if(_p_common_resources-> key.escape -> get(window) || _p_common_resources -> key.pause -> get(window))
 	{
 		_p_common_resources -> p_engine -> set_state_pause_menu();
 	}
 	
-	if(_p_common_resources -> key.skins -> get())
+	if(_p_common_resources -> key.skins -> get(window))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
 	
-	if(_p_common_resources->key.options -> get() )
+	if(_p_common_resources->key.options -> get(window) )
 	{
 		_p_common_resources -> p_engine -> set_state_options_menu();
 	}
@@ -318,18 +270,7 @@ bool TitleState::front_layer_behind()
 
 TitleState::TitleState()
 {
-	_p_start_message   = NULL;
-	_p_keydemo_left    = NULL;
-	_p_keydemo_up      = NULL;
-	_p_keydemo_right   = NULL;
-	_p_keydemo_down    = NULL;
-	_p_keydemo_escape  = NULL;
-	_p_keydemo_options = NULL;
-	
-	for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
-	{
-		_sentences_p[i] = NULL;
-	}
+
 }
 
 TitleState::~TitleState()

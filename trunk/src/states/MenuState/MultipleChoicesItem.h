@@ -25,26 +25,26 @@ class MultipleChoicesItem : public MenuItem{
 	int _choice_x;
 	int _choice_y;
 	unsigned int _selection;
+	bool _has_locked;
 	
-	std::vector<CL_Sprite*> _choices_list_p;
-	CL_Sprite * _p_description_normal;
-	CL_Sprite * _p_description_selected;
-	CL_Sprite * _p_description_locked;
+	std::vector<CL_Sprite> _choices_list_p;
+	CL_Sprite _p_description_normal;
+	CL_Sprite _p_description_selected;
+	CL_Sprite _p_description_locked;
 		
 	public:
 		
-	virtual void draw();
+	virtual void draw(CL_GraphicContext &gc);
 	virtual void action_performed(int action_type);
 	virtual bool quit_menu_on_action(){return false;}
 
 	void set_choice_x(int x){_choice_x = x;}
 	void set_choice_y(int y){_choice_y = y;}
 	
-	void set_description_sprites(CL_Sprite * p_normal_sprite,
-															 CL_Sprite * p_selected_sprite, 
-															 CL_Sprite * p_locked_sprite);
+	void set_description_sprites(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	             std::string normal, std::string selected, std::string locked = "");
 	
-	void add_choice(CL_Sprite * p_sprite);
+	void add_choice(CL_GraphicContext & gc, CL_ResourceManager & gfx, std::string name);
 	void set_current_choice(unsigned int choice);
 	unsigned int get_current_choice(){ return _selection; }
 	

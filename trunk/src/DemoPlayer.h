@@ -32,7 +32,7 @@ class DemoPlayer : public Player{
   /**
    * Checking key events
    */
-  void events();
+  void events(CL_DisplayWindow & window);
 
   /**
    * Make a my_new game
