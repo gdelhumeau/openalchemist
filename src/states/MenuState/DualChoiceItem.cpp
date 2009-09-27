@@ -39,10 +39,10 @@ void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
                 std::string normal_right, std::string selected_right)
 {
   unload_gfx();
-	_p_normal_sprite_left  = CL_Sprite(gc, normal_left, &gfx);
-	_p_selected_sprite_left = CL_Sprite(gc, selected_left, &gfx);
-	_p_normal_sprite_right = CL_Sprite(gc, normal_right, &gfx);
-	_p_selected_sprite_right = CL_Sprite(gc, selected_right, &gfx);   
+	_normal_sprite_left  = CL_Sprite(gc, normal_left, &gfx);
+	_selected_sprite_left = CL_Sprite(gc, selected_left, &gfx);
+	_normal_sprite_right = CL_Sprite(gc, normal_right, &gfx);
+	_selected_sprite_right = CL_Sprite(gc, selected_right, &gfx);   
 }
 
 void DualChoiceItem::unload_gfx()
@@ -53,26 +53,26 @@ void DualChoiceItem::unload_gfx()
 
 void DualChoiceItem::draw(CL_GraphicContext &gc)
 {
-	_p_selected_sprite_left  .update();
-	_p_selected_sprite_right .update();
-	_p_normal_sprite_left    .update();
-	_p_normal_sprite_right   .update();
+	_selected_sprite_left  .update();
+	_selected_sprite_right .update();
+	_normal_sprite_left    .update();
+	_normal_sprite_right   .update();
 	
 	if(_selection == CHOICE_LEFT)
 	{
-		_p_selected_sprite_left.set_alpha(alpha);
-		_p_normal_sprite_right.set_alpha(alpha);
+		_selected_sprite_left.set_alpha(alpha);
+		_normal_sprite_right.set_alpha(alpha);
 		
-		_p_selected_sprite_left.draw(gc, x, y);
-		_p_normal_sprite_right.draw(gc, _x2, _y2);
+		_selected_sprite_left.draw(gc, x, y);
+		_normal_sprite_right.draw(gc, _x2, _y2);
 	}
 	else
 	{
-		_p_normal_sprite_left.set_alpha(alpha);
-		_p_selected_sprite_right.set_alpha(alpha);
+		_normal_sprite_left.set_alpha(alpha);
+		_selected_sprite_right.set_alpha(alpha);
 		
-		_p_normal_sprite_left.draw(gc, x, y);
-		_p_selected_sprite_right.draw(gc, _x2, _y2);
+		_normal_sprite_left.draw(gc, x, y);
+		_selected_sprite_right.draw(gc, _x2, _y2);
 	}
 }
 

@@ -285,7 +285,7 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 	Coords c = detected_pieces[0];
 	unsigned int piece_number = _p_board[c.x][c.y]->get_piece_number();
 	
-	int counter = detected_pieces.size();
+	int counter = (int) detected_pieces.size();
 	
 	// if we aligned the last element
 	if (piece_number == NUMBER_OF_PIECES - 1)

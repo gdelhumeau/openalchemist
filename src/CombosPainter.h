@@ -27,17 +27,17 @@ class CombosPainter{
   /**
    * Combo text sprite
    */
-  CL_Sprite _p_sprite_single;
+  CL_Sprite _sprite_single;
 
   /**
    * Combo text sprite
    */
-  CL_Sprite _p_sprite_plural;
+  CL_Sprite _sprite_plural;
 
   /**
    * Combo font
    */
-  CL_Font _p_font;
+  CL_Font _font;
 
   /**
    * Combo coords

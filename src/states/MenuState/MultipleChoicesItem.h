@@ -28,9 +28,9 @@ class MultipleChoicesItem : public MenuItem{
 	bool _has_locked;
 	
 	std::vector<CL_Sprite> _choices_list_p;
-	CL_Sprite _p_description_normal;
-	CL_Sprite _p_description_selected;
-	CL_Sprite _p_description_locked;
+	CL_Sprite _description_normal;
+	CL_Sprite _description_selected;
+	CL_Sprite _description_locked;
 		
 	public:
 		

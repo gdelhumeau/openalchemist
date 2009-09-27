@@ -47,9 +47,9 @@ void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
   CL_VirtualDirectory vd(vfs, "./");
   CL_ResourceManager gfx_combos("combos.xml", vd);
 
-  _p_sprite_single = CL_Sprite(gc, "combos/text/sprite_single", &gfx_combos);
-  _p_sprite_plural = CL_Sprite(gc, "combos/text/sprite_plural", &gfx_combos);
-  _p_font = CL_Font_Sprite(gc, "combos/font", &gfx_combos);
+  _sprite_single = CL_Sprite(gc, "combos/text/sprite_single", &gfx_combos);
+  _sprite_plural = CL_Sprite(gc, "combos/text/sprite_plural", &gfx_combos);
+  _font = CL_Font_Sprite(gc, "combos/font", &gfx_combos);
 
   _sprite_x =  CL_Integer_to_int("combos/text/left", &gfx_combos);
   _sprite_y =  CL_Integer_to_int("combos/text/top", &gfx_combos);
@@ -57,7 +57,7 @@ void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
   _score_x =  CL_Integer_to_int("combos/score/left", &gfx_combos);
   _score_y =  CL_Integer_to_int("combos/score/top", &gfx_combos);  
 
-	_font_height = _p_font.get_font_metrics(gc).get_height();
+	_font_height = _font.get_font_metrics(gc).get_height();
 
 }
 
@@ -91,11 +91,11 @@ void CombosPainter :: draw(CL_GraphicContext &gc)
   if(!_is_enabled)
     return;
 
-  _p_font.draw_text(gc, _score_x, _score_current_y, to_string(_score));
+  _font.draw_text(gc, _score_x, _score_current_y, to_string(_score));
   if(_score == 1)
-    _p_sprite_single.draw(gc, _sprite_current_x, _sprite_y);
+    _sprite_single.draw(gc, _sprite_current_x, _sprite_y);
   else
-    _p_sprite_plural.draw(gc, _sprite_current_x, _sprite_y);
+    _sprite_plural.draw(gc, _sprite_current_x, _sprite_y);
 
   
 }

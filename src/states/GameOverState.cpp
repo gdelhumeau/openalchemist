@@ -35,8 +35,8 @@ void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
   CL_VirtualDirectory vd(vfs, "./");	
   CL_ResourceManager gfx("menu_gameover.xml",vd);
 
-  _p_dialog_gameover = CL_Sprite(gc, "menu_gameover/dialog_gameover", &gfx);
-  _p_dialog_highscore = CL_Sprite(gc, "menu_gameover/dialog_highscore", &gfx);
+  _dialog_gameover = CL_Sprite(gc, "menu_gameover/dialog_gameover", &gfx);
+  _dialog_highscore = CL_Sprite(gc, "menu_gameover/dialog_highscore", &gfx);
   _dialog_x = CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
   _dialog_y = CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
   _score1_x = CL_Integer_to_int("menu_gameover/score1_left", &gfx);
@@ -44,11 +44,11 @@ void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
   _score2_x = CL_Integer_to_int("menu_gameover/score2_left", &gfx);
   _score2_y = CL_Integer_to_int("menu_gameover/score2_top", &gfx);
 
-  _p_yes_selected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/selected", &gfx);
-  _p_yes_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/unselected", &gfx);
+  _yes_selected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/selected", &gfx);
+  _yes_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/unselected", &gfx);
 
-  _p_no_selected = CL_Sprite(gc, "menu_gameover/new_game_question/no/selected", &gfx);
-  _p_no_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/no/unselected", &gfx);
+  _no_selected = CL_Sprite(gc, "menu_gameover/new_game_question/no/selected", &gfx);
+  _no_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/no/unselected", &gfx);
 
   _yes_x = CL_Integer_to_int("menu_gameover/new_game_question/yes/left", &gfx);
   _yes_y = CL_Integer_to_int("menu_gameover/new_game_question/yes/top", &gfx);
@@ -67,7 +67,7 @@ void GameOverState::unload_gfx()
 
 void GameOverState::draw(CL_GraphicContext & gc)
 {
-  _p_dialog.draw(gc, _dialog_x, _dialog_y);
+  _dialog.draw(gc, _dialog_x, _dialog_y);
 
 
   if(MODE_HIGHSCORE == _mode)
@@ -101,13 +101,13 @@ void GameOverState::draw(CL_GraphicContext & gc)
 
   if(_selection == GAMEOVER_SELECTION_YES)
   {
-    _p_yes_selected.draw(gc, _yes_x, _yes_y);
-    _p_no_unselected.draw(gc, _no_x, _no_y);
+    _yes_selected.draw(gc, _yes_x, _yes_y);
+    _no_unselected.draw(gc, _no_x, _no_y);
   }
   else
   {
-    _p_yes_unselected.draw(gc, _yes_x, _yes_y);
-    _p_no_selected.draw(gc, _no_x, _no_y);
+    _yes_unselected.draw(gc, _yes_x, _yes_y);
+    _no_selected.draw(gc, _no_x, _no_y);
   }
 }
 
@@ -184,11 +184,11 @@ void GameOverState::set_mode(int mode)
   this -> _mode = mode;
   if(mode == MODE_GAMEOVER)
   {
-    _p_dialog = _p_dialog_gameover;
+    _dialog = _dialog_gameover;
   }
   else
   {
-    _p_dialog = _p_dialog_highscore;
+    _dialog = _dialog_highscore;
   }
 }
 

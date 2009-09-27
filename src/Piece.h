@@ -16,7 +16,7 @@
 
 #include <ClanLib/display.h>
 
-#define PIECE_SPEED 0.7
+#define PIECE_SPEED 0.7f
 
 class Piece
 {
@@ -101,7 +101,7 @@ class Piece
   void start_fall(int target_x, int target_y)
     {
       this -> _target_y = target_y;
-      _x = target_x;
+      _x = (float) target_x;
     }
 
   void set_normal()
@@ -138,12 +138,12 @@ class Piece
 
 
   // Return true if the piece is placed
-  bool fall(double time_interval)
+  bool fall(float time_interval)
     {
       _y += PIECE_SPEED * time_interval;
       if(_y >= _target_y)
       {
-        _y = _target_y;
+        _y = (float)_target_y;
         return true;
       }
 

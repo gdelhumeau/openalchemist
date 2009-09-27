@@ -31,14 +31,14 @@ class TitleState : public GameState{
 
   DemoPlayer _demo_player;
 
-  CL_Sprite _p_start_message;
+  CL_Sprite _start_message;
   int _start_message_x, _start_message_y;
 
-  CL_Sprite _p_keydemo_left, _p_keydemo_up, _p_keydemo_right, _p_keydemo_down;
-  CL_Sprite _p_keydemo_escape, _p_keydemo_options;
+  CL_Sprite _keydemo_left, _keydemo_up, _keydemo_right, _keydemo_down;
+  CL_Sprite _keydemo_escape, _keydemo_options;
 
   /** Help sentences **/
-  CL_Sprite _sentences_p[NUMBER_OF_SENTENCES];
+  CL_Sprite _sentences[NUMBER_OF_SENTENCES];
 
   /** Help sentences coords **/
   int _sentences_x[NUMBER_OF_SENTENCES], _sentences_y[NUMBER_OF_SENTENCES];

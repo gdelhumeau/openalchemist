@@ -28,10 +28,10 @@ enum
 class DualChoiceItem : public MenuItem
 {
 protected:
-    CL_Sprite _p_normal_sprite_left;
-    CL_Sprite _p_selected_sprite_left;
-    CL_Sprite _p_normal_sprite_right;
-    CL_Sprite _p_selected_sprite_right;
+    CL_Sprite _normal_sprite_left;
+    CL_Sprite _selected_sprite_left;
+    CL_Sprite _normal_sprite_right;
+    CL_Sprite _selected_sprite_right;
 
 	int _selection;
 	

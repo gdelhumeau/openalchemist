@@ -63,7 +63,7 @@ inline std::string to_string( const T & Value )
 
 inline std::string format_number(const std::string &string)
 {
-  int length = string.length();
+  int length = (int)string.length();
   std::string string_modified = "";
   for(int i = 0; i<length; ++i)
   {

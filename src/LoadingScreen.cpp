@@ -28,27 +28,27 @@ void LoadingScreen::init(CL_GraphicContext &gc, CL_DisplayWindow & window)
 		_p_gc = &gc;
 		_p_window = &window;
 		std::string file_path = get_data_path();
-    _p_logo = CL_Image(gc, file_path + get_path_separator() +
+    _logo = CL_Image(gc, file_path + get_path_separator() +
                              "loading.png");
                              
-    _p_progression = CL_Image(gc, file_path + get_path_separator() +
+    _progression = CL_Image(gc, file_path + get_path_separator() +
                              	    "progression.png");
-    _p_progression_cursor = CL_Image(gc, file_path + get_path_separator() +
+    _progression_cursor = CL_Image(gc, file_path + get_path_separator() +
                                            "progression-cursor.png");
 }
 
 void LoadingScreen::set_progression(float progression)
 {    
-    _p_logo.draw(*_p_gc, 400 - _p_logo.get_width() / 2, 280 - _p_logo.get_height() / 2);
+    _logo.draw(*_p_gc, 400 - _logo.get_width() / 2, 280 - _logo.get_height() / 2);
     
-    int base_x = 400 - _p_progression.get_width() / 2;
+    int base_x = 400 - _progression.get_width() / 2;
     int base_y = 550;
-    _p_progression.draw(*_p_gc, base_x, base_y);
+    _progression.draw(*_p_gc, base_x, base_y);
     
-    int width = progression * _p_progression.get_width();
+    int width = progression * _progression.get_width();
     for(int i=0; i<width; ++i)
     {
-    	_p_progression_cursor.draw(*_p_gc, base_x + i, base_y);
+    	_progression_cursor.draw(*_p_gc, base_x + i, base_y);
     }
 
    	_p_window -> flip(0);

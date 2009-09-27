@@ -28,7 +28,7 @@ class IniElement{
 
 class IniFile{
 
-  std::list<IniElement*> list;
+  std::list<IniElement*> _list;
 
   public:
 
