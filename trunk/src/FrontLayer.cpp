@@ -51,7 +51,7 @@ void FrontLayer::_load_gfx(CL_GraphicContext & gc, CL_ResourceManager *gfx_front
   for(int i=1; i<=number; ++i)
   {
     FrontLayerSprite *fsprite = my_new FrontLayerSprite();
-    fsprite -> p_sprite = CL_Sprite(gc, "frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
+    fsprite -> _sprite = CL_Sprite(gc, "frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
     fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", gfx_frontlayer);
     fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", gfx_frontlayer);
     list.insert(list.end(), fsprite);
@@ -79,8 +79,8 @@ void FrontLayer::draw(CL_GraphicContext & gc)
   while(it != list.end())
   {
     FrontLayerSprite *fsprite = (FrontLayerSprite*)*it;
-    fsprite -> p_sprite.draw(gc, fsprite -> left, fsprite -> top);
-    fsprite -> p_sprite.update();
+    fsprite -> _sprite.draw(gc, fsprite -> left, fsprite -> top);
+    fsprite -> _sprite.update();
     it++;
   }
 }

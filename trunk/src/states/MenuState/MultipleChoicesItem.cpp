@@ -35,15 +35,15 @@ void MultipleChoicesItem::set_description_sprites(CL_GraphicContext &gc,
                                                   std::string selected,
                                                   std::string locked)
 {
-    _p_description_normal = CL_Sprite(gc, normal, &gfx);
-		_p_description_selected = CL_Sprite(gc, selected, &gfx);
+    _description_normal = CL_Sprite(gc, normal, &gfx);
+		_description_selected = CL_Sprite(gc, selected, &gfx);
 		if(locked == "")
 		{
 			_has_locked = false;
 		}
 		else
 		{
-    	_p_description_locked = CL_Sprite(gc, locked, &gfx);
+    	_description_locked = CL_Sprite(gc, locked, &gfx);
 			_has_locked = true;
 		}
 }
@@ -72,18 +72,18 @@ void MultipleChoicesItem::draw(CL_GraphicContext &gc)
 {
     if(selected)
     {
-        _p_description_selected.set_alpha(alpha);
-        _p_description_selected.draw(gc, x, y);
+        _description_selected.set_alpha(alpha);
+        _description_selected.draw(gc, x, y);
     }
     else if(locked)
 		{
-				_p_description_locked.set_alpha(alpha);
-        _p_description_locked.draw(gc, x, y);
+				_description_locked.set_alpha(alpha);
+        _description_locked.draw(gc, x, y);
 		}
 		else				
     {
-        _p_description_normal.set_alpha(alpha);
-        _p_description_normal.draw(gc, x, y);
+        _description_normal.set_alpha(alpha);
+        _description_normal.draw(gc, x, y);
     }
     if(_selection < _choices_list_p.size())
     {

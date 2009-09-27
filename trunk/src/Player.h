@@ -126,27 +126,27 @@ class Player{
   /** 
    * Contains the normal pieces sprites
    */
-  CL_Sprite _p_pieces_normal[NUMBER_OF_PIECES];
+  CL_Sprite _pieces_normal[NUMBER_OF_PIECES];
 
   /**
    * Contains the appearing pieces sprites
    */
-  CL_Sprite _p_pieces_appearing[NUMBER_OF_PIECES];
+  CL_Sprite _pieces_appearing[NUMBER_OF_PIECES];
 
   /**
    * Contains the disappearing pieces sprites
    */
-  CL_Sprite _p_pieces_disappearing[NUMBER_OF_PIECES];
+  CL_Sprite _pieces_disappearing[NUMBER_OF_PIECES];
 
   /**
    * Contains the mini pieces sprites
    */
-  CL_Sprite _p_pieces_mini[NUMBER_OF_PIECES];
+  CL_Sprite _pieces_mini[NUMBER_OF_PIECES];
 
   /**
    * Contains the hidden pieces sprites
    */
-  CL_Sprite _p_pieces_hidden[NUMBER_OF_PIECES - 3];
+  CL_Sprite _pieces_hidden[NUMBER_OF_PIECES - 3];
 
   /**
    * 

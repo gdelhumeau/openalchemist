@@ -134,7 +134,7 @@ public:
 			try
 			{
 				CL_SetupDisplay setup_display;
-
+/*
 				CL_SetupGL target_GL2;
 				CL_SetupGL1 target_GL1;
 				CL_SetupSDL target_SDL;
@@ -158,7 +158,7 @@ public:
 					target_SDL.set_current();
 					break;
 				}
-
+*/
 				GameEngine game;
 				game.init();
 				game.run();
@@ -172,11 +172,11 @@ public:
 
 				// Display the stack trace (if available)
 				std::vector<CL_String> stacktrace = exception.get_stack_trace();
-				int size = stacktrace.size();
+				size_t size = stacktrace.size();
 				if (size > 0)
 				{
 					CL_Console::write_line("Stack Trace:");
-					for (int cnt=0; cnt < size; cnt++)
+					for (unsigned int cnt=0; cnt < size; cnt++)
 					{
 						CL_Console::write_line(stacktrace[cnt]);
 					}

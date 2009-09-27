@@ -19,7 +19,7 @@
 struct FrontLayerSprite{
 
   public:
-  CL_Sprite p_sprite;
+  CL_Sprite _sprite;
   unsigned int left, top;
 
 };

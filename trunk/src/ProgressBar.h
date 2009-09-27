@@ -24,9 +24,9 @@ class ProgressBar{
   /**
    * Sprites for progress bar
    */
-  CL_Sprite _p_head, _p_head_ok;
-  CL_Sprite _p_foot;
-  CL_Sprite _p_item, _p_item_ok;
+  CL_Sprite _head, _head_ok;
+  CL_Sprite _foot;
+  CL_Sprite _item, _item_ok;
   
   /**
    * Progress bar coords

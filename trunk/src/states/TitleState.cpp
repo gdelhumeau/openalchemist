@@ -36,24 +36,24 @@ void TitleState::load_gfx(CL_GraphicContext & gc, std::string skin)
   CL_VirtualDirectory vd(vfs, "./");	
   CL_ResourceManager gfx("title.xml",vd);
 	
-	_p_start_message = CL_Sprite(gc, "title/start_message/sprite", &gfx);
+	_start_message = CL_Sprite(gc, "title/start_message/sprite", &gfx);
 	_start_message_x = CL_Integer_to_int("title/start_message/left", &gfx);
 	_start_message_y = CL_Integer_to_int("title/start_message/top", &gfx);
 	
 	for(int i=0; i<NUMBER_OF_SENTENCES; ++i)
 	{
-		_sentences_p[i] = CL_Sprite(gc, "title/help/"+to_string(i+1)+"/sentence", &gfx);
+		_sentences[i] = CL_Sprite(gc, "title/help/"+to_string(i+1)+"/sentence", &gfx);
 		_sentences_x[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/left", &gfx);
 		_sentences_y[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/top", &gfx);
 		_sentences_time[i] = CL_Integer_to_int("title/help/"+to_string(i+1)+"/time", &gfx);
 	}
 	
-	_p_keydemo_left    = CL_Sprite(gc, "title/keydemo/left", &gfx);
-	_p_keydemo_up      = CL_Sprite(gc, "title/keydemo/up", &gfx);
-	_p_keydemo_right   = CL_Sprite(gc, "title/keydemo/right", &gfx);
-	_p_keydemo_down    = CL_Sprite(gc, "title/keydemo/down", &gfx);
-	_p_keydemo_escape  = CL_Sprite(gc, "title/keydemo/escape", &gfx);
-	_p_keydemo_options = CL_Sprite(gc, "title/keydemo/options", &gfx);
+	_keydemo_left    = CL_Sprite(gc, "title/keydemo/left", &gfx);
+	_keydemo_up      = CL_Sprite(gc, "title/keydemo/up", &gfx);
+	_keydemo_right   = CL_Sprite(gc, "title/keydemo/right", &gfx);
+	_keydemo_down    = CL_Sprite(gc, "title/keydemo/down", &gfx);
+	_keydemo_escape  = CL_Sprite(gc, "title/keydemo/escape", &gfx);
+	_keydemo_options = CL_Sprite(gc, "title/keydemo/options", &gfx);
 	
 	_keyleft_x = 50;
 	_keyleft_y = _keyright_y = _keydown_y = 100;
@@ -73,51 +73,51 @@ void TitleState::unload_gfx()
 void TitleState::draw(CL_GraphicContext & gc)
 {
 	
-	_sentences_p[_step].draw (gc, _sentences_x[_step], _sentences_y[_step]);
+	_sentences[_step].draw (gc, _sentences_x[_step], _sentences_y[_step]);
 	
-	_p_start_message.draw(gc, _start_message_x,_start_message_y);
+	_start_message.draw(gc, _start_message_x,_start_message_y);
 	
 	switch(_step)
 	{
 		case 2:
-			_p_keydemo_left.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-													 _sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_left.update();
+			_keydemo_left.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+													 _sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_left.update();
 			break;
 		case 3:
-			_p_keydemo_right.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-														_sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_right.update();
+			_keydemo_right.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+														_sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_right.update();
 			break;
 		case 4:
-			_p_keydemo_up.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-												 _sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_up.update();
+			_keydemo_up.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+												 _sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_up.update();
 			break;
 		case 5:
 		case 7:
-			_p_keydemo_down.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-													 _sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_down.update();
+			_keydemo_down.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+													 _sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_down.update();
 			break;
 		case 6:
-			_p_keydemo_left.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width(),
-													 _sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_left.update();
+			_keydemo_left.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width(),
+													 _sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_left.update();
 			
-			_p_keydemo_right.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 + _p_keydemo_left.get_width(),
-														_sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_right.update();
+			_keydemo_right.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 + _keydemo_left.get_width(),
+														_sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_right.update();
 			break;
 		case 12:
-			_p_keydemo_escape.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-														 _sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_escape.update();
+			_keydemo_escape.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+														 _sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_escape.update();
 			break;
 		case 13:
-			_p_keydemo_options.draw(gc, _sentences_x[_step] + _sentences_p[_step].get_width()/2 - _p_keydemo_left.get_width()/2,
-															_sentences_y[_step] + _sentences_p[_step].get_height());
-			_p_keydemo_options.update();
+			_keydemo_options.draw(gc, _sentences_x[_step] + _sentences[_step].get_width()/2 - _keydemo_left.get_width()/2,
+															_sentences_y[_step] + _sentences[_step].get_height());
+			_keydemo_options.update();
 			break;
 			break;
 			
@@ -126,13 +126,13 @@ void TitleState::draw(CL_GraphicContext & gc)
 
 void TitleState::update(CL_GraphicContext & gc)
 {
-	_p_start_message.update();
+	_start_message.update();
 	
 	if(_next_time < CL_System::get_time())
 	{
 		_step = (_step + 1) % NUMBER_OF_SENTENCES;
 		_next_time = CL_System::get_time() + _sentences_time[_step];
-		_sentences_p[_step].update();
+		_sentences[_step].update();
 	}
 	
 	switch(_step)

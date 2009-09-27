@@ -53,7 +53,7 @@ void IniFile::read(CL_File *file)
       {
         e -> name = line.substr(0, separator);
         e -> value = line.substr(separator + 3, line.length());
-        list.insert(list.end(), e);
+        _list.insert(_list.end(), e);
       }
     }
 
@@ -67,8 +67,8 @@ void IniFile::write(CL_File *file)
   {
     std::string section = "[Preferences]";
     write_ln(file, section);
-    std::list<IniElement*>::iterator it = list.begin();
-    while(it != list.end())
+    std::list<IniElement*>::iterator it = _list.begin();
+    while(it != _list.end())
     {
       IniElement *e = (IniElement*)*it;
       std::string line = e -> name + " = " + e -> value;
@@ -88,19 +88,19 @@ void IniFile::write(CL_File *file)
 
 void IniFile::clear()
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(!list.empty())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(!_list.empty())
   {
     IniElement *e = (IniElement*) *it;
     delete e;
-    it = list.erase(it);
+    it = _list.erase(it);
   }
 }
 
 void IniFile::add(std::string name, std::string value)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
@@ -114,13 +114,13 @@ void IniFile::add(std::string name, std::string value)
   IniElement *e = new IniElement();
   e -> name = name;
   e -> value = value;
-  list.insert(list.end(), e);
+  _list.insert(_list.end(), e);
 }
 
 void IniFile::add(std::string name, bool value)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
@@ -142,13 +142,13 @@ void IniFile::add(std::string name, bool value)
   else
     e -> value = "False";
 
-  list.insert(list.end(), e);
+  _list.insert(_list.end(), e);
 }
 
 void IniFile::add(std::string name, int value)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
@@ -176,13 +176,13 @@ void IniFile::add(std::string name, int value)
     std::cout << value << " is not a correct int." << std::endl;
   }
 
-  list.insert(list.end(), e);
+  _list.insert(_list.end(), e);
 }
 
 std::string IniFile::get(std::string name, std::string def)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
@@ -196,8 +196,8 @@ std::string IniFile::get(std::string name, std::string def)
 
 bool IniFile::get(std::string name, bool def)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
@@ -211,8 +211,8 @@ bool IniFile::get(std::string name, bool def)
 
 int IniFile::get(std::string name, int def)
 {
-  std::list<IniElement*>::iterator it = list.begin();
-  while(it != list.end())
+  std::list<IniElement*>::iterator it = _list.begin();
+  while(it != _list.end())
   {
     IniElement *e = (IniElement*)*it;
     if(e -> name == name)
