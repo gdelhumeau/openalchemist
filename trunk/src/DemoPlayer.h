@@ -20,26 +20,25 @@
 #include "ProgressBar.h"
 #include "Player.h"
 
-
 /**
- * Implements the demo player, keys events for going left, right & falling
- * and contains his board.
- */
+* Implements the demo player, keys events for going left, right & falling
+* and contains his board.
+*/
 class DemoPlayer : public Player{
 
-  public:
+public:
 
-  /**
-   * Checking key events
-   */
-  void events(CL_DisplayWindow & window);
+	/**
+	* Checking key events
+	*/
+	void events(CL_DisplayWindow & window);
 
-  /**
-   * Make a my_new game
-   */
-  void new_game();
-  
-  virtual bool is_human(){ return false; }
+	/**
+	* Make a my_new game
+	*/
+	void new_game();
+
+	virtual bool is_human(){ return false; }
 
 
 };

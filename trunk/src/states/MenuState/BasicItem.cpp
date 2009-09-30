@@ -20,15 +20,15 @@ BasicItem::BasicItem()
 
 BasicItem::~BasicItem()
 {
-    unload_gfx();
+	unload_gfx();
 }
 
 void BasicItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager &gfx,
-	             					std::string normal,
-                        std::string selected,
-                        std::string locked)
+						std::string normal,
+						std::string selected,
+						std::string locked)
 {
-  unload_gfx();
+	unload_gfx();
 	_normal_sprite = CL_Sprite(gc, normal, &gfx);
 	_selected_sprite = CL_Sprite(gc, selected, &gfx);
 	if(locked != "")
@@ -44,26 +44,26 @@ void BasicItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager &gfx,
 
 void BasicItem::unload_gfx()
 {
-   
+
 }
 
 void BasicItem::draw(CL_GraphicContext &gc)
 {
-    if (selected)
-    {
-        _selected_sprite.set_alpha(alpha);
-        _selected_sprite.draw(gc, x, y);
-    }
-    else if (locked)
-    {
-        _locked_sprite.set_alpha(alpha);
-        _locked_sprite.draw(gc, x, y);
-    }
-    else
-    {
-        _normal_sprite.set_alpha(alpha);
-        _normal_sprite.draw(gc, x, y);
-    }
+	if (selected)
+	{
+		_selected_sprite.set_alpha(alpha);
+		_selected_sprite.draw(gc, x, y);
+	}
+	else if (locked)
+	{
+		_locked_sprite.set_alpha(alpha);
+		_locked_sprite.draw(gc, x, y);
+	}
+	else
+	{
+		_normal_sprite.set_alpha(alpha);
+		_normal_sprite.draw(gc, x, y);
+	}
 }
 
 void BasicItem::action_performed(int action_type)

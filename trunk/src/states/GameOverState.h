@@ -27,43 +27,43 @@ class GameEngine;
 
 
 /**
- * InGame State
- */
+* InGame State
+*/
 class GameOverState : public GameState{
 
-  private:
+private:
 
-  CL_Sprite _dialog, _dialog_gameover, _dialog_highscore;
-  int _dialog_x, _dialog_y;
-  int _score1_x;
-  int _score1_y;
-  int _score2_x;
-  int _score2_y;
+	CL_Sprite _dialog, _dialog_gameover, _dialog_highscore;
+	int _dialog_x, _dialog_y;
+	int _score1_x;
+	int _score1_y;
+	int _score2_x;
+	int _score2_y;
 
-  CL_Sprite _yes_selected, _yes_unselected;
-  CL_Sprite _no_selected, _no_unselected;
-  int _yes_x, _yes_y;
-  int _no_x, _no_y;
+	CL_Sprite _yes_selected, _yes_unselected;
+	CL_Sprite _no_selected, _no_unselected;
+	int _yes_x, _yes_y;
+	int _no_x, _no_y;
 
-  int _mode;
-  int _selection;
+	int _mode;
+	int _selection;
 
-  public:
-  void init();
-  void deinit();
-  void load_gfx(CL_GraphicContext &gc, std::string skin);
-  void unload_gfx();
-  void draw(CL_GraphicContext &gc);
-  void update(CL_GraphicContext &gc);
-  void events(CL_DisplayWindow & window);
+public:
+	void init();
+	void deinit();
+	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	void unload_gfx();
+	void draw(CL_GraphicContext &gc);
+	void update(CL_GraphicContext &gc);
+	void events(CL_DisplayWindow & window);
 
-  bool front_layer_behind();
+	bool front_layer_behind();
 
-  void set_mode(int mode);
-  void start();
+	void set_mode(int mode);
+	void start();
 
-  GameOverState();
-  ~GameOverState();
+	GameOverState();
+	~GameOverState();
 
 
 };

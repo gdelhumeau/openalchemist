@@ -29,123 +29,123 @@
 class LoadingScreen;
 
 /**
- * GameEngine class - controls the states
- */
+* GameEngine class - controls the states
+*/
 class GameEngine{
 
-  private:
-  
-  /**
-   * Stack of states, the current state is on the top
-   */
-  std::stack<GameState*> _states_stack;
-  
-  /**
-   * Window
-   */
-  CL_DisplayWindow _main_window;
+private:
+
+	/**
+	* Stack of states, the current state is on the top
+	*/
+	std::stack<GameState*> _states_stack;
+
+	/**
+	* Window
+	*/
+	CL_DisplayWindow _main_window;
 	CL_Slot _quit_event;
 
-				
-  /**
-   * To know if OpenGL is used
-   */
 
-  bool _render_mode;
+	/**
+	* To know if OpenGL is used
+	*/
+
+	bool _render_mode;
 
 
-  /** 
-   * Controling main loop
-   */
-  bool _running;
-  
+	/** 
+	* Controling main loop
+	*/
+	bool _running;
 
-  /**
-   * Fps Getter
-   */
-  CL_FramerateCounter _fps_getter;
 
-  /** 
-   * States
-   */
-  CommonState _common_state;
-  InGameState _ingame_state;
-  GameOverState _gameover_state;
-  PauseMenuState _pausemenu_state;
-  SkinsMenuState _skinsmenu_state;
-  OptionsMenuState _optionsmenu_state;
-  TitleState _title_state;
-  QuitMenuState _quitmenu_state;
-  
-  LoadingScreen * _p_loading_screen;
-  
-  public:
+	/**
+	* Fps Getter
+	*/
+	CL_FramerateCounter _fps_getter;
 
-  /**
-   * Initializing game engine
-   */
-  void init();
+	/** 
+	* States
+	*/
+	CommonState _common_state;
+	InGameState _ingame_state;
+	GameOverState _gameover_state;
+	PauseMenuState _pausemenu_state;
+	SkinsMenuState _skinsmenu_state;
+	OptionsMenuState _optionsmenu_state;
+	TitleState _title_state;
+	QuitMenuState _quitmenu_state;
+
+	LoadingScreen * _p_loading_screen;
+
+public:
+
+	/**
+	* Initializing game engine
+	*/
+	void init();
 	void deinit();
 	void set_window();
 
-  /**
-   * Main loop
-   */
-  void run();
+	/**
+	* Main loop
+	*/
+	void run();
 
-  /**
-   * Stoping the game engine
-   */
-  void stop();
+	/**
+	* Stoping the game engine
+	*/
+	void stop();
 
-  void set_state_title();
-  void set_state_new_game_menu();
-  void set_state_pause_menu();
-  void set_state_ingame();
-  void set_state_gameover(int mode);
-  void set_state_options_menu();
-  void set_state_skin_menu();
-  void set_state_quit_menu(int action);
+	void set_state_title();
+	void set_state_new_game_menu();
+	void set_state_pause_menu();
+	void set_state_ingame();
+	void set_state_gameover(int mode);
+	void set_state_options_menu();
+	void set_state_skin_menu();
+	void set_state_quit_menu(int action);
 
-  /**
-   * Deleting current state of the stack
-   */
-  void stop_current_state();
+	/**
+	* Deleting current state of the stack
+	*/
+	void stop_current_state();
 
-  /**
-   * Switching to full screen mode or windowed mode
-   */
-  void toggle_screen();
+	/**
+	* Switching to full screen mode or windowed mode
+	*/
+	void toggle_screen();
 
 	void change_screen_size();
 
 	void refresh_framerate_limit();
 
-  /**
-   * Returning Frame Rate
-   */
-  int get_fps();
+	/**
+	* Returning Frame Rate
+	*/
+	int get_fps();
 
-  /**
-   * Returning if OpenGL is used
-   */
-  bool is_opengl_used();
+	/**
+	* Returning if OpenGL is used
+	*/
+	bool is_opengl_used();
 
 	bool is_fullscreen();
 
-  void set_skin(std::string skin);
+	void set_skin(std::string skin);
 
-  void set_skin_element(unsigned int element);
+	void set_skin_element(unsigned int element);
 
-  /**
-   * Constructor
-   */
-  GameEngine();
+	/**
+	* Constructor
+	*/
+	GameEngine();
 
-  /**
-   * Destructor
-   */
-  ~GameEngine();
+	/**
+	* Destructor
+	*/
+	~GameEngine();
 
 };
 

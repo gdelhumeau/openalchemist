@@ -22,19 +22,19 @@ enum ACTION_TYPE
 };
 
 /**
- * Generic (abstract) Menu Item class
- */
+* Generic (abstract) Menu Item class
+*/
 class MenuItem{
 
-	protected:
-	
+protected:
+
 	int x, y;
 	bool selected;
 	double alpha;
 	bool locked;
-	
-	public:
-		
+
+public:
+
 	virtual void draw(CL_GraphicContext &gc) = 0;
 	virtual void action_performed(int action_type) = 0;
 	virtual bool quit_menu_on_action() = 0;
@@ -46,7 +46,7 @@ class MenuItem{
 	void set_locked(bool locked);
 
 	bool is_locked(){return locked;};
-	
+
 	MenuItem();	
 
 };

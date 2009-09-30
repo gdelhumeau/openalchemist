@@ -21,7 +21,7 @@ DualChoiceItem::DualChoiceItem()
 
 DualChoiceItem::~DualChoiceItem()
 {
-    unload_gfx();
+	unload_gfx();
 }
 
 void DualChoiceItem::set_x2(int x)
@@ -35,10 +35,10 @@ void DualChoiceItem::set_y2(int y)
 }
 
 void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
-	            	std::string normal_left, std::string selected_left,
-                std::string normal_right, std::string selected_right)
+							 std::string normal_left, std::string selected_left,
+							 std::string normal_right, std::string selected_right)
 {
-  unload_gfx();
+	unload_gfx();
 	_normal_sprite_left  = CL_Sprite(gc, normal_left, &gfx);
 	_selected_sprite_left = CL_Sprite(gc, selected_left, &gfx);
 	_normal_sprite_right = CL_Sprite(gc, normal_right, &gfx);
@@ -47,8 +47,8 @@ void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
 
 void DualChoiceItem::unload_gfx()
 {
-  
-  
+
+
 }
 
 void DualChoiceItem::draw(CL_GraphicContext &gc)
@@ -57,12 +57,12 @@ void DualChoiceItem::draw(CL_GraphicContext &gc)
 	_selected_sprite_right .update();
 	_normal_sprite_left    .update();
 	_normal_sprite_right   .update();
-	
+
 	if(_selection == CHOICE_LEFT)
 	{
 		_selected_sprite_left.set_alpha(alpha);
 		_normal_sprite_right.set_alpha(alpha);
-		
+
 		_selected_sprite_left.draw(gc, x, y);
 		_normal_sprite_right.draw(gc, _x2, _y2);
 	}
@@ -70,7 +70,7 @@ void DualChoiceItem::draw(CL_GraphicContext &gc)
 	{
 		_normal_sprite_left.set_alpha(alpha);
 		_selected_sprite_right.set_alpha(alpha);
-		
+
 		_normal_sprite_left.draw(gc, x, y);
 		_selected_sprite_right.draw(gc, _x2, _y2);
 	}
@@ -78,14 +78,14 @@ void DualChoiceItem::draw(CL_GraphicContext &gc)
 
 void DualChoiceItem::action_performed(int action_type)
 {
-	
-	if(ACTION_TYPE_LEFT == action_type)
- 	{
-    	_selection = CHOICE_LEFT;
-  	}
 
- 	if(ACTION_TYPE_RIGHT == action_type)
- 	{
- 		_selection = CHOICE_RIGHT;
-  }
+	if(ACTION_TYPE_LEFT == action_type)
+	{
+		_selection = CHOICE_LEFT;
+	}
+
+	if(ACTION_TYPE_RIGHT == action_type)
+	{
+		_selection = CHOICE_RIGHT;
+	}
 }

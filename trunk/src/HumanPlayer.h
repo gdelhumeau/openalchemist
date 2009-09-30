@@ -22,19 +22,19 @@
 
 
 /**
- * Implements the human player, keys events for going left, right & falling
- * and contains his board.
- */
+* Implements the human player, keys events for going left, right & falling
+* and contains his board.
+*/
 class HumanPlayer : public Player{
 
-  public:
+public:
 
-  /**
-   * Checking key events
-   */
-  void events(CL_DisplayWindow & window);
-  
-  virtual bool is_human(){ return true; }
+	/**
+	* Checking key events
+	*/
+	void events(CL_DisplayWindow & window);
+
+	virtual bool is_human(){ return true; }
 
 
 };

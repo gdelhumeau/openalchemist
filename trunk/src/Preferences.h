@@ -10,7 +10,6 @@
 
 *********************************************************************/
 
-
 #ifndef _PREFERENCES_H_
 #define _PREFREENCES_H_
 
@@ -20,9 +19,9 @@
 class Preferences
 {
 
-  public:
+public:
 
-  enum RenderTarget
+	enum RenderTarget
 	{
 		GDI,
 		OPENGL_1,
@@ -30,23 +29,23 @@ class Preferences
 		SDL
 	};
 
-  /** Render used */
-  RenderTarget render_target;
+	/** Render used */
+	RenderTarget render_target;
 
-  /** Fps Limit */
-  int maxfps;
-  
-  /** Sound level */
-  int sound_level;
+	/** Fps Limit */
+	int maxfps;
 
-  /** Music level */
-  int music_level;
+	/** Sound level */
+	int sound_level;
 
-  /** Saves if the game is in fullscreen mode or not */
-  bool fullscreen;
+	/** Music level */
+	int music_level;
 
-  /** Saves if user wants to use blind-mode */
-  bool colorblind;
+	/** Saves if the game is in fullscreen mode or not */
+	bool fullscreen;
+
+	/** Saves if user wants to use blind-mode */
+	bool colorblind;
 
 	/** Saves if user have a wide screen */
 	bool widescreen;
@@ -54,17 +53,17 @@ class Preferences
 	/** Saves screen size */
 	int screen_size;
 
-  /** Saves the last skin used */
-  std::string skin;
+	/** Saves the last skin used */
+	std::string skin;
 
-  Preferences();
-  void read();
-  void write();
+	Preferences();
+	void read();
+	void write();
 
-  private:
-  void read_options_file(CL_File *file);
-  void write_options_file(CL_File *file);
-  void set_default();
+private:
+	void read_options_file(CL_File *file);
+	void write_options_file(CL_File *file);
+	void set_default();
 
 
 };
@@ -73,11 +72,11 @@ class Preferences
 Preferences* pref_get_instance();
 
 enum{
-		SCREEN_SIZE_320x240	= 0,
-		SCREEN_SIZE_640x480,
-		SCREEN_SIZE_640x480_WIDE,
-		SCREEN_SIZE_800x600,
-		SCREEN_SIZE_800x600_WIDE,		
+	SCREEN_SIZE_320x240	= 0,
+	SCREEN_SIZE_640x480,
+	SCREEN_SIZE_640x480_WIDE,
+	SCREEN_SIZE_800x600,
+	SCREEN_SIZE_800x600_WIDE,		
 };
 
 

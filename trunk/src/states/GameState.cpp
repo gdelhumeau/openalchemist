@@ -16,14 +16,14 @@
 
 GameState::GameState()
 {
-	  _p_common_resources = common_resources_get_instance();
-  return;
+	_p_common_resources = common_resources_get_instance();
+	return;
 }
 
 
 GameState::~GameState()
 {
-  return;
+	return;
 }
 
 void GameState::init()
@@ -34,5 +34,5 @@ void GameState::init()
 
 void GameState::deinit()
 {
- 
+
 }

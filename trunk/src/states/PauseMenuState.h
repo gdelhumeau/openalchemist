@@ -18,29 +18,29 @@
 
 
 /**
- * PauseMenu State
- */
+* PauseMenu State
+*/
 class PauseMenuState : public MenuState{
 
-  private:
-  
- 	BasicItem _resume_item;
+private:
+
+	BasicItem _resume_item;
 	BasicItem _undo_item;
 	BasicItem _retry_item;
 	BasicItem _options_item;
 	BasicItem _giveup_item;
 	BasicItem _quit_item;
 
-  public:
-  void init();
-  void deinit();
-  void load_gfx(CL_GraphicContext &gc, std::string skin);
-  void unload_gfx();
-  void action_performed(int selection, int action_type);
+public:
+	void init();
+	void deinit();
+	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	void unload_gfx();
+	void action_performed(int selection, int action_type);
 	void update_child();
 
-  PauseMenuState();
-  ~PauseMenuState();
+	PauseMenuState();
+	~PauseMenuState();
 
 
 };

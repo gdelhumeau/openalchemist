@@ -26,42 +26,42 @@ class GameEngine;
 
 class CommonResources{
 
-  public:
-  GameEngine *p_engine;
-  CL_Font main_font;
+public:
+	GameEngine *p_engine;
+	CL_Font main_font;
 	CL_GraphicContext * p_gc;
 	CL_DisplayWindow * p_window;
 
-  int score;
+	int score;
 
-  HumanPlayer player1;
-  Player *p_current_player;
+	HumanPlayer player1;
+	Player *p_current_player;
 
-  FrontLayer front_layer;
+	FrontLayer front_layer;
 
-  Keys key;
+	Keys key;
 
-  std::string skin;
+	std::string skin;
 
-  /** Sprites */
-  int pieces_width, pieces_height;
+	/** Sprites */
+	int pieces_width, pieces_height;
 
-  double time_interval;
-  int fps;
+	double time_interval;
+	int fps;
 
-  unsigned int highscore;
-  unsigned int old_highscore;
+	unsigned int highscore;
+	unsigned int old_highscore;
 
 
-  void init(GameEngine *p_engine);
-  void load_gfx(CL_GraphicContext &gc, std::string skin);
-  void unload_gfx();
+	void init(GameEngine *p_engine);
+	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	void unload_gfx();
 
-  void read_scores();
-  void save_scores();
+	void read_scores();
+	void save_scores();
 
-  CommonResources();
-  ~CommonResources();
+	CommonResources();
+	~CommonResources();
 
 };
 

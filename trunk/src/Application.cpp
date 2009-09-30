@@ -25,23 +25,23 @@
 #include "AudioManager.h"
 
 /**
- * Main application
- */
+* Main application
+*/
 class Application
 {
 public:
 
-  /**
-   * Check command lines arguments
-   */
-  static bool check_args(const std::vector<CL_String> &args)
-  {
-    bool run_game = true;
-    Preferences *pref = pref_get_instance();
+	/**
+	* Check command lines arguments
+	*/
+	static bool check_args(const std::vector<CL_String> &args)
+	{
+		bool run_game = true;
+		Preferences *pref = pref_get_instance();
 
-    // Checking parameters
-    for(unsigned int i = 0; i < args.size(); ++i)
-    {
+		// Checking parameters
+		for(unsigned int i = 0; i < args.size(); ++i)
+		{
 			// Render target
 			if((args[i] =="--sdl") && pref->render_target != Preferences::SDL)
 			{
@@ -112,25 +112,25 @@ public:
 
 			}
 
-    }
+		}
 
-    return run_game;
-  }
+		return run_game;
+	}
 
-  /**
-   * Application main function
-   */
-  static int main(const std::vector<CL_String> &args)
-  {
+	/**
+	* Application main function
+	*/
+	static int main(const std::vector<CL_String> &args)
+	{
 		CL_SetupCore setup_core;
 		init_memory();
 		common_resources_init();
 		g_audio_manager.init();		
-    Preferences *pref = pref_get_instance();
-    bool run_game = check_args(args);
+		Preferences *pref = pref_get_instance();
+		bool run_game = check_args(args);
 
-    if(run_game)
-    {
+		if(run_game)
+		{
 			try
 			{
 				CL_SetupDisplay setup_display;
@@ -184,59 +184,59 @@ public:
 				console.display_close_message();
 				return -1;
 			}
-			
+
 		}
 		common_resources_term();		
 		g_audio_manager.term();
 		my_delete(pref_get_instance());
 		term_memory();
-    return 0;
-  }
+		return 0;
+	}
 
-  /**
-   * Display the help informations
-   */
-  void static help()
-    {
-      std::cout << "OpenAlchemist " << get_version() << " -- Help" << std::endl
-				<< "Usage: openalchemist [OPTIONS]"  << std::endl  << std::endl
-				<< "Options:"  << std::endl
-				<< "\t--cb       : Active colorblind mode"  << std::endl
-				<< "\t--help     : Show this message"  << std::endl
-				<< "\t--license  : Show the license of this program"  << std::endl
-				<< "\t--maxfps X : Limit framerate to X"  << std::endl
-				<< "\t--nocb     : Disable colorblind mode"  << std::endl
-				<< "\t--nowide   : Disable 16:9 wide screen mode"  << std::endl
-				<< "\t--gdi      : Use GDI as render target (default)" << std::endl
-				            << "\t--opengl   : Use OpenGL as render target" << std::endl
-				            << "\t--opengl2  : Use OpenGL 2 as render target" << std::endl
-				<< "\t--sdl      : Use SDL as render target" << std::endl
-				<< "\t--wide     : Special mode for 16:9 wide screen (only supported with OpenGL)" << std::endl;				
-    }
+	/**
+	* Display the help informations
+	*/
+	void static help()
+	{
+		std::cout << "OpenAlchemist " << get_version() << " -- Help" << std::endl
+			<< "Usage: openalchemist [OPTIONS]"  << std::endl  << std::endl
+			<< "Options:"  << std::endl
+			<< "\t--cb       : Active colorblind mode"  << std::endl
+			<< "\t--help     : Show this message"  << std::endl
+			<< "\t--license  : Show the license of this program"  << std::endl
+			<< "\t--maxfps X : Limit framerate to X"  << std::endl
+			<< "\t--nocb     : Disable colorblind mode"  << std::endl
+			<< "\t--nowide   : Disable 16:9 wide screen mode"  << std::endl
+			<< "\t--gdi      : Use GDI as render target (default)" << std::endl
+			<< "\t--opengl   : Use OpenGL as render target" << std::endl
+			<< "\t--opengl2  : Use OpenGL 2 as render target" << std::endl
+			<< "\t--sdl      : Use SDL as render target" << std::endl
+			<< "\t--wide     : Special mode for 16:9 wide screen (only supported with OpenGL)" << std::endl;				
+	}
 
-  /**
-   * Display the license
-   */
-  void static license()
-    {
-      std::cout << " * OpenAlchemist "<< get_version() << " -- License\n" << std::endl
-				<< " * Copyright (C) 2006,2009 Guillaume Delhumeau <guillaume.delhumeau at gmail.com>" << std::endl
-				<< " *"  << std::endl
-				<< " * This program is free software; you can redistribute it and/or modify " << std::endl
-				<< " * it under the terms of the GNU General Public License as published by" << std::endl
-				<< " * the Free Software Foundation; either version 2 of the License, or" << std::endl
-				<< " * (at your option) any later version." << std::endl
-				<< " *" << std::endl
-				<< " * This program is distributed in the hope that it will be useful," << std::endl
-				<< " * but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl
-				<< " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl
-				<< " * GNU General Public License for more details." << std::endl
-				<< " *" << std::endl
-				<< " * You should have received a copy of the GNU General Public License" << std::endl
-				<< " * along with this program; if not, write to the Free Software" << std::endl
-				<< " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA." <<std::endl
-				<< " *" << std::endl << std::endl;
-    }
+	/**
+	* Display the license
+	*/
+	void static license()
+	{
+		std::cout << " * OpenAlchemist "<< get_version() << " -- License\n" << std::endl
+			<< " * Copyright (C) 2006,2009 Guillaume Delhumeau <guillaume.delhumeau at gmail.com>" << std::endl
+			<< " *"  << std::endl
+			<< " * This program is free software; you can redistribute it and/or modify " << std::endl
+			<< " * it under the terms of the GNU General Public License as published by" << std::endl
+			<< " * the Free Software Foundation; either version 2 of the License, or" << std::endl
+			<< " * (at your option) any later version." << std::endl
+			<< " *" << std::endl
+			<< " * This program is distributed in the hope that it will be useful," << std::endl
+			<< " * but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl
+			<< " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl
+			<< " * GNU General Public License for more details." << std::endl
+			<< " *" << std::endl
+			<< " * You should have received a copy of the GNU General Public License" << std::endl
+			<< " * along with this program; if not, write to the Free Software" << std::endl
+			<< " * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA." <<std::endl
+			<< " *" << std::endl << std::endl;
+	}
 
 };
 
