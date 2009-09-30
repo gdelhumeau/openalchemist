@@ -68,13 +68,13 @@ std::string get_skins_path()
 std::string get_data_path()
 {
 #ifdef WIN32
-  std::string file_path = CL_System::get_exe_path() + "\\data";
+  std::string file_path = CL_System::get_exe_path() + "data\\";
 #else
 #ifdef DATA_DIR
   std::string file_path = DATA_DIR;
   file_path += "/";
 #else
-  std::string file_path = CL_System::get_exe_path() + "data";
+  std::string file_path = CL_System::get_exe_path() + "data/";
 #endif
 #endif
   return file_path;

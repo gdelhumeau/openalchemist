@@ -5,7 +5,6 @@
 	Name="OpenAlchemist"
 	ProjectGUID="{C1C000EF-A999-445F-A3AA-AC224638D180}"
 	Keyword="Win32Proj"
-	AssemblyReferenceSearchPaths="&quot;..\..\..\ClanLib-0.2\ClanLib-VC9Precompiled-static-mt-2.0.4\include&quot;"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -18,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
+			OutputDirectory="..\trunk"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			>
@@ -40,7 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\ClanLib-VC9Precompiled-static-mt-2.0.4\include&quot;"
+				AdditionalIncludeDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target includes&quot;"
 				PreprocessorDefinitions="WIN32;DEBUG;_WINDOWS;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,8 +61,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="clanApp-static-mt-debug.lib clanCore-static-mt-debug.lib clanGDI-static-mt-debug.lib clanDisplay-static-mt-debug.lib clanSound-static-mt-debug.lib clanVorbis-static-mt-debug.lib"
+				OutputFile="$(OutDir)\$(ProjectName)-Debug.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\ClanLib-VC9Precompiled-static-mt-2.0.4\lib&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
+				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target libs&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
