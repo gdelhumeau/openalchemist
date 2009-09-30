@@ -39,8 +39,6 @@ void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
 {
 
 	unload_gfx();
-  // Getting resources
-  //CommonResources *resources = common_resources_get_instance();
 
   // Getting skins resources
   CL_VirtualFileSystem vfs(skin, true);

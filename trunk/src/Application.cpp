@@ -134,7 +134,6 @@ public:
 			try
 			{
 				CL_SetupDisplay setup_display;
-/*
 				CL_SetupGL target_GL2;
 				CL_SetupGL1 target_GL1;
 				CL_SetupSDL target_SDL;
@@ -158,7 +157,6 @@ public:
 					target_SDL.set_current();
 					break;
 				}
-*/
 				GameEngine game;
 				game.init();
 				game.run();
@@ -169,6 +167,8 @@ public:
 				CL_ConsoleWindow console("Console", 80, 160);
 				CL_Console::write_line("Exception caught:");
 				CL_Console::write_line(exception.message);
+
+				CL_Console::write_line("--------------------");
 
 				// Display the stack trace (if available)
 				std::vector<CL_String> stacktrace = exception.get_stack_trace();
