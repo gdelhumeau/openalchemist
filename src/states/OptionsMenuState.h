@@ -22,32 +22,32 @@
 class GameEngine;
 
 /**
- * OptionsMenu State
- */
+* OptionsMenu State
+*/
 class OptionsMenuState : public MenuState
 {
 
 private:
-    MultipleChoicesItem _render_item;
-    MultipleChoicesItem _screensize_item;
-    MultipleChoicesItem _fullscreen_item;
-    MultipleChoicesItem _framerate_item;
-    MultipleChoicesItem _sound_level_item;
-    MultipleChoicesItem _music_level_item;
+	MultipleChoicesItem _render_item;
+	MultipleChoicesItem _screensize_item;
+	MultipleChoicesItem _fullscreen_item;
+	MultipleChoicesItem _framerate_item;
+	MultipleChoicesItem _sound_level_item;
+	MultipleChoicesItem _music_level_item;
 
-    BasicItem _quit_item;
+	BasicItem _quit_item;
 
 public:
-    void init();
-    void deinit();
-    void load_gfx(CL_GraphicContext &gc, std::string skin);
-    void unload_gfx();
-    void action_performed(int selection, int action_type);
-    void update_child();
-		void toggle_screen();
+	void init();
+	void deinit();
+	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	void unload_gfx();
+	void action_performed(int selection, int action_type);
+	void update_child();
+	void toggle_screen();
 
-    OptionsMenuState();
-    ~OptionsMenuState();
+	OptionsMenuState();
+	~OptionsMenuState();
 
 
 };

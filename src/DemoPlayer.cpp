@@ -25,64 +25,64 @@
 
 void DemoPlayer::events(CL_DisplayWindow & window)
 {
- 
+
 
 }
 
 void DemoPlayer::new_game()
 {
 	term_game();
-		
-  // Getting resources
-  CommonResources *resources = common_resources_get_instance();
 
-  // Creating new pieces for playable pieces and next pieces
-  _p_current_piece1 = my_new Piece(2);
-  _p_current_piece2 = my_new Piece(1);
-  _p_next_piece1 = my_new Piece(2);
-  _p_next_piece2 = my_new Piece(2);
+	// Getting resources
+	CommonResources *resources = common_resources_get_instance();
 
-  // Setting playable pieces position
-  _angle = 0.0;
-  _aimed_angle = 0;
-  _position = 2;
-  _position_bis = 1;
-  _is_placed = true;
-  _undo_possible = false;
-  _next_next_piece1 = 0;
-  _next_next_piece2 = 0;
-  _x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
-  _p_next_piece1 -> set_position(_next_left, _next_top);
-  _p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
+	// Creating new pieces for playable pieces and next pieces
+	_p_current_piece1 = my_new Piece(2);
+	_p_current_piece2 = my_new Piece(1);
+	_p_next_piece1 = my_new Piece(2);
+	_p_next_piece2 = my_new Piece(2);
 
-  _is_falling_requested = false;
-  _game_mode = GAME_MODE_PLAYING;
+	// Setting playable pieces position
+	_angle = 0.0;
+	_aimed_angle = 0;
+	_position = 2;
+	_position_bis = 1;
+	_is_placed = true;
+	_undo_possible = false;
+	_next_next_piece1 = 0;
+	_next_next_piece2 = 0;
+	_x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+	_p_next_piece1 -> set_position(_next_left, _next_top);
+	_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
 
-  _board.clear();
-  _board.unlocked_pieces = 3;
-  _board.visible_pieces  = 3;
-  _board.score = 0;
-  _board.bonus_score = 0;
-  _board.calc_score();
-  
-  // Applying skin
-  int value;
-  value = _p_next_piece1 -> get_piece_number();
-  
-  _p_next_piece1 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
-                             &_pieces_disappearing[value], &_pieces_mini[value]);
-  
-  value = _p_next_piece2 -> get_piece_number();
-  _p_next_piece2 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
-                             &_pieces_disappearing[value], &_pieces_mini[value]);
-  
-  value = _p_current_piece1 ->  get_piece_number();
-  _p_current_piece1 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
-                                &_pieces_disappearing[value], &_pieces_mini[value]);
-  
-  value = _p_current_piece2 ->  get_piece_number();
-  _p_current_piece2 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
-                                &_pieces_disappearing[value], &_pieces_mini[value]);
+	_is_falling_requested = false;
+	_game_mode = GAME_MODE_PLAYING;
+
+	_board.clear();
+	_board.unlocked_pieces = 3;
+	_board.visible_pieces  = 3;
+	_board.score = 0;
+	_board.bonus_score = 0;
+	_board.calc_score();
+
+	// Applying skin
+	int value;
+	value = _p_next_piece1 -> get_piece_number();
+
+	_p_next_piece1 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
+		&_pieces_disappearing[value], &_pieces_mini[value]);
+
+	value = _p_next_piece2 -> get_piece_number();
+	_p_next_piece2 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
+		&_pieces_disappearing[value], &_pieces_mini[value]);
+
+	value = _p_current_piece1 ->  get_piece_number();
+	_p_current_piece1 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
+		&_pieces_disappearing[value], &_pieces_mini[value]);
+
+	value = _p_current_piece2 ->  get_piece_number();
+	_p_current_piece2 -> set_sprites(&_pieces_normal[value], &_pieces_appearing[value],
+		&_pieces_disappearing[value], &_pieces_mini[value]);
 
 }
 

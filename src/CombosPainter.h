@@ -16,57 +16,57 @@
 
 class CombosPainter{
 
-  private:
+private:
 
-  int _score;
+	int _score;
 
-  int _mode;
+	int _mode;
 
-  bool _is_enabled;
-  
-  /**
-   * Combo text sprite
-   */
-  CL_Sprite _sprite_single;
+	bool _is_enabled;
 
-  /**
-   * Combo text sprite
-   */
-  CL_Sprite _sprite_plural;
+	/**
+	* Combo text sprite
+	*/
+	CL_Sprite _sprite_single;
 
-  /**
-   * Combo font
-   */
-  CL_Font _font;
+	/**
+	* Combo text sprite
+	*/
+	CL_Sprite _sprite_plural;
 
-  /**
-   * Combo coords
-   */ 
-  int _sprite_x, _sprite_y, _score_x, _score_y;
+	/**
+	* Combo font
+	*/
+	CL_Font _font;
 
-  /**
-   * Actual coords
-   */
-  double _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
+	/**
+	* Combo coords
+	*/ 
+	int _sprite_x, _sprite_y, _score_x, _score_y;
 
-  unsigned long int _next_time;
+	/**
+	* Actual coords
+	*/
+	double _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
+
+	unsigned long int _next_time;
 
 	float _font_height;
 
-  public:
+public:
 
-  CombosPainter();
-  ~CombosPainter();
-  void load_gfx(CL_GraphicContext &gc, std::string skin);
-  void unload_gfx();
-  void set_score(int score);
-  void draw(CL_GraphicContext &gc);
-  void update();
+	CombosPainter();
+	~CombosPainter();
+	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	void unload_gfx();
+	void set_score(int score);
+	void draw(CL_GraphicContext &gc);
+	void update();
 
-  private:
-  void _update_appearing();
-  void _update_display();
-  void _update_disappearing();
+private:
+	void _update_appearing();
+	void _update_display();
+	void _update_disappearing();
 
 };
 

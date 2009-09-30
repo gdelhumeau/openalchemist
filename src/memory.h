@@ -25,10 +25,10 @@ extern const char *delete_FILE;
 extern unsigned long delete_LINE;
 
 void* operator new (size_t size, const char* file, const unsigned long line)
-  throw (std::bad_alloc);
+throw (std::bad_alloc);
 
 void* operator new[] (size_t size, const char* file, const unsigned long line)
-  throw (std::bad_alloc);
+throw (std::bad_alloc);
 
 //void operator delete (void *ptr) throw ();
 

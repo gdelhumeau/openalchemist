@@ -45,7 +45,7 @@ void CL_FramerateCounter::keep_alive()
 	int cur_time = CL_System::get_time();
 	int delta_time = cur_time - impl->start_time;
 	impl->start_time = cur_time;
-	
+
 	if (delta_time < impl->frame_time)
 	{
 		CL_System::sleep(impl->frame_time - delta_time);
@@ -55,7 +55,7 @@ void CL_FramerateCounter::keep_alive()
 	{
 		impl->total_time += delta_time;
 	}
-		
+
 	if(impl->total_time >= 1000)	// One second has passed
 	{
 		impl->fps_result = impl->fps_counter + 1;

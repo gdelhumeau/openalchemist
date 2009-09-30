@@ -5,27 +5,27 @@
 
 class Keys{
 
-  public:
-  KeyboardKey * fullscreen;
-//  KeyboardKey * change_angle;
-  KeyboardKey * left;
-  KeyboardKey * right;
-//  KeyboardKey * falling;
-  KeyboardKey * retry;
-  KeyboardKey * undo;
-  KeyboardKey * escape;
-  KeyboardKey * pause;
-  KeyboardKey * up;
-  KeyboardKey * down;
-  KeyboardKey * enter;
-  KeyboardKey * options;
-  KeyboardKey * skins;
+public:
+	KeyboardKey * fullscreen;
+	//  KeyboardKey * change_angle;
+	KeyboardKey * left;
+	KeyboardKey * right;
+	//  KeyboardKey * falling;
+	KeyboardKey * retry;
+	KeyboardKey * undo;
+	KeyboardKey * escape;
+	KeyboardKey * pause;
+	KeyboardKey * up;
+	KeyboardKey * down;
+	KeyboardKey * enter;
+	KeyboardKey * options;
+	KeyboardKey * skins;
 
-  // Constructor
-  Keys();
+	// Constructor
+	Keys();
 
-  // Destructor
-  ~Keys();
+	// Destructor
+	~Keys();
 
 
 };

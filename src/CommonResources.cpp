@@ -23,7 +23,7 @@ static CommonResources* p_instance = NULL;
 
 CommonResources::CommonResources()
 {
-  p_current_player = NULL;
+	p_current_player = NULL;
 }
 
 CommonResources::~CommonResources()
@@ -33,79 +33,79 @@ CommonResources::~CommonResources()
 
 void CommonResources::init(GameEngine *engine)
 {
-  this -> p_engine = engine;
-  read_scores();
-  
+	this -> p_engine = engine;
+	read_scores();
+
 }
 
 void CommonResources::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
-  this -> skin = skin;
+	this -> skin = skin;
 
-  unload_gfx();
+	unload_gfx();
 
-  CL_VirtualFileSystem vfs(skin, true);
-  CL_VirtualDirectory vd(vfs, "./");	
-  CL_ResourceManager gfx("general.xml", vd);
-  CL_ResourceManager gfx_pieces("pieces.xml", vd);
+	CL_VirtualFileSystem vfs(skin, true);
+	CL_VirtualDirectory vd(vfs, "./");	
+	CL_ResourceManager gfx("general.xml", vd);
+	CL_ResourceManager gfx_pieces("pieces.xml", vd);
 
-  main_font = CL_Font_Sprite(gc, "font", &gfx);
+	main_font = CL_Font_Sprite(gc, "font", &gfx);
 
-  // Then, propreties
-  pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
-  pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
+	// Then, propreties
+	pieces_width = CL_Integer_to_int("pieces/width", &gfx_pieces);
+	pieces_height = CL_Integer_to_int("pieces/height", &gfx_pieces);
 
-  player1.load_gfx(gc, skin);
-  front_layer.load_gfx(gc, skin);
+	player1.load_gfx(gc, skin);
+	front_layer.load_gfx(gc, skin);
 
 }
 
 
 void CommonResources::unload_gfx()
 {
-  player1.unload_gfx();
-  front_layer.unload_gfx();
+	player1.unload_gfx();
+	front_layer.unload_gfx();
 }
 
 void CommonResources::read_scores()
 {
-  highscore = 0;
-    
-  std::string path = get_save_path();
+	highscore = 0;
 
-  try
-  {
-    CL_File file(path+get_path_separator()+"hightscores-"+get_version());
+	std::string path = get_save_path();
 
-    highscore = file.read_uint32();
-        
-  }
-  catch(CL_Exception & e)
-  {
-    std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
-    highscore = 0;
-  }
+	try
+	{
+		CL_File file(path+get_path_separator()+"hightscores-"+get_version());
+
+		highscore = file.read_uint32();
+
+	}
+	catch(CL_Exception & e)
+	{
+		std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
+		highscore = 0;
+	}
 }
 
 void CommonResources::save_scores()
 {
-  std::string path = get_save_path();
+	std::string path = get_save_path();
 
-  try
-  {
+	try
+	{
 #ifdef WIN32
-    CL_File file(path+"\\hightscores-"+get_version());
+		CL_File file(path+"\\hightscores-"+get_version());
 #else
-    CL_File file(path+"/hightscores-"+get_version());
+		CL_File file(path+"/hightscores-"+get_version());
 #endif
-    
-    file.write_uint32(highscore);
-    file.close();
-  }
-  catch(CL_Exception & e)
-  {
-    std::cout << "Can't write hightscores file. \n";
-  }
+
+		file.write_uint32(highscore);
+		file.close();
+	}
+	catch(CL_Exception & e)
+	{
+		std::cout << "Can't write hightscores file. \n";
+	}
 }
 
 

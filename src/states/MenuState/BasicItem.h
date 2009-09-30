@@ -17,27 +17,27 @@
 #include "MenuItem.h"
 
 /**
- * Basic Item class
- */
+* Basic Item class
+*/
 class BasicItem : public MenuItem{
 
-	protected:
+protected:
 	CL_Sprite _normal_sprite;
 	CL_Sprite _selected_sprite;	
 	CL_Sprite _locked_sprite;
 	bool _has_locked;
-	
-	public:
-		
+
+public:
+
 	void set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
-	             std::string normal, std::string selected, std::string locked_sprite = "");
+		std::string normal, std::string selected, std::string locked_sprite = "");
 	void unload_gfx();
 
 	void draw(CL_GraphicContext &gc);
 	void action_performed(int action_type);
-	
+
 	virtual bool quit_menu_on_action(){ return true; }
-	
+
 	BasicItem();	
 	~BasicItem();
 

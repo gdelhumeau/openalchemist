@@ -16,53 +16,53 @@
 #include <ClanLib/display.h>
 
 /**
- * Progress Bar class
- */
+* Progress Bar class
+*/
 class ProgressBar{
 
-  private:
-  /**
-   * Sprites for progress bar
-   */
-  CL_Sprite _head, _head_ok;
-  CL_Sprite _foot;
-  CL_Sprite _item, _item_ok;
-  
-  /**
-   * Progress bar coords
-   */
-  int _left, _head_top, _foot_top;
+private:
+	/**
+	* Sprites for progress bar
+	*/
+	CL_Sprite _head, _head_ok;
+	CL_Sprite _foot;
+	CL_Sprite _item, _item_ok;
 
-  
-
-  public:
+	/**
+	* Progress bar coords
+	*/
+	int _left, _head_top, _foot_top;
 
 
-  /**
-   * Constructor
-   */
-  ProgressBar();
 
-  /**
-   * Destructor
-   */
-  ~ProgressBar();
+public:
 
-  /**
-   * Loading GFX
-   */
-  void load_gfx(CL_GraphicContext & gc, std::string skin);
 
-  /**
-   * Unloading GFX
-   */
-  void unload_gfx();
+	/**
+	* Constructor
+	*/
+	ProgressBar();
 
-  /**
-   * Drawing the percentage bar
-   */
-  void draw(CL_GraphicContext & gc, int percentage);
-  
+	/**
+	* Destructor
+	*/
+	~ProgressBar();
+
+	/**
+	* Loading GFX
+	*/
+	void load_gfx(CL_GraphicContext & gc, std::string skin);
+
+	/**
+	* Unloading GFX
+	*/
+	void unload_gfx();
+
+	/**
+	* Drawing the percentage bar
+	*/
+	void draw(CL_GraphicContext & gc, int percentage);
+
 
 };
 
