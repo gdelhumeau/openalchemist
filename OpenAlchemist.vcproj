@@ -92,7 +92,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
+			OutputDirectory="..\trunk"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			>
@@ -113,11 +113,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -131,7 +132,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="2"
+				AdditionalDependencies="clanApp-static-mt.lib clanCore-static-mt.lib clanGDI-static-mt.lib clanDisplay-static-mt.lib clanSound-static-mt.lib clanVorbis-static-mt.lib"
+				OutputFile="$(OutDir)\$(ProjectName)-Release.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target libs&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
+				GenerateManifest="false"
+				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
