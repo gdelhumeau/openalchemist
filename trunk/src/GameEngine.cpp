@@ -257,6 +257,7 @@ void GameEngine::stop_current_state()
 
 void GameEngine::change_screen_size()
 {
+	
 	/*  Preferences *pref = pref_get_instance();
 
 	int width = 800;
@@ -354,8 +355,9 @@ void GameEngine::toggle_screen()
 {
 	Preferences *pref = pref_get_instance();
 	pref -> fullscreen = !pref -> fullscreen;
-	change_screen_size();
+	set_window();
 	_optionsmenu_state.toggle_screen();
+
 }
 
 void GameEngine::refresh_framerate_limit()
