@@ -110,7 +110,7 @@ public:
 	}
 
 	// Return true if the piece is appeared
-	bool appear(int time)
+	bool appear()
 	{
 		_p_appearing_sprite -> update();
 		if(_p_appearing_sprite -> is_finished())
@@ -123,7 +123,7 @@ public:
 	}
 
 	// Return true if the piece is disappeared
-	bool disappear(int time)
+	bool disappear()
 	{
 		_p_disappearing_sprite -> update();
 		if(_p_disappearing_sprite -> is_finished())
