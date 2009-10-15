@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : FramerateCounter.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : rombust
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : FrameRateCounter.cpp
+//  Description : 
+//  Author      : rombust (from the ClanLib team)
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "FrameRateCounter.h"
 

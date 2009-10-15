@@ -1,19 +1,22 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : GameOverState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : GameOverState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include "GameOverState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
+#include "../Window.h"
+
+#pragma warning(disable:4244)
 
 void GameOverState::init()
 {
@@ -116,9 +119,10 @@ void GameOverState::update(CL_GraphicContext & gc)
 
 }
 
-void GameOverState::events(CL_DisplayWindow & window)
+void GameOverState::events(Window & window)
 {
-	if(_p_common_resources -> key.enter -> get(window))
+	CL_InputContext & ic = window.get_ic();
+	if(_p_common_resources -> key.enter -> get(ic))
 	{
 
 		if(_selection == GAMEOVER_SELECTION_YES)
@@ -134,43 +138,41 @@ void GameOverState::events(CL_DisplayWindow & window)
 		}
 	}
 
-	if(_p_common_resources -> key.retry -> get(window))
+	if(_p_common_resources -> key.retry -> get(ic))
 	{
 		_p_common_resources -> p_engine -> stop_current_state();
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.new_game();
 	}
 
-	if(_p_common_resources -> key.undo -> get(window))
+	if(_p_common_resources -> key.undo -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.undo();
 	}
 
-	if(_p_common_resources -> key.escape -> get(window) ||
-		_p_common_resources ->key.pause->get(window))
+	if(_p_common_resources -> key.escape -> get(ic) ||
+		_p_common_resources ->key.pause->get(ic))
 	{
 		_p_common_resources -> p_engine -> stop_current_state();
 		_p_common_resources -> p_engine -> set_state_title();
 		//    common_resources -> engine -> set_state_pause_menu();
 	}
 
-	if(_p_common_resources->key.skins -> get(window))
+	if(_p_common_resources->key.skins -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
 
-	if(_p_common_resources -> key.left -> get(window))
+	if(_p_common_resources -> key.left -> get(ic))
 	{
 		_selection = GAMEOVER_SELECTION_YES;
 	}
 
-	if(_p_common_resources -> key.right -> get(window))
+	if(_p_common_resources -> key.right -> get(ic))
 	{
 		_selection = GAMEOVER_SELECTION_NO;
 	}
-
-
 
 }
 

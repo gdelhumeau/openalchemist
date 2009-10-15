@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : FramerateCounter.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : rombust
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : FrameRateCounter.h
+//  Description : 
+//  Author      : rombust (from the ClanLib team)
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _FRAME_RATE_COUNTER_H_
 #define _FRAME_RATE_COUNTER_H_

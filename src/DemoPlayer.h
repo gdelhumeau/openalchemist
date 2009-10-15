@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : DemoPlayer.h
-  Description : Implements Player Class
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : DemoPlayer.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _DEMO_PLAYER_H_
 #define _DEMO_PLAYER_H_

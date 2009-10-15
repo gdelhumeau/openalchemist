@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : GameState.h
-  Description : describe the generic GameState
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : GameState.h
+//  Description : Describe the generic GameState
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _GAME_STATE_H_
 #define _GAME_STATE_H_
@@ -16,6 +16,7 @@
 #include <ClanLib/display.h>
 
 class CommonResources;
+class Window;
 
 /**
  * Generic (Abstract) State Class 
@@ -59,7 +60,7 @@ class GameState{
   /**
    * Looking up key events
    */
-  virtual void events(CL_DisplayWindow & window) = 0;
+  virtual void events(Window & window) = 0;
 
   /**
    * @return true if the front layer should be displayed behind this state

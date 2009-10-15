@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : Player.h
-  Description : Implements Player Class
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Player.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
@@ -239,7 +239,7 @@ class Player{
   /**
    * Checking key events
    */
-  void events(CL_DisplayWindow & window);    
+  void events(CL_InputContext & ic);    
   
   /**
    * Draw player (board and playable pieces)

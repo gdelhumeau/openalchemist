@@ -1,20 +1,24 @@
-/********************************************************************
-                            OpenAlchemist
- 
-  File : LoadingScreen.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
- *********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : LoadingScreen.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <ClanLib/core.h>
 #include "LoadingScreen.h"
 #include "misc.h"
 #include "memory.h"
+#include "Window.h"
 
-LoadingScreen::LoadingScreen()
+#pragma warning(disable:4244)
+
+LoadingScreen::LoadingScreen(Window & window):
+_window(window)
 {
 
 }
@@ -23,10 +27,9 @@ LoadingScreen::~LoadingScreen()
 {
 }
 
-void LoadingScreen::init(CL_GraphicContext &gc, CL_DisplayWindow & window)
+void LoadingScreen::init()
 {
-	_p_gc = &gc;
-	_p_window = &window;
+	CL_GraphicContext & gc = _window.get_gc();
 	std::string file_path = get_data_path();
 	_logo = CL_Image(gc, file_path + "loading.png");
 
@@ -36,19 +39,21 @@ void LoadingScreen::init(CL_GraphicContext &gc, CL_DisplayWindow & window)
 
 void LoadingScreen::set_progression(float progression)
 {    
-	_logo.draw(*_p_gc, 400 - _logo.get_width() / 2, 280 - _logo.get_height() / 2);
+	_window.prepare();
+	
+	CL_GraphicContext & gc = _window.get_gc();
+	_logo.draw(gc, 400 - _logo.get_width() / 2, 280 - _logo.get_height() / 2);
 
 	int base_x = 400 - _progression.get_width() / 2;
 	int base_y = 550;
-	_progression.draw(*_p_gc, base_x, base_y);
+	_progression.draw(gc, base_x, base_y);
 
 	int width = progression * _progression.get_width();
 	for(int i=0; i<width; ++i)
 	{
-		_progression_cursor.draw(*_p_gc, base_x + i, base_y);
+		_progression_cursor.draw(gc, base_x + i, base_y);
 	}
 
-	_p_window -> flip(0);
-	CL_KeepAlive::process();
+	_window.display();
 }
 

@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : CommonState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : CommonState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include <ClanLib/core.h>
@@ -19,6 +19,8 @@
 #include "../KeyboardKey.h"
 #include "../misc.h"
 #include "../Preferences.h"
+
+#pragma warning(disable:4244)
 
 CommonState::CommonState()
 {
@@ -76,14 +78,11 @@ void CommonState::update(CL_GraphicContext & gc)
 
 }
 
-
-void CommonState::events(CL_DisplayWindow & window)
+void CommonState::events(Window & window)
 {
-	if(_p_common_resources->key.fullscreen -> get(window))
-	{
-		_p_common_resources -> p_engine -> toggle_screen();
-	}
-	CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+	CL_InputContext & ic = window.get_ic();
+#ifdef DEBUG
+	CL_InputDevice &keyboard = ic.get_keyboard();
 	if(keyboard.get_keycode(CL_KEY_S))
 	{
 		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/aqua.zip");
@@ -91,6 +90,12 @@ void CommonState::events(CL_DisplayWindow & window)
 	if(keyboard.get_keycode(CL_KEY_D))
 	{
 		_p_common_resources -> p_engine -> set_skin("/home/keph/documents/dev/openalchemist/svn/trunk/skins/vectoriel.zip");
+	}
+#endif
+
+	if(_p_common_resources->key.fullscreen -> get(ic))
+	{
+		_p_common_resources -> p_engine -> toggle_screen();
 	}
 }
 

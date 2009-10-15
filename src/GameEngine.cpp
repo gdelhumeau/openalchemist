@@ -1,13 +1,13 @@
-/********************************************************************
-                            OpenAlchemist
-
-  File : GameEngine.cpp
-  Description :
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : GameEngine.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "memory.h"
 #include <ClanLib/core.h>
@@ -20,27 +20,47 @@
 #include "LoadingScreen.h"
 #include "AudioManager.h"
 
-GameEngine::GameEngine()
+GameEngine::GameEngine():
+_window(GAME_WIDTH, GAME_HEIGHT)
 {
 	_p_loading_screen = NULL;
 }
 
 GameEngine::~GameEngine()
-{}
+{
+}
 
 void GameEngine::init()
 {
-	_running = true;
-	set_window();
-	CL_GraphicContext gc = _main_window.get_gc();
-
-	CommonResources *resources = common_resources_get_instance();
 	Preferences *pref = pref_get_instance();
+	switch(pref->render_target)
+	{
+#ifdef WITH_DX_9
+	case Preferences::DX_9:
+		target_DX9.set_current();
+		break;
+#endif
 
-	_fps_getter.set_fps_limit(pref -> maxfps);
-	change_screen_size();
+	case Preferences::OPENGL_1:
+		target_GL1.set_current();
+		break;
+
+	case Preferences::GDI:
+		target_GDI.set_current();
+		break;
+
+	case Preferences::OPENGL_2:
+		target_GL2.set_current();
+		break;	
+	}
+
+	_running = true;
+
+	CommonResources *resources = common_resources_get_instance();	
 
 	resources -> init(this);
+	_window.manage(*this);
+	CL_GraphicContext gc = _window.get_gc();
 	_common_state.init();
 	_ingame_state.init();
 	_gameover_state.init();
@@ -51,47 +71,11 @@ void GameEngine::init()
 	_quitmenu_state.init();
 
 	set_skin(pref -> skin);
+
+	_framerate_counter.set_fps_limit(pref -> maxfps);
 }
 
-void GameEngine::set_window()
-{
-	// Save the old main_window (if valid), so graphics are not lost when screen mode is changed.
-	// It is destroyed as "previous_window" does out of scope
-	CL_DisplayWindow previous_window = _main_window;	
-
-	CL_DisplayWindowDescription desc;
-	desc.set_title("OpenAlchemist");
-	desc.set_size(CL_Size(800,600), true);
-	Preferences *p_pref = pref_get_instance();
-	if(p_pref -> fullscreen)
-	{
-		desc.set_fullscreen(true);
-		desc.set_decorations(false);
-	}
-	else
-	{
-		desc.set_allow_resize(true);
-	}
-	_main_window = CL_DisplayWindow(desc);
-	if(p_pref -> fullscreen)
-	{
-		_main_window.hide_cursor();
-	}
-	else
-	{
-		_main_window.show_cursor();
-	}
-
-	CommonResources * p_common_resources = common_resources_get_instance();
-	p_common_resources -> p_window = &_main_window;
-	p_common_resources -> p_gc = &_main_window.get_gc();
-
-	// Add a callback when user close the window
-	_quit_event = _main_window.sig_window_close().connect(this, &GameEngine::stop);
-
-}
-
-void GameEngine::deinit()
+void GameEngine::term()
 {
 	_common_state.deinit();
 	_ingame_state.deinit();
@@ -101,14 +85,10 @@ void GameEngine::deinit()
 	_optionsmenu_state.deinit();
 	_title_state.deinit();
 	_quitmenu_state.deinit();
-
-	g_audio_manager.term();
 }
 
 void GameEngine::run()
 {
-	//Preferences *p_pref = pref_get_instance();
-
 	if (_running)
 	{
 		set_state_title();
@@ -118,49 +98,34 @@ void GameEngine::run()
 
 		while (_running)
 		{
-			CL_GraphicContext gc = _main_window.get_gc();
-			// Stretch the game to the window
-			CL_Mat4f matrix = CL_Mat4f::scale( (float) gc.get_width() / 800.0f,
-				(float) gc.get_height() / 600.0f,
-				1.0f);
-			gc.set_modelview(matrix);
+			_window.prepare();
 
-			_common_state.events(_main_window);
-			_common_state.update(gc);
-			_common_state.draw(gc);
+			_common_state.events(_window);
+			_common_state.update(_window.get_gc());
+			_common_state.draw(_window.get_gc());
 
 			GameState* current_state = _states_stack.top();
-			current_state -> events(_main_window);
-			current_state -> update(gc);
+			current_state -> events(_window);
+			current_state -> update(_window.get_gc());
 
 			// Drawing the front layer behind the current state or not
 			if (current_state -> front_layer_behind())
 			{
-				resources -> front_layer.draw(gc);
-				current_state -> draw(gc);
+				resources -> front_layer.draw(_window.get_gc());
+				current_state -> draw(_window.get_gc());
 			}
 			else
 			{
-				current_state -> draw(gc);
-				resources -> front_layer.draw(gc);
+				current_state -> draw(_window.get_gc());
+				resources -> front_layer.draw(_window.get_gc());
 			}
 
+			// Get the Frame rate
+			resources -> fps = _framerate_counter.get_fps();
+			resources -> delta_time = get_time_interval(resources->fps);
 
-			// Get the Framerate
-			resources -> fps = _fps_getter.get_fps();
-			resources -> time_interval = get_time_interval(resources->fps);
-
-			_main_window.flip(0);
-
-			// This call updates input and performs other "housekeeping"
-			// Call this each frame
-			CL_KeepAlive::process();
-			_fps_getter.keep_alive();
-
-			/*if (_render_mode == RENDER_OPENGL && !p_pref -> fullscreen)
-			{
-			change_screen_size();
-			} */          
+			_window.display();
+			_framerate_counter.keep_alive();        
 		}
 	}
 }
@@ -255,107 +220,11 @@ void GameEngine::stop_current_state()
 	}
 }
 
-void GameEngine::change_screen_size()
-{
-	
-	/*  Preferences *pref = pref_get_instance();
-
-	int width = 800;
-	int height = 600;
-	bool wide = false;
-
-	if (_render_mode == RENDER_OPENGL)
-	{
-	switch (pref -> screen_size)
-	{
-	case SCREEN_SIZE_320x240:
-	width = 320;
-	height = 240;
-	wide = true;
-	break;
-
-	case SCREEN_SIZE_640x480:
-	width = 640;
-	height = 480;
-	wide = false;
-	break;
-
-	case SCREEN_SIZE_640x480_WIDE:
-	width = 640;
-	height = 480;
-	wide = true;
-	break;
-
-	case SCREEN_SIZE_800x600:
-	width = 800;
-	height = 600;
-	wide = false;
-	break;
-
-	case SCREEN_SIZE_800x600_WIDE:
-	width = 800;
-	height = 600;
-	wide = true;
-	break;
-	}
-	}
-
-	if (pref -> fullscreen)
-	{
-	_p_window->set_fullscreen(width,height,0,0);
-	CL_Mouse::hide();
-
-	if (_render_mode == RENDER_OPENGL)
-	{
-	if (!wide)
-	{
-	CL_GraphicContext *gc = _p_window -> get_gc();
-	double scale_width = width / 800.0;
-	double scale_height = height / 600.0;
-	gc -> set_scale(scale_width, scale_height);
-	}
-	else
-	{
-	CL_Display::clear(CL_Color(0, 0, 0));
-	CL_Display::flip();
-
-	int new_width = 2 * width - 16.0 / 10.0 * height;
-	int dx = (width - new_width) / 2;
-
-	CL_GraphicContext *gc = _p_window -> get_gc();
-	double scale_width = new_width / 800.0;
-	double scale_height = height / 600.0;
-	gc -> set_scale(scale_width, scale_height);
-	gc -> add_translate(dx, 0, 0);
-
-	}
-
-	}
-	}
-	else
-	{
-	_p_window -> set_windowed();
-	CL_Mouse::show();
-
-	if (_render_mode == RENDER_OPENGL)
-	{
-	_p_window -> set_size(width, height);
-
-	CL_GraphicContext *gc = _p_window -> get_gc();
-	double scale_width = width  / 800.0;
-	double scale_height = height / 600.0;
-	gc -> set_scale(scale_width, scale_height);
-
-	}
-	}*/
-}
-
-
 void GameEngine::toggle_screen()
 {
 	Preferences *pref = pref_get_instance();
 	pref -> fullscreen = !pref -> fullscreen;
-	set_window();
+	_window.manage(*this);
 	_optionsmenu_state.toggle_screen();
 
 }
@@ -363,38 +232,27 @@ void GameEngine::toggle_screen()
 void GameEngine::refresh_framerate_limit()
 {
 	Preferences *pref = pref_get_instance();
-	_fps_getter.set_fps_limit(pref -> maxfps);
+	_framerate_counter.set_fps_limit(pref -> maxfps);
 }
 
 int GameEngine::get_fps()
 {
-	return _fps_getter.get_fps();
-}
-
-bool GameEngine::is_opengl_used()
-{
-	return _render_mode != Preferences::SDL;
-}
-
-bool GameEngine::is_fullscreen()
-{
-	Preferences *pref = pref_get_instance();
-	return pref -> fullscreen;
+	return _framerate_counter.get_fps();
 }
 
 void GameEngine::set_skin(std::string skin)
 {
 	CommonResources *resources = common_resources_get_instance();
 
-	_p_loading_screen = my_new LoadingScreen();
-	_p_loading_screen -> init(*resources->p_gc, *resources->p_window);
+	_p_loading_screen = my_new LoadingScreen(_window);
+	_p_loading_screen -> init();
 	_p_loading_screen -> set_progression(0.0f);
 
 	Preferences *pref = pref_get_instance();
 
 	std::string old_skin = pref -> skin;
 
-	CL_GraphicContext gc = _main_window.get_gc();
+	CL_GraphicContext gc = _window.get_gc();
 	try
 	{
 		pref -> skin = skin;

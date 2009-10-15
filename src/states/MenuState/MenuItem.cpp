@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : MenuItem.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : MenuItem.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <iostream>
 #include "MenuItem.h"
@@ -16,32 +16,32 @@
 
 MenuItem::MenuItem()
 {
-	selected = false;
-	locked = false;
-	alpha = 1.0f;
+	_selected = false;
+	_locked = false;
+	_alpha = 1.0f;
 }
 
 void MenuItem::set_x(int x)
 {
-	this -> x = x;
+	_x = x;
 }
 
 void MenuItem::set_y(int y)
 {
-	this -> y = y;
+	_y = y;
 }
 
 void MenuItem::set_alpha(double alpha)
 {
-	this -> alpha = alpha;
+	_alpha = alpha;
 }
 
 void MenuItem::set_selected(bool selected)
 {
-	this -> selected = selected;
+	_selected = selected;
 }
 
 void MenuItem::set_locked(bool locked)
 {
-	this -> locked = locked;
+	_locked = locked;
 }

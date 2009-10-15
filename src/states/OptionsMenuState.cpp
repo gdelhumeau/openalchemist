@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : OptionsMenuState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : OptionsMenuState.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include <ClanLib/core.h>
@@ -19,9 +19,10 @@
 #include "../Preferences.h"
 #include "../AudioManager.h"
 
+#pragma warning(disable:4244)
+
 enum{
 	OPTIONS_ITEM_RENDER,
-	OPTIONS_ITEM_SCREENSIZE,
 	OPTIONS_ITEM_FULLSCREEN,
 	OPTIONS_ITEM_FRAMERATE,
 	OPTIONS_ITEM_SOUND,
@@ -30,8 +31,16 @@ enum{
 };
 
 enum{
+#ifdef WITH_DX_9
+	RENDER_CHOICE_DX_9 = 0,
+	RENDER_CHOICE_OPENGL,
+	RENDER_CHOICE_OPENGL2,
+	RENDER_CHOICE_GDI,
+#else
 	RENDER_CHOICE_OPENGL = 0,
-	RENDER_CHOICE_SDL
+	RENDER_CHOICE_OPENGL2,
+	RENDER_CHOICE_GDI
+#endif
 };
 
 enum{
@@ -53,7 +62,6 @@ void OptionsMenuState::init()
 {
 	_items.clear();
 	_items.insert (_items.end (), &_render_item);
-	_items.insert (_items.end (), &_screensize_item);
 	_items.insert (_items.end (), &_fullscreen_item);
 	_items.insert (_items.end (), &_framerate_item);
 	_items.insert (_items.end (), &_sound_level_item);
@@ -85,20 +93,12 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_render_item.set_description_sprites(gc, gfx,
 		"menu_options/render/unselected",
 		"menu_options/render/selected");		
+#ifdef WITH_DX_9
+	_render_item.add_choice(gc, gfx, "menu_options/render-choices/dx9");
+#endif
 	_render_item.add_choice(gc, gfx, "menu_options/render-choices/opengl");
-	_render_item.add_choice(gc, gfx, "menu_options/render-choices/sdl");
-
-	_screensize_item.set_description_sprites(gc, gfx,
-		"menu_options/screensize/unselected",
-		"menu_options/screensize/selected",
-		"menu_options/screensize/locked"
-		);
-
-	_screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/320x240");
-	_screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/640x480");
-	_screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/640x480-wide");
-	_screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/800x600");
-	_screensize_item.add_choice(gc,  gfx, "menu_options/screensize-choices/800x600-wide");
+	_render_item.add_choice(gc, gfx, "menu_options/render-choices/opengl2");
+	_render_item.add_choice(gc, gfx, "menu_options/render-choices/gdi");
 
 	_fullscreen_item.clear_choices();
 	_fullscreen_item.set_description_sprites(gc, gfx,
@@ -159,12 +159,6 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_render_item.set_choice_x(x + CL_Integer_to_int("menu_options/render-choices/left", &gfx));
 	_render_item.set_choice_y(y + CL_Integer_to_int("menu_options/render/top", &gfx));
 
-	_screensize_item.set_x(x + CL_Integer_to_int("menu_options/screensize/left", &gfx));
-	_screensize_item.set_y(y + CL_Integer_to_int("menu_options/screensize/top", &gfx));
-
-	_screensize_item.set_choice_x(x + CL_Integer_to_int("menu_options/screensize-choices/left", &gfx));
-	_screensize_item.set_choice_y(y + CL_Integer_to_int("menu_options/screensize/top", &gfx));
-
 	_fullscreen_item.set_x(x + CL_Integer_to_int("menu_options/fullscreen/left", &gfx));
 	_fullscreen_item.set_y(y + CL_Integer_to_int("menu_options/fullscreen/top", &gfx));
 
@@ -181,16 +175,23 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_quit_item.set_y(y + CL_Integer_to_int("menu_options/quit/top", &gfx));
 
 	Preferences *p_pref = pref_get_instance();		
-
-	/*if(p_pref -> render_opengl)
+	switch(p_pref->render_target)
 	{
-	_render_item.set_current_choice(RENDER_CHOICE_OPENGL);
+#ifdef WITH_DX_9
+		case Preferences::DX_9:
+			_render_item.set_current_choice(RENDER_CHOICE_DX_9);
+#endif
+		case Preferences::OPENGL_1:
+			_render_item.set_current_choice(RENDER_CHOICE_OPENGL);
+			break;
+		case Preferences::OPENGL_2:
+			_render_item.set_current_choice(RENDER_CHOICE_OPENGL2);
+			break;
+		case Preferences::GDI:
+			_render_item.set_current_choice(RENDER_CHOICE_GDI);
+			break;
 	}
-	else
-	{
-	_render_item.set_current_choice(RENDER_CHOICE_SDL);
-	}*/
-	_screensize_item.set_current_choice(p_pref -> screen_size);
+
 	if(p_pref -> fullscreen)
 	{
 		_fullscreen_item.set_current_choice(ITEM_YES);
@@ -236,7 +237,6 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 void OptionsMenuState::unload_gfx()
 {
 	_render_item.unload_gfx();
-	_screensize_item.unload_gfx();
 	_fullscreen_item.unload_gfx();
 	_framerate_item.unload_gfx();
 	_sound_level_item.unload_gfx();
@@ -260,36 +260,30 @@ void OptionsMenuState::action_performed(int selection, int action_type)
 
 void OptionsMenuState::update_child()
 {
-	_screensize_item.set_locked (_render_item.get_current_choice() != RENDER_CHOICE_OPENGL);
-
 	Preferences *p_pref = pref_get_instance();
 	switch(_render_item.get_current_choice())
 	{
-		/* case RENDER_CHOICE_OPENGL:
-		p_pref -> render_opengl = true;
+	case RENDER_CHOICE_GDI:
+		p_pref->render_target = Preferences::GDI;
 		break;
-		case RENDER_CHOICE_SDL:
-		p_pref -> render_opengl = false;
-		break;											*/
-	}
-
-	bool display_changed = false;
-	if(p_pref -> screen_size != (int)_screensize_item.get_current_choice())
-	{
-		p_pref -> screen_size = _screensize_item.get_current_choice();
-		display_changed = true;			
+	case RENDER_CHOICE_OPENGL:
+		p_pref->render_target = Preferences::OPENGL_1;
+		break;
+	case RENDER_CHOICE_OPENGL2:
+		p_pref->render_target = Preferences::OPENGL_2;
+		break;
+#ifdef WITH_DX_9
+	case RENDER_CHOICE_DX_9:
+		p_pref->render_target = Preferences::DX_9;
+		break;
+#endif
 	}
 
 	bool fullscreen = (int) _fullscreen_item.get_current_choice() == ITEM_YES;
 	if(p_pref -> fullscreen != fullscreen)
 	{
 		p_pref -> fullscreen = fullscreen;
-		display_changed = true;
-	}
-
-	if(display_changed)
-	{
-		_p_common_resources -> p_engine -> change_screen_size();
+		_p_common_resources->p_engine->toggle_screen();
 	}
 
 	if(p_pref -> maxfps != (int) _framerate_item.get_current_choice())

@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : InGameState.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : InGameState.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _INGAME_STATE_H_
 #define _INGAME_STATE_H_
@@ -31,7 +31,7 @@ public:
 	void unload_gfx();
 	void draw(CL_GraphicContext &gc);
 	void update(CL_GraphicContext &gc);
-	void events(CL_DisplayWindow & window);
+	void events(Window & window);
 
 	bool front_layer_behind();
 

@@ -1,19 +1,20 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : InGameState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : InGameState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include "InGameState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
+#include "../Window.h"
 
 void InGameState::init()
 {
@@ -45,21 +46,22 @@ void InGameState::update(CL_GraphicContext & gc)
 	_p_common_resources -> player1.update();
 }
 
-void InGameState::events(CL_DisplayWindow & window)
+void InGameState::events(Window & window)
 {
-	_p_common_resources -> player1.events(window);
+	CL_InputContext & ic = window.get_ic();
+	_p_common_resources -> player1.events(ic);
 
-	if(_p_common_resources -> key.escape -> get(window) || _p_common_resources ->key.pause->get(window))
+	if(_p_common_resources -> key.escape -> get(ic) || _p_common_resources ->key.pause->get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_pause_menu();
 	}
 
-	if(_p_common_resources->key.skins -> get(window))
+	if(_p_common_resources->key.skins -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
 
-	if(_p_common_resources->key.options -> get(window) )
+	if(_p_common_resources->key.options -> get(ic) )
 	{
 		_p_common_resources -> p_engine -> set_state_options_menu();
 	}

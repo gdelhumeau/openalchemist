@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : PauseMenuState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
- *********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : PauseMenuState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include <ClanLib/core.h>
@@ -16,6 +16,8 @@
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
+
+#pragma warning(disable:4244)
 
 enum
 {

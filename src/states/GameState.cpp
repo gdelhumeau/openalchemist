@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : GameState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : GameState.cpp
+//  Description : Describe the generic GameState
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <iostream>
 #include "GameState.h"

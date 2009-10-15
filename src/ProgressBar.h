@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : ProgressBar.h
-  Description : ProgressBar implementation
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : ProgressBar.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _PROGRESS_BAR_H_
 #define _PROGRESS_BAR_H_

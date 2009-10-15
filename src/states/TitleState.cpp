@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : TitleState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : TitleState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include <ClanLib/core.h>
@@ -17,6 +17,7 @@
 #include "../GameEngine.h"
 #include "../misc.h"
 
+#pragma warning(disable:4244)
 
 void TitleState::init()
 {
@@ -237,26 +238,27 @@ void TitleState::update(CL_GraphicContext & gc)
 	_demo_player.update();
 }
 
-void TitleState::events(CL_DisplayWindow & window)
+void TitleState::events(Window & window)
 {
-	CL_InputDevice &keyboard = window.get_ic().get_keyboard();
-	if(_p_common_resources -> key.enter -> get(window) || keyboard.get_keycode(CL_KEY_SPACE))
+	CL_InputContext & ic = window.get_ic();
+	CL_InputDevice &keyboard = ic.get_keyboard();
+	if(_p_common_resources -> key.enter -> get(ic) || keyboard.get_keycode(CL_KEY_SPACE))
 	{
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.new_game();
 	}
 
-	if(_p_common_resources-> key.escape -> get(window) || _p_common_resources -> key.pause -> get(window))
+	if(_p_common_resources-> key.escape -> get(ic) || _p_common_resources -> key.pause -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_pause_menu();
 	}
 
-	if(_p_common_resources -> key.skins -> get(window))
+	if(_p_common_resources -> key.skins -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
 
-	if(_p_common_resources->key.options -> get(window) )
+	if(_p_common_resources->key.options -> get(ic) )
 	{
 		_p_common_resources -> p_engine -> set_state_options_menu();
 	}

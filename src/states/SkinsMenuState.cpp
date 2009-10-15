@@ -1,26 +1,30 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : SkinsMenuState.cpp
-  Description :Skins Menu Implementation
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : SkinMenuState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <ClanLib/core.h>
 
 #include "SkinsMenuState.h"
+#include "../memory.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
+#include "../Window.h"
 
 #define STEP_APPEARING 0
 #define STEP_NORMAL 1
 #define STEP_DISAPPEARING 2
 
 #define APPEARING_SPEED 0.003
+
+#pragma warning(disable:4244)
 
 void SkinsMenuState::init(CL_GraphicContext &gc)
 {
@@ -51,7 +55,7 @@ void SkinsMenuState::init(CL_GraphicContext &gc)
 				sp -> logo = CL_Image(gc, "logo", &gfx);
 				skins_list.insert(skins_list.end(), sp);
 			}
-			catch(CL_Exception& exception)
+			catch(CL_Exception&)
 			{
 				// We forget this skin
 				std::cout << "We don't use " << sp -> filename << " because it doesn't exist." << std::endl;
@@ -62,7 +66,7 @@ void SkinsMenuState::init(CL_GraphicContext &gc)
 		file.close();
 
 	}
-	catch(CL_Exception& exception)
+	catch(CL_Exception&)
 	{
 		std::cout << "Error while reading " << file_path << " file, probably doesn't exist yet." << std::endl;
 	}
@@ -107,7 +111,7 @@ void SkinsMenuState::init(CL_GraphicContext &gc)
 					}
 
 				}
-				catch(CL_Exception& exception)
+				catch(CL_Exception&)
 				{
 					std::cout << "Skin " << dir << scanner.get_name().c_str() << " is not valid." << std::endl;
 				}
@@ -134,8 +138,8 @@ void SkinsMenuState::init(CL_GraphicContext &gc)
 			number_y += 1;
 
 		// Making the board
-		skins_board[0] = new Skin* [number_y];
-		skins_board[1] = new Skin* [number_y];
+		skins_board[0] = my_new Skin* [number_y];
+		skins_board[1] = my_new Skin* [number_y];
 
 		// Initializing the board
 		for(int x=0; x<2; ++x)
@@ -178,7 +182,7 @@ void SkinsMenuState::deinit()
 		file.close();
 
 	}
-	catch(CL_Exception& exception)
+	catch(CL_Exception&)
 	{
 		std::cout << "Error while reading " << file_path << "file, probably doesn't exist yet." << std::endl;
 	}
@@ -190,8 +194,9 @@ void SkinsMenuState::deinit()
 
 	skins_list.clear();
 
-	delete skins_board[0];
-	delete skins_board[1];
+	// Temp hack
+	//my_delete(skins_board[0]);
+	//my_delete(skins_board[1]);
 }
 
 void SkinsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
@@ -286,18 +291,20 @@ void SkinsMenuState::update(CL_GraphicContext &gc)
 	}
 }
 
-void SkinsMenuState::events(CL_DisplayWindow & window)
+void SkinsMenuState::events(Window & window)
 {
 	if(step != STEP_NORMAL)
 		return;
 
-	if(_p_common_resources->key.escape->get(window) || _p_common_resources->key.skins->get(window))
+	CL_InputContext & ic = window.get_ic();
+
+	if(_p_common_resources->key.escape->get(ic) || _p_common_resources->key.skins->get(ic))
 	{   
 		step = STEP_DISAPPEARING;
 	}
 
 	// KEY DOWN
-	if(_p_common_resources -> key.down -> get(window))
+	if(_p_common_resources -> key.down -> get(ic))
 	{
 		// If we don't go outline
 		if(selection_y + 1 < number_y)
@@ -310,7 +317,7 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 				if(selection_y > y_start + 1)
 					y_start ++;
 			}
-			// Else, we juste increment y_start
+			// Else, we just increment y_start
 			else if(selection_y > y_start && selection_x == 1 &&
 				!skins_board[1][selection_y+1] && 
 				skins_board[0][selection_y+1])
@@ -321,7 +328,7 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 	}
 
 	// KEY UP
-	if(_p_common_resources -> key.up -> get(window))
+	if(_p_common_resources -> key.up -> get(ic))
 	{
 		if(selection_y > 0 && skins_board[selection_x][selection_y-1])
 		{
@@ -333,7 +340,7 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 	}
 
 	// KEY RIGHT
-	if(_p_common_resources -> key.right -> get(window))
+	if(_p_common_resources -> key.right -> get(ic))
 	{
 		if(selection_x == 0 && skins_board[1][selection_y])
 		{
@@ -342,7 +349,7 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 	}
 
 	// KEY LEFT
-	if(_p_common_resources -> key.left -> get(window))
+	if(_p_common_resources -> key.left -> get(ic))
 	{
 		if(selection_x == 1 && skins_board[0][selection_y])
 		{
@@ -351,7 +358,7 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 	}
 
 	// KEY ENTER
-	if(_p_common_resources -> key.enter -> get(window))
+	if(_p_common_resources -> key.enter -> get(ic))
 	{
 		// Can we see all pieces ?
 		if(skins_board[selection_x][selection_y] -> element >= (unsigned int) _p_common_resources->player1.get_visible_pieces()
@@ -366,13 +373,13 @@ void SkinsMenuState::events(CL_DisplayWindow & window)
 
 void SkinsMenuState::appear()
 { 
-	if(alpha + APPEARING_SPEED*_p_common_resources -> time_interval >= 1.0)
+	if(alpha + APPEARING_SPEED*_p_common_resources -> delta_time >= 1.0)
 	{
 		step = STEP_NORMAL;
 		alpha = 1.0;
 	}
 	else
-		alpha += APPEARING_SPEED * _p_common_resources -> time_interval;
+		alpha += APPEARING_SPEED * _p_common_resources -> delta_time;
 
 	background .set_alpha(alpha);
 	arrow_up   .set_alpha(alpha);
@@ -390,7 +397,7 @@ void SkinsMenuState::appear()
 
 void SkinsMenuState::disappear()
 {  
-	alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
+	alpha -= APPEARING_SPEED * _p_common_resources -> delta_time;
 
 	background .set_alpha(alpha);
 	arrow_up   .set_alpha(alpha);
@@ -436,7 +443,7 @@ void SkinsMenuState::set_skin_elements(unsigned int element)
 
 SkinsMenuState::SkinsMenuState()
 {
-
+	
 }
 
 SkinsMenuState::~SkinsMenuState()

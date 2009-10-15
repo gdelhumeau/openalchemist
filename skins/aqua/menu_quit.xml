@@ -26,7 +26,7 @@
 				<image file="dialogs/quit/yes-selected.png" />
 				<image file="dialogs/quit/yes-unselected.png" />
 				
-				<animation speed="75" />
+				<animation delay="75" />
 			</sprite>
 			<sprite name="unselected">
 				<image file="dialogs/quit/yes-unselected.png" />
@@ -41,7 +41,7 @@
 			<sprite name="selected">
 				<image file="dialogs/quit/no-selected.png" />
 				<image file="dialogs/quit/no-unselected.png" />
-				<animation speed="75" />
+				<animation delay="75" />
 			</sprite>
 			<sprite name="unselected">
 				<image file="dialogs/quit/no-unselected.png" />

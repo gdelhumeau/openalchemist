@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : CommonResources.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : CommonResources.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _COMMON_RESOURCES_H_
 #define _COMMON_RESOURCES_H_
@@ -46,7 +46,7 @@ public:
 	/** Sprites */
 	int pieces_width, pieces_height;
 
-	double time_interval;
+	float delta_time;
 	int fps;
 
 	unsigned int highscore;

@@ -1,18 +1,21 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : MenuState.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
- *********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : MenuState.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "../memory.h"
 #include "MenuState.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
+#include "../Window.h"
+
+#pragma warning(disable:4244)
 
 enum{
 	STEP_APPEARING,
@@ -20,11 +23,12 @@ enum{
 	STEP_DISAPPEARING
 };
 
-static const float APPEARING_SPEED = 0.003;
+static const float APPEARING_SPEED = 0.003f;
 
 MenuState::MenuState ()
 {
 	_selection = 0;
+	_mouse_is_clicked = false;
 }
 
 bool MenuState::front_layer_behind ()
@@ -69,17 +73,20 @@ void MenuState::update (CL_GraphicContext & gc)
 	this -> update_child ();
 }
 
-void MenuState::events (CL_DisplayWindow & window)
+void MenuState::events (Window & window)
 {
+	CL_InputContext & ic = window.get_ic();
+
 	// Leaving the state
-	if (_p_common_resources -> key.escape->get (window) || _p_common_resources -> key.pause->get (window))
+	if (_p_common_resources -> key.escape->get (ic) || 
+		_p_common_resources -> key.pause->get (ic))
 	{
 		_start_disappear ();
 		_selection = -1;
 	}
 
 	// Key ENTER
-	if (_p_common_resources -> key.enter -> get (window))
+	if (_p_common_resources -> key.enter -> get (ic))
 	{
 		if(_items[_selection] -> quit_menu_on_action())
 		{
@@ -89,14 +96,14 @@ void MenuState::events (CL_DisplayWindow & window)
 	}
 
 	// Key LEFT
-	if (_p_common_resources -> key.left -> get (window))
+	if (_p_common_resources -> key.left -> get (ic))
 	{
 		_items[_selection] -> action_performed(ACTION_TYPE_LEFT);
 		this -> action_performed (_selection, ACTION_TYPE_LEFT);
 	}
 
 	// Key RIGHT
-	if (_p_common_resources -> key.right -> get (window))
+	if (_p_common_resources -> key.right -> get (ic))
 	{
 		_items[_selection] -> action_performed(ACTION_TYPE_RIGHT);
 		this -> action_performed (_selection, ACTION_TYPE_RIGHT);
@@ -104,7 +111,7 @@ void MenuState::events (CL_DisplayWindow & window)
 
 
 	// Key UP
-	if (_p_common_resources -> key.up -> get (window))
+	if (_p_common_resources -> key.up -> get (ic))
 	{
 		_items[_selection] -> set_selected (false);
 		bool changed = false;
@@ -128,7 +135,7 @@ void MenuState::events (CL_DisplayWindow & window)
 	}
 
 	// Key DOWN
-	if (_p_common_resources -> key.down -> get (window))
+	if (_p_common_resources -> key.down -> get (ic))
 	{
 		_items[_selection] -> set_selected (false);
 		bool changed = false;
@@ -151,6 +158,63 @@ void MenuState::events (CL_DisplayWindow & window)
 		}
 	}
 
+	// Mouse
+	if(ic.get_mouse_count() > 0)
+	{
+		CL_InputDevice & mouse = ic.get_mouse();
+
+		float scale = 1/window.get_scale();
+		float dx = window.get_dx();
+		float dy = window.get_dy();
+
+		// Mouse moved or clicked
+		if(mouse.get_x() != _mouse_x || mouse.get_y() != _mouse_y
+			|| mouse.get_keycode(CL_MOUSE_LEFT))
+		{
+			_mouse_x = mouse.get_x();
+			_mouse_y = mouse.get_y();
+
+			// Checking the selected item
+			bool found = false;
+			unsigned int i = 0;
+			while (i<_items.size() && !found)
+			{
+				if(_items[i]->is_inside(_mouse_x*scale-dx, _mouse_y*scale-dy) )
+				{
+					found = true;
+					if(!_items[i]->is_locked())
+					{
+						_items[_selection] -> set_selected(false);
+						_selection = i;
+						_items[i] -> set_selected(true);
+						_items[i] -> mouse_moved((int)(_mouse_x*scale-dx),
+							(int)(_mouse_y*scale-dy));
+					}					
+				}
+				i++;
+			}
+
+			// If user click
+			if(mouse.get_keycode(CL_MOUSE_LEFT))
+			{
+				if(!_mouse_is_clicked && !_items[_selection]->is_locked())
+				{
+					_mouse_is_clicked = true;
+					if(_items[_selection] -> quit_menu_on_action())
+					{
+						_start_disappear ();
+					}
+					_items[_selection] -> action_performed(ACTION_TYPE_ENTER);
+				}
+			}			
+		}
+
+		if(_mouse_is_clicked && !mouse.get_keycode(CL_MOUSE_LEFT))
+		{
+			_mouse_is_clicked = false;
+		}
+	}
+
 }
 
 void MenuState::start ()
@@ -169,28 +233,28 @@ void MenuState::start ()
 	_items[_selection] -> set_selected (true);
 
 	// Now, begining appearing
-	if (_p_common_resources -> p_engine -> is_opengl_used ())
+//	if (_p_common_resources -> p_engine -> is_opengl_used ())
 	{
 		_step = STEP_APPEARING;
 		_alpha = 0.0;
 	}
-	else
-	{
-		_step = STEP_NORMAL;
-	}
+// 	else
+// 	{
+// 		_step = STEP_NORMAL;
+// 	}
 }
 
 void MenuState::_appear ()
 {
 	// Updating alpha value
-	if (_alpha + APPEARING_SPEED * _p_common_resources -> time_interval >= 1.0)
+	if (_alpha + APPEARING_SPEED * _p_common_resources -> delta_time >= 1.0)
 	{
 		_step = STEP_NORMAL;
 		_alpha = 1.0;
 	}
 	else
 	{
-		_alpha += APPEARING_SPEED * _p_common_resources -> time_interval;
+		_alpha += APPEARING_SPEED * _p_common_resources -> delta_time;
 	}
 
 	// Updating background sprite
@@ -210,7 +274,7 @@ void MenuState::_appear ()
 void MenuState::_disappear ()
 {
 	// Updating alpha value
-	_alpha -= APPEARING_SPEED * _p_common_resources -> time_interval;
+	_alpha -= APPEARING_SPEED * _p_common_resources -> delta_time;
 
 	// Updating background sprite
 	_background.set_alpha (_alpha);
@@ -226,7 +290,7 @@ void MenuState::_disappear ()
 
 	if (_alpha <= 0)
 	{
-		// Now perfom child action or leaving the state
+		// Now perform child action or leaving the state
 		if (_selection == -1)
 			_p_common_resources -> p_engine -> stop_current_state ();
 		else

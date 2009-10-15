@@ -1,20 +1,32 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : GameEngine.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : GameEngine.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _GAME_ENGINE_H_
 #define _GAME_ENGINE_H_
 
-#include <stack>
-#include <ClanLib/display.h>
+#define GAME_WIDTH 800
+#define GAME_HEIGHT 600
 
+#include <stack>
+
+#ifdef WITH_DX_9
+#include <ClanLib/d3d9.h>
+#endif
+
+#include <ClanLib/display.h>
+#include <ClanLib/gl1.h>
+#include <ClanLib/gl.h>
+#include <ClanLib/gdi.h>
+
+#include "Window.h"
 #include "FrameRateCounter.h"
 #include "states/GameState.h"
 #include "states/CommonState.h"
@@ -31,80 +43,79 @@ class LoadingScreen;
 /**
 * GameEngine class - controls the states
 */
-class GameEngine{
-
-private:
-
-	/**
-	* Stack of states, the current state is on the top
-	*/
-	std::stack<GameState*> _states_stack;
-
-	/**
-	* Window
-	*/
-	CL_DisplayWindow _main_window;
-	CL_Slot _quit_event;
-
-
-	/**
-	* To know if OpenGL is used
-	*/
-
-	bool _render_mode;
-
-
-	/** 
-	* Controling main loop
-	*/
-	bool _running;
-
-
-	/**
-	* Fps Getter
-	*/
-	CL_FramerateCounter _fps_getter;
-
-	/** 
-	* States
-	*/
-	CommonState _common_state;
-	InGameState _ingame_state;
-	GameOverState _gameover_state;
-	PauseMenuState _pausemenu_state;
-	SkinsMenuState _skinsmenu_state;
-	OptionsMenuState _optionsmenu_state;
-	TitleState _title_state;
-	QuitMenuState _quitmenu_state;
-
-	LoadingScreen * _p_loading_screen;
+class
+	GameEngine{
 
 public:
+
+	/**
+	* Constructor
+	*/
+	GameEngine();
+
+	/**
+	* Destructor
+	*/
+	~GameEngine();
 
 	/**
 	* Initializing game engine
 	*/
 	void init();
-	void deinit();
-	void set_window();
 
+	/** 
+	* Terminate game engine
+	*/
+	void term();
+	
 	/**
 	* Main loop
 	*/
 	void run();
 
 	/**
-	* Stoping the game engine
+	* Stopping the game engine
 	*/
 	void stop();
 
+	/** 
+	* Set current state to title state
+	*/
 	void set_state_title();
+
+	/** 
+	* Set current state to new game menu state
+	*/
 	void set_state_new_game_menu();
+
+	/** 
+	* Set current state to pause menu state
+	*/
 	void set_state_pause_menu();
+
+	/** 
+	* Set current state to ingame state
+	*/
 	void set_state_ingame();
+
+	/** 
+	* Set current state to game over state
+	*/
 	void set_state_gameover(int mode);
+
+	/** 
+	* Set current state to options menu state
+	*/
 	void set_state_options_menu();
+
+	/** 
+	* Set current state to skin menu state
+	*/
 	void set_state_skin_menu();
+
+	/** 
+	* Set current state to quit menu state
+	*/
 	void set_state_quit_menu(int action);
 
 	/**
@@ -117,8 +128,9 @@ public:
 	*/
 	void toggle_screen();
 
-	void change_screen_size();
-
+	/** 
+	* Change max framerate
+	*/
 	void refresh_framerate_limit();
 
 	/**
@@ -126,26 +138,109 @@ public:
 	*/
 	int get_fps();
 
-	/**
-	* Returning if OpenGL is used
+	/** 
+	* Load a skin
 	*/
-	bool is_opengl_used();
-
-	bool is_fullscreen();
-
 	void set_skin(std::string skin);
 
+	/** 
+	* Change max available elements for current skin
+	*/
 	void set_skin_element(unsigned int element);
 
-	/**
-	* Constructor
+private:
+
+	/** 
+	* Display window
 	*/
-	GameEngine();
+	Window _window;
 
 	/**
-	* Destructor
+	* Setup display
 	*/
-	~GameEngine();
+	CL_SetupDisplay setup_display;
+
+	/** 
+	* Setup OpenGL 1
+	*/
+	CL_SetupGL1 target_GL1;	
+
+	/**
+	* Setup OpenGL 2
+	*/
+	CL_SetupGL target_GL2;
+
+	/** 
+	* Setup GDI (software render)
+	*/
+	CL_SetupGDI target_GDI;
+
+#ifdef WITH_DX_9
+	/** 
+	* Setup DirectX 9
+	*/
+	CL_SetupD3D9 target_DX9;
+#endif
+
+	/**
+	* Stack of states, the current state is on the top
+	*/
+	std::stack<GameState*> _states_stack;
+
+	/** 
+	* Controlling main loop
+	*/
+	bool _running;
+
+	/**
+	* Fps Getter
+	*/
+	CL_FramerateCounter _framerate_counter;
+
+	/** 
+	* Common State
+	*/
+	CommonState _common_state;
+
+	/** 
+	* InGame State
+	*/
+	InGameState _ingame_state;
+
+	/** 
+	* GameOver State
+	*/
+	GameOverState _gameover_state;
+
+	/** 
+	* Pause Menu State
+	*/
+	PauseMenuState _pausemenu_state;
+
+	/** 
+	* Skins Menu State
+	*/
+	SkinsMenuState _skinsmenu_state;
+
+	/** 
+	* Options Menu State
+	*/
+	OptionsMenuState _optionsmenu_state;
+
+	/** 
+	* Title State
+	*/
+	TitleState _title_state;
+
+	/** 
+	* Quit Menu State
+	*/
+	QuitMenuState _quitmenu_state;
+
+	/** 
+	* Loading Screen
+	*/
+	LoadingScreen * _p_loading_screen;
 
 };
 

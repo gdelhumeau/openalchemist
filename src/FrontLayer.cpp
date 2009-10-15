@@ -1,18 +1,20 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : FrontLayer.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : FrontLayer.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <list>
 #include "FrontLayer.h"
 #include "misc.h"
 #include "memory.h"
+
+#pragma warning(disable:4244)
 
 void FrontLayer::load_gfx(CL_GraphicContext & gc, std::string skin)
 {

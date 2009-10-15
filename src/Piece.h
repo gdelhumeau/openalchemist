@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : Piece.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Piece.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _PIECE_H_
 #define _PIECE_H_
@@ -110,7 +110,7 @@ public:
 	}
 
 	// Return true if the piece is appeared
-	bool appear()
+	bool appear(int time)
 	{
 		_p_appearing_sprite -> update();
 		if(_p_appearing_sprite -> is_finished())
@@ -123,7 +123,7 @@ public:
 	}
 
 	// Return true if the piece is disappeared
-	bool disappear()
+	bool disappear(int time)
 	{
 		_p_disappearing_sprite -> update();
 		if(_p_disappearing_sprite -> is_finished())

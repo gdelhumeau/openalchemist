@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : MenuItem.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : MenuItem.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _MENU_ITEM_H_
 #define _MENU_ITEM_H_
@@ -28,16 +28,18 @@ class MenuItem{
 
 protected:
 
-	int x, y;
-	bool selected;
-	double alpha;
-	bool locked;
+	int _x, _y;
+	bool _selected;
+	double _alpha;
+	bool _locked;
 
 public:
 
 	virtual void draw(CL_GraphicContext &gc) = 0;
 	virtual void action_performed(int action_type) = 0;
 	virtual bool quit_menu_on_action() = 0;
+	virtual bool is_inside(int x, int y) = 0;
+	virtual void mouse_moved(int mouse_x, int mouse_y) = 0;
 
 	void set_x(int x);
 	void set_y(int y);
@@ -45,7 +47,7 @@ public:
 	void set_selected(bool selected);
 	void set_locked(bool locked);
 
-	bool is_locked(){return locked;};
+	bool is_locked(){return _locked;};
 
 	MenuItem();	
 

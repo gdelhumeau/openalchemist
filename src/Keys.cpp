@@ -1,3 +1,14 @@
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Keys.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
+
 #include <ClanLib/display.h>
 
 #include "Keys.h"
