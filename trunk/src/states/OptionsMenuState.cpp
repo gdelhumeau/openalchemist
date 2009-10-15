@@ -21,6 +21,9 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Items                                                                */
+/************************************************************************/
 enum{
 	OPTIONS_ITEM_RENDER,
 	OPTIONS_ITEM_FULLSCREEN,
@@ -30,6 +33,9 @@ enum{
 	OPTIONS_ITEM_QUIT
 };
 
+/************************************************************************/
+/* Render choices                                                       */
+/************************************************************************/
 enum{
 #ifdef WITH_DX_9
 	RENDER_CHOICE_DX_9 = 0,
@@ -43,21 +49,32 @@ enum{
 #endif
 };
 
+/************************************************************************/
+/* No/Yes                                                               */
+/************************************************************************/
 enum{
 	ITEM_NO = 0,
 	ITEM_YES
 };
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 OptionsMenuState::OptionsMenuState()
 {
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 OptionsMenuState::~OptionsMenuState()
 {
 	deinit();
 }
 
-
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void OptionsMenuState::init()
 {
 	_items.clear();
@@ -69,11 +86,17 @@ void OptionsMenuState::init()
 	_items.insert (_items.end (), &_quit_item);
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void OptionsMenuState::deinit()
 {
 	unload_gfx();
 }
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
 	unload_gfx();
@@ -234,6 +257,9 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 
 }
 
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void OptionsMenuState::unload_gfx()
 {
 	_render_item.unload_gfx();
@@ -243,6 +269,9 @@ void OptionsMenuState::unload_gfx()
 	_music_level_item.unload_gfx();	
 }
 
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
 void OptionsMenuState::action_performed(int selection, int action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)				
@@ -258,6 +287,9 @@ void OptionsMenuState::action_performed(int selection, int action_type)
 	}
 }
 
+/************************************************************************/
+/* Update child                                                         */
+/************************************************************************/
 void OptionsMenuState::update_child()
 {
 	Preferences *p_pref = pref_get_instance();
@@ -331,6 +363,9 @@ void OptionsMenuState::update_child()
 
 }
 
+/************************************************************************/
+/* Toggle screen                                                        */
+/************************************************************************/
 void OptionsMenuState::toggle_screen()
 {
 	Preferences *p_pref = pref_get_instance();		
@@ -343,5 +378,3 @@ void OptionsMenuState::toggle_screen()
 		_fullscreen_item.set_current_choice(ITEM_NO);
 	}	
 }
-
-

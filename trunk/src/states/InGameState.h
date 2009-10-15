@@ -20,24 +20,33 @@
 class GameEngine;
 
 /**
-* InGame State
+* InGame State - main state
 */
 class InGameState : public GameState{
 
 public:
-	void init();
-	void deinit();
-	void load_gfx(CL_GraphicContext &gc, std::string skin);
-	void unload_gfx();
-	void draw(CL_GraphicContext &gc);
-	void update(CL_GraphicContext &gc);
-	void events(Window & window);
 
-	bool front_layer_behind();
-
+	/** Constructor */
 	InGameState();
-	~InGameState();
 
+	/** Destructor */
+	~InGameState();
+	
+	virtual void init();
+
+	virtual void deinit();
+	
+	virtual void load_gfx(CL_GraphicContext &gc, std::string skin);
+	
+	virtual void unload_gfx();
+
+	virtual void draw(CL_GraphicContext &gc);
+	
+	virtual void update(CL_GraphicContext &gc);
+	
+	virtual void events(Window & window);
+
+	virtual bool front_layer_behind();
 
 };
 

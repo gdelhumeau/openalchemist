@@ -17,16 +17,25 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 LoadingScreen::LoadingScreen(Window & window):
 _window(window)
 {
 
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 LoadingScreen::~LoadingScreen()
 {
 }
 
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void LoadingScreen::init()
 {
 	CL_GraphicContext & gc = _window.get_gc();
@@ -37,6 +46,9 @@ void LoadingScreen::init()
 	_progression_cursor = CL_Image(gc, file_path + "progression-cursor.png");
 }
 
+/************************************************************************/
+/* Set progression                                                      */
+/************************************************************************/
 void LoadingScreen::set_progression(float progression)
 {    
 	_window.prepare();

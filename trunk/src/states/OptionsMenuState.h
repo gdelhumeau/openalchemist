@@ -18,7 +18,6 @@
 #include "MenuState/BasicItem.h"
 #include "MenuState/MultipleChoicesItem.h"
 
-
 class GameEngine;
 
 /**
@@ -26,6 +25,29 @@ class GameEngine;
 */
 class OptionsMenuState : public MenuState
 {
+
+public:
+
+	/** Constructor */
+	OptionsMenuState();
+
+	/** Destructor */
+	~OptionsMenuState();
+
+	virtual void init();
+
+	virtual void deinit();
+
+	virtual void load_gfx(CL_GraphicContext &gc, std::string skin);
+
+	virtual void unload_gfx();
+	
+	virtual void action_performed(int selection, int action_type);
+
+	virtual void update_child();
+	
+	/** Toggle screen */
+	void toggle_screen();
 
 private:
 	MultipleChoicesItem _render_item;
@@ -35,19 +57,6 @@ private:
 	MultipleChoicesItem _music_level_item;
 
 	BasicItem _quit_item;
-
-public:
-	void init();
-	void deinit();
-	void load_gfx(CL_GraphicContext &gc, std::string skin);
-	void unload_gfx();
-	void action_performed(int selection, int action_type);
-	void update_child();
-	void toggle_screen();
-
-	OptionsMenuState();
-	~OptionsMenuState();
-
 
 };
 

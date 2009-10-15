@@ -21,23 +21,32 @@
 #define COMBOS_SPEED 1
 
 enum{
-	MODE_APPEARING,
-	MODE_DISPLAY,
-	MODE_DISAPPEARING	
+	STATE_APPEARING,
+	STATE_DISPLAY,
+	STATE_DISAPPEARING	
 };
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 CombosPainter :: CombosPainter()
 {
 	_next_time = 0;
 	_is_enabled = false;
-	_mode = MODE_APPEARING;
+	_state = STATE_APPEARING;
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 CombosPainter :: ~CombosPainter()
 {
 	unload_gfx();
 }
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
 {
 
@@ -62,12 +71,17 @@ void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
 
 }
 
-
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void CombosPainter :: unload_gfx()
 {
 
 }
 
+/************************************************************************/
+/* Set score                                                            */
+/************************************************************************/
 void CombosPainter :: set_score(int score)
 {
 	this -> _score = score;
@@ -76,7 +90,7 @@ void CombosPainter :: set_score(int score)
 	{
 		_score_current_y  = - _font_height;
 		_sprite_current_x = GAME_WIDTH;
-		_mode = MODE_APPEARING;
+		_state = STATE_APPEARING;
 	}
 	else
 	{
@@ -87,6 +101,9 @@ void CombosPainter :: set_score(int score)
 
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void CombosPainter :: draw(CL_GraphicContext &gc)
 {
 	if(!_is_enabled)
@@ -101,26 +118,31 @@ void CombosPainter :: draw(CL_GraphicContext &gc)
 
 }
 
+/************************************************************************/
+/* Update                                                               */
+/************************************************************************/
 void CombosPainter :: update()
 {
 	if(_is_enabled)
 	{
-		switch(_mode)
+		switch(_state)
 		{
-		case MODE_APPEARING:
+		case STATE_APPEARING:
 			_update_appearing();
 			break;  
-		case MODE_DISPLAY:
+		case STATE_DISPLAY:
 			_update_display();
 			break;
-		case MODE_DISAPPEARING:
+		case STATE_DISAPPEARING:
 			_update_disappearing();
 			break;
 		}
 	}
 }
 
-
+/************************************************************************/
+/* Update appearing                                                     */
+/************************************************************************/
 void CombosPainter :: _update_appearing()
 {
 	// Getting resources
@@ -142,20 +164,25 @@ void CombosPainter :: _update_appearing()
 
 	if(_score_current_y >= _score_y && _sprite_current_x <= _sprite_x)
 	{
-		_mode = MODE_DISPLAY;
+		_state = STATE_DISPLAY;
 		_next_time = CL_System::get_time() + 1500;
 	}
 }
 
-
+/************************************************************************/
+/* Update display                                                       */
+/************************************************************************/
 void CombosPainter :: _update_display()
 {
 	if(CL_System::get_time() > _next_time)
 	{
-		_mode = MODE_DISAPPEARING;
+		_state = STATE_DISAPPEARING;
 	}
 }
 
+/************************************************************************/
+/* Update disappearing                                                  */
+/************************************************************************/
 void CombosPainter :: _update_disappearing()
 {
 	// Getting resources

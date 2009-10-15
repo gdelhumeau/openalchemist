@@ -15,37 +15,55 @@
 #include <list>
 #include <ClanLib/core.h>
 
+/** Ini variable */
 class IniElement{
 
 public:
+	/** Variable name */
 	std::string name;
+
+	/** Variable value */
 	std::string value;
 
 };
 
 
-
+/** INI file (to save preferences) */
 class IniFile{
-
-	std::list<IniElement*> _list;
 
 public:
 
+	/** Read file */
 	void read(CL_File *file);
+
+	/** Write file */
 	void write(CL_File *file);
+
+	/** Clear variables */
 	void clear();
 
+	/** Add a string variable */
 	void add(std::string name, std::string value);
 
+	/** Add a boolean variable */
 	void add(std::string name, bool value);
 
+	/** Add an integer variable */
 	void add(std::string name, int value);
 
-	std::string get(std::string name, std::string def);
+	/** Get a string variable value */
+	std::string get(std::string name, std::string default_value);
 
-	bool get(std::string name, bool def);
+	/** Get a boolean variable value */
+	bool get(std::string name, bool default_value);
 
-	int get(std::string name, int def);
+	/** Get an integer variable value */
+	int get(std::string name, int default_value);
+
+private:
+	
+	/** Variables list */
+	std::list<IniElement*> _list;
 
 };
 

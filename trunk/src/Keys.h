@@ -14,14 +14,13 @@
 
 #include "KeyboardKey.h"
 
+/** Most common keys */
 class Keys{
 
 public:
 	KeyboardKey * fullscreen;
-	//  KeyboardKey * change_angle;
 	KeyboardKey * left;
 	KeyboardKey * right;
-	//  KeyboardKey * falling;
 	KeyboardKey * retry;
 	KeyboardKey * undo;
 	KeyboardKey * escape;
@@ -32,10 +31,10 @@ public:
 	KeyboardKey * options;
 	KeyboardKey * skins;
 
-	// Constructor
+	/** Constructor */
 	Keys();
 
-	// Destructor
+	/** Destructor */
 	~Keys();
 
 

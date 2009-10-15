@@ -17,30 +17,48 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* State                                                                */
+/************************************************************************/
 enum{
-	STEP_APPEARING,
-	STEP_NORMAL,
-	STEP_DISAPPEARING
+	STATE_APPEARING,
+	STATE_ACTIVE,
+	STATE_DISAPPEARING
 };
 
+/************************************************************************/
+/* Constants                                                            */
+/************************************************************************/
 static const float APPEARING_SPEED = 0.003f;
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 MenuState::MenuState ()
 {
 	_selection = 0;
 	_mouse_is_clicked = false;
 }
 
+/************************************************************************/
+/* Front layer behind                                                   */
+/************************************************************************/
 bool MenuState::front_layer_behind ()
 {
 	return true;
 }
 
+/************************************************************************/
+/* Set background sprite                                                */
+/************************************************************************/
 void MenuState::_set_background_sprite (CL_Sprite & background)
 {
 	this -> _background = background;
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void MenuState::draw (CL_GraphicContext & gc)
 {
 	// Displaying background
@@ -59,20 +77,26 @@ void MenuState::draw (CL_GraphicContext & gc)
 
 }
 
+/************************************************************************/
+/* Update                                                               */
+/************************************************************************/
 void MenuState::update (CL_GraphicContext & gc)
 {
-	switch (_step)
+	switch (_state)
 	{
-	case STEP_APPEARING:
+	case STATE_APPEARING:
 		_appear ();
 		break;
-	case STEP_DISAPPEARING:
+	case STATE_DISAPPEARING:
 		_disappear ();
 		break;
 	}
 	this -> update_child ();
 }
 
+/************************************************************************/
+/* Events                                                               */
+/************************************************************************/
 void MenuState::events (Window & window)
 {
 	CL_InputContext & ic = window.get_ic();
@@ -217,6 +241,9 @@ void MenuState::events (Window & window)
 
 }
 
+/************************************************************************/
+/* Start                                                                */
+/************************************************************************/
 void MenuState::start ()
 {
 	_selection = 0;
@@ -235,7 +262,7 @@ void MenuState::start ()
 	// Now, begining appearing
 //	if (_p_common_resources -> p_engine -> is_opengl_used ())
 	{
-		_step = STEP_APPEARING;
+		_state = STATE_APPEARING;
 		_alpha = 0.0;
 	}
 // 	else
@@ -244,12 +271,15 @@ void MenuState::start ()
 // 	}
 }
 
+/************************************************************************/
+/* Appear                                                               */
+/************************************************************************/
 void MenuState::_appear ()
 {
 	// Updating alpha value
 	if (_alpha + APPEARING_SPEED * _p_common_resources -> delta_time >= 1.0)
 	{
-		_step = STEP_NORMAL;
+		_state = STATE_ACTIVE;
 		_alpha = 1.0;
 	}
 	else
@@ -271,6 +301,9 @@ void MenuState::_appear ()
 
 }
 
+/************************************************************************/
+/* Disappear                                                            */
+/************************************************************************/
 void MenuState::_disappear ()
 {
 	// Updating alpha value
@@ -298,8 +331,10 @@ void MenuState::_disappear ()
 	}
 }
 
+/************************************************************************/
+/* Start appear                                                         */
+/************************************************************************/
 void MenuState::_start_disappear ()
 {
-	_step = STEP_DISAPPEARING;
+	_state = STATE_DISAPPEARING;
 }
-

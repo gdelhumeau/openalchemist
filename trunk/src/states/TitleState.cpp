@@ -21,7 +21,6 @@
 
 void TitleState::init()
 {
-	GameState::init();
 }
 
 void TitleState::deinit()

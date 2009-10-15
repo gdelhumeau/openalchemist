@@ -23,19 +23,27 @@ class Window;
  */
 class GameState{
 
-  protected:
-  CommonResources *_p_common_resources;
+public:
 
-  public:
+ /**
+   * Constructor
+   */
+  GameState();
+
+  /**
+   * Destructor
+   */
+  virtual ~GameState();
+
   /**
    * Initializing the state
    */
-  virtual void init();
+  virtual void init() = 0;
 
   /**
    * Deleting the initialized values
    */
-  virtual void deinit();
+  virtual void deinit() = 0;
 
   /**
    * Loading GFX
@@ -67,15 +75,12 @@ class GameState{
    */
   virtual bool front_layer_behind() = 0;
 
-  /**
-   * Constructor
-   */
-  GameState();
+protected:
 
-  /**
-   * Destructor
-   */
-  virtual ~GameState();
+	/** 
+	* Common resources instance 
+	*/
+	CommonResources *_p_common_resources;
 
 };
 

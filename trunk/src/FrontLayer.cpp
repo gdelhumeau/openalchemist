@@ -16,10 +16,12 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void FrontLayer::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
-
 	CL_ZipArchive zip(skin);
 
 	// Look if frontlayer.xml is existing
@@ -41,15 +43,14 @@ void FrontLayer::load_gfx(CL_GraphicContext & gc, std::string skin)
 
 }
 
-
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void FrontLayer::_load_gfx(CL_GraphicContext & gc, CL_ResourceManager *gfx_frontlayer)
 {
-
 	unload_gfx();
 
 	int number = CL_Integer_to_int("frontlayer/number_of_sprites", gfx_frontlayer);
-
-
 	for(int i=1; i<=number; ++i)
 	{
 		FrontLayerSprite *fsprite = my_new FrontLayerSprite();
@@ -60,6 +61,9 @@ void FrontLayer::_load_gfx(CL_GraphicContext & gc, CL_ResourceManager *gfx_front
 	}
 }
 
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void FrontLayer::unload_gfx()
 {
 
@@ -75,6 +79,9 @@ void FrontLayer::unload_gfx()
 
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void FrontLayer::draw(CL_GraphicContext & gc)
 {
 	std::list<FrontLayerSprite*>::iterator it = list.begin();

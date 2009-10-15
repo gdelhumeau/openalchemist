@@ -20,7 +20,6 @@
 
 void GameOverState::init()
 {
-	GameState::init();
 	_selection = GAMEOVER_SELECTION_YES;
 }
 

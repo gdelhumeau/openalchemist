@@ -18,9 +18,9 @@
 #include "../misc.h"
 #include "../Window.h"
 
-#define STEP_APPEARING 0
-#define STEP_NORMAL 1
-#define STEP_DISAPPEARING 2
+#define STATE_APPEARING 0
+#define STATE_ACTIVE 1
+#define STATE_DISAPPEARING 2
 
 #define APPEARING_SPEED 0.003
 
@@ -28,7 +28,6 @@
 
 void SkinsMenuState::init(CL_GraphicContext &gc)
 {
-	GameState::init();
 
 	// Fist we load Skin propreties saved in the conf file
 
@@ -282,10 +281,10 @@ void SkinsMenuState::update(CL_GraphicContext &gc)
 {
 	switch(step)
 	{
-	case STEP_APPEARING:
+	case STATE_APPEARING:
 		appear();
 		break;
-	case STEP_DISAPPEARING:
+	case STATE_DISAPPEARING:
 		disappear();
 		break;
 	}
@@ -293,14 +292,14 @@ void SkinsMenuState::update(CL_GraphicContext &gc)
 
 void SkinsMenuState::events(Window & window)
 {
-	if(step != STEP_NORMAL)
+	if(step != STATE_ACTIVE)
 		return;
 
 	CL_InputContext & ic = window.get_ic();
 
 	if(_p_common_resources->key.escape->get(ic) || _p_common_resources->key.skins->get(ic))
 	{   
-		step = STEP_DISAPPEARING;
+		step = STATE_DISAPPEARING;
 	}
 
 	// KEY DOWN
@@ -375,7 +374,7 @@ void SkinsMenuState::appear()
 { 
 	if(alpha + APPEARING_SPEED*_p_common_resources -> delta_time >= 1.0)
 	{
-		step = STEP_NORMAL;
+		step = STATE_ACTIVE;
 		alpha = 1.0;
 	}
 	else
@@ -420,7 +419,7 @@ void SkinsMenuState::disappear()
 
 void SkinsMenuState::start()
 {
-	step = STEP_APPEARING;
+	step = STATE_APPEARING;
 	alpha = 0.0;
 }
 
