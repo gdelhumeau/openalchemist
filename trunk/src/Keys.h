@@ -1,3 +1,14 @@
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Keys.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
+
 #ifndef _KEYS_H_
 #define _KEYS_H_
 

@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : DemoPlayer.cpp
-  Description : Player implementation
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : DemoPlayer.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "memory.h"
 #include <math.h>
@@ -21,6 +21,8 @@
 #include "misc.h"
 #include "Board.h"
 #include "GameEngine.h"
+
+#pragma warning(disable:4244)
 
 
 void DemoPlayer::events(CL_DisplayWindow & window)

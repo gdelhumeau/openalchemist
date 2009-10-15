@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : IniFile.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : IniFile.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <ClanLib/core.h>
 
@@ -77,7 +77,7 @@ void IniFile::write(CL_File *file)
 		}
 
 	}
-	catch(CL_Exception& exception)
+	catch(CL_Exception&)
 	{
 		std::cout << "Error while writing Ini." << std::endl;
 	}
@@ -157,7 +157,7 @@ void IniFile::add(std::string name, int value)
 				e -> value = CL_StringHelp::int_to_text(value);
 				return;
 			}
-			catch(CL_Exception& exception)
+			catch(CL_Exception&)
 			{
 				std::cout << value << " is not a correct int." << std::endl;
 			}
@@ -171,7 +171,7 @@ void IniFile::add(std::string name, int value)
 	{
 		e -> value = CL_StringHelp::int_to_text(value);
 	}
-	catch(CL_Exception& exception)
+	catch(CL_Exception&)
 	{
 		std::cout << value << " is not a correct int." << std::endl;
 	}
@@ -221,7 +221,7 @@ int IniFile::get(std::string name, int def)
 			{
 				return CL_StringHelp::text_to_int(e-> value);
 			}
-			catch(CL_Exception& exception)
+			catch(CL_Exception&)
 			{
 				return def;
 			}

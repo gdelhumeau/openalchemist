@@ -57,52 +57,18 @@
 				<image file="dialogs/options/render-opengl.png" />
 			</sprite>
 			
-			<sprite name="sdl">
-				<image file="dialogs/options/render-sdl.png" />
+			<sprite name="dx9">
+				<image file="dialogs/options/render-dx9.png" />
+			</sprite>
+			
+			<sprite name="gdi">
+				<image file="dialogs/options/render-gdi.png" />
+			</sprite>
+			
+			<sprite name="opengl2">
+				<image file="dialogs/options/render-opengl2.png" />
 			</sprite>
 		</section>
-		
-		<!-- Screen size item -->
-		<section name="screensize">
-			<sprite name="selected">
-				<image file="dialogs/options/screensize-selected.png" />
-				
-			</sprite>
-			<sprite name="unselected">
-				<image file="dialogs/options/screensize-unselected.png" />				
-			</sprite>
-			<sprite name="locked">
-				<image file="dialogs/options/screensize-locked.png" />				
-			</sprite>
-			
-			<integer name="top" value="150" />
-			<integer name="left" value="65" />			
-		</section>
-		
-		<!-- Screensize choices -->
-		<section name="screensize-choices">
-			<integer name="left" value="200" />
-			
-			<sprite name="320x240">
-				<image file="dialogs/options/screensize-320x240.png" />
-			</sprite>
-			
-			<sprite name="640x480">
-				<image file="dialogs/options/screensize-640x480.png" />
-			</sprite>
-			
-			<sprite name="640x480-wide">
-				<image file="dialogs/options/screensize-640x480-wide.png" />
-			</sprite>
-			
-			<sprite name="800x600">
-				<image file="dialogs/options/screensize-800x600.png" />
-			</sprite>
-			
-			<sprite name="800x600-wide">
-				<image file="dialogs/options/screensize-800x600-wide.png" />
-			</sprite>
-		</section>		
 				
 		<!-- Fullscreen item -->
 		<section name="fullscreen">

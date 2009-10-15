@@ -1,19 +1,22 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : Player.cpp
-  Description : Player implementation
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : CombosPainter.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <ClanLib/core.h>
 #include "CombosPainter.h"
 #include "CommonResources.h"
 #include "misc.h"
 #include "memory.h"
+#include "GameEngine.h"
+
+#pragma warning(disable:4244)
 
 #define COMBOS_SPEED 1
 
@@ -72,7 +75,7 @@ void CombosPainter :: set_score(int score)
 	if(!_is_enabled)
 	{
 		_score_current_y  = - _font_height;
-		_sprite_current_x = 800;
+		_sprite_current_x = GAME_WIDTH;
 		_mode = MODE_APPEARING;
 	}
 	else
@@ -125,14 +128,14 @@ void CombosPainter :: _update_appearing()
 
 	if(_sprite_current_x > _sprite_x)
 	{
-		_sprite_current_x -= COMBOS_SPEED * resources -> time_interval;
+		_sprite_current_x -= COMBOS_SPEED * resources -> delta_time;
 		if(_sprite_current_x < _sprite_x)
 			_sprite_current_x = _sprite_x;
 	}
 
 	if(_score_current_y < _score_y)
 	{
-		_score_current_y += COMBOS_SPEED * resources -> time_interval;
+		_score_current_y += COMBOS_SPEED * resources -> delta_time;
 		if(_score_current_y > _score_y)
 			_score_current_y = _score_y;
 	}
@@ -158,17 +161,17 @@ void CombosPainter :: _update_disappearing()
 	// Getting resources
 	CommonResources *resources = common_resources_get_instance();
 
-	if(_sprite_current_x < 800)
+	if(_sprite_current_x < GAME_WIDTH)
 	{
-		_sprite_current_x += COMBOS_SPEED * resources -> time_interval;
+		_sprite_current_x += COMBOS_SPEED * resources -> delta_time;
 	}
 
 	if(_score_current_y > -_font_height)
 	{
-		_score_current_y -= COMBOS_SPEED * resources -> time_interval;
+		_score_current_y -= COMBOS_SPEED * resources -> delta_time;
 	}
 
-	if(_score_current_y < - _font_height && _sprite_current_x > 800)
+	if(_score_current_y < - _font_height && _sprite_current_x > GAME_WIDTH)
 	{
 		_is_enabled = false;
 	}

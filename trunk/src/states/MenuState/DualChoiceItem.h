@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : DualChoiceItem.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
- *********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : DualChoiceItem.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _DUAL_CHOICE_ITEM_H_
 #define _DUAL_CHOICE_ITEM_H_
@@ -52,6 +52,8 @@ public:
 
 	int get_selection(){ return _selection; }
 	virtual bool quit_menu_on_action(){ return true; }
+	virtual bool is_inside(int x, int y);
+	virtual void mouse_moved(int mouse_x, int mouse_y);
 
 	DualChoiceItem();
 	~DualChoiceItem();

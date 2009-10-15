@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : IniFile.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : IniFile.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _INIFILE_H_
 #define _INIFILE_H_

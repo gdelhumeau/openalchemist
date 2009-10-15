@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : CombosPainter.h
-  Description : Implements Combos draw functions
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : CombosPainter.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _COMBOS_PAINTER_H_
 #define _COMBOS_PAINTER_H_

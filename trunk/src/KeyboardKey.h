@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : KeyboardKey.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : KeyboardKey.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _KEYBOARDKEY_H_
 #define _KEYBOARDKEY_H_
@@ -41,9 +41,9 @@ public:
 	/**
 	* Return if the key is activated 
 	*/
-	bool get(CL_DisplayWindow & window)
+	bool get(CL_InputContext & ic)
 	{
-		CL_InputDevice &keyboard = window.get_ic().get_keyboard();
+		CL_InputDevice &keyboard = ic.get_keyboard();
 		if(keyboard.get_keycode(_key))
 		{
 			if(!_is_key_active || (_should_repeat && CL_System::get_time()>_next_time))

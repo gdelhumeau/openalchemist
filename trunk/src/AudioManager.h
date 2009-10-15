@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : AudioManager.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : AudioManager.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _MUSIC_MANAGER_H_
 #define _MUSIC_MANAGER_H_

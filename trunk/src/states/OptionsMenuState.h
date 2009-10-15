@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : OptionsMenuState.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : OptionsMenuState.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _OPTIONSMENU_STATE_H_
 #define _OPTIONSMENU_STATE_H_
@@ -29,7 +29,6 @@ class OptionsMenuState : public MenuState
 
 private:
 	MultipleChoicesItem _render_item;
-	MultipleChoicesItem _screensize_item;
 	MultipleChoicesItem _fullscreen_item;
 	MultipleChoicesItem _framerate_item;
 	MultipleChoicesItem _sound_level_item;

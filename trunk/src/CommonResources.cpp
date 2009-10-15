@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : CommonResources.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : CommonResources.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include <ClanLib/core.h>
 
@@ -80,7 +80,7 @@ void CommonResources::read_scores()
 		highscore = file.read_uint32();
 
 	}
-	catch(CL_Exception & e)
+	catch(CL_Exception&)
 	{
 		std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
 		highscore = 0;
@@ -102,7 +102,7 @@ void CommonResources::save_scores()
 		file.write_uint32(highscore);
 		file.close();
 	}
-	catch(CL_Exception & e)
+	catch(CL_Exception&)
 	{
 		std::cout << "Can't write hightscores file. \n";
 	}

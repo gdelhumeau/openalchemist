@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : AudioManager.cpp
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : AudioManager.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "AudioManager.h"
 #include "Preferences.h"
@@ -109,7 +109,7 @@ void AudioManager::set_sounds_volume(float volume)
 
 void AudioManager::play_sound(int sound_index)
 {
-	if(_sounds_p[sound_index])
+	if(false && _sounds_p[sound_index])
 	{
 		_sounds_playback[sound_index] = _sounds_p[sound_index] -> prepare();
 		_sounds_playback[sound_index].set_looping(false);

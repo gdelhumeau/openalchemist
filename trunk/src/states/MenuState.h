@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : MenuState.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : MenuState.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _MENU_STATE_H_
 #define _MENU_STATE_H_
@@ -29,10 +29,13 @@ class MenuState : public GameState{
 protected:
 
 	int _step;
-	double _alpha;
+	float _alpha;
 	std::vector<MenuItem*> _items;
 	CL_Sprite _background;  
 	int _selection;
+	int _mouse_x;
+	int _mouse_y;
+	bool _mouse_is_clicked;
 
 	void _set_background_sprite(CL_Sprite & background);
 
@@ -51,7 +54,7 @@ public:
 
 	void draw(CL_GraphicContext &gc);
 	void update(CL_GraphicContext &gc);
-	void events(CL_DisplayWindow & window);
+	void events(Window & window);
 
 	void start();
 

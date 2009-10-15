@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="clanApp-static-mt-debug.lib clanCore-static-mt-debug.lib clanGDI-static-mt-debug.lib clanDisplay-static-mt-debug.lib clanSound-static-mt-debug.lib clanVorbis-static-mt-debug.lib"
+				AdditionalDependencies="clanApp-static-mt-debug.lib clanCore-static-mt-debug.lib clanDisplay-static-mt-debug.lib clanSound-static-mt-debug.lib clanVorbis-static-mt-debug.lib"
 				OutputFile="$(OutDir)\$(ProjectName)-Debug.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target libs&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
@@ -175,6 +175,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\src\Application.h"
+				>
+			</File>
 			<File
 				RelativePath=".\src\AudioManager.h"
 				>
@@ -304,11 +308,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\states\SkinsMenuState.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\states\TitleState.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Window.h"
 				>
 			</File>
 		</Filter>
@@ -317,6 +329,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath="E:\Dev\logo.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\OpenAlchemist.rc"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -400,6 +420,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\main.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\memory.cpp"
 				>
 			</File>
@@ -449,6 +473,10 @@
 			</File>
 			<File
 				RelativePath=".\src\states\TitleState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Window.cpp"
 				>
 			</File>
 		</Filter>

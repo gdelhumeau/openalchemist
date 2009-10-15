@@ -1,27 +1,29 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : LoadingScreen.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : LoadingScreen.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _LOADING_SCREEN_H_
 #define _LOADING_SCREEN_H_
 
 #include <ClanLib/display.h>
 
+class Window;
+
 class LoadingScreen
 {
 
 public:
-	LoadingScreen();
+	LoadingScreen(Window & window);
 	~LoadingScreen();
 
-	void init(CL_GraphicContext &gc, CL_DisplayWindow & window);
+	void init();
 	void set_progression(float progression);
 
 private:
@@ -30,8 +32,7 @@ private:
 	CL_Image _progression;
 	CL_Image _progression_cursor;
 
-	CL_GraphicContext * _p_gc;
-	CL_DisplayWindow * _p_window;
+	Window & _window;
 
 };
 

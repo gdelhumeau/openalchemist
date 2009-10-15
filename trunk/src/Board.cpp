@@ -1,19 +1,21 @@
-/********************************************************************
-                          OpenAlchemist
- 
-  File : Board.cpp
-  Description : Board implementation
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
- 
- 
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Board.cpp
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #include "memory.h"
 #include "Board.h"
 #include "CommonResources.h"
 #include "GameEngine.h"
 #include "misc.h"
+
+#pragma warning(disable:4244)
 
 Board::Board()
 {
@@ -175,17 +177,18 @@ bool Board::fall_and_create()
 	{
 		if (_falling_list[i])
 		{
-			if (!_falling_list[i] -> fall(resources -> time_interval))
+			if (!_falling_list[i] -> fall(resources -> delta_time))
 				all_pieces_are_placed = false;
 		}
 	}
 
+	int time_now = CL_System::get_time();
 	// This part makes pieces appear
 	std::list<Piece*>::iterator it = _appearing_list.begin();
 	while (it != _appearing_list.end())
 	{
 		Piece *p = (Piece*) * it;
-		if (p -> appear())
+		if (p -> appear(time_now))
 		{
 			it = _appearing_list.erase(it);
 		}
@@ -377,11 +380,12 @@ bool Board::destroy()
 {
 	bool end = true;
 	std::vector<Coords>::iterator it = _list_to_destroy.begin();
+		int time_now = CL_System::get_time();
 	while(it != _list_to_destroy.end())
 	{
 		Coords c = *it;
 
-		if (_p_board[c.x][c.y] != NULL && !_p_board[c.x][c.y]->disappear())
+		if (_p_board[c.x][c.y] != NULL && !_p_board[c.x][c.y]->disappear(time_now))
 		{
 			end = false;
 			it++;

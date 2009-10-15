@@ -1,3 +1,14 @@
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : Coords.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
+
 #ifndef _COORDS_H_
 #define _COORDS_H_
 

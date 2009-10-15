@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : HumanPlayer.h
-  Description : Implements Player Class
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : HumanPlayer.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _HUMAN_PLAYER_H_
 #define _HUMAN_PLAYER_H_
@@ -32,7 +32,7 @@ public:
 	/**
 	* Checking key events
 	*/
-	void events(CL_DisplayWindow & window);
+	void events(CL_InputContext & ic);
 
 	virtual bool is_human(){ return true; }
 

@@ -1,13 +1,13 @@
-/********************************************************************
-                          OpenAlchemist
-
-  File : Misc.h
-  Description : 
-  License : GNU General Public License 2 or +
-  Author : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
-
-
-*********************************************************************/
+// **********************************************************************
+//                            OpenAlchemist
+//                        ---------------------
+//
+//  File        : misc.h
+//  Description : 
+//  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
+//  License     : GNU General Public License 2 or higher
+//
+// **********************************************************************
 
 #ifndef _MISC_H_
 #define _MISC_H_
@@ -26,7 +26,7 @@ std::string get_version();
 /**
 * This function return a factor to calcul moving with time
 */
-inline double get_time_interval(int fps)
+inline float get_time_interval(int fps)
 {
 	static unsigned int last_time = 0;
 
@@ -36,14 +36,14 @@ inline double get_time_interval(int fps)
 
 	if(fps == 0)
 	{
-		return delta_time;
+		return (float)delta_time;
 	}
 
-	double fps_normal_time = 1000.0/((double)fps);
+	float fps_normal_time = 1000.0f/((float)fps);
 
 	if(delta_time > fps_normal_time * 1.1 || delta_time < fps_normal_time * 0.9)
 	{
-		return delta_time;
+		return (float)delta_time;
 	}	
 
 	return fps_normal_time;
