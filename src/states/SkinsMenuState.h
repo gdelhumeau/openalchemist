@@ -156,6 +156,7 @@ private:
 	void disappear();
 
 public:
+	void init(){};
 	void init(CL_GraphicContext &gc);
 	void deinit();
 	void load_gfx(CL_GraphicContext &gc, std::string skin);

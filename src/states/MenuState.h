@@ -18,50 +18,80 @@
 #include "../KeyboardKey.h"
 #include "MenuState/MenuItem.h"
 
-
 class GameEngine;
 
 /**
-* Menu State
+* Menu State - a based class for all menus
 */
 class MenuState : public GameState{
 
-protected:
-
-	int _step;
-	float _alpha;
-	std::vector<MenuItem*> _items;
-	CL_Sprite _background;  
-	int _selection;
-	int _mouse_x;
-	int _mouse_y;
-	bool _mouse_is_clicked;
-
-	void _set_background_sprite(CL_Sprite & background);
-
-	void _appear();
-	void _disappear();
-
-	void _start_disappear();
-
 public:
-	virtual void init() = 0;
-	virtual void deinit() = 0;
-	virtual void load_gfx(CL_GraphicContext &gc, std::string skin) = 0;
-	virtual void unload_gfx() = 0;
-	virtual void action_performed(int selection, int action_type) = 0;
-	virtual void update_child() = 0;
 
-	void draw(CL_GraphicContext &gc);
-	void update(CL_GraphicContext &gc);
-	void events(Window & window);
-
-	void start();
-
-	bool front_layer_behind();
-
+	/** Constructor */
 	MenuState();
 
+	virtual void init() = 0;
+
+	virtual void deinit() = 0;
+
+	virtual void load_gfx(CL_GraphicContext &gc, std::string skin) = 0;
+
+	virtual void unload_gfx() = 0;
+
+	virtual void draw(CL_GraphicContext &gc);
+
+	virtual void update(CL_GraphicContext &gc);
+
+	virtual void events(Window & window);
+
+	virtual bool front_layer_behind();
+	
+	/** Action performed - propaged to derivated class */
+	virtual void action_performed(int selection, int action_type) = 0;
+
+	/** Update derivated class */
+	virtual void update_child() = 0;
+	
+	/** Start the menu */
+	void start();
+
+protected:
+
+	/** Menu state (is it appearing, active, disappearing...) */
+	int _state;
+
+	/** Alpha value of the menu */
+	float _alpha;
+
+	/** Menu Items (widgets) */
+	std::vector<MenuItem*> _items;
+
+	/** Background sprite */
+	CL_Sprite _background;  
+
+	/** Current selection inside the menu */
+	int _selection;
+
+	/** X mouse coord */
+	int _mouse_x;
+
+	/** Y mouse coord */
+	int _mouse_y;
+
+	/** Is mouse button clicked */
+	bool _mouse_is_clicked;
+
+	/** Set background sprite */
+	void _set_background_sprite(CL_Sprite & background);
+
+	/** Make menu appear */
+	void _appear();
+
+	/** Make menu disappear */
+	void _disappear();
+
+	/** Start menu apparition */
+	void _start_disappear();
 
 };
 

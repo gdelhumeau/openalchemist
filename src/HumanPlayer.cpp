@@ -11,7 +11,6 @@
 
 #include "memory.h"
 #include <math.h>
-
 #include <ClanLib/core.h>
 
 #include "HumanPlayer.h"
@@ -23,10 +22,16 @@
 #include "GameEngine.h"
 #include "AudioManager.h"
 
-static const float PI = 3.1415926535897932384f;
-static const float TO_RAD 						= PI / 180;
+/************************************************************************/
+/* Constants                                                            */
+/************************************************************************/
+static const float PI     = 3.1415926535897932384f;
+static const float TO_RAD = PI / 180;
 static const float PIECE_MOVING_SPEED = 0.25;
 
+/************************************************************************/
+/* Events                                                               */
+/************************************************************************/
 void HumanPlayer::events(CL_InputContext & ic)
 {
 	// Getting resources

@@ -14,16 +14,16 @@
 #include "Keys.h"
 #include "memory.h"
 
-// Constructor
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 Keys::Keys()
 {
 	// We create all the usefull KeysboardKeys
 	fullscreen   = my_new KeyboardKey(CL_KEY_F11   , false);
 	retry        = my_new KeyboardKey(CL_KEY_F2    , false);
-	//  change_angle = my_new KeyboardKey(CL_KEY_UP    , true );
 	left         = my_new KeyboardKey(CL_KEY_LEFT  , true );
 	right        = my_new KeyboardKey(CL_KEY_RIGHT , true );
-	//  falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
 	undo         = my_new KeyboardKey(CL_KEY_F5    , false);
 	escape       = my_new KeyboardKey(CL_KEY_ESCAPE, false);
 	pause        = my_new KeyboardKey(CL_KEY_PAUSE , false);
@@ -35,7 +35,9 @@ Keys::Keys()
 
 }
 
-// Destructor
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 Keys::~Keys()
 {
 	my_delete( fullscreen );

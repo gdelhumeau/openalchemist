@@ -20,7 +20,6 @@
 #include "ProgressBar.h"
 #include "Player.h"
 
-
 /**
 * Implements the human player, keys events for going left, right & falling
 * and contains his board.

@@ -19,14 +19,9 @@
 */
 class KeyboardKey
 {
-private:
-	int _key;
-	bool _is_key_active;
-
-	bool _should_repeat;
-	unsigned long int _next_time;
 
 public:
+
 	/**
 	* Constructor
 	*/
@@ -59,6 +54,28 @@ public:
 		}
 		return false;
 	}
+
+private:
+	
+	/** 
+	* Key code
+	*/
+	int _key;
+
+	/** 
+	* Is the key pushed
+	*/
+	bool _is_key_active;
+
+	/** 
+	* Is repeat enable
+	*/
+	bool _should_repeat;
+
+	/** 
+	* Next repeat moment
+	*/
+	unsigned long int _next_time;
 
 };
 

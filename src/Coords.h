@@ -12,13 +12,31 @@
 #ifndef _COORDS_H_
 #define _COORDS_H_
 
+/** 
+* Saves a piece coords
+*/
 class Coords
 {
 public:
+
+	/** 
+	* X coord
+	*/
 	int x;
+
+	/** 
+	* Y coord
+	*/
 	int y;
+
+	/** 
+	* Piece number
+	*/
 	int piece_number;
 
+	/** 
+	* Constructor
+	*/
 	Coords(int x, int y)
 	{
 		this -> x = x;
@@ -26,6 +44,9 @@ public:
 		this -> piece_number = 0;
 	}
 
+	/** 
+	* Constructor
+	*/
 	Coords(Coords* c)
 	{
 		this -> x = c->x;

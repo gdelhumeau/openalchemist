@@ -10,10 +10,12 @@
 // **********************************************************************
 
 #include <ClanLib/core.h>
-
 #include "IniFile.h"
 
-void write_ln(CL_File *file, std::string string)
+/************************************************************************/
+/* Write a line                                                         */
+/************************************************************************/
+static void write_ln(CL_File *file, std::string string)
 {
 #ifdef WIN32
 	string += "\r\n";
@@ -23,7 +25,10 @@ void write_ln(CL_File *file, std::string string)
 	file->write(string.c_str(), string.length());
 }
 
-std::string read_ln(CL_File *file)
+/************************************************************************/
+/* Read a line                                                          */
+/************************************************************************/
+static std::string read_ln(CL_File *file)
 {
 	std::string s = "";
 	char c = file -> read_uint8();
@@ -36,7 +41,9 @@ std::string read_ln(CL_File *file)
 	return s;
 }
 
-
+/************************************************************************/
+/* Read                                                                 */
+/************************************************************************/
 void IniFile::read(CL_File *file)
 {
 	clear();
@@ -60,9 +67,11 @@ void IniFile::read(CL_File *file)
 	}
 }
 
+/************************************************************************/
+/* Write                                                                */
+/************************************************************************/
 void IniFile::write(CL_File *file)
 {
-
 	try
 	{
 		std::string section = "[Preferences]";
@@ -83,9 +92,9 @@ void IniFile::write(CL_File *file)
 	}
 }
 
-
-
-
+/************************************************************************/
+/* Clear                                                                */
+/************************************************************************/
 void IniFile::clear()
 {
 	std::list<IniElement*>::iterator it = _list.begin();
@@ -97,6 +106,9 @@ void IniFile::clear()
 	}
 }
 
+/************************************************************************/
+/* Add                                                                  */
+/************************************************************************/
 void IniFile::add(std::string name, std::string value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
@@ -117,6 +129,9 @@ void IniFile::add(std::string name, std::string value)
 	_list.insert(_list.end(), e);
 }
 
+/************************************************************************/
+/* Add                                                                  */
+/************************************************************************/
 void IniFile::add(std::string name, bool value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
@@ -145,6 +160,9 @@ void IniFile::add(std::string name, bool value)
 	_list.insert(_list.end(), e);
 }
 
+/************************************************************************/
+/* Add                                                                  */
+/************************************************************************/
 void IniFile::add(std::string name, int value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
@@ -179,7 +197,10 @@ void IniFile::add(std::string name, int value)
 	_list.insert(_list.end(), e);
 }
 
-std::string IniFile::get(std::string name, std::string def)
+/************************************************************************/
+/* Get                                                                  */
+/************************************************************************/
+std::string IniFile::get(std::string name, std::string default_value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
@@ -191,10 +212,13 @@ std::string IniFile::get(std::string name, std::string def)
 		}
 		it++;
 	}
-	return def;
+	return default_value;
 }
 
-bool IniFile::get(std::string name, bool def)
+/************************************************************************/
+/* Get                                                                  */
+/************************************************************************/
+bool IniFile::get(std::string name, bool default_value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
@@ -206,10 +230,13 @@ bool IniFile::get(std::string name, bool def)
 		}
 		it++;
 	}
-	return def;
+	return default_value;
 }
 
-int IniFile::get(std::string name, int def)
+/************************************************************************/
+/* Get                                                                  */
+/************************************************************************/
+int IniFile::get(std::string name, int default_value)
 {
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
@@ -223,10 +250,10 @@ int IniFile::get(std::string name, int def)
 			}
 			catch(CL_Exception&)
 			{
-				return def;
+				return default_value;
 			}
 		}
 		it++;
 	}
-	return def;
+	return default_value;
 }

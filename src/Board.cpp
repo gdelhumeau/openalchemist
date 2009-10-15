@@ -17,21 +17,28 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 Board::Board()
 {
-
 	/* Initializing all to NULL */
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
 		for (int j = 0; j < NUMBER_OF_LINES; ++j)
 			_p_board[i][j] = NULL;
-
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 Board::~Board()
 {
 	clear();
 }
 
+/************************************************************************/
+/* Clear                                                                */
+/************************************************************************/
 void Board::clear()
 {
 	/* Initializing all to NULL */
@@ -45,6 +52,9 @@ void Board::clear()
 
 }
 
+/************************************************************************/
+/* Apply skin                                                           */
+/************************************************************************/
 void Board::apply_skin(CL_Sprite* pieces_normal,
 					   CL_Sprite* pieces_appearing,
 					   CL_Sprite* pieces_disappearing,
@@ -62,6 +72,9 @@ void Board::apply_skin(CL_Sprite* pieces_normal,
 		}
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void Board::draw(CL_GraphicContext & gc)
 {
 	// Getting resources
@@ -83,6 +96,9 @@ void Board::draw(CL_GraphicContext & gc)
 
 }
 
+/************************************************************************/
+/* Add pieces                                                           */
+/************************************************************************/
 void Board::add_pieces(Piece* piece1, Piece* piece2)
 {
 	// Getting resources
@@ -167,6 +183,9 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 
 }
 
+/************************************************************************/
+/* Fall and create                                                      */
+/************************************************************************/
 bool Board::fall_and_create()
 {
 	// Getting resources
@@ -202,6 +221,9 @@ bool Board::fall_and_create()
 
 }
 
+/************************************************************************/
+/* Detect pieces to destroy                                             */
+/************************************************************************/
 bool Board::detect_pieces_to_destroy()
 {
 
@@ -225,6 +247,9 @@ bool Board::detect_pieces_to_destroy()
 
 }
 
+/************************************************************************/
+/* Destect pieces to destroy from coords                                */
+/************************************************************************/
 void Board::_detect_pieces_to_destroy_from(int i,
 										   int j)
 {
@@ -281,6 +306,9 @@ void Board::_detect_pieces_to_destroy_from(int i,
 	}
 }
 
+/************************************************************************/
+/* Pieces to destroys are detected                                      */
+/************************************************************************/
 void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 {
 
@@ -307,6 +335,9 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 
 }
 
+/************************************************************************/
+/* Create new piece                                                     */
+/************************************************************************/
 void Board::_create_new_piece(std::vector<Coords> &detected_pieces)
 {
 	// Determining the new piece coords
@@ -330,6 +361,9 @@ void Board::_create_new_piece(std::vector<Coords> &detected_pieces)
 
 }
 
+/************************************************************************/
+/* Choose new piece coord                                               */
+/************************************************************************/
 void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords> &detected_pieces)
 {
 	std::vector<Coords>::iterator it = detected_pieces.begin();
@@ -358,6 +392,9 @@ void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords> &det
 	}
 }
 
+/************************************************************************/
+/* Unlock piece                                                         */
+/************************************************************************/
 void Board::_unlock_piece(Coords &new_piece)
 {
 	static CommonResources *resources = common_resources_get_instance();
@@ -375,6 +412,9 @@ void Board::_unlock_piece(Coords &new_piece)
 	}
 }
 
+/************************************************************************/
+/* Destroy                                                              */
+/************************************************************************/
 bool Board::destroy()
 {
 	bool end = true;
@@ -400,6 +440,9 @@ bool Board::destroy()
 	return end;
 }
 
+/************************************************************************/
+/* Create new pieces                                                    */
+/************************************************************************/
 void Board::create_new_pieces(CL_Sprite *pieces_normal,
 							  CL_Sprite *pieces_appearing,
 							  CL_Sprite *pieces_disappearing,
@@ -439,6 +482,9 @@ void Board::create_new_pieces(CL_Sprite *pieces_normal,
 	}
 }
 
+/************************************************************************/
+/* Detect pirces to fall                                                */
+/************************************************************************/
 void Board::detect_pieces_to_fall()
 {
 	// Getting resources
@@ -467,6 +513,9 @@ void Board::detect_pieces_to_fall()
 		}
 }
 
+/************************************************************************/
+/* Is game over                                                         */
+/************************************************************************/
 bool Board::is_game_over()
 {
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
@@ -490,6 +539,9 @@ bool Board::is_game_over()
 
 }
 
+/************************************************************************/
+/* Compute score                                                        */
+/************************************************************************/
 void Board::calc_score()
 {
 	// Getting resources
@@ -518,6 +570,9 @@ void Board::calc_score()
 		hightscore_left = hightscore_right - hightscore_width;
 }
 
+/************************************************************************/
+/* Undo                                                                 */
+/************************************************************************/
 void Board::undo(
 				 CL_Sprite *pieces_normal,
 				 CL_Sprite* pieces_appearing,

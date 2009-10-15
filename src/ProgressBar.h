@@ -21,6 +21,7 @@
 class ProgressBar{
 
 private:
+	
 	/**
 	* Sprites for progress bar
 	*/
@@ -33,10 +34,7 @@ private:
 	*/
 	int _left, _head_top, _foot_top;
 
-
-
 public:
-
 
 	/**
 	* Constructor
@@ -62,7 +60,6 @@ public:
 	* Drawing the percentage bar
 	*/
 	void draw(CL_GraphicContext & gc, int percentage);
-
 
 };
 

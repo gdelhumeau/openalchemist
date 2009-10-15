@@ -20,16 +20,25 @@
 #include "LoadingScreen.h"
 #include "AudioManager.h"
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 GameEngine::GameEngine():
 _window(GAME_WIDTH, GAME_HEIGHT)
 {
 	_p_loading_screen = NULL;
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 GameEngine::~GameEngine()
 {
 }
 
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void GameEngine::init()
 {
 	Preferences *pref = pref_get_instance();
@@ -75,6 +84,9 @@ void GameEngine::init()
 	_framerate_counter.set_fps_limit(pref -> maxfps);
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void GameEngine::term()
 {
 	_common_state.deinit();
@@ -87,6 +99,9 @@ void GameEngine::term()
 	_quitmenu_state.deinit();
 }
 
+/************************************************************************/
+/* Run                                                                  */
+/************************************************************************/
 void GameEngine::run()
 {
 	if (_running)
@@ -130,11 +145,17 @@ void GameEngine::run()
 	}
 }
 
+/************************************************************************/
+/* Stop                                                                 */
+/************************************************************************/
 void GameEngine::stop()
 {
 	_running = false;
 }
 
+/************************************************************************/
+/* State state title                                                    */
+/************************************************************************/
 void GameEngine::set_state_title()
 {
 	while (!_states_stack.empty())
@@ -145,9 +166,15 @@ void GameEngine::set_state_title()
 	_title_state.start();
 }
 
+/************************************************************************/
+/* Set state new game menu                                              */
+/************************************************************************/
 void GameEngine::set_state_new_game_menu()
 {}
 
+/************************************************************************/
+/* Set state pause menu                                                 */
+/************************************************************************/
 void GameEngine::set_state_pause_menu()
 {
 	if (_states_stack.top() != &_pausemenu_state)
@@ -158,6 +185,9 @@ void GameEngine::set_state_pause_menu()
 	}
 }
 
+/************************************************************************/
+/* Set state ingame                                                     */
+/************************************************************************/
 void GameEngine::set_state_ingame()
 {
 	CommonResources *common_resources = common_resources_get_instance();
@@ -166,6 +196,9 @@ void GameEngine::set_state_ingame()
 	g_audio_manager.unpause_fx();
 }
 
+/************************************************************************/
+/* Set state gameover                                                   */
+/************************************************************************/
 void GameEngine::set_state_gameover(int mode)
 {
 	_gameover_state.set_mode(mode);
@@ -178,7 +211,9 @@ void GameEngine::set_state_gameover(int mode)
 states_stack.push(&highscore_state);
 }*/
 
-
+/************************************************************************/
+/* Set states options menu                                              */
+/************************************************************************/
 void GameEngine::set_state_options_menu()
 {
 	if (_states_stack.top() != &_optionsmenu_state)
@@ -189,6 +224,9 @@ void GameEngine::set_state_options_menu()
 	}
 }
 
+/************************************************************************/
+/* Set state skin menu                                                  */
+/************************************************************************/
 void GameEngine::set_state_skin_menu()
 {
 	if (_states_stack.top() != &_skinsmenu_state)
@@ -200,6 +238,9 @@ void GameEngine::set_state_skin_menu()
 	}
 }
 
+/************************************************************************/
+/* Set state quit menu                                                  */
+/************************************************************************/
 void GameEngine::set_state_quit_menu(int action)
 {
 	if (_states_stack.top() != &_quitmenu_state)
@@ -211,6 +252,9 @@ void GameEngine::set_state_quit_menu(int action)
 	}
 }
 
+/************************************************************************/
+/* Stop current state                                                   */
+/************************************************************************/
 void GameEngine::stop_current_state()
 {
 	_states_stack.pop();
@@ -220,6 +264,9 @@ void GameEngine::stop_current_state()
 	}
 }
 
+/************************************************************************/
+/* Toggle screen                                                        */
+/************************************************************************/
 void GameEngine::toggle_screen()
 {
 	Preferences *pref = pref_get_instance();
@@ -229,17 +276,26 @@ void GameEngine::toggle_screen()
 
 }
 
+/************************************************************************/
+/* Refresh framerate limit                                              */
+/************************************************************************/
 void GameEngine::refresh_framerate_limit()
 {
 	Preferences *pref = pref_get_instance();
 	_framerate_counter.set_fps_limit(pref -> maxfps);
 }
 
+/************************************************************************/
+/* Get FPS                                                              */
+/************************************************************************/
 int GameEngine::get_fps()
 {
 	return _framerate_counter.get_fps();
 }
 
+/************************************************************************/
+/* Set skib                                                             */
+/************************************************************************/
 void GameEngine::set_skin(std::string skin)
 {
 	CommonResources *resources = common_resources_get_instance();
@@ -347,6 +403,9 @@ void GameEngine::set_skin(std::string skin)
 	_p_loading_screen = NULL;
 }
 
+/************************************************************************/
+/* Set skin element                                                     */
+/************************************************************************/
 void GameEngine::set_skin_element(unsigned int element)
 {
 	_skinsmenu_state.set_skin_elements(element);

@@ -21,27 +21,38 @@ class GameEngine;
 
 
 /**
-* Common State
+* Common State - the state which is always active.
 */
 class CommonState : public GameState{
 
-private:
-	CL_Image _background;
-
 public:
-	void init();
-	void deinit();
-	void load_gfx(CL_GraphicContext & gc, std::string skin);
-	void unload_gfx();
-	void draw(CL_GraphicContext & gc);
-	void update(CL_GraphicContext & gc);
-	void events(Window & window);
 
-	bool front_layer_behind();
-
+	/** Constructor */
 	CommonState();
+
+	/** Destructor */
 	~CommonState();
 
+	virtual void init();
+
+	virtual void deinit();
+
+	virtual void load_gfx(CL_GraphicContext & gc, std::string skin);
+
+	virtual void unload_gfx();
+
+	virtual void draw(CL_GraphicContext & gc);
+	
+	virtual void update(CL_GraphicContext & gc);
+	
+	virtual void events(Window & window);
+
+	virtual bool front_layer_behind();
+
+private:
+
+	/** Background image */
+	CL_Image _background;
 
 };
 
