@@ -18,13 +18,10 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Constant                                                             */
+/************************************************************************/
 #define COMBOS_SPEED 1
-
-enum{
-	STATE_APPEARING,
-	STATE_DISPLAY,
-	STATE_DISAPPEARING	
-};
 
 /************************************************************************/
 /* Constructor                                                          */
@@ -109,13 +106,12 @@ void CombosPainter :: draw(CL_GraphicContext &gc)
 	if(!_is_enabled)
 		return;
 
-	_font.draw_text(gc, _score_x, _score_current_y, to_string(_score));
+	_font.draw_text(gc, _score_x, _score_current_y + _font_height,
+		to_string(_score));
 	if(_score == 1)
 		_sprite_single.draw(gc, _sprite_current_x, _sprite_y);
 	else
 		_sprite_plural.draw(gc, _sprite_current_x, _sprite_y);
-
-
 }
 
 /************************************************************************/
