@@ -141,7 +141,7 @@ void MultipleChoicesItem::action_performed(ActionType action_type)
 	{
 		_selection ++;
 	}
-	else if(ACTION_TYPE_ENTER == action_type)
+	else if(ACTION_TYPE_MOUSE == action_type)
 	{
 		_selection++;
 		if(_selection >= _choices_list.size())

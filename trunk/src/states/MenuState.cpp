@@ -38,6 +38,7 @@ MenuState::MenuState ()
 {
 	_selection = 0;
 	_mouse_is_clicked = false;
+	_items.clear();
 }
 
 /************************************************************************/
@@ -183,6 +184,15 @@ void MenuState::events (Window & window)
 	}
 
 	// Mouse
+	_mouse_events(window);
+}
+
+/************************************************************************/
+/* Mouse events                                                         */
+/************************************************************************/
+void MenuState::_mouse_events(Window & window)
+{
+	CL_InputContext & ic = window.get_ic();
 	if(ic.get_mouse_count() > 0)
 	{
 		CL_InputDevice & mouse = ic.get_mouse();
@@ -208,7 +218,10 @@ void MenuState::events (Window & window)
 					found = true;
 					if(!_items[i]->is_locked())
 					{
-						_items[_selection] -> set_selected(false);
+						if(_selection >= 0)
+						{
+							_items[_selection] -> set_selected(false);
+						}
 						_selection = i;
 						_items[i] -> set_selected(true);
 						_items[i] -> mouse_moved((int)(_mouse_x*scale-dx),
@@ -228,7 +241,7 @@ void MenuState::events (Window & window)
 					{
 						_start_disappear ();
 					}
-					_items[_selection] -> action_performed(ACTION_TYPE_ENTER);
+					_items[_selection] -> action_performed(ACTION_TYPE_MOUSE);
 				}
 			}			
 		}
@@ -238,7 +251,6 @@ void MenuState::events (Window & window)
 			_mouse_is_clicked = false;
 		}
 	}
-
 }
 
 /************************************************************************/
@@ -259,16 +271,9 @@ void MenuState::start ()
 	// Except the selection
 	_items[_selection] -> set_selected (true);
 
-	// Now, begining appearing
-//	if (_p_common_resources -> p_engine -> is_opengl_used ())
-	{
-		_state = STATE_APPEARING;
-		_alpha = 0.0;
-	}
-// 	else
-// 	{
-// 		_step = STEP_NORMAL;
-// 	}
+	// Now, beginning appearing
+	_state = STATE_APPEARING;
+	_alpha = 0.0;
 }
 
 /************************************************************************/
@@ -309,6 +314,17 @@ void MenuState::_disappear ()
 	// Updating alpha value
 	_alpha -= APPEARING_SPEED * _p_common_resources -> delta_time;
 
+	if (_alpha <= 0)
+	{
+		// Now perform child action or leaving the state
+		if (_selection == -1)
+			_p_common_resources -> p_engine -> stop_current_state ();
+		else
+			this -> action_performed (_selection, ACTION_TYPE_ENTER);
+
+		_alpha = 0;
+	}
+
 	// Updating background sprite
 	_background.set_alpha (_alpha);
 
@@ -321,14 +337,7 @@ void MenuState::_disappear ()
 		++it;
 	}
 
-	if (_alpha <= 0)
-	{
-		// Now perform child action or leaving the state
-		if (_selection == -1)
-			_p_common_resources -> p_engine -> stop_current_state ();
-		else
-			this -> action_performed (_selection, ACTION_TYPE_ENTER);
-	}
+	
 }
 
 /************************************************************************/

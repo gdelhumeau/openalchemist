@@ -74,7 +74,7 @@ void GameEngine::init()
 	_ingame_state.init();
 	_gameover_state.init();
 	_pausemenu_state.init();
-	_skinsmenu_state.init(gc);
+	_skinsmenu_state.init();
 	_optionsmenu_state.init();
 	_title_state.init();
 	_quitmenu_state.init();
