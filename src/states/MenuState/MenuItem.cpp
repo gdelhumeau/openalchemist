@@ -42,7 +42,7 @@ void MenuItem::set_y(int y)
 /************************************************************************/
 /* Set alpha                                                            */
 /************************************************************************/
-void MenuItem::set_alpha(double alpha)
+void MenuItem::set_alpha(float alpha)
 {
 	_alpha = alpha;
 }

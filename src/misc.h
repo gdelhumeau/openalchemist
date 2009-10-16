@@ -75,6 +75,9 @@ std::string get_save_path();
 /** Returning skins path */
 std::string get_skins_path();
 
+/** Returning user skins path */
+std::string get_user_skins_path();
+
 /** Returning data path */
 std::string get_data_path();
 

@@ -18,7 +18,8 @@
 enum ActionType{
 	ACTION_TYPE_ENTER,
 	ACTION_TYPE_LEFT,
-	ACTION_TYPE_RIGHT
+	ACTION_TYPE_RIGHT,
+	ACTION_TYPE_MOUSE
 };
 
 /**
@@ -53,7 +54,7 @@ public:
 	void set_y(int y);
 
 	/** Set item alpha blending */
-	void set_alpha(double alpha);
+	void set_alpha(float alpha);
 
 	/** Set if the item is selected */
 	void set_selected(bool selected);
@@ -73,7 +74,7 @@ protected:
 	bool _is_selected;
 
 	/** Item alpha blending */
-	double _alpha;
+	float _alpha;
 
 	/** Lock state */
 	bool _is_locked;

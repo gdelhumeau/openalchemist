@@ -316,6 +316,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\states\MenuState\TableChoicesItem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\states\TitleState.h"
 				>
 			</File>
@@ -465,6 +469,10 @@
 			</File>
 			<File
 				RelativePath=".\src\states\SkinsMenuState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\states\MenuState\TableChoicesItem.cpp"
 				>
 			</File>
 			<File

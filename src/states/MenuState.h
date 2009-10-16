@@ -93,6 +93,9 @@ protected:
 	/** Start menu apparition */
 	void _start_disappear();
 
+	/** Mouse events */
+	void _mouse_events(Window & window);
+
 };
 
 #endif

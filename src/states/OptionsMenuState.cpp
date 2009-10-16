@@ -296,21 +296,37 @@ void OptionsMenuState::update_child()
 	switch(_render_item.get_current_choice())
 	{
 	case RENDER_CHOICE_GDI:
-		p_pref->render_target = Preferences::GDI;
+		if(p_pref->render_target != Preferences::GDI)
+		{		
+			p_pref->render_target = Preferences::GDI;
+			p_pref->write();
+		}
 		break;
 	case RENDER_CHOICE_OPENGL:
-		p_pref->render_target = Preferences::OPENGL_1;
+		if(p_pref->render_target != Preferences::OPENGL_1)
+		{
+			p_pref->render_target = Preferences::OPENGL_1;
+			p_pref->write();
+		}
 		break;
 	case RENDER_CHOICE_OPENGL2:
-		p_pref->render_target = Preferences::OPENGL_2;
+		if(p_pref->render_target != Preferences::OPENGL_2)
+		{
+			p_pref->render_target = Preferences::OPENGL_2;
+			p_pref->write();
+		}
 		break;
 #ifdef WITH_DX_9
 	case RENDER_CHOICE_DX_9:
-		p_pref->render_target = Preferences::DX_9;
+		if(p_pref->render_target != Preferences::DX_9)
+		{
+			p_pref->render_target = Preferences::DX_9;
+			p_pref->write();
+		}
 		break;
 #endif
 	}
-
+	
 	bool fullscreen = (int) _fullscreen_item.get_current_choice() == ITEM_YES;
 	if(p_pref -> fullscreen != fullscreen)
 	{
