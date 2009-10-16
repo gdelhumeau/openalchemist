@@ -314,7 +314,6 @@ void OptionsMenuState::update_child()
 	bool fullscreen = (int) _fullscreen_item.get_current_choice() == ITEM_YES;
 	if(p_pref -> fullscreen != fullscreen)
 	{
-		p_pref -> fullscreen = fullscreen;
 		_p_common_resources->p_engine->toggle_screen();
 	}
 
