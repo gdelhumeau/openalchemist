@@ -58,6 +58,15 @@ public:
 
 private:
 
+	/**
+	* State 
+	*/
+	enum State{
+		STATE_APPEARING,
+		STATE_DISPLAY,
+		STATE_DISAPPEARING	
+	};
+
 	/** 
 	* Score to draw
 	*/
@@ -66,7 +75,7 @@ private:
 	/** 
 	* Current state
 	*/
-	int _state;
+	State _state;
 
 	/** 
 	* Is the combo painter enabled
