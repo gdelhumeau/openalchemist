@@ -66,6 +66,14 @@ void Window::manage(GameEngine & game_engine)
 	// Open the window
 	_clanlib_window = CL_DisplayWindow(desc);
 
+	// Add an icon
+	CL_PixelBuffer icon = CL_PixelBuffer("data/logo.png");
+	_clanlib_window.set_large_icon(icon);
+
+	// Drawing black window
+	prepare();
+	display();
+
 	// Set some variables
 	CommonResources * p_common_resources = common_resources_get_instance();
 	p_common_resources -> p_window = &_clanlib_window;
@@ -74,10 +82,7 @@ void Window::manage(GameEngine & game_engine)
 	// Add a callback when user close the window
 	_quit_event = _clanlib_window.sig_window_close().connect(
 		&game_engine, &GameEngine::stop);
-
-	// Add an icon
-	CL_PixelBuffer icon = CL_PixelBuffer("data/logo.png");
-	_clanlib_window.set_large_icon(icon);
+	
 }
 
 /************************************************************************/
