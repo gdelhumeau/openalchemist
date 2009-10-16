@@ -15,23 +15,16 @@
 #include <string>
 #include <sstream>  
 #include <iostream>
-
 #include <ClanLib/core.h>
 
-/**
-* This function return the current version name
-*/
+/** This function return the current version name */
 std::string get_version();
 
-/**
-* This function return a factor to calcul moving with time
-*/
+/** This function return a factor to compute move with time */
 inline float get_time_interval(int fps)
 {
 	static unsigned int last_time = 0;
-
 	unsigned int delta_time = CL_System::get_time() - last_time;
-
 	last_time += delta_time;
 
 	if(fps == 0)
@@ -40,16 +33,15 @@ inline float get_time_interval(int fps)
 	}
 
 	float fps_normal_time = 1000.0f/((float)fps);
-
 	if(delta_time > fps_normal_time * 1.1 || delta_time < fps_normal_time * 0.9)
 	{
 		return (float)delta_time;
 	}	
 
 	return fps_normal_time;
-
 }
 
+/** Cast everything to string */
 template<typename T>
 inline std::string to_string( const T & Value )
 {
@@ -61,6 +53,7 @@ inline std::string to_string( const T & Value )
 	return oss.str();
 }
 
+/** Format number like 000.000.000 */
 inline std::string format_number(const std::string &string)
 {
 	int length = (int)string.length();
@@ -76,29 +69,22 @@ inline std::string format_number(const std::string &string)
 	return string_modified;
 }
 
-/**
-* Returning save path 
-*/
+/** Returning save path */
 std::string get_save_path();
 
+/** Returning skins path */
 std::string get_skins_path();
 
+/** Returning data path */
 std::string get_data_path();
 
+/** Returning path separator ("/" or "\\" - thx to Windows.) */
 std::string get_path_separator();
 
-
-/**
-* Convert a CL_Integer to a int
-*/
+/** Convert a CL_Integer to a int */
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx);
 
-/**
-* Convert a CL_Boolean to a boolean
-*/
+/** Convert a CL_Boolean to a boolean */
 int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx);
-
-
-
 
 #endif

@@ -50,12 +50,23 @@ public:
 	void toggle_screen();
 
 private:
+
+	/** Item to choice render engine */
 	MultipleChoicesItem _render_item;
+
+	/** Item to switch from fullscreen to window */
 	MultipleChoicesItem _fullscreen_item;
+
+	/** Item to set max framerate */
 	MultipleChoicesItem _framerate_item;
+
+	/** Item to set sound level */
 	MultipleChoicesItem _sound_level_item;
+
+	/** Item to set music level */
 	MultipleChoicesItem _music_level_item;
 
+	/** Item to quit the menu */
 	BasicItem _quit_item;
 
 };

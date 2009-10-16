@@ -3,7 +3,7 @@
 //                        ---------------------
 //
 //  File        : memory.cpp
-//  Description : 
+//  Description : Custom memory allocator (to check memory leaks)
 //  Author      : Guillaume Delhumeau <guillaume.delhumeau@gmail.com>
 //  License     : GNU General Public License 2 or higher
 //
@@ -14,23 +14,41 @@
 #include <stdlib.h>
 #include <string.h>
 
+/** Memory allocation reference */
 struct MemAlloc{
 
-	void* ptr;
-	char file[256];
-	unsigned long line;
+	/** Next memory allocation (it is a linked list) */
 	MemAlloc* p_next;
+
+	/** Memory address */
+	void* ptr;
+
+	/** File where the allocation were performed */
+	char file[256];
+
+	/** File line where the allocation were performed */
+	unsigned long line;
+
+	/** Check if this allocation were deleted */
 	bool free;
+
+	/** Size of the memory allocation */
 	size_t size;
 
 };
 
+/************************************************************************/
+/* Static global variables                                              */
+/************************************************************************/
 static MemAlloc mem_alloc_first;
 static MemAlloc * mem_alloc_last;
 static int comp;
 static int comp_size;
 static int max_size;
 
+/************************************************************************/
+/* Init Memory                                                          */
+/************************************************************************/
 void init_memory()
 {
 #ifdef DEBUG
@@ -45,6 +63,9 @@ void init_memory()
 #endif	
 }
 
+/************************************************************************/
+/* Term memory                                                          */
+/************************************************************************/
 void term_memory()
 {
 #ifdef DEBUG
@@ -75,6 +96,9 @@ void term_memory()
 #endif
 }
 
+/************************************************************************/
+/* My alloc                                                             */
+/************************************************************************/
 inline void * my_alloc(int size, const char* file, const unsigned long line)
 {
 	//if(line==41)
@@ -126,6 +150,9 @@ inline void * my_alloc(int size, const char* file, const unsigned long line)
 	return ptr;
 }
 
+/************************************************************************/
+/* My delete function                                                   */
+/************************************************************************/
 void my_delete_fun(void* ptr, const char* file, const unsigned long line)
 {
 	if(ptr == NULL)
@@ -157,28 +184,25 @@ void my_delete_fun(void* ptr, const char* file, const unsigned long line)
 	comp--;
 }
 
+/************************************************************************/
+/* New                                                                  */
+/************************************************************************/
 void* operator new (size_t size, const char* file, const unsigned long line)
 {
 	return my_alloc(size, file, line);
 }
 
+/************************************************************************/
+/* New[]                                                                */
+/************************************************************************/
 void* operator new[] (size_t size, const char* file, const unsigned long line)
 {
 	return my_alloc(size, file, line);
 }
 
-/*
-void operator delete (void *ptr) throw ()
-{
-my_delete(ptr);
-}
-
-void operator delete[] (void *ptr) throw ()
-{
-my_delete(ptr);
-}
-*/
-
+/************************************************************************/
+/* Delete                                                               */
+/************************************************************************/
 void operator delete(void* ptr, const char* file, const unsigned long line)
 {
 	my_delete_fun(ptr, file, line);

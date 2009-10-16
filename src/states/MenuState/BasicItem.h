@@ -21,27 +21,44 @@
 */
 class BasicItem : public MenuItem{
 
-protected:
-	CL_Sprite _normal_sprite;
-	CL_Sprite _selected_sprite;	
-	CL_Sprite _locked_sprite;
-	bool _has_locked;
-
 public:
 
+	/** Constructor */
+	BasicItem();	
+
+	/** Destructor */
+	~BasicItem();
+
+	/** Set item gfx */
 	void set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
 		std::string normal, std::string selected, std::string locked_sprite = "");
+	
+	/** Unload GFX */
 	void unload_gfx();
-
-	void draw(CL_GraphicContext &gc);
-	void action_performed(int action_type);
-
-	virtual bool quit_menu_on_action(){ return true; }
-	virtual bool is_inside(int x, int y);
+	
+	virtual void draw(CL_GraphicContext &gc);
+	
+	virtual void action_performed(ActionType action_type);
+	
 	virtual void mouse_moved(int mouse_x, int mouse_y);
+	
+	virtual bool quit_menu_on_action(){ return true; }
+	
+	virtual bool is_inside(int x, int y);
 
-	BasicItem();	
-	~BasicItem();
+protected:
+
+	/** Default sprite */
+	CL_Sprite _normal_sprite;
+
+	/** Sprite when the item is selected */
+	CL_Sprite _selected_sprite;	
+
+	/** Sprite when the item is locked */
+	CL_Sprite _locked_sprite;
+
+	/** Is the item locked */
+	bool _is_locked;
 
 };
 

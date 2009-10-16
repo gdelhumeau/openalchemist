@@ -16,26 +16,41 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 DualChoiceItem::DualChoiceItem()
 {
 	_selection = CHOICE_LEFT;
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 DualChoiceItem::~DualChoiceItem()
 {
 	unload_gfx();
 }
 
+/************************************************************************/
+/* Set X2                                                               */
+/************************************************************************/
 void DualChoiceItem::set_x2(int x)
 {
 	_x2 = x;
 }
 
+/************************************************************************/
+/* Set Y2                                                               */
+/************************************************************************/
 void DualChoiceItem::set_y2(int y)
 {
 	_y2 = y;
 }
 
+/************************************************************************/
+/* Set GFX                                                              */
+/************************************************************************/
 void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
 							 std::string normal_left, std::string selected_left,
 							 std::string normal_right, std::string selected_right)
@@ -47,12 +62,16 @@ void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
 	_selected_sprite_right = CL_Sprite(gc, selected_right, &gfx);   
 }
 
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void DualChoiceItem::unload_gfx()
 {
-
-
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void DualChoiceItem::draw(CL_GraphicContext &gc)
 {
 	_selected_sprite_left  .update();
@@ -78,7 +97,10 @@ void DualChoiceItem::draw(CL_GraphicContext &gc)
 	}
 }
 
-void DualChoiceItem::action_performed(int action_type)
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
+void DualChoiceItem::action_performed(ActionType action_type)
 {
 	if(ACTION_TYPE_LEFT == action_type)
 	{
@@ -91,12 +113,18 @@ void DualChoiceItem::action_performed(int action_type)
 	}
 }
 
+/************************************************************************/
+/* Is inside                                                            */
+/************************************************************************/
 bool DualChoiceItem::is_inside(int x, int y)
 {
 	return x >= _x && x <= _x2 + _normal_sprite_right.get_width() &&
 		y >= _y && y <= _y2 + _normal_sprite_right.get_height();
 }
 
+/************************************************************************/
+/* Mouse moved                                                          */
+/************************************************************************/
 void DualChoiceItem::mouse_moved(int mouse_x, int mouse_y)
 {
 	if(mouse_x <= _x + _normal_sprite_left.get_width())
