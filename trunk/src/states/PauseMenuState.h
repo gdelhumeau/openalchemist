@@ -23,8 +23,10 @@ class PauseMenuState : public MenuState{
 
 public:
 
+	/** Constructor */
 	PauseMenuState();
 
+	/** Destructor */
 	~PauseMenuState();
 
 	virtual void init();
@@ -41,11 +43,22 @@ public:
 
 private:
 
+	/** Item to quit this menu */
 	BasicItem _resume_item;
+
+	/** Item to undo last move */
 	BasicItem _undo_item;
+
+	/** Item to restart a new game */
 	BasicItem _retry_item;
+
+	/** Item to open options menu */
 	BasicItem _options_item;
+
+	/** Item to give up current game */
 	BasicItem _giveup_item;
+
+	/** Item to quit the game */
 	BasicItem _quit_item;
 
 };

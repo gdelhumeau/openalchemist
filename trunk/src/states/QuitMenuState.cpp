@@ -16,15 +16,40 @@
 #include "../GameEngine.h"
 #include "../misc.h"
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
+QuitMenuState::QuitMenuState()
+{
+}
+
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
+QuitMenuState::~QuitMenuState()
+{
+	unload_gfx();
+}
+
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void QuitMenuState::init()
 {
 	_items.clear();
 	_items.insert (_items.end (), &_choice_item);
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void QuitMenuState::deinit()
-{}
+{
+}
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void QuitMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 {
 	unload_gfx();
@@ -34,12 +59,12 @@ void QuitMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	CL_VirtualDirectory vd(vfs, "./");	
 	CL_ResourceManager gfx("menu_quit.xml",vd);
 
-	panel_exit    = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_exit", &gfx);
-	panel_give_up = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_giveup", &gfx);
-	panel_retry   = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_retry", &gfx);
+	_panel_exit    = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_exit", &gfx);
+	_panel_give_up = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_giveup", &gfx);
+	_panel_retry   = CL_Sprite(gc, "menu_quit/dialog_panel/sprite_retry", &gfx);
 
-	panel_x = CL_Integer_to_int("menu_quit/dialog_panel/left", &gfx);
-	panel_y = CL_Integer_to_int("menu_quit/dialog_panel/top", &gfx);
+	_panel_x = CL_Integer_to_int("menu_quit/dialog_panel/left", &gfx);
+	_panel_y = CL_Integer_to_int("menu_quit/dialog_panel/top", &gfx);
 
 	int yes_x = CL_Integer_to_int("menu_quit/dialog_yes/left", &gfx);
 	int yes_y = CL_Integer_to_int("menu_quit/dialog_yes/top", &gfx);
@@ -56,14 +81,18 @@ void QuitMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 
 }
 
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void QuitMenuState::unload_gfx()
 {    
 	_choice_item.unload_gfx();
 
 }
 
-
-
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
 void QuitMenuState::action_performed(int selection, int action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)
@@ -71,7 +100,7 @@ void QuitMenuState::action_performed(int selection, int action_type)
 		int s = _choice_item.get_selection();
 		if(CHOICE_LEFT == s)
 		{
-			switch(action)
+			switch(_action)
 			{
 			case QUITMENU_EXIT:
 				_p_common_resources -> p_engine -> stop();
@@ -94,33 +123,29 @@ void QuitMenuState::action_performed(int selection, int action_type)
 
 }
 
-
+/************************************************************************/
+/* Update child                                                         */
+/************************************************************************/
 void QuitMenuState::update_child()
-{}
-
-QuitMenuState::QuitMenuState()
-{}
-
-QuitMenuState::~QuitMenuState()
 {
-	unload_gfx();
 }
 
-
-
-void QuitMenuState::set_action(int a)
+/************************************************************************/
+/* Set action                                                           */
+/************************************************************************/
+void QuitMenuState::set_action(QuitMenuAction a)
 {
-	action = a;
-	switch(action)
+	_action = a;
+	switch(_action)
 	{
 	case QUITMENU_EXIT:
-		_background = panel_exit;
+		_background = _panel_exit;
 		break;
 	case QUITMENU_GIVE_UP:
-		_background = panel_give_up;
+		_background = _panel_give_up;
 		break;
 	case QUITMENU_RETRY:
-		_background = panel_retry;
+		_background = _panel_retry;
 		break;
 	}
 }

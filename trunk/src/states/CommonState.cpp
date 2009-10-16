@@ -9,10 +9,10 @@
 //
 // **********************************************************************
 
-#include "../memory.h"
 #include <ClanLib/core.h>
 #include <ClanLib/display.h>
 
+#include "../memory.h"
 #include "CommonState.h"
 #include "../GameEngine.h"
 #include "../CommonResources.h"

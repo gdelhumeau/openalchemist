@@ -9,34 +9,37 @@
 //
 // **********************************************************************
 
+#include <cstdlib>
 #include "misc.h"
 #include "memory.h"
-#include <cstdlib>
 
-/**
-* This function return the current version name
-*/
+/************************************************************************/
+/* Get version                                                          */
+/************************************************************************/
 std::string get_version()
 {
 	return "svn";
 }
 
-/**
-* Convert a CL_Integer to a int
-*/
+/************************************************************************/
+/* CL_Integer to int                                                    */
+/************************************************************************/
 int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
 	return gfx->get_integer_resource(ressource_name, 0);
 }
 
-/**
-* Convert a CL_Boolean to a boolean
-*/
+/************************************************************************/
+/* CL_Boolean to bool                                                   */
+/************************************************************************/
 int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
 {    
 	return gfx->get_boolean_resource(ressource_name, false);
 }
 
+/************************************************************************/
+/* Get save path                                                        */
+/************************************************************************/
 std::string get_save_path()
 {
 #ifdef WIN32
@@ -53,6 +56,9 @@ std::string get_save_path()
 #endif
 }
 
+/************************************************************************/
+/* Get skin path                                                        */
+/************************************************************************/
 std::string get_skins_path()
 {
 #ifdef DATA_DIR
@@ -65,6 +71,9 @@ std::string get_skins_path()
 	return dir;
 }
 
+/************************************************************************/
+/* Get data path                                                        */
+/************************************************************************/
 std::string get_data_path()
 {
 #ifdef WIN32
@@ -80,6 +89,9 @@ std::string get_data_path()
 	return file_path;
 }
 
+/************************************************************************/
+/* Get path separator                                                   */
+/************************************************************************/
 std::string get_path_separator()
 {
 #ifdef WIN32

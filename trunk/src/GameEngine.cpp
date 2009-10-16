@@ -241,7 +241,7 @@ void GameEngine::set_state_skin_menu()
 /************************************************************************/
 /* Set state quit menu                                                  */
 /************************************************************************/
-void GameEngine::set_state_quit_menu(int action)
+void GameEngine::set_state_quit_menu(QuitMenuAction action)
 {
 	if (_states_stack.top() != &_quitmenu_state)
 	{

@@ -9,10 +9,10 @@
 //
 // **********************************************************************
 
-#include "memory.h"
 #include <math.h>
 #include <ClanLib/core.h>
 
+#include "memory.h"
 #include "HumanPlayer.h"
 #include "Piece.h"
 #include "Preferences.h"

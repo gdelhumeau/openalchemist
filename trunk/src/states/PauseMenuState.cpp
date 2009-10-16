@@ -19,6 +19,9 @@
 
 #pragma warning(disable:4244)
 
+/************************************************************************/
+/* Menu items                                                           */
+/************************************************************************/
 enum
 {
 	PAUSE_ITEM_RESUME,
@@ -29,6 +32,24 @@ enum
 	PAUSE_ITEM_QUIT
 };
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
+PauseMenuState::PauseMenuState ()
+{
+}
+
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
+PauseMenuState::~PauseMenuState ()
+{
+	deinit ();
+}
+
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void PauseMenuState::init ()
 {
 	_items.clear();
@@ -40,11 +61,17 @@ void PauseMenuState::init ()
 	_items.insert (_items.end (), &_quit_item);
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void PauseMenuState::deinit ()
 { 
 	unload_gfx();
 }
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void PauseMenuState::load_gfx (CL_GraphicContext &gc, std::string skin)
 {
 	unload_gfx();
@@ -110,6 +137,9 @@ void PauseMenuState::load_gfx (CL_GraphicContext &gc, std::string skin)
 
 }
 
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void PauseMenuState::unload_gfx ()
 {
 	_resume_item.unload_gfx ();
@@ -117,6 +147,9 @@ void PauseMenuState::unload_gfx ()
 	_retry_item.unload_gfx ();	
 }
 
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
 void PauseMenuState::action_performed (int selection, int action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)
@@ -177,20 +210,11 @@ void PauseMenuState::action_performed (int selection, int action_type)
 
 }
 
+/************************************************************************/
+/* Update child                                                         */
+/************************************************************************/
 void PauseMenuState::update_child ()
 {
 	_undo_item.set_locked (!_p_common_resources -> player1.is_undo_available ());
 	_giveup_item.set_locked(!_p_common_resources -> p_current_player -> is_human());
 }
-
-PauseMenuState::PauseMenuState ()
-{
-}
-
-PauseMenuState::~PauseMenuState ()
-{
-	deinit ();
-}
-
-
-

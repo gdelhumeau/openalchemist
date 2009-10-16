@@ -116,7 +116,7 @@ public:
 	/** 
 	* Set current state to quit menu state
 	*/
-	void set_state_quit_menu(int action);
+	void set_state_quit_menu(QuitMenuAction action);
 
 	/**
 	* Deleting current state of the stack
