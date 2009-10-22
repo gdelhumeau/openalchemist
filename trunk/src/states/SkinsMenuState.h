@@ -22,7 +22,7 @@ class GameEngine;
 /**
 * SkinsMenu State
 */
-class SkinsMenuState : public MenuState{
+class SkinsMenuState : public MenuState, ITableChoicesItemParent{
 
 public:
 
@@ -43,6 +43,8 @@ public:
 	virtual void action_performed(int selection, int action_type);
 
 	virtual void update_child();
+
+	virtual void choice_selected(int choice);
 
 private:
 

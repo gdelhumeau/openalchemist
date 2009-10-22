@@ -14,11 +14,20 @@
 
 #include "MenuItem.h"
 
+class ITableChoicesItemParent{
+
+public:
+	virtual void choice_selected(int choice) = 0;
+
+};
+
 class TableChoicesItem : public MenuItem{
 
 public:
 
 	TableChoicesItem();
+
+	inline void set_parent(ITableChoicesItemParent * p_parent){ _p_parent = p_parent; }
 
 	virtual void draw(CL_GraphicContext &gc);
 
@@ -69,6 +78,8 @@ public:
 	inline void set_arrow_down_y(int y){ _arrow_down_y = y; }
 
 private:
+
+	ITableChoicesItemParent * _p_parent;
 
 	std::vector<CL_Image*> _choices;
 

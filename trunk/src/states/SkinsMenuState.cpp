@@ -31,7 +31,7 @@ static const int NB_ROWS = 2;
 /************************************************************************/
 SkinsMenuState::SkinsMenuState()
 {
-
+	_skin_chooser.set_parent(this);
 }
 
 /************************************************************************/
@@ -231,5 +231,18 @@ void SkinsMenuState::update_child()
 			(unsigned int) _p_common_resources->player1.get_visible_pieces();
 
 		_skin_chooser.set_choice_enabled(i, skin_enabled);
+	}
+}
+
+/************************************************************************/
+/* Choice selected                                                      */
+/************************************************************************/
+void SkinsMenuState::choice_selected(int choice)
+{
+	SkinsManager & skins_manager = _p_common_resources->p_engine->get_skins_manager();
+	Skin * p_skin = skins_manager.get_skin(choice);
+	if(_p_common_resources->skin != p_skin->get_filename())
+	{
+		_p_common_resources->p_engine->set_skin(p_skin->get_filename());
 	}
 }
