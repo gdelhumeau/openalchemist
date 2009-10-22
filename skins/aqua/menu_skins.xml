@@ -54,18 +54,12 @@
 		
 		<!-- Coords for displaying skins viewer -->
 		<section name="skins-preview-coords">
-			<integer name = "top" value = "170" />
-			<integer name = "left" value = "140" />
+			<integer name = "top" value = "180" />
+			<integer name = "left" value = "190" />
 			<integer name = "margin-horizontal" value = "20" />
 			<integer name = "margin-vertical" value = "20" />
 		</section>
-		
-		<section name="cursor-coords">
-			<integer name = "top" value = "160" />
-			<integer name = "left" value = "170" />
-			<integer name = "width" value = "220" />
-			<integer name = "height" value = "170" />
-		</section>
+	
 		
 	</section>
 	

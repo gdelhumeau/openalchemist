@@ -16,8 +16,6 @@
 #include "memory.h"
 #include "GameEngine.h"
 
-#pragma warning(disable:4244)
-
 /************************************************************************/
 /* Constant                                                             */
 /************************************************************************/
@@ -64,7 +62,7 @@ void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
 	_score_x =  CL_Integer_to_int("combos/score/left", &gfx_combos);
 	_score_y =  CL_Integer_to_int("combos/score/top", &gfx_combos);  
 
-	_font_height = _font.get_font_metrics(gc).get_height();
+	_font_height = (int)_font.get_font_metrics(gc).get_height();
 
 }
 
@@ -85,7 +83,7 @@ void CombosPainter :: set_score(int score)
 
 	if(!_is_enabled)
 	{
-		_score_current_y  = - _font_height;
+		_score_current_y  = - (float)_font_height;
 		_sprite_current_x = GAME_WIDTH;
 		_state = STATE_APPEARING;
 	}
@@ -106,12 +104,12 @@ void CombosPainter :: draw(CL_GraphicContext &gc)
 	if(!_is_enabled)
 		return;
 
-	_font.draw_text(gc, _score_x, _score_current_y + _font_height,
+	_font.draw_text(gc, _score_x, (int)_score_current_y + _font_height,
 		to_string(_score));
 	if(_score == 1)
-		_sprite_single.draw(gc, _sprite_current_x, _sprite_y);
+		_sprite_single.draw(gc, (int)_sprite_current_x, _sprite_y);
 	else
-		_sprite_plural.draw(gc, _sprite_current_x, _sprite_y);
+		_sprite_plural.draw(gc, (int)_sprite_current_x, _sprite_y);
 }
 
 /************************************************************************/
@@ -148,14 +146,14 @@ void CombosPainter :: _update_appearing()
 	{
 		_sprite_current_x -= COMBOS_SPEED * resources -> delta_time;
 		if(_sprite_current_x < _sprite_x)
-			_sprite_current_x = _sprite_x;
+			_sprite_current_x = (float)_sprite_x;
 	}
 
 	if(_score_current_y < _score_y)
 	{
 		_score_current_y += COMBOS_SPEED * resources -> delta_time;
 		if(_score_current_y > _score_y)
-			_score_current_y = _score_y;
+			_score_current_y = (float)_score_y;
 	}
 
 	if(_score_current_y >= _score_y && _sprite_current_x <= _sprite_x)

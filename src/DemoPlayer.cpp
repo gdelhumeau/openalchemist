@@ -22,8 +22,6 @@
 #include "Board.h"
 #include "GameEngine.h"
 
-#pragma warning(disable:4244)
-
 
 void DemoPlayer::events(CL_DisplayWindow & window)
 {
@@ -53,7 +51,7 @@ void DemoPlayer::new_game()
 	_undo_possible = false;
 	_next_next_piece1 = 0;
 	_next_next_piece2 = 0;
-	_x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+	_x = (float)_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
 	_p_next_piece1 -> set_position(_next_left, _next_top);
 	_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
 

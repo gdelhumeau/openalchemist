@@ -170,11 +170,30 @@ public:
 		this -> _y = y;
 	}
 
+	/** Set piece x */
+	void set_x(int x)
+	{
+		this -> _x = (float)x;
+	}
+
+	/** Set piece y */
+	void set_y(int y)
+	{
+		this -> _y = (float)y;
+	}
+
 	/** Set position */
 	void set_position(float x, float y)
 	{
 		this -> _x = x;
 		this -> _y = y;
+	}
+
+	/** Set position */
+	void set_position(int x, int y)
+	{
+		this -> _x = (float)x;
+		this -> _y = (float)y;
 	}
 
 	/** Get X coord */

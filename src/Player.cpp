@@ -23,8 +23,6 @@
 #include "GameEngine.h"
 #include "AudioManager.h"
 
-#pragma warning(disable:4244)
-
 /************************************************************************/
 /* Constants                                                            */
 /************************************************************************/
@@ -117,7 +115,7 @@ void Player::new_game()
 	_undo_possible = false;
 	_next_next_piece1 = 0;
 	_next_next_piece2 = 0;
-	_x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+	_x = (float)(_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2);
 	_p_next_piece1 -> set_position(_next_left, _next_top);
 	_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
 
@@ -510,7 +508,7 @@ void Player::_update_playing()
 			{
 				_aimed_angle-=360;
 			}
-			_angle = _aimed_angle;
+			_angle = (float)_aimed_angle;
 		}
 	}
 
@@ -522,7 +520,8 @@ void Player::_update_playing()
 			_x += resources->delta_time * PIECE_MOVING_SPEED;
 			if(_x > _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2)
 			{
-				_x = _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+				_x = (float)
+					_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
 				_is_placed = true;
 			}
 		}
@@ -536,7 +535,8 @@ void Player::_update_playing()
 			_x -= resources->delta_time * PIECE_MOVING_SPEED;
 			if(_x < _position * resources->pieces_width + (_position_bis)*resources->pieces_width/2)
 			{
-				_x = _position * resources->pieces_width + (_position_bis)*resources->pieces_width/2;
+				_x = (float)
+					_position * resources->pieces_width + (_position_bis)*resources->pieces_width/2;
 				_is_placed = true;
 			}
 		}
@@ -767,10 +767,11 @@ void Player::undo()
 
 		_position = _undo_position;
 		_position_bis = _undo_position_bis;
-		_x = _position * resources->pieces_width + _position_bis * resources->pieces_width / 2;
+		_x = (float)(_position * resources->pieces_width +
+			_position_bis * resources->pieces_width / 2);
 
-		_angle = _undo_angle;
-		_aimed_angle = (int)_undo_angle;
+		_angle = (float) _undo_angle;
+		_aimed_angle = _undo_angle;
 
 		_combo = 0;
 

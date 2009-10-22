@@ -15,8 +15,6 @@
 #include "../GameEngine.h"
 #include "../Window.h"
 
-#pragma warning(disable:4244)
-
 /************************************************************************/
 /* State                                                                */
 /************************************************************************/
@@ -137,7 +135,7 @@ void MenuState::events (Window & window)
 
 	// Key UP
 	if (_p_common_resources -> key.up -> get (ic))
-	{
+	{		
 		_items[_selection] -> set_selected (false);
 		bool changed = false;
 		while (!changed)
@@ -157,6 +155,7 @@ void MenuState::events (Window & window)
 				_items[_selection] -> set_selected (true);
 			}
 		}
+		_items[_selection] -> action_performed(ACTION_TYPE_UP);
 	}
 
 	// Key DOWN
@@ -181,6 +180,7 @@ void MenuState::events (Window & window)
 				_items[_selection] -> set_selected (true);
 			}
 		}
+		_items[_selection] -> action_performed(ACTION_TYPE_DOWN);
 	}
 
 	// Mouse
@@ -198,8 +198,8 @@ void MenuState::_mouse_events(Window & window)
 		CL_InputDevice & mouse = ic.get_mouse();
 
 		float scale = 1/window.get_scale();
-		float dx = window.get_dx();
-		float dy = window.get_dy();
+		float dx = (float)window.get_dx();
+		float dy = (float)window.get_dy();
 
 		// Mouse moved or clicked
 		if(mouse.get_x() != _mouse_x || mouse.get_y() != _mouse_y
@@ -213,7 +213,8 @@ void MenuState::_mouse_events(Window & window)
 			unsigned int i = 0;
 			while (i<_items.size() && !found)
 			{
-				if(_items[i]->is_inside(_mouse_x*scale-dx, _mouse_y*scale-dy) )
+				if(_items[i]->is_inside((int)(_mouse_x*scale-dx),
+					(int)(_mouse_y*scale-dy) ))
 				{
 					found = true;
 					if(!_items[i]->is_locked())

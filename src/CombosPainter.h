@@ -105,7 +105,7 @@ private:
 	/**
 	* Actual coords
 	*/
-	double _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
+	float _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
 
 	/** 
 	* Next state time
@@ -115,7 +115,7 @@ private:
 	/** 
 	* Font height
 	*/
-	float _font_height;
+	int _font_height;
 
 	/** 
 	* Update appearing state
