@@ -41,8 +41,16 @@
 				<image file="dialogs/options/render-opengl.png" />
 			</sprite>
 			
-			<sprite name="sdl">
-				<image file="dialogs/options/render-sdl.png" />
+			<sprite name="dx9">
+				<image file="dialogs/options/render-dx9.png" />
+			</sprite>
+			
+			<sprite name="software">
+				<image file="dialogs/options/render-software.png" />
+			</sprite>
+			
+			<sprite name="opengl2">
+				<image file="dialogs/options/render-opengl2.png" />
 			</sprite>
 		</section>
 		

@@ -22,8 +22,8 @@
 	<integer name = "score_right" value = "750" />
 	<integer name = "bonus_score_top" value = "190" />
 	<integer name = "bonus_score_right" value ="750" />
-	<integer name = "hight_score_top" value = "290" />
-	<integer name = "hight_score_right" value ="750" />	
+	<integer name = "high_score_top" value = "290" />
+	<integer name = "high_score_right" value ="750" />	
 	
 	<!-- Coords of the game elements -->
 	<section name = "game">

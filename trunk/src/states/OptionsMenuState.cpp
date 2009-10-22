@@ -119,7 +119,7 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 #endif
 	_render_item.add_choice(gc, gfx, "menu_options/render-choices/opengl");
 	_render_item.add_choice(gc, gfx, "menu_options/render-choices/opengl2");
-	_render_item.add_choice(gc, gfx, "menu_options/render-choices/gdi");
+	_render_item.add_choice(gc, gfx, "menu_options/render-choices/software");
 
 	_fullscreen_item.clear_choices();
 	_fullscreen_item.set_description_sprites(gc, gfx,

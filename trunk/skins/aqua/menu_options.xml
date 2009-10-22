@@ -61,8 +61,8 @@
 				<image file="dialogs/options/render-dx9.png" />
 			</sprite>
 			
-			<sprite name="gdi">
-				<image file="dialogs/options/render-gdi.png" />
+			<sprite name="software">
+				<image file="dialogs/options/render-software.png" />
 			</sprite>
 			
 			<sprite name="opengl2">

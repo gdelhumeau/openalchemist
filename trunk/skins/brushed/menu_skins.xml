@@ -31,7 +31,7 @@
 			
 			<!-- Coords -->
 			<integer name = "left" value="375" />
-			<integer name = "top"  value="510" />
+			<integer name = "top"  value="480" />
 				
 		</section>
 		
@@ -54,10 +54,10 @@
 		
 		<!-- Coords for displaying skins viewer -->
 		<section name="skins-preview-coords">
-			<integer name = "top" value = "230" />
-			<integer name = "left" value = "130" />
-			<integer name = "width" value = "230" />
-			<integer name = "height" value = "170" />
+			<integer name = "top" value = "167" />
+			<integer name = "left" value = "190" />
+			<integer name = "margin-horizontal" value = "20" />
+			<integer name = "margin-vertical" value = "20" />
 		</section>
 		
 		

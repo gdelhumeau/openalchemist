@@ -240,8 +240,8 @@ void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 	_board.score_right = CL_Integer_to_int("score_right", &gfx);
 	_board.bonus_top = CL_Integer_to_int("bonus_score_top", &gfx);
 	_board.bonus_right = CL_Integer_to_int("bonus_score_right", &gfx);
-	_board.hightscore_top = CL_Integer_to_int("hight_score_top", &gfx);
-	_board.hightscore_right = CL_Integer_to_int("hight_score_right", &gfx);
+	_board.hightscore_top = CL_Integer_to_int("high_score_top", &gfx);
+	_board.hightscore_right = CL_Integer_to_int("high_score_right", &gfx);
 
 	// Calculating c² = a²+b³
 	_current_pieces_r = resources->pieces_width/2;
@@ -332,11 +332,11 @@ void Player::draw(CL_GraphicContext & gc)
 	if(GAME_MODE_PLAYING == _game_mode)
 	{
 		// Setting playable pieces position
-		_p_current_piece1 -> set_position(_board.game_left+_x+cos(_angle*TO_RAD)*_current_pieces_r,
-			_board.zone_top+resources->pieces_height/2+sin((_angle)*TO_RAD)*_current_pieces_r);
+		_p_current_piece1 -> set_position(_board.game_left+_x+cosf(_angle*TO_RAD)*_current_pieces_r,
+			_board.zone_top+resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
 
-		_p_current_piece2 -> set_position(_board.game_left+_x+cos((_angle+180)*TO_RAD)*_current_pieces_r,
-			_board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
+		_p_current_piece2 -> set_position(_board.game_left+_x+cosf((_angle+180)*TO_RAD)*_current_pieces_r,
+			_board.zone_top+resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
 
 		// Displaying playable pieces
 		_p_current_piece1 -> draw(gc);
@@ -567,11 +567,11 @@ void Player::fall()
 	_undo_angle = _aimed_angle;
 
 
-	_p_current_piece1 -> set_position(_board.game_left+_x+cos(_angle*TO_RAD)*_current_pieces_r,
-		_board.zone_top+resources->pieces_height/2+sin((_angle)*TO_RAD)*_current_pieces_r);
+	_p_current_piece1 -> set_position(_board.game_left+_x+cosf(_angle*TO_RAD)*_current_pieces_r,
+		_board.zone_top+resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
 
-	_p_current_piece2 -> set_position(_board.game_left+_x+cos((_angle+180)*TO_RAD)*_current_pieces_r,
-		_board.zone_top+resources->pieces_height/2+sin((_angle+180)*TO_RAD)*_current_pieces_r);
+	_p_current_piece2 -> set_position(_board.game_left+_x+cosf((_angle+180)*TO_RAD)*_current_pieces_r,
+		_board.zone_top+resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
 
 	_board.add_pieces(_p_current_piece1, _p_current_piece2);
 
