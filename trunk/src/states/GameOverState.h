@@ -50,7 +50,7 @@ private:
 
 public:
 	void init();
-	void deinit();
+	void term();
 	void load_gfx(CL_GraphicContext &gc, std::string skin);
 	void unload_gfx();
 	void draw(CL_GraphicContext &gc);

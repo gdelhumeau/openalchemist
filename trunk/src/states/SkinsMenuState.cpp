@@ -16,8 +16,15 @@
 #include "../CommonResources.h"
 #include "../misc.h"
 #include "../Window.h"
+#include "../GameEngine.h"
 
-#pragma warning(disable:4244)
+/************************************************************************/
+/* Constants                                                            */
+/************************************************************************/
+static const int LOGO_WIDTH = 200;
+static const int LOGO_HEIGHT = 150;
+static const int NB_COLS = 2;
+static const int NB_ROWS = 2;
 
 /************************************************************************/
 /* Constructor                                                          */
@@ -41,36 +48,20 @@ void SkinsMenuState::init()
 {
 	_items.push_back(&_skin_chooser);
 
-	_load_registred_skins();
-	_scan_skins_path(get_skins_path());
-	_scan_skins_path(get_user_skins_path());
-	_sort_skins();
-
-	for(unsigned int i=0; i<_skins_list.size(); ++i)
+	SkinsManager & skins_manager = _p_common_resources->p_engine->get_skins_manager();
+	for(unsigned int i=0; i<skins_manager.get_nb_skins(); ++i)
 	{
-		_skin_chooser.add_choice(&_skins_list[i]->logo);
+		_skin_chooser.add_choice(&skins_manager.get_skin(i)->get_logo());
 	}
 }
 
 /************************************************************************/
 /* Term                                                                 */
 /************************************************************************/
-void SkinsMenuState::deinit()
+void SkinsMenuState::term()
 {
-	_save_registred_skins();
-
-	// Deleting skins;
-	for(unsigned int i = 0; i < _skins_list.size(); ++i)
-	{
-		my_delete(_skins_list[i]);
-	}
-
-	_skins_list.clear();
+	
 }
-
-static const int LOGO_WIDTH = 200;
-static const int LOGO_HEIGHT = 150;
-static const int NB_COLS = 2;
 
 /************************************************************************/
 /* Load GFX                                                             */
@@ -84,8 +75,8 @@ void SkinsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 
 	// First, the sprites
 	_background = CL_Sprite(gc, "menu_skins/background", &gfx); 
-	logo_unavailable = CL_Image(gc, "menu_skins/logo_unavailable", &gfx); 
-
+	
+	_skin_chooser.set_disabled_choice(gc, gfx, "menu_skins/logo_unavailable");
 	_skin_chooser.set_cursor(gc, gfx, "menu_skins/cursor");
 	_skin_chooser.set_arrow_up(gc, gfx, "menu_skins/arrow_up/sprite");
 	_skin_chooser.set_arrow_down(gc, gfx, "menu_skins/arrow_down/sprite");
@@ -106,8 +97,7 @@ void SkinsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_skin_chooser.set_choice_width(LOGO_WIDTH);
 	_skin_chooser.set_choice_height(LOGO_HEIGHT);
 	_skin_chooser.set_nb_cols(NB_COLS);
-	
-
+	_skin_chooser.set_nb_cols(NB_ROWS);	
 
 
 // 	arrow_down = CL_Sprite(gc, "menu_skins/arrow_down/sprite", &gfx);
@@ -222,21 +212,6 @@ void SkinsMenuState::unload_gfx()
 // }
 
 /************************************************************************/
-/* Set skin element                                                     */
-/************************************************************************/
-void SkinsMenuState::set_skin_elements(unsigned int element)
-{
-	for(unsigned int i = 0; i < _skins_list.size(); ++i)
-	{
-		if(_skins_list[i] -> filename == _p_common_resources -> skin)
-		{
-			if(_skins_list[i] -> element < element)
-				_skins_list[i] -> element = element;
-		}
-	}
-}
-
-/************************************************************************/
 /* Action performed                                                     */
 /************************************************************************/
 void SkinsMenuState::action_performed(int selection, int action_type)
@@ -249,150 +224,12 @@ void SkinsMenuState::action_performed(int selection, int action_type)
 /************************************************************************/
 void SkinsMenuState::update_child()
 {
-
-}
-
-/************************************************************************/
-/* Load registred skins                                                 */
-/************************************************************************/
-void SkinsMenuState::_load_registred_skins()
-{
-	// Fist we load Skin propreties saved in the conf file
-	std::string path = get_save_path();
-	std::string file_path = path + get_path_separator() + "skins-" + get_version();
-
-	_skins_list.clear();
-	try
+	SkinsManager & skins_manager = _p_common_resources->p_engine->get_skins_manager();
+	for(unsigned int i=0; i<skins_manager.get_nb_skins(); ++i)
 	{
-		CL_File file(file_path);
-		int file_size = file.get_size();
-		while(file.get_position() != file_size)
-		{     
-			Skin *p_skin = my_new Skin();
-			p_skin -> filename = file.read_string_a();
-			p_skin -> element = file.read_uint8();
-			try
-			{
-				// We load the logo sprite in the gfx ressources file
-				CL_VirtualFileSystem vfs(p_skin -> filename, true);
-				CL_VirtualDirectory vd(vfs, "./");
-				CL_ResourceManager gfx("general.xml", vd);
-				p_skin -> logo = CL_Image(*_p_common_resources->p_gc, "logo", &gfx);
-				_skins_list.push_back(p_skin);
-			}
-			catch(CL_Exception&)
-			{
-				// We forget this skin
-				std::cout << "We don't use " << p_skin -> filename << 
-					" because it doesn't exist." << std::endl;
-				delete p_skin;
-			}
-		}
-		file.close();
-	}
-	catch(CL_Exception&)
-	{
-		std::cout << "Error while reading " << file_path <<
-			" file, probably doesn't exist yet." << std::endl;
-	}
-}
+		bool skin_enabled = skins_manager.get_skin(i)->get_unlocked_elements() >= 
+			(unsigned int) _p_common_resources->player1.get_visible_pieces();
 
-/************************************************************************/
-/* Scan skins path                                                      */
-/************************************************************************/
-void SkinsMenuState::_scan_skins_path(std::string path)
-{
-	CL_DirectoryScanner scanner;
-	if (scanner.scan(path, "*.zip"))
-	{
-		while(scanner.next())
-		{
-			if(scanner.is_readable())
-			{
-				try
-				{
-					std::string filename = path+get_path_separator()
-						+scanner.get_name().c_str();
-					// We load the logo sprite in the gfx ressources file
-
-					CL_VirtualFileSystem vfs(filename, true);
-					CL_VirtualDirectory vd(vfs, "./");
-					CL_ResourceManager gfx("general.xml", vd);					
-					
-					// Check if this skin is not aleady loaded
-					bool found = false;
-					for(unsigned int i = 0; i < _skins_list.size(); ++i)
-					{
-						if(_skins_list[i] -> filename == filename)
-						{
-							found = true;
-							break;
-						}
-					}
-					if(!found)
-					{
-						CL_Image logo = CL_Image(*_p_common_resources->p_gc, "logo", &gfx);
-						Skin * p_skin = my_new Skin();
-						p_skin -> filename = filename;
-						p_skin -> element = 3;
-						p_skin -> logo = logo;
-						_skins_list.push_back(p_skin);
-					}
-
-				}
-				catch(CL_Exception&)
-				{
-					std::cout << "Skin " << path << scanner.get_name().c_str() << 
-						" is not valid." << std::endl;
-				}
-			}        
-
-		}
-	}
-}
-
-/************************************************************************/
-/* Sort skins                                                           */
-/************************************************************************/
-void SkinsMenuState::_sort_skins()
-{
-	// Sorting skin list by alphabetical order (bubble sort)
-	for(unsigned int i=0; i<_skins_list.size(); ++i)
-	{
-		for(unsigned int j=i+1; j<_skins_list.size(); ++j)
-		{
-			if(_skins_list[i]->filename.compare(_skins_list[j]->filename)>0)
-			{
-				Skin * p_sk = _skins_list[i];
-				_skins_list[i] = _skins_list[j];
-				_skins_list[j] = p_sk;
-			}
-		}
-	}
-}
-
-/************************************************************************/
-/* Save registred skins                                                 */
-/************************************************************************/
-void SkinsMenuState::_save_registred_skins()
-{
-	// Saving progression skin file
-	std::string file_path = get_save_path() + get_path_separator() +
-		"skins-" + get_version();
-	try
-	{
-		CL_File file(file_path, CL_File::create_always, CL_File::access_write);
-		for(unsigned int i = 0; i < _skins_list.size(); ++i)
-		{
-			file.write_string_a(_skins_list[i]->filename);
-			file.write_uint8 (_skins_list[i]->element);  
-		}
-		file.close();
-
-	}
-	catch(CL_Exception&)
-	{
-		std::cout << "Error while reading " << file_path <<
-			"file, probably doesn't exist yet." << std::endl;
+		_skin_chooser.set_choice_enabled(i, skin_enabled);
 	}
 }

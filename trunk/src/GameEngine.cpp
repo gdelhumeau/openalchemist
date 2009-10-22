@@ -70,6 +70,7 @@ void GameEngine::init()
 	resources -> init(this);
 	_window.manage(*this);
 	CL_GraphicContext gc = _window.get_gc();
+	_skins_manager.init();
 	_common_state.init();
 	_ingame_state.init();
 	_gameover_state.init();
@@ -89,14 +90,15 @@ void GameEngine::init()
 /************************************************************************/
 void GameEngine::term()
 {
-	_common_state.deinit();
-	_ingame_state.deinit();
-	_gameover_state.deinit();
-	_pausemenu_state.deinit();
-	_skinsmenu_state.deinit();
-	_optionsmenu_state.deinit();
-	_title_state.deinit();
-	_quitmenu_state.deinit();
+	_common_state.term();
+	_ingame_state.term();
+	_gameover_state.term();
+	_pausemenu_state.term();
+	_skinsmenu_state.term();
+	_optionsmenu_state.term();
+	_title_state.term();
+	_quitmenu_state.term();
+	_skins_manager.term();
 }
 
 /************************************************************************/
@@ -408,5 +410,5 @@ void GameEngine::set_skin(std::string skin)
 /************************************************************************/
 void GameEngine::set_skin_element(unsigned int element)
 {
-	_skinsmenu_state.set_skin_elements(element);
+	_skins_manager.set_skin_elements(element);
 }

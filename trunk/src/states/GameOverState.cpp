@@ -16,14 +16,12 @@
 #include "../misc.h"
 #include "../Window.h"
 
-#pragma warning(disable:4244)
-
 void GameOverState::init()
 {
 	_selection = GAMEOVER_SELECTION_YES;
 }
 
-void GameOverState::deinit()
+void GameOverState::term()
 {
 
 }

@@ -43,7 +43,7 @@ public:
   /**
    * Deleting the initialized values
    */
-  virtual void deinit() = 0;
+  virtual void term() = 0;
 
   /**
    * Loading GFX
@@ -71,8 +71,8 @@ public:
   virtual void events(Window & window) = 0;
 
   /**
-   * @return true if the front layer should be displayed behind this state
-   */
+  * @return true if the front layer should be displayed behind this state
+  */
   virtual bool front_layer_behind() = 0;
 
 protected:

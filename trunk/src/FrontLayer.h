@@ -9,8 +9,8 @@
 //
 // **********************************************************************
 
-#ifndef _FRONTLAYER_H_
-#define _FRONTLAYER_H_
+#ifndef _FRONT_LAYER_H_
+#define _FRONT_LAYER_H_
 
 #include "memory.h"
 #include <ClanLib/core.h>

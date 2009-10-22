@@ -313,7 +313,7 @@ protected:
 	int _undo_position_bis;
 	int _undo_piece1_number;
 	int _undo_piece2_number;
-	float _undo_angle;
+	int _undo_angle;
 	bool _undo_possible;
 
 	/**

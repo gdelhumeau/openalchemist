@@ -28,6 +28,7 @@
 
 #include "Window.h"
 #include "FrameRateCounter.h"
+#include "SkinsManager.h"
 #include "states/GameState.h"
 #include "states/CommonState.h"
 #include "states/InGameState.h"
@@ -148,6 +149,11 @@ public:
 	*/
 	void set_skin_element(unsigned int element);
 
+	/** 
+	* Get the skins manager
+	*/
+	inline SkinsManager & get_skins_manager(){ return _skins_manager; }
+
 private:
 
 	/** 
@@ -196,6 +202,11 @@ private:
 	* Fps Getter
 	*/
 	CL_FramerateCounter _framerate_counter;
+
+	/** 
+	* Skins Manager
+	*/
+	SkinsManager _skins_manager;
 
 	/** 
 	* Common State

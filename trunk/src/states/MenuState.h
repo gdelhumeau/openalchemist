@@ -32,7 +32,7 @@ public:
 
 	virtual void init() = 0;
 
-	virtual void deinit() = 0;
+	virtual void term() = 0;
 
 	virtual void load_gfx(CL_GraphicContext &gc, std::string skin) = 0;
 

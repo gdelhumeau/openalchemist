@@ -312,6 +312,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Skin.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\SkinsManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\states\SkinsMenuState.h"
 				>
 			</File>
@@ -465,6 +473,14 @@
 			</File>
 			<File
 				RelativePath=".\src\states\QuitMenuState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Skin.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\SkinsManager.cpp"
 				>
 			</File>
 			<File

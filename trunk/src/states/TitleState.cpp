@@ -23,7 +23,7 @@ void TitleState::init()
 {
 }
 
-void TitleState::deinit()
+void TitleState::term()
 {
 }
 
