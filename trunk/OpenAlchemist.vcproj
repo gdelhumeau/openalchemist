@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target includes&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Clanlib\ClanLib-VC9Precompiled-static-mt-2.1.0\include&quot;"
 				PreprocessorDefinitions="WIN32;DEBUG;_WINDOWS;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				AdditionalDependencies="clanApp-static-mt-debug.lib clanCore-static-mt-debug.lib clanDisplay-static-mt-debug.lib clanSound-static-mt-debug.lib clanVorbis-static-mt-debug.lib"
 				OutputFile="$(OutDir)\$(ProjectName)-Debug.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target libs&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Clanlib\all-2.0-external-libs-msvc90\lib&quot;;&quot;C:\Clanlib\ClanLib-VC9Precompiled-static-mt-2.1.0\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -113,7 +113,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target includes&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Clanlib\ClanLib-VC9Precompiled-static-mt-2.1.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -135,7 +135,7 @@
 				AdditionalDependencies="clanApp-static-mt.lib clanCore-static-mt.lib clanGDI-static-mt.lib clanDisplay-static-mt.lib clanSound-static-mt.lib clanVorbis-static-mt.lib"
 				OutputFile="$(OutDir)\$(ProjectName)-Release.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;L:\keph\documents\dev\ClanLib-0.2\SVN target libs&quot;;&quot;L:\keph\documents\dev\ClanLib-0.2\all-2.0-external-libs-msvc90\lib&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Clanlib\all-2.0-external-libs-msvc90\lib&quot;;&quot;C:\Clanlib\ClanLib-VC9Precompiled-static-mt-2.1.0\lib&quot;"
 				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"

@@ -80,7 +80,7 @@ int Application::main(const std::vector<CL_String> &args)
 
 	}
 	_term();
-	
+
 	return 0;
 }
 
