@@ -11,6 +11,9 @@
 
 #include "TableChoicesItem.h"
 
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 TableChoicesItem::TableChoicesItem()
 {
 	_nb_cols = 2;
@@ -30,14 +33,21 @@ TableChoicesItem::TableChoicesItem()
 	_scrolling_row = 0;
 	_mouse_x = 0;
 	_mouse_y = 0;
+	_p_parent = NULL;
 }
 
+/************************************************************************/
+/* Add choice                                                           */
+/************************************************************************/
 void TableChoicesItem::add_choice(CL_Image * p_image)	
 {
 	_choices.push_back(p_image);
 	_choices_enabled.push_back(true);
 }
 
+/************************************************************************/
+/* Set cursor                                                           */
+/************************************************************************/
 void TableChoicesItem::set_cursor(CL_GraphicContext & gc,
 				CL_ResourceManager & gfx,
 				std::string name)
@@ -45,6 +55,9 @@ void TableChoicesItem::set_cursor(CL_GraphicContext & gc,
 	_cursor = CL_Sprite(gc, name, &gfx);
 }
 
+/************************************************************************/
+/* Set arrow up                                                         */
+/************************************************************************/
 void TableChoicesItem::set_arrow_up(CL_GraphicContext & gc,
 									CL_ResourceManager & gfx,
 									std::string name)
@@ -52,6 +65,9 @@ void TableChoicesItem::set_arrow_up(CL_GraphicContext & gc,
 	_arrow_up = CL_Sprite(gc, name, &gfx);
 }
 
+/************************************************************************/
+/* Set arrow down                                                       */
+/************************************************************************/
 void TableChoicesItem::set_arrow_down(CL_GraphicContext & gc,
 									  CL_ResourceManager & gfx,
 									  std::string name)
@@ -59,6 +75,9 @@ void TableChoicesItem::set_arrow_down(CL_GraphicContext & gc,
 	_arrow_down = CL_Sprite(gc, name, &gfx);
 }
 
+/************************************************************************/
+/* Set disabled choice                                                  */
+/************************************************************************/
 void TableChoicesItem::set_disabled_choice(CL_GraphicContext & gc, 
 										   CL_ResourceManager & gfx,
 										   std::string name)
@@ -66,6 +85,9 @@ void TableChoicesItem::set_disabled_choice(CL_GraphicContext & gc,
 	_disabled_choice = CL_Image(gc, name, &gfx);
 }
 
+/************************************************************************/
+/* Set choice enabled                                                   */
+/************************************************************************/
 void TableChoicesItem::set_choice_enabled(unsigned int choice_index, bool enable)
 {
 	if(choice_index < _choices_enabled.size())
@@ -74,6 +96,9 @@ void TableChoicesItem::set_choice_enabled(unsigned int choice_index, bool enable
 	}
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void TableChoicesItem::draw(CL_GraphicContext &gc)
 {
 	_disabled_choice.set_alpha(_alpha);
@@ -109,9 +134,13 @@ void TableChoicesItem::draw(CL_GraphicContext &gc)
 		+ _choice_width/2 - _cursor.get_width()/2;
 	int y = _begin_y + (_cursor_row-_scrolling_row) * (_choice_height+_choice_margin_height)
 		+_choice_height/2 - _cursor.get_height()/2;
+	_cursor.set_alpha(_alpha);
 	_cursor.draw(gc, x, y);
 }
 
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
 void TableChoicesItem::action_performed(ActionType action_type)
 {
 	// Compute number of rows
@@ -143,6 +172,13 @@ void TableChoicesItem::action_performed(ActionType action_type)
 	case ACTION_TYPE_MOUSE:
 		_mouse_clicked();
 		break;
+	case ACTION_TYPE_ENTER:
+		if(_p_parent)
+		{
+			int choice = _cursor_row * _cursor_col;
+			_p_parent -> choice_selected(choice);
+		}
+		break;
 	}
 
 	// If the cursor position changed and is on the last row
@@ -157,6 +193,9 @@ void TableChoicesItem::action_performed(ActionType action_type)
 	}
 }
 
+/************************************************************************/
+/* Mouse clicked                                                        */
+/************************************************************************/
 void TableChoicesItem::_mouse_clicked()
 {
 	// Arrow UP
@@ -211,6 +250,9 @@ void TableChoicesItem::_mouse_clicked()
 	}
 }
 
+/************************************************************************/
+/* Mouse moved                                                          */
+/************************************************************************/
 void TableChoicesItem::mouse_moved(int mouse_x, int mouse_y)
 {
 	_mouse_x = mouse_x;
@@ -236,11 +278,17 @@ void TableChoicesItem::mouse_moved(int mouse_x, int mouse_y)
 	}
 }
 
+/************************************************************************/
+/* Quit menu on action                                                  */
+/************************************************************************/
 bool TableChoicesItem::quit_menu_on_action()
 {
 	return false;
 }
 
+/************************************************************************/
+/* Is inside                                                            */
+/************************************************************************/
 bool TableChoicesItem::is_inside(int x, int y)
 {
 	return true;
