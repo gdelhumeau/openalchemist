@@ -31,7 +31,7 @@ public:
 	/** 
 	* Coords
 	*/
-	unsigned int left, top;
+	int left, top;
 
 };
 
