@@ -113,11 +113,8 @@ void TableChoicesItem::draw(CL_GraphicContext &gc)
 			int y = _begin_y + (row-_scrolling_row)*(_choice_height+_choice_margin_height);
 
 			_choices[i]->set_alpha(_alpha);
-			if(_choices_enabled[i])
-			{
-				_choices[i]->draw(gc, x, y);
-			}
-			else
+			_choices[i]->draw(gc, x, y);
+			if(!_choices_enabled[i])
 			{
 				_disabled_choice.draw(gc, x, y);
 			}
@@ -175,7 +172,7 @@ void TableChoicesItem::action_performed(ActionType action_type)
 	case ACTION_TYPE_ENTER:
 		if(_p_parent)
 		{
-			int choice = _cursor_row * _cursor_col;
+			int choice = _cursor_row * _nb_cols + _cursor_col;
 			_p_parent -> choice_selected(choice);
 		}
 		break;
