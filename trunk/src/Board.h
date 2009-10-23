@@ -116,7 +116,6 @@ public:
 	*/
 	void add_pieces(Piece* piece1, Piece* piece2);
 
-
 	/**
 	* Making pieces fall and create my_new ones
 	* @return true if every pieces are corectly placed
@@ -161,7 +160,6 @@ public:
 	*/
 	void undo( CL_Sprite *pieces_normal, CL_Sprite* pieces_appearing,
 		CL_Sprite* pieces_disappearing, CL_Sprite* pieces_mini);
-
 
 private:
 

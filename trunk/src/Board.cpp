@@ -195,7 +195,9 @@ bool Board::fall_and_create()
 		if (_falling_list[i])
 		{
 			if (!_falling_list[i] -> fall(resources -> delta_time))
+			{
 				all_pieces_are_placed = false;
+			}
 		}
 	}
 

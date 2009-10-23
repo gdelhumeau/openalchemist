@@ -22,6 +22,10 @@
 #include "Board.h"
 #include "GameEngine.h"
 
+DemoPlayer::DemoPlayer()
+{
+	_manual_mode = true;
+}
 
 void DemoPlayer::events(CL_DisplayWindow & window)
 {
@@ -86,3 +90,15 @@ void DemoPlayer::new_game()
 
 }
 
+void DemoPlayer::update()
+{
+	if(!_game_mode_changed)
+	{
+		Player::update();
+	}
+}
+
+void DemoPlayer::resume()
+{
+	_game_mode_changed = false;
+}
