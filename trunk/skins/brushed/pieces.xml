@@ -35,7 +35,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -52,7 +52,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 				
 		</section>
@@ -85,7 +85,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -102,7 +102,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -135,7 +135,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -152,7 +152,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -185,7 +185,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -202,7 +202,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -235,7 +235,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -252,7 +252,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 				
 			
@@ -286,7 +286,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -303,7 +303,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -336,7 +336,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -353,7 +353,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -386,7 +386,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -403,7 +403,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -436,7 +436,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -453,7 +453,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -486,7 +486,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -503,7 +503,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -536,7 +536,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -553,7 +553,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>
@@ -586,7 +586,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 			<!-- Disappearing sprite, when you brokes three or more -->
@@ -603,7 +603,7 @@
 					<grid pos="100,0" size="50,50" />
 				</image>
 				
-				<animation delay="50" />
+				<animation speed="50" />
 			</sprite>
 			
 		</section>

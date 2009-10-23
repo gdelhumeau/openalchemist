@@ -11,8 +11,8 @@
 
 # Variables
 CXX = g++
-CXXFLAGS = -Wall `pkg-config --cflags clanCore-2.0 clanDisplay-2.0 clanApp-2.0 clanGL1-2.0 clanGL-2.0 clanGDI-2.0 clanSDL-2.0` -g -D DEBUG
-LIBS = `pkg-config --libs clanCore-2.0 clanDisplay-2.0 clanApp-2.0 clanGL1-2.0 clanGL-2.0 clanGDI-2.0 clanSDL-2.0 clanSound-2.0 clanVorbis-2.0`
+CXXFLAGS = -Wall `pkg-config --cflags clanCore-2.1 clanDisplay-2.1 clanApp-2.1 clanGL1-2.1 clanGL-2.1 clanGDI-2.1` -g -D DEBUG
+LIBS = `pkg-config --libs clanCore-2.1 clanDisplay-2.1 clanApp-2.1 clanGL1-2.1 clanGL-2.1 clanGDI-2.1 clanSound-2.1 clanVorbis-2.1`
 STATIC_LIBS = /usr/local/lib/libclanApp.a /usr/local/lib/libclanSDL.a /usr/local/lib/libclanDisplay.a /usr/local/lib/libclanGL.a /usr/local/lib/libclanCore.a /usr/local/lib/libclanSignals.a /usr/lib/libpng.a /usr/lib/libjpeg.a /usr/lib/libz.a /usr/lib/libXmu.a /usr/lib/libXi.a /usr/lib/libXxf86vm.a /usr/lib/libm.a /usr/lib/libGLU.a -lGL `sdl-config --static-libs`
 
 # liste des objets à compiler
