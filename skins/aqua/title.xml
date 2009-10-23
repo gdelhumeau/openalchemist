@@ -24,8 +24,8 @@
 					<grid pos="0,0" size="0,0" />
 				</image>
 				
-				<!-- animation delay -->
-				<animation delay="900" />
+				<!-- animation speed -->
+				<animation speed="900" />
 			</sprite>
 		</section>
 		
@@ -38,7 +38,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 			<!-- Up key -->
@@ -47,7 +47,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 			<!-- Right key -->
@@ -56,7 +56,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 			<!-- Down key -->
@@ -65,7 +65,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 			<!-- Escape key -->		
@@ -74,7 +74,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 			<!-- Options key -->		
@@ -83,7 +83,7 @@
 					<grid pos="0,0" size="50,50" />
 					<grid pos="50,0" size="50,50" />
 				</image>
-				<animation delay="200" />
+				<animation speed="200" />
 			</sprite>
 			
 		</section>

@@ -1,8 +1,8 @@
 % Prelude
-AC_INIT([openalchemist], [0.3], [contact@openalchemist.com])
+AC_INIT([openalchemist], [0.4], [contact@openalchemist.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
-AC_CONFIG_SRCDIR([src/Application.cpp])
+AC_CONFIG_SRCDIR([src/main.cpp])
 
 % Check for programs
 AC_PROG_CXX
@@ -11,15 +11,14 @@ AC_PROG_CXX
 % AC_CHECK_HEADER([iostream string vector list])
 
 % Check for libraries
-REQUIRED_CLANLIB_VERSION="0.8.0"
+REQUIRED_CLANLIB_VERSION="2.1.0"
 PKG_CHECK_MODULES(clanlib,
 [
-	clanCore-0.8 >= $REQUIRED_CLANLIB_VERSION
-	clanApp-0.8 >= $REQUIRED_CLANLIB_VERSION
-	clanDisplay-0.8 >= $REQUIRED_CLANLIB_VERSION
-	clanGL-0.8 >= $REQUIRED_CLANLIB_VERSION
-	clanSDL-0.8 >= $REQUIRED_CLANLIB_VERSION
-], [], [echo "This program needs ClanLib >= 0.8 (clanCore, clanApp, clanDisplay, clanGL, clanSDL)"; exit])
+	clanCore-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+], [], [echo "This program needs ClanLib >= 2.0 (clanCore, clanApp, clanDisplay, clanGL)"; exit])
 
 % Outputfiles
 AC_CONFIG_HEADERS([src/config.h])
