@@ -52,7 +52,9 @@ Player::Player()
 	_p_key_falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
 
 	_combo = 0;  
-
+	_game_mode_changed = false;
+	_manual_mode = false;
+	_play_destroying_sound = false;
 }
 
 /************************************************************************/
@@ -130,6 +132,7 @@ void Player::new_game()
 	_board.calc_score();
 
 	_combo = 0;
+	_play_destroying_sound = false;
 
 	// Applying skin
 	int value;
@@ -578,8 +581,6 @@ void Player::fall()
 	_p_current_piece1 = NULL;
 	_p_current_piece2 = NULL;
 
-
-
 	// We must respect the next piece order (ex: red to the left, blue to the right...)
 	float piece1x = cos(_angle*TO_RAD)*_current_pieces_r;
 	float piece2x = cos((_angle+180)*TO_RAD)*_current_pieces_r;
@@ -617,28 +618,16 @@ void Player::_update_falling_and_creating()
 {
 	// Getting resources
 	static CommonResources *resources = common_resources_get_instance();
-
 	bool placed = _board.fall_and_create();
-
 	if(placed)
 	{
-
 		_combo ++;
-
-		// Only the second time - an old limitation
-		/*if(combo == 2 && board.is_game_over())
-		{
-		resources -> engine -> set_state_gameover();
-		return;
-		}*/
-
 		bool to_destroy = _board.detect_pieces_to_destroy();
-
 		if(to_destroy)
 		{
 			_game_mode = GAME_MODE_DESTROYING;
-			//game_mode = GAME_MODE_TO_PLAYING;
-			g_audio_manager.play_sound(SOUND_DESTROY);
+			_game_mode_changed = true;
+			_play_destroying_sound = false;
 		}
 		else
 		{
@@ -668,17 +657,20 @@ void Player::_update_falling_and_creating()
 /************************************************************************/
 void Player::_update_destroying()
 {
-	bool destroyed = _board.destroy();
+	if(_play_destroying_sound)
+	{	
+		g_audio_manager.play_sound(SOUND_DESTROY);
+		_play_destroying_sound = false;
+	}
 
+	bool destroyed = _board.destroy();
 	if(destroyed)
 	{
-		_board.create_new_pieces(_pieces_normal, _pieces_appearing, _pieces_disappearing, _pieces_mini);
-
+		_board.create_new_pieces(_pieces_normal, _pieces_appearing,
+			_pieces_disappearing, _pieces_mini);
 		_board.detect_pieces_to_fall();
-		_game_mode = GAME_MODE_FALLING_AND_CREATING;
-
+		_game_mode = GAME_MODE_FALLING_AND_CREATING;	
 		g_audio_manager.play_sound(SOUND_CREATION);
-
 	}
 
 }

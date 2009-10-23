@@ -27,6 +27,33 @@ class GameEngine;
 */
 class TitleState : public GameState{
 
+public:
+	
+	/** Constructor */
+	TitleState();
+
+	/** Destructor */
+	~TitleState();
+
+	virtual void init();
+	
+	virtual void term();
+	
+	virtual void load_gfx(CL_GraphicContext &gc, std::string skin);
+	
+	virtual void unload_gfx();
+	
+	virtual void draw(CL_GraphicContext &gc);
+	
+	virtual void update(CL_GraphicContext &gc);
+	
+	virtual void events(Window & window);
+
+	virtual bool front_layer_behind();
+
+	/** Start */
+	void start();
+
 private:
 
 	DemoPlayer _demo_player;
@@ -56,25 +83,10 @@ private:
 	/** Current Step **/
 	short int _step;
 
-	bool _new_game, _fall, _change_angle, _select_the_position;
+	bool _new_game, _fall, _change_angle, _select_the_position,
+		_fall_paused, _destruction_paused;
 
 	CL_Font _p_font;
-
-public:
-	void init();
-	void term();
-	void load_gfx(CL_GraphicContext &gc, std::string skin);
-	void unload_gfx();
-	void draw(CL_GraphicContext &gc);
-	void update(CL_GraphicContext &gc);
-	void events(Window & window);
-
-	bool front_layer_behind();
-
-	TitleState();
-	~TitleState();
-
-	void start();
 
 
 };

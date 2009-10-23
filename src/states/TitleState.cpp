@@ -203,14 +203,26 @@ void TitleState::update(CL_GraphicContext & gc)
 
 		// When you have more than 3 same items...
 	case 8:
+		_fall_paused = true;
 		break;
 
 		// ...they're destroyed...
 	case 9:
+		if(_fall_paused)
+		{
+			_demo_player.resume();
+			_fall_paused = false;
+			_destruction_paused = true;
+		}
 		break;
 
-		// ...and a my_new one is created !
+		// ...and a new one is created !
 	case 10:
+		if(_destruction_paused)
+		{
+			_demo_player.resume();
+			_destruction_paused = false;
+		}
 		break;
 
 		// Align more than 3 items and you get bonus !

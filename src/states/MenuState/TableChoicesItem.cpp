@@ -173,7 +173,10 @@ void TableChoicesItem::action_performed(ActionType action_type)
 		if(_p_parent)
 		{
 			int choice = _cursor_row * _nb_cols + _cursor_col;
-			_p_parent -> choice_selected(choice);
+			if(_choices_enabled[choice])
+			{			
+				_p_parent -> choice_selected(choice);
+			}
 		}
 		break;
 	}

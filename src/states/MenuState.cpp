@@ -106,6 +106,9 @@ void MenuState::events (Window & window)
 	{
 		_start_disappear ();
 		_selection = -1;
+
+		// Not look other events
+		return;
 	}
 
 	// Key ENTER

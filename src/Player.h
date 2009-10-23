@@ -20,7 +20,7 @@
 #include "ProgressBar.h"
 #include "CombosPainter.h"
 
-enum GAME_MODE{
+enum GameMode{
 	GAME_MODE_PLAYING,
 	GAME_MODE_FALLING_AND_CREATING,
 	GAME_MODE_DESTROYING
@@ -184,7 +184,22 @@ protected:
 	/**
 	* Game Mode
 	*/
-	int _game_mode;
+	GameMode _game_mode;
+
+	/** 
+	* Save if the game mode has changed
+	*/
+	bool _game_mode_changed;
+
+	/** 
+	* Sound played
+	*/
+	bool _play_destroying_sound;
+
+	/** 
+	* Manual mode (to stop game mode succession - for DemoPlayer)
+	*/
+	bool _manual_mode;
 
 	/**
 	* One of the next piece (displaying in top)
