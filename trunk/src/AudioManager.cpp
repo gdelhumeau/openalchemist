@@ -13,10 +13,24 @@
 #include "Preferences.h"
 #include "memory.h"
 #include "misc.h"
-#include <iostream>
 
+/************************************************************************/
+/* Global                                                               */
+/************************************************************************/
 AudioManager g_audio_manager;
 
+/************************************************************************/
+/* Constants                                                            */
+/************************************************************************/
+static const std::string SOUND_CREATION_FILE = "creation.wav";
+static const std::string SOUND_DESTROY_FILE = "destroy.wav";
+static const std::string SOUND_MOVE_FILE = "move.wav";
+static const std::string SOUND_FALL_FILE = "fall.wav";
+static const std::string MUSIC_FILE = "Cavern_Of_Time.ogg";
+
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
 AudioManager::AudioManager()
 {
 	_p_setup_sound = NULL;
@@ -30,11 +44,16 @@ AudioManager::AudioManager()
 	_sounds_volume = 1;
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
 AudioManager::~AudioManager()
 {
 }
 
-
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void AudioManager::init()
 {
 	// Getting resources
@@ -47,22 +66,25 @@ void AudioManager::init()
 	std::string dir = CL_System::get_exe_path();
 	std::string dir_music = dir + "music" + get_path_separator();
 	std::string dir_sound = dir + "sounds" + get_path_separator();
-	CL_SoundBuffer vorbis(dir_music + "Cavern_Of_Time.ogg", true);
+	CL_SoundBuffer vorbis(dir_music + MUSIC_FILE, true);
 	_playback = vorbis.prepare();
 	_playback.set_looping(true);
 	_playback.play();
 	_playback.set_volume(p_pref -> music_level / 100.f);
 	_sounds_volume = p_pref -> sound_level / 100.0f;
-	_sounds_p[SOUND_MOVE] = my_new CL_SoundBuffer(dir_sound+"move.wav", false);
-	_sounds_p[SOUND_FALL] = my_new CL_SoundBuffer(dir_sound+"fall.wav", false);
-	_sounds_p[SOUND_CREATION] = my_new CL_SoundBuffer(dir_sound+"creation.wav", false);
-	_sounds_p[SOUND_DESTROY] = my_new CL_SoundBuffer(dir_sound+"destroy.wav", false);
+	_sounds_p[SOUND_MOVE] = my_new CL_SoundBuffer(dir_sound+SOUND_MOVE_FILE, false);
+	_sounds_p[SOUND_FALL] = my_new CL_SoundBuffer(dir_sound+SOUND_FALL_FILE, false);
+	_sounds_p[SOUND_CREATION] = my_new CL_SoundBuffer(dir_sound+SOUND_CREATION_FILE, false);
+	_sounds_p[SOUND_DESTROY] = my_new CL_SoundBuffer(dir_sound+SOUND_DESTROY_FILE, false);
 	_sounds_playback[SOUND_MOVE] = _sounds_p[SOUND_MOVE]->prepare();
 	_sounds_playback[SOUND_FALL] = _sounds_p[SOUND_FALL]->prepare();
 	_sounds_playback[SOUND_CREATION] = _sounds_p[SOUND_CREATION]->prepare();
 	_sounds_playback[SOUND_DESTROY] = _sounds_p[SOUND_DESTROY]->prepare();
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void AudioManager::term()
 {
 	_playback.stop();
@@ -95,18 +117,25 @@ void AudioManager::term()
 	}
 }
 
+/************************************************************************/
+/* Set music volume                                                     */
+/************************************************************************/
 void AudioManager::set_music_volume(float volume)
 {
 	_playback.set_volume(volume);
 }
 
-
+/************************************************************************/
+/* Set sounds volume                                                    */
+/************************************************************************/
 void AudioManager::set_sounds_volume(float volume)
 {
 	_sounds_volume = volume;
 }
 
-
+/************************************************************************/
+/* Play sound                                                           */
+/************************************************************************/
 void AudioManager::play_sound(int sound_index)
 {
 	if(_sounds_p[sound_index])
@@ -119,8 +148,10 @@ void AudioManager::play_sound(int sound_index)
 	}
 }
 
-
-void AudioManager::pause_fx()
+/************************************************************************/
+/* Pause sounds                                                         */
+/************************************************************************/
+void AudioManager::pause_sounds()
 {
 	for(int i=0; i<NB_SOUNDS; ++i)
 	{
@@ -133,7 +164,10 @@ void AudioManager::pause_fx()
 	}
 }
 
-void AudioManager::unpause_fx()
+/************************************************************************/
+/* Resume sounds                                                        */
+/************************************************************************/
+void AudioManager::resume_sounds()
 {
 	for(int i=0; i<NB_SOUNDS; ++i)
 	{
@@ -144,7 +178,5 @@ void AudioManager::unpause_fx()
 			_sounds_playback[i].set_volume(_sounds_volume);
 			_sounds_position[i] = 0;
 		}  
-
 	}
 }
-

@@ -23,40 +23,69 @@ enum SOUNDS{
 	SOUND_CREATION,
 
 	NB_SOUNDS
-
 };
 
+/** Audio manager */
 class AudioManager{
-
-private:
-
-	CL_SetupSound * _p_setup_sound;
-	CL_SoundOutput * _p_output;
-	CL_SetupVorbis * _p_setup_vorbis;
-	CL_SoundBuffer_Session _playback;
-	CL_SoundBuffer* _sounds_p[NB_SOUNDS];
-	CL_SoundBuffer_Session _sounds_playback[NB_SOUNDS];
-	int _sounds_position[NB_SOUNDS];
-
-	float _sounds_volume;
 
 public:
 
+	/** Constructor */
 	AudioManager();
+
+	/** Destructor */
 	~AudioManager();
 
-	void set_music_volume(float volume);
-	void set_sounds_volume(float volume);
-
+	/** Init */
 	void init();
+
+	/** Term */
 	void term();
 
+	/** Set music volume */
+	void set_music_volume(float volume);
+
+	/** Set sounds volume */
+	void set_sounds_volume(float volume);
+
+	/** Play a sound */
 	void play_sound(int sound_index);
-	void pause_fx();
-	void unpause_fx();
+	
+	/** ¨Pause sounds */
+	void pause_sounds();
+
+	/** Resume sounds */
+	void resume_sounds();
+
+private:
+
+	/** Clan sound */
+	CL_SetupSound * _p_setup_sound;
+
+	/** Sound outpur */
+	CL_SoundOutput * _p_output;
+
+	/** Clan vorbis */
+	CL_SetupVorbis * _p_setup_vorbis;
+
+	/** Sound buffer */
+	CL_SoundBuffer_Session _playback;
+
+	/** Sounds */
+	CL_SoundBuffer* _sounds_p[NB_SOUNDS];
+
+	/** Sounds buffers */
+	CL_SoundBuffer_Session _sounds_playback[NB_SOUNDS];
+
+	/** Sounds position (where are the sounds) */
+	int _sounds_position[NB_SOUNDS];
+
+	/** Sounds volume */
+	float _sounds_volume;
 
 };
 
+/** Audio Manager instance */
 extern AudioManager g_audio_manager;
 
 #endif

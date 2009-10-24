@@ -183,7 +183,7 @@ void GameEngine::set_state_pause_menu()
 	{
 		_states_stack.push(&_pausemenu_state);
 		_pausemenu_state.start();
-		g_audio_manager.pause_fx();
+		g_audio_manager.pause_sounds();
 	}
 }
 
@@ -195,7 +195,7 @@ void GameEngine::set_state_ingame()
 	CommonResources *common_resources = common_resources_get_instance();
 	common_resources -> p_current_player = &(common_resources -> player1);
 	_states_stack.push(&_ingame_state);
-	g_audio_manager.unpause_fx();
+	g_audio_manager.resume_sounds();
 }
 
 /************************************************************************/
@@ -257,7 +257,7 @@ void GameEngine::stop_current_state()
 	_states_stack.pop();
 	if (_states_stack.top() == &_ingame_state)
 	{
-		g_audio_manager.unpause_fx();
+		g_audio_manager.resume_sounds();
 	}
 }
 
