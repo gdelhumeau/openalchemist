@@ -40,7 +40,7 @@ public:
 
 	virtual void unload_gfx();
 
-	virtual void action_performed(int selection, int action_type);
+	virtual void action_performed(int selection, ActionType action_type);
 
 	virtual void update_child();
 

@@ -16,16 +16,43 @@
 #include "../misc.h"
 #include "../Window.h"
 
-void GameOverState::init()
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
+GameOverState::GameOverState()
 {
-	_selection = GAMEOVER_SELECTION_YES;
+	_is_highscore = false;
+	_quit_enabled = false;
 }
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
+GameOverState::~GameOverState()
+{
+	unload_gfx();
+}
+
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
+void GameOverState::init()
+{
+	_items.clear();
+	_items.push_back(&_quit_choice_item);
+}
+
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void GameOverState::term()
 {
 
 }
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
@@ -37,40 +64,43 @@ void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
 
 	_dialog_gameover = CL_Sprite(gc, "menu_gameover/dialog_gameover", &gfx);
 	_dialog_highscore = CL_Sprite(gc, "menu_gameover/dialog_highscore", &gfx);
-	_dialog_x = CL_Integer_to_int("menu_gameover/dialog_left", &gfx);
-	_dialog_y = CL_Integer_to_int("menu_gameover/dialog_top", &gfx);
 	_score1_x = CL_Integer_to_int("menu_gameover/score1_left", &gfx);
 	_score1_y = CL_Integer_to_int("menu_gameover/score1_top", &gfx);
 	_score2_x = CL_Integer_to_int("menu_gameover/score2_left", &gfx);
 	_score2_y = CL_Integer_to_int("menu_gameover/score2_top", &gfx);
 
-	_yes_selected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/selected", &gfx);
-	_yes_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/yes/unselected", &gfx);
+	_quit_choice_item.set_gfx(gc, gfx, 
+		"menu_gameover/new_game_question/yes/unselected",
+		"menu_gameover/new_game_question/yes/selected",
+		"menu_gameover/new_game_question/no/unselected",
+		"menu_gameover/new_game_question/no/selected");
 
-	_no_selected = CL_Sprite(gc, "menu_gameover/new_game_question/no/selected", &gfx);
-	_no_unselected = CL_Sprite(gc, "menu_gameover/new_game_question/no/unselected", &gfx);
-
-	_yes_x = CL_Integer_to_int("menu_gameover/new_game_question/yes/left", &gfx);
-	_yes_y = CL_Integer_to_int("menu_gameover/new_game_question/yes/top", &gfx);
-
-	_no_x = CL_Integer_to_int("menu_gameover/new_game_question/no/left", &gfx);
-	_no_y = CL_Integer_to_int("menu_gameover/new_game_question/no/top", &gfx);
+	_quit_choice_item.set_x(
+		CL_Integer_to_int("menu_gameover/new_game_question/yes/left", &gfx));
+	_quit_choice_item.set_x2(
+		CL_Integer_to_int("menu_gameover/new_game_question/no/left", &gfx));
+	_quit_choice_item.set_y(
+		CL_Integer_to_int("menu_gameover/new_game_question/yes/top", &gfx));
+	_quit_choice_item.set_y2(
+		CL_Integer_to_int("menu_gameover/new_game_question/no/top", &gfx));
 }
 
-
+/************************************************************************/
+/* Unload GFX                                                           */
+/************************************************************************/
 void GameOverState::unload_gfx()
 {
 
-
-
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void GameOverState::draw(CL_GraphicContext & gc)
 {
-	_dialog.draw(gc, _dialog_x, _dialog_y);
+	MenuState::draw(gc);
 
-
-	if(MODE_HIGHSCORE == _mode)
+	if(_is_highscore)
 	{
 		std::string new_score = format_number(to_string(_p_common_resources -> highscore));
 		std::string old_score = format_number(to_string(_p_common_resources -> old_highscore));
@@ -98,42 +128,16 @@ void GameOverState::draw(CL_GraphicContext & gc)
 		_p_common_resources -> main_font.draw_text(gc, score1_real_x, _score1_y, current_score);
 		_p_common_resources -> main_font.draw_text(gc, score2_real_x, _score2_y, highscore);
 	}
-
-	if(_selection == GAMEOVER_SELECTION_YES)
-	{
-		_yes_selected.draw(gc, _yes_x, _yes_y);
-		_no_unselected.draw(gc, _no_x, _no_y);
-	}
-	else
-	{
-		_yes_unselected.draw(gc, _yes_x, _yes_y);
-		_no_selected.draw(gc, _no_x, _no_y);
-	}
 }
 
-void GameOverState::update(CL_GraphicContext & gc)
-{
-
-}
-
+/************************************************************************/
+/* Events                                                               */
+/************************************************************************/
 void GameOverState::events(Window & window)
 {
+	MenuState::events(window);
+		
 	CL_InputContext & ic = window.get_ic();
-	if(_p_common_resources -> key.enter -> get(ic))
-	{
-
-		if(_selection == GAMEOVER_SELECTION_YES)
-		{
-			_p_common_resources -> p_engine -> stop_current_state();
-			_p_common_resources -> p_engine -> set_state_ingame();
-			_p_common_resources -> player1.new_game();
-		}
-		else
-		{
-			_p_common_resources -> p_engine -> stop_current_state();
-			_p_common_resources -> p_engine -> set_state_title();
-		}
-	}
 
 	if(_p_common_resources -> key.retry -> get(ic))
 	{
@@ -148,61 +152,56 @@ void GameOverState::events(Window & window)
 		_p_common_resources -> player1.undo();
 	}
 
-	if(_p_common_resources -> key.escape -> get(ic) ||
-		_p_common_resources ->key.pause->get(ic))
-	{
-		_p_common_resources -> p_engine -> stop_current_state();
-		_p_common_resources -> p_engine -> set_state_title();
-		//    common_resources -> engine -> set_state_pause_menu();
-	}
-
 	if(_p_common_resources->key.skins -> get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
-
-	if(_p_common_resources -> key.left -> get(ic))
-	{
-		_selection = GAMEOVER_SELECTION_YES;
-	}
-
-	if(_p_common_resources -> key.right -> get(ic))
-	{
-		_selection = GAMEOVER_SELECTION_NO;
-	}
-
 }
 
-bool GameOverState::front_layer_behind()
+/************************************************************************/
+/* Set mode                                                             */
+/************************************************************************/
+void GameOverState::set_highscore(bool highscore)
 {
-	return true;
-}
-
-void GameOverState::set_mode(int mode)
-{
-	this -> _mode = mode;
-	if(mode == MODE_GAMEOVER)
+	_is_highscore = highscore;
+	if(_is_highscore)
 	{
-		_dialog = _dialog_gameover;
+		_background = _dialog_gameover;
 	}
 	else
 	{
-		_dialog = _dialog_highscore;
+		_background = _dialog_highscore;
 	}
 }
 
-void GameOverState::start()
+/************************************************************************/
+/* Action performed                                                     */
+/************************************************************************/
+void GameOverState::action_performed(int selection, ActionType action_type)
 {
-	_selection = GAMEOVER_SELECTION_YES;
+	switch(action_type)
+	{
+	case ACTION_TYPE_ENTER:
+	case ACTION_TYPE_MOUSE:
+		if(_quit_choice_item.get_selection() == CHOICE_LEFT)
+		{
+			_p_common_resources -> p_engine -> stop_current_state();
+			_p_common_resources -> p_engine -> set_state_ingame();
+			_p_common_resources -> player1.new_game();
+		}
+		else
+		{
+			_p_common_resources -> p_engine -> stop_current_state();
+			_p_common_resources -> p_engine -> set_state_title();
+		}
+		break;
+	}
 }
 
-GameOverState::GameOverState()
+/************************************************************************/
+/* Update child                                                         */
+/************************************************************************/
+void GameOverState::update_child()
 {
-
+	
 }
-
-GameOverState::~GameOverState()
-{
-	unload_gfx();
-}
-

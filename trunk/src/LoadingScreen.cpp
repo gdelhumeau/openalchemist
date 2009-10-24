@@ -66,4 +66,3 @@ void LoadingScreen::set_progression(float progression)
 
 	_window.display();
 }
-

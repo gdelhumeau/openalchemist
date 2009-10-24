@@ -148,7 +148,7 @@ void PauseMenuState::unload_gfx ()
 /************************************************************************/
 /* Action performed                                                     */
 /************************************************************************/
-void PauseMenuState::action_performed (int selection, int action_type)
+void PauseMenuState::action_performed (int selection, ActionType action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)
 	{

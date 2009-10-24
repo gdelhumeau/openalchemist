@@ -636,13 +636,13 @@ void Player::_update_falling_and_creating()
 				resources -> p_engine -> set_skin_element(_board.visible_pieces);
 				if(_board.score + _board.bonus_score > resources -> highscore)
 				{
-					resources -> p_engine -> set_state_gameover(MODE_HIGHSCORE);
+					resources -> p_engine -> set_state_gameover(true);
 					resources -> old_highscore = resources -> highscore;
 					resources -> highscore = _board.score + _board.bonus_score;
 					resources -> save_scores();
 				}
 				else
-					resources -> p_engine -> set_state_gameover(MODE_GAMEOVER);
+					resources -> p_engine -> set_state_gameover(false);
 				return;
 			}
 			_prepare_to_play();

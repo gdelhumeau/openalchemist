@@ -270,7 +270,7 @@ void OptionsMenuState::unload_gfx()
 /************************************************************************/
 /* Action performed                                                     */
 /************************************************************************/
-void OptionsMenuState::action_performed(int selection, int action_type)
+void OptionsMenuState::action_performed(int selection, ActionType action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)				
 	{

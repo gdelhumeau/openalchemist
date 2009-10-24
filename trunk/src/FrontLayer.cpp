@@ -64,7 +64,6 @@ void FrontLayer::_load_gfx(CL_GraphicContext & gc, CL_ResourceManager *gfx_front
 /************************************************************************/
 void FrontLayer::unload_gfx()
 {
-
 	std::list<FrontLayerSprite*>::iterator it = list.begin();
 	while(!list.empty())
 	{
@@ -74,7 +73,6 @@ void FrontLayer::unload_gfx()
 
 	is_enabled = false;
 	list.clear();
-
 }
 
 /************************************************************************/

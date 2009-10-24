@@ -102,7 +102,7 @@ public:
 	/** 
 	* Set current state to game over state
 	*/
-	void set_state_gameover(int mode);
+	void set_state_gameover(bool is_highscore);
 
 	/** 
 	* Set current state to options menu state

@@ -55,7 +55,6 @@ public:
 
 	inline virtual bool is_human(){ return false; }
 
-
 };
 
 #endif

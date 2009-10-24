@@ -18,8 +18,6 @@
 #include "../KeyboardKey.h"
 #include "../DemoPlayer.h"
 
-class GameEngine;
-
 #define NUMBER_OF_SENTENCES 16
 
 /**
@@ -56,11 +54,16 @@ public:
 
 private:
 
+	/** Demo player */
 	DemoPlayer _demo_player;
 
+	/** Start message */
 	CL_Sprite _start_message;
+
+	/** Start message coords */
 	int _start_message_x, _start_message_y;
 
+	/** Keys demo */
 	CL_Sprite _keydemo_left, _keydemo_up, _keydemo_right, _keydemo_down;
 	CL_Sprite _keydemo_escape, _keydemo_options;
 
@@ -83,11 +86,12 @@ private:
 	/** Current Step **/
 	short int _step;
 
+	/** Demo events */
 	bool _new_game, _fall, _change_angle, _select_the_position,
 		_fall_paused, _destruction_paused;
 
+	/** Fonts */
 	CL_Font _p_font;
-
 
 };
 

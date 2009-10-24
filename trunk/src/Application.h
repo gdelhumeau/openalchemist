@@ -15,6 +15,7 @@
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
 
+/** Main application */
 class Application{
 
 public:

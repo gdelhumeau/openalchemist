@@ -23,9 +23,9 @@
 		<integer name = "dialog_left" value = "165" />
 		<integer name = "dialog_top" value = "45" />
 		<integer name = "score1_left" value = "400" />
-		<integer name = "score1_top" value = "167" />
+		<integer name = "score1_top" value = "217" />
 		<integer name = "score2_left" value = "400" />
-		<integer name = "score2_top" value = "267" />
+		<integer name = "score2_top" value = "327" />
 		
 		<!-- Start a new game question -->
 		<section name="new_game_question">

@@ -37,6 +37,7 @@ MenuState::MenuState ()
 	_selection = 0;
 	_mouse_is_clicked = false;
 	_items.clear();
+	_quit_enabled = true;
 }
 
 /************************************************************************/
@@ -101,14 +102,17 @@ void MenuState::events (Window & window)
 	CL_InputContext & ic = window.get_ic();
 
 	// Leaving the state
-	if (_p_common_resources -> key.escape->get (ic) || 
-		_p_common_resources -> key.pause->get (ic))
+	if(_quit_enabled)
 	{
-		_start_disappear ();
-		_selection = -1;
+		if (_p_common_resources -> key.escape->get (ic) || 
+			_p_common_resources -> key.pause->get (ic))
+		{
+			_start_disappear ();
+			_selection = -1;
 
-		// Not look other events
-		return;
+			// Not look other events
+			return;
+		}
 	}
 
 	// Key ENTER
