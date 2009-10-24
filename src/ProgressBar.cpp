@@ -69,9 +69,6 @@ void ProgressBar::draw(CL_GraphicContext & gc, int percentage)
 	int head_height = _head.get_height();
 	int height = _foot_top - (_head_top + head_height);
 
-	/*if(hightscores[current_difficulty] > 0)
-	v = height * (global_score + global_bonus) / hightscores[current_difficulty];*/
-
 	int v = height * percentage / 100;
 	if(v > height) v = height;
 

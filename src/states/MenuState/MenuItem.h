@@ -14,15 +14,7 @@
 
 #include <ClanLib/display.h>
 
-/** Action performed type */
-enum ActionType{
-	ACTION_TYPE_ENTER,
-	ACTION_TYPE_LEFT,
-	ACTION_TYPE_RIGHT,
-	ACTION_TYPE_UP,
-	ACTION_TYPE_DOWN,
-	ACTION_TYPE_MOUSE
-};
+#include "../MenuState.h"
 
 /**
 * Generic (abstract) Menu Item class

@@ -111,7 +111,7 @@ void SkinsMenuState::unload_gfx()
 /************************************************************************/
 /* Action performed                                                     */
 /************************************************************************/
-void SkinsMenuState::action_performed(int selection, int action_type)
+void SkinsMenuState::action_performed(int selection, ActionType action_type)
 {
 
 }

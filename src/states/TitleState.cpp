@@ -9,24 +9,46 @@
 //
 // **********************************************************************
 
-#include "../memory.h"
 #include <ClanLib/core.h>
 
 #include "TitleState.h"
+#include "../memory.h"
 #include "../CommonResources.h"
 #include "../GameEngine.h"
 #include "../misc.h"
 
-#pragma warning(disable:4244)
+/************************************************************************/
+/* Constructor                                                          */
+/************************************************************************/
+TitleState::TitleState()
+{
+}
 
+/************************************************************************/
+/* Destructor                                                           */
+/************************************************************************/
+TitleState::~TitleState()
+{
+	unload_gfx();
+}
+
+/************************************************************************/
+/* Init                                                                 */
+/************************************************************************/
 void TitleState::init()
 {
 }
 
+/************************************************************************/
+/* Term                                                                 */
+/************************************************************************/
 void TitleState::term()
 {
 }
 
+/************************************************************************/
+/* Load GFX                                                             */
+/************************************************************************/
 void TitleState::load_gfx(CL_GraphicContext & gc, std::string skin)
 {
 	unload_gfx();
@@ -65,18 +87,20 @@ void TitleState::load_gfx(CL_GraphicContext & gc, std::string skin)
 
 }
 
+/************************************************************************/
+/* Unload gfx                                                           */
+/************************************************************************/
 void TitleState::unload_gfx()
 {
-
 }
 
+/************************************************************************/
+/* Draw                                                                 */
+/************************************************************************/
 void TitleState::draw(CL_GraphicContext & gc)
 {
-
 	_sentences[_step].draw (gc, _sentences_x[_step], _sentences_y[_step]);
-
 	_start_message.draw(gc, _start_message_x,_start_message_y);
-
 	switch(_step)
 	{
 	case 2:
@@ -124,6 +148,9 @@ void TitleState::draw(CL_GraphicContext & gc)
 	}
 }
 
+/************************************************************************/
+/* Update                                                               */
+/************************************************************************/
 void TitleState::update(CL_GraphicContext & gc)
 {
 	_start_message.update();
@@ -249,6 +276,9 @@ void TitleState::update(CL_GraphicContext & gc)
 	_demo_player.update();
 }
 
+/************************************************************************/
+/* Events                                                               */
+/************************************************************************/
 void TitleState::events(Window & window)
 {
 	CL_InputContext & ic = window.get_ic();
@@ -276,21 +306,17 @@ void TitleState::events(Window & window)
 
 }
 
+/************************************************************************/
+/* Front layer behind                                                   */
+/************************************************************************/
 bool TitleState::front_layer_behind()
 {
 	return true;
 }
 
-TitleState::TitleState()
-{
-
-}
-
-TitleState::~TitleState()
-{
-	unload_gfx();
-}
-
+/************************************************************************/
+/* Start                                                                */
+/************************************************************************/
 void TitleState::start()
 {
 	_step = 0;

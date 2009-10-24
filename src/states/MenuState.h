@@ -16,9 +16,18 @@
 
 #include "GameState.h"
 #include "../KeyboardKey.h"
-#include "MenuState/MenuItem.h"
 
-class GameEngine;
+/** Action performed type */
+enum ActionType{
+	ACTION_TYPE_ENTER,
+	ACTION_TYPE_LEFT,
+	ACTION_TYPE_RIGHT,
+	ACTION_TYPE_UP,
+	ACTION_TYPE_DOWN,
+	ACTION_TYPE_MOUSE
+};
+
+class MenuItem;
 
 /**
 * Menu State - a based class for all menus
@@ -47,13 +56,16 @@ public:
 	virtual bool front_layer_behind();
 	
 	/** Action performed - propaged to derivated class */
-	virtual void action_performed(int selection, int action_type) = 0;
+	virtual void action_performed(int selection, ActionType action_type) = 0;
 
 	/** Update derivated class */
 	virtual void update_child() = 0;
 	
 	/** Start the menu */
 	void start();
+
+	/** Set if user can quit the menu or not */
+	inline void set_quit_enable(bool enable){ _quit_enabled = enable; }
 
 protected:
 
@@ -80,6 +92,9 @@ protected:
 
 	/** Is mouse button clicked */
 	bool _mouse_is_clicked;
+
+	/** If user can quit the menu */
+	bool _quit_enabled;
 
 	/** Set background sprite */
 	void _set_background_sprite(CL_Sprite & background);

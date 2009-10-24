@@ -201,17 +201,12 @@ void GameEngine::set_state_ingame()
 /************************************************************************/
 /* Set state gameover                                                   */
 /************************************************************************/
-void GameEngine::set_state_gameover(int mode)
+void GameEngine::set_state_gameover(bool is_highscore)
 {
-	_gameover_state.set_mode(mode);
+	_gameover_state.set_highscore(is_highscore);
 	_gameover_state.start();
 	_states_stack.push(&_gameover_state);
 }
-
-/*void GameEngine::set_state_highscore()
-{
-states_stack.push(&highscore_state);
-}*/
 
 /************************************************************************/
 /* Set states options menu                                              */

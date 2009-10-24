@@ -93,7 +93,7 @@ void QuitMenuState::unload_gfx()
 /************************************************************************/
 /* Action performed                                                     */
 /************************************************************************/
-void QuitMenuState::action_performed(int selection, int action_type)
+void QuitMenuState::action_performed(int selection, ActionType action_type)
 {
 	if(ACTION_TYPE_ENTER == action_type)
 	{

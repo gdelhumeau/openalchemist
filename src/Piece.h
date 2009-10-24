@@ -256,5 +256,4 @@ private:
 
 };
 
-
 #endif
