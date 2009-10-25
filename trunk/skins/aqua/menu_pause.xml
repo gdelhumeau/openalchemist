@@ -81,6 +81,21 @@
 			
 		</section>
 		
+		<!-- Change skin-->
+		<section name="changeskin">
+			<sprite name="selected">
+				<image file="dialogs/pause/changeskin-selected.png" />					
+			</sprite>
+			
+			<sprite name="unselected">
+				<image file="dialogs/pause/changeskin-unselected.png" />					
+			</sprite>
+			
+			<integer name="top" value="300" />
+			<integer name="left" value="100" />
+			
+		</section>
+		
 		
 		<!-- Back to main menu item-->
 		<section name="giveup">
@@ -96,10 +111,11 @@
 				<image file="dialogs/pause/giveup-unavailable.png" />
 			</sprite>
 			
-			<integer name="top" value="300" />
+			<integer name="top" value="350" />
 			<integer name="left" value="100" />
 			
 		</section>
+	
 		
 		<!-- Quit game item -->
 		<section name="quit">
@@ -112,7 +128,7 @@
 					
 			</sprite>
 			
-			<integer name="top" value="350" />
+			<integer name="top" value="400" />
 			<integer name="left" value="100" />
 			
 		</section>

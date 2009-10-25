@@ -138,20 +138,20 @@ void GameOverState::events(Window & window)
 		
 	CL_InputContext & ic = window.get_ic();
 
-	if(_p_common_resources -> key.retry -> get(ic))
+	if(_p_common_resources -> key.retry.get(ic))
 	{
 		_p_common_resources -> p_engine -> stop_current_state();
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.new_game();
 	}
 
-	if(_p_common_resources -> key.undo -> get(ic))
+	if(_p_common_resources -> key.undo.get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_ingame();
 		_p_common_resources -> player1.undo();
 	}
 
-	if(_p_common_resources->key.skins -> get(ic))
+	if(_p_common_resources->key.skins.get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}

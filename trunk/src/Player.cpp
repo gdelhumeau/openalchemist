@@ -399,13 +399,13 @@ void Player::events(CL_InputContext & ic)
 	}
 
 	// Undo the last move
-	if(resources->key.undo -> get(ic))
+	if(resources->key.undo.get(ic))
 	{
 		undo();
 	}
 
 	// Retry current game
-	if(resources -> key.retry -> get(ic))
+	if(resources -> key.retry.get(ic))
 	{
 		resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
 	}
@@ -627,7 +627,7 @@ void Player::_update_falling_and_creating()
 		{
 			_game_mode = GAME_MODE_DESTROYING;
 			_game_mode_changed = true;
-			_play_destroying_sound = false;
+			_play_destroying_sound = true;
 		}
 		else
 		{

@@ -81,7 +81,7 @@
 				
 			</sprite>
 			
-			<integer name="top" value="200" />
+			<integer name="top" value="150" />
 			<integer name="left" value="65" />
 			
 		</section>
@@ -89,8 +89,9 @@
 		<!-- Fullscreen choices -->		
 		<section name="fullscreen-choices">
 			<integer name="left" value="300" />
-		</section>		
+		</section>	
 		
+	
 		<!-- Framerate item -->
 		<section name="framerate">
 			<sprite name="selected">
@@ -102,7 +103,7 @@
 				
 			</sprite>
 			
-			<integer name="top" value="250" />
+			<integer name="top" value="200" />
 			<integer name="left" value="65" />			
 		</section>	
 		
@@ -138,6 +139,27 @@
 				<image file="dialogs/options/framerate-no-limit.png" />
 			</sprite>
 		</section>
+		
+		<!-- Color Blind item -->
+		<section name="colorblind">
+			<sprite name="selected">
+				<image file="dialogs/options/colorblind-selected.png" />
+				
+			</sprite>
+			<sprite name="unselected">
+				<image file="dialogs/options/colorblind-unselected.png" />
+				
+			</sprite>
+			
+			<integer name="top" value="250" />
+			<integer name="left" value="65" />
+			
+		</section>
+		
+		<!-- Color Blind choices -->		
+		<section name="colorblind-choices">
+			<integer name="left" value="300" />
+		</section>	
 		
 		<!-- Sound level item -->
 		<section name="sound">

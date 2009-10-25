@@ -18,25 +18,25 @@
 class Keys{
 
 public:
-	KeyboardKey * fullscreen;
-	KeyboardKey * left;
-	KeyboardKey * right;
-	KeyboardKey * retry;
-	KeyboardKey * undo;
-	KeyboardKey * escape;
-	KeyboardKey * pause;
-	KeyboardKey * up;
-	KeyboardKey * down;
-	KeyboardKey * enter;
-	KeyboardKey * options;
-	KeyboardKey * skins;
+	KeyboardKey fullscreen;
+	KeyboardKey left;
+	KeyboardKey right;
+	KeyboardKey retry;
+	KeyboardKey undo;
+	KeyboardKey escape;
+	KeyboardKey pause;
+	KeyboardKey up;
+	KeyboardKey down;
+	KeyboardKey enter;
+	KeyboardKey options;
+	KeyboardKey skins;
+	KeyboardKey framerate;
 
 	/** Constructor */
 	Keys();
 
 	/** Destructor */
 	~Keys();
-
 
 };
 

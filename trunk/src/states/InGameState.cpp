@@ -86,17 +86,17 @@ void InGameState::events(Window & window)
 	CL_InputContext & ic = window.get_ic();
 	_p_common_resources -> player1.events(ic);
 
-	if(_p_common_resources -> key.escape -> get(ic) || _p_common_resources ->key.pause->get(ic))
+	if(_p_common_resources -> key.escape.get(ic) || _p_common_resources ->key.pause.get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_pause_menu();
 	}
 
-	if(_p_common_resources->key.skins -> get(ic))
+	if(_p_common_resources->key.skins.get(ic))
 	{
 		_p_common_resources -> p_engine -> set_state_skin_menu();
 	}
 
-	if(_p_common_resources->key.options -> get(ic) )
+	if(_p_common_resources->key.options.get(ic) )
 	{
 		_p_common_resources -> p_engine -> set_state_options_menu();
 	}

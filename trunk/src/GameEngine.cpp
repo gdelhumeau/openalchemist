@@ -274,6 +274,41 @@ void GameEngine::toggle_screen()
 }
 
 /************************************************************************/
+/* Toggle Color Blind                                                   */
+/************************************************************************/
+void GameEngine::toggle_colorblind()
+{
+	// Getting globals
+	Preferences *p_pref = pref_get_instance();
+	CommonResources *p_common_resources = common_resources_get_instance();
+	
+	// Changing preferences
+	p_pref -> colorblind = !p_pref -> colorblind;
+
+	// Loading new elements (with a loading screen)
+	_p_loading_screen = my_new LoadingScreen(_window);
+	_p_loading_screen -> init();
+	_p_loading_screen -> set_progression(0.0f);
+	if(_running)
+	{
+		p_common_resources->player1.load_gfx(_window.get_gc(), p_pref -> skin);
+		_p_loading_screen -> set_progression(1.0f / 2.0f);
+	}
+	if(_running)
+	{
+		_title_state.load_gfx(_window.get_gc(), p_pref -> skin);
+		_p_loading_screen -> set_progression(2.0f / 2.0f);
+	}
+
+	// Delete loading screen
+	my_delete(_p_loading_screen);
+	_p_loading_screen = NULL;
+
+	// Save preferences
+	p_pref->write();
+}
+
+/************************************************************************/
 /* Refresh framerate limit                                              */
 /************************************************************************/
 void GameEngine::refresh_framerate_limit()

@@ -54,6 +54,9 @@ private:
 	/** Background image */
 	CL_Image _background;
 
+	/** Enable Framerate drawing */
+	bool _enable_framerate_drawing;
+
 };
 
 #endif

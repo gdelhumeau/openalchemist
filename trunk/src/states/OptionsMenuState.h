@@ -57,6 +57,9 @@ private:
 	/** Item to switch from fullscreen to window */
 	MultipleChoicesItem _fullscreen_item;
 
+	/** Item to active or disable color blind mode */
+	MultipleChoicesItem _colorblind_item;
+
 	/** Item to set max framerate */
 	MultipleChoicesItem _framerate_item;
 

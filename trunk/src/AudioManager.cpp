@@ -113,7 +113,6 @@ void AudioManager::term()
 			my_delete(_sounds_p[i]);
 			_sounds_p[i] = NULL;
 		}   
-
 	}
 }
 
