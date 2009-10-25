@@ -194,6 +194,8 @@ void GameOverState::action_performed(int selection, ActionType action_type)
 			_p_common_resources -> p_engine -> set_state_title();
 		}
 		break;
+	default:
+		break;
 	}
 }
 
