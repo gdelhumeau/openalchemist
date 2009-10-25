@@ -235,6 +235,14 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	{
 		_fullscreen_item.set_current_choice(ITEM_NO);
 	}
+	if(p_pref -> colorblind)
+	{
+		_colorblind_item.set_current_choice(ITEM_YES);
+	}
+	else
+	{
+		_colorblind_item.set_current_choice(ITEM_NO);
+	}
 	if(p_pref -> maxfps <= 30)
 	{
 		_framerate_item.set_current_choice(0);
