@@ -104,8 +104,8 @@ void MenuState::events (Window & window)
 	// Leaving the state
 	if(_quit_enabled)
 	{
-		if (_p_common_resources -> key.escape->get (ic) || 
-			_p_common_resources -> key.pause->get (ic))
+		if (_p_common_resources -> key.escape.get (ic) || 
+			_p_common_resources -> key.pause.get (ic))
 		{
 			_start_disappear ();
 			_selection = -1;
@@ -116,7 +116,7 @@ void MenuState::events (Window & window)
 	}
 
 	// Key ENTER
-	if (_p_common_resources -> key.enter -> get (ic))
+	if (_p_common_resources -> key.enter.get (ic))
 	{
 		if(_items[_selection] -> quit_menu_on_action())
 		{
@@ -126,14 +126,14 @@ void MenuState::events (Window & window)
 	}
 
 	// Key LEFT
-	if (_p_common_resources -> key.left -> get (ic))
+	if (_p_common_resources -> key.left.get (ic))
 	{
 		_items[_selection] -> action_performed(ACTION_TYPE_LEFT);
 		this -> action_performed (_selection, ACTION_TYPE_LEFT);
 	}
 
 	// Key RIGHT
-	if (_p_common_resources -> key.right -> get (ic))
+	if (_p_common_resources -> key.right.get (ic))
 	{
 		_items[_selection] -> action_performed(ACTION_TYPE_RIGHT);
 		this -> action_performed (_selection, ACTION_TYPE_RIGHT);
@@ -141,7 +141,7 @@ void MenuState::events (Window & window)
 
 
 	// Key UP
-	if (_p_common_resources -> key.up -> get (ic))
+	if (_p_common_resources -> key.up.get (ic))
 	{		
 		_items[_selection] -> set_selected (false);
 		bool changed = false;
@@ -166,7 +166,7 @@ void MenuState::events (Window & window)
 	}
 
 	// Key DOWN
-	if (_p_common_resources -> key.down -> get (ic))
+	if (_p_common_resources -> key.down.get (ic))
 	{
 		_items[_selection] -> set_selected (false);
 		bool changed = false;

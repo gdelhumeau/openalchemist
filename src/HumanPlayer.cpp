@@ -76,13 +76,13 @@ void HumanPlayer::events(CL_InputContext & ic)
 	}
 
 	// Undo the last move
-	if(resources->key.undo -> get(ic))
+	if(resources->key.undo.get(ic))
 	{
 		undo();
 	}
 
 	// Retry current game
-	if(resources -> key.retry -> get(ic))
+	if(resources -> key.retry.get(ic))
 	{
 		resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
 	}

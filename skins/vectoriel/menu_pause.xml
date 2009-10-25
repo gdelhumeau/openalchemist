@@ -80,6 +80,21 @@
 			<integer name="left" value="100" />
 			
 		</section>
+		
+		<!-- Change skin-->
+		<section name="changeskin">
+			<sprite name="selected">
+				<image file="dialogs/pause/changeskin-selected.png" />					
+			</sprite>
+			
+			<sprite name="unselected">
+				<image file="dialogs/pause/changeskin-unselected.png" />					
+			</sprite>
+			
+			<integer name="top" value="350" />
+			<integer name="left" value="100" />
+			
+		</section>
   	
   			
 		<!-- Back to main menu item-->
@@ -95,7 +110,7 @@
 				<image file="dialogs/pause/giveup-unavailable.png" />
 			</sprite>
 			
-			<integer name="top" value="350" />
+			<integer name="top" value="400" />
 			<integer name="left" value="100" />
 			
 		</section>
@@ -109,7 +124,7 @@
 				<image file="dialogs/pause/quit-unselected.png" />  					
 			</sprite>
 			
-			<integer name="top" value="400" />
+			<integer name="top" value="450" />
 			<integer name="left" value="100" />
 			
 		</section>

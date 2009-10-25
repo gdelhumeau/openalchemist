@@ -58,6 +58,9 @@ private:
 	/** Item to give up current game */
 	BasicItem _giveup_item;
 
+	/** Item to change skin */
+	BasicItem _changeskin_item;
+
 	/** Item to quit the game */
 	BasicItem _quit_item;
 

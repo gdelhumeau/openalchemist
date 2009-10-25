@@ -130,6 +130,11 @@ public:
 	void toggle_screen();
 
 	/** 
+	* Enable colorblind mode, or not
+	*/
+	void toggle_colorblind();
+
+	/** 
 	* Change max framerate
 	*/
 	void refresh_framerate_limit();

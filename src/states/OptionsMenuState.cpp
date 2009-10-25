@@ -26,6 +26,7 @@ enum{
 	OPTIONS_ITEM_RENDER,
 	OPTIONS_ITEM_FULLSCREEN,
 	OPTIONS_ITEM_FRAMERATE,
+	OPTIONS_ITEM_COLORBLIND,
 	OPTIONS_ITEM_SOUND,
 	OPTIONS_ITEM_MUSIC,
 	OPTIONS_ITEM_QUIT
@@ -79,6 +80,7 @@ void OptionsMenuState::init()
 	_items.insert (_items.end (), &_render_item);
 	_items.insert (_items.end (), &_fullscreen_item);
 	_items.insert (_items.end (), &_framerate_item);
+	_items.insert (_items.end (), &_colorblind_item);
 	_items.insert (_items.end (), &_sound_level_item);
 	_items.insert (_items.end (), &_music_level_item);
 	_items.insert (_items.end (), &_quit_item);
@@ -141,6 +143,12 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/100");
 	_framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/no-limit");
 
+	_colorblind_item.set_description_sprites(gc, gfx,
+		"menu_options/colorblind/unselected",
+		"menu_options/colorblind/selected");
+	_colorblind_item.add_choice(gc, gfx, "menu_options/item-no");
+	_colorblind_item.add_choice(gc, gfx, "menu_options/item-yes");
+
 	_sound_level_item.set_description_sprites(gc, gfx, 
 		"menu_options/sound/unselected",
 		"menu_options/sound/selected");
@@ -185,6 +193,12 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 
 	_fullscreen_item.set_choice_x(x + CL_Integer_to_int("menu_options/fullscreen-choices/left", &gfx));
 	_fullscreen_item.set_choice_y(y + CL_Integer_to_int("menu_options/fullscreen/top", &gfx));	
+
+	_colorblind_item.set_x(x + CL_Integer_to_int("menu_options/colorblind/left", &gfx));
+	_colorblind_item.set_y(y + CL_Integer_to_int("menu_options/colorblind/top", &gfx));
+
+	_colorblind_item.set_choice_x(x + CL_Integer_to_int("menu_options/colorblind-choices/left", &gfx));
+	_colorblind_item.set_choice_y(y + CL_Integer_to_int("menu_options/colorblind/top", &gfx));	
 
 	_framerate_item.set_x(x + CL_Integer_to_int("menu_options/framerate/left", &gfx));
 	_framerate_item.set_y(y + CL_Integer_to_int("menu_options/framerate/top", &gfx));
@@ -329,6 +343,12 @@ void OptionsMenuState::update_child()
 	if(p_pref -> fullscreen != fullscreen)
 	{
 		_p_common_resources->p_engine->toggle_screen();
+	}
+
+	bool colorblind = (int) _colorblind_item.get_current_choice() == ITEM_YES;
+	if(p_pref->colorblind != colorblind)
+	{
+		_p_common_resources->p_engine->toggle_colorblind();
 	}
 
 	if(p_pref -> maxfps != (int) _framerate_item.get_current_choice())

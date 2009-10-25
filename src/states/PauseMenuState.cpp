@@ -26,6 +26,7 @@ enum
 	PAUSE_ITEM_UNDO,
 	PAUSE_ITEM_RETRY,
 	PAUSE_ITEM_OPTIONS,
+	PAUSE_ITEM_CHANGESKIN,
 	PAUSE_ITEM_GIVEUP,
 	PAUSE_ITEM_QUIT
 };
@@ -55,7 +56,8 @@ void PauseMenuState::init ()
 	_items.insert (_items.end (), &_undo_item);
 	_items.insert (_items.end (), &_retry_item);
 	_items.insert (_items.end (), &_options_item);
-	_items.insert (_items.end (), &_giveup_item);
+	_items.insert (_items.end (), &_changeskin_item);
+	_items.insert (_items.end (), &_giveup_item);	
 	_items.insert (_items.end (), &_quit_item);
 }
 
@@ -124,6 +126,13 @@ void PauseMenuState::load_gfx (CL_GraphicContext &gc, std::string skin)
 		"menu_pause/giveup/unavailable");
 	_giveup_item.set_x (x + CL_Integer_to_int ("menu_pause/giveup/left", &gfx));
 	_giveup_item.set_y (y + CL_Integer_to_int ("menu_pause/giveup/top", &gfx));
+
+	// skins
+	_changeskin_item.set_gfx (gc, gfx,
+		"menu_pause/changeskin/unselected",
+		"menu_pause/changeskin/selected");
+	_changeskin_item.set_x (x + CL_Integer_to_int ("menu_pause/changeskin/left", &gfx));
+	_changeskin_item.set_y (y + CL_Integer_to_int ("menu_pause/changeskin/top", &gfx));
 
 	// quit
 	_quit_item.set_gfx (gc, gfx,
@@ -196,6 +205,12 @@ void PauseMenuState::action_performed (int selection, ActionType action_type)
 			{
 				start ();
 				_p_common_resources -> p_engine -> set_state_options_menu ();
+				break;
+			}
+		case PAUSE_ITEM_CHANGESKIN:
+			{
+				start ();
+				_p_common_resources -> p_engine -> set_state_skin_menu();
 				break;
 			}
 		case PAUSE_ITEM_QUIT:
