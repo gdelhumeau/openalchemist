@@ -57,7 +57,7 @@ int Application::main(const std::vector<CL_String> &args)
 		// Catch any errors from ClanLib
 		catch(CL_Exception& exception)
 		{
-			CL_ConsoleWindow console("Console", 80, 160);
+			CL_ConsoleWindow console("OpenAlchemist Console", 80, 300);
 			CL_Console::write_line("Exception caught:");
 			CL_Console::write_line(exception.message);
 

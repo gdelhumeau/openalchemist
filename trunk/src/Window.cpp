@@ -13,6 +13,7 @@
 #include "CommonResources.h"
 #include "Preferences.h"
 #include "GameEngine.h"
+#include "misc.h"
 
 /************************************************************************/
 /* Constructor                                                          */
@@ -67,7 +68,7 @@ void Window::manage(GameEngine & game_engine)
 	_clanlib_window = CL_DisplayWindow(desc);
 
 	// Add an icon
-	CL_PixelBuffer icon = CL_PixelBuffer("data/logo.png");
+	CL_PixelBuffer icon = CL_PixelBuffer(get_data_path()+"logo.png");
 	_clanlib_window.set_large_icon(icon);
 
 	// Drawing black window

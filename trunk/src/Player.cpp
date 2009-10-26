@@ -643,7 +643,9 @@ void Player::_update_falling_and_creating()
 					p_resources -> save_scores();
 				}
 				else
+				{
 					p_resources -> p_engine -> set_state_gameover(false);
+				}
 				return;
 			}
 			_prepare_to_play();
@@ -723,7 +725,7 @@ void Player::_prepare_to_play()
 void Player::undo()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources *p_resources = common_resources_get_instance();
 
 	// First verify than the last move is not the first one
 	if(_undo_possible)
@@ -759,8 +761,8 @@ void Player::undo()
 
 		_position = _undo_position;
 		_position_bis = _undo_position_bis;
-		_x = (float)(_position * resources->pieces_width +
-			_position_bis * resources->pieces_width / 2);
+		_x = (float)(_position * p_resources->pieces_width +
+			_position_bis * p_resources->pieces_width / 2);
 
 		_angle = (float) _undo_angle;
 		_aimed_angle = _undo_angle;

@@ -101,14 +101,15 @@ void CommonResources::read_scores()
 
 	try
 	{
-		CL_File file(path+get_path_separator()+"hightscores-"+get_version());
+		CL_File file(path+get_path_separator()+"highscores-"+get_version());
 
 		highscore = file.read_uint32();
+		file.close();
 
 	}
 	catch(CL_Exception&)
 	{
-		std::cout << "Can't read hightscores file. Probably doesn't exist. \n";
+		std::cout << "Can't read highscores file. Probably doesn't exist. \n";
 		highscore = 0;
 	}
 }
@@ -119,21 +120,17 @@ void CommonResources::read_scores()
 void CommonResources::save_scores()
 {
 	std::string path = get_save_path();
-
 	try
 	{
-#ifdef WIN32
-		CL_File file(path+"\\hightscores-"+get_version());
-#else
-		CL_File file(path+"/hightscores-"+get_version());
-#endif
+		CL_File file(path+get_path_separator()+"highscores-"+get_version(), 
+			CL_File::create_always, CL_File::access_write);
 
 		file.write_uint32(highscore);
 		file.close();
 	}
 	catch(CL_Exception&)
-	{
-		std::cout << "Can't write hightscores file. \n";
+	{		
+		std::cout << "Can't write highscores file. \n";
 	}
 }
 
