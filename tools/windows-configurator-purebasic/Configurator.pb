@@ -9,6 +9,7 @@ Declare readConf()
 ;- Globales
 ; ------------
 Global running = 1
+Global openalchemistVersion.s = "svn"
 
 ; ------------
 ;- Main
@@ -30,8 +31,6 @@ Procedure main()
         Select EventGadget()
           Case #BT_RUN :
             run()
-          Case #SPIN_FPS :
-            SetGadgetText(#SPIN_FPS,Str(GetGadgetState(#SPIN_FPS)))
         EndSelect
       Case #PB_Event_CloseWindow :
         running = 0
@@ -42,8 +41,9 @@ EndProcedure
 
 Procedure initComponents()
   SetGadgetState(#RDB_OPENGL, 1)
-  SetGadgetAttribute(#SPIN_FPS, #PB_Spin_Minimum, 20)
-  SetGadgetAttribute(#SPIN_FPS, #PB_Spin_Maximum, 200)
+  SetGadgetState(#RDB_OPENGL2, 0)
+  SetGadgetState(#RDB_SOFTWARE, 0)
+
   readConf()
 EndProcedure
 
@@ -53,53 +53,41 @@ Procedure run()
   
   If(GetGadgetState(#RDB_OPENGL)=1)
     parameters = parameters + " --opengl"
-  Else
-    parameters = parameters + " --sdl"
+  ElseIf (GetGadgetState(#RDB_OPENGL2)=1)
+    parameters = parameters + " --opengl2"
+  ElseIf (GetGadgetState(#RDB_SOFTWARE)=1)
+    parameters = parameters + " --software"
   EndIf
   
-  If(GetGadgetState(#CB_COLOR_BLIND)=1)
-    parameters = parameters + " --cb"
-  Else
-    parameters = parameters + " --nocb"
-  EndIf
-  
-  parameters = parameters + " --maxfps " + Str(GetGadgetState(#SPIN_FPS))
   
   RunProgram("OpenAlchemist.exe", parameters, "")
 
 EndProcedure
 
 Procedure readConf()
-  confFile.s = GetEnvironmentVariable("APPDATA") + "\OpenAlchemist\preferences.ini"  
+  confFile.s = "savedata\preferences-"+openalchemistVersion+".ini"   
   
   If OpenPreferences(confFile) = 0
-    confFile = "savedata\preferences.ini"
+    confFile = GetEnvironmentVariable("APPDATA") + "\OpenAlchemist\preferences-"+openalchemistVersion+".ini" 
     OpenPreferences(confFile)
   EndIf
   
   PreferenceGroup("Preferences")
   
-  ; Reading OpenGL conf
-  opengl.s = ReadPreferenceString("OpenGL", "True")
-  If opengl = "True"
-    SetGadgetState(#RDB_OPENGL, 1)
-    SetGadgetState(#RDB_SDL, 0)
-  Else
+  ; Reading Render Target conf
+  render.s = ReadPreferenceString("Render Target", "OPENGL_1")
+  If render = "OPENGL_2"
     SetGadgetState(#RDB_OPENGL, 0)
-    SetGadgetState(#RDB_SDL, 1)
-  EndIf
-  
-  ; Reading Framerate
-  maxFPS = ReadPreferenceLong("MaxFPS", 65)
-  SetGadgetText(#SPIN_FPS, Str(maxFPS))
-  SetGadgetState(#SPIN_FPS, maxFPS)
-  
-  ; Reading ColorBlind
-  colorBlind.s = ReadPreferenceString("Colorblind", "False")
-  If colorBlind = "True"
-    SetGadgetState(#CB_COLOR_BLIND, 1)
+    SetGadgetState(#RDB_OPENGL2, 1)
+    SetGadgetState(#RDB_SOFTWARE, 0)
+  ElseIf render = "SOFTWARE"
+    SetGadgetState(#RDB_OPENGL, 0)
+    SetGadgetState(#RDB_OPENGL2, 0)
+    SetGadgetState(#RDB_SOFTWARE, 1)
   Else
-    SetGadgetState(#CB_COLOR_BLIND, 0)
+    SetGadgetState(#RDB_OPENGL, 1)
+    SetGadgetState(#RDB_OPENGL2, 0)
+    SetGadgetState(#RDB_SOFTWARE, 0)
   EndIf
   
   
@@ -109,8 +97,9 @@ EndProcedure
 
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 8
+; IDE Options = PureBasic 4.31 (Windows - x86)
+; CursorPosition = 84
+; FirstLine = 60
 ; Folding = -
 ; EnableXP
 ; Executable = C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\Config.exe
