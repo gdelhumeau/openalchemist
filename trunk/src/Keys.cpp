@@ -19,9 +19,9 @@
 /************************************************************************/
 Keys::Keys():
 fullscreen(CL_KEY_F11,    false),
-retry     (CL_KEY_F2,     false),
 left      (CL_KEY_LEFT,   true ),
 right     (CL_KEY_RIGHT,  true ),
+retry     (CL_KEY_F2,     false),
 undo      (CL_KEY_F5,     false),
 escape    (CL_KEY_ESCAPE, false),
 pause     (CL_KEY_PAUSE,  false),
