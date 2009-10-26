@@ -50,16 +50,26 @@ void IniFile::read(CL_File *file)
 
 	while(file->get_position() != file->get_size())
 	{
-		IniElement *e = new IniElement();
+		// Get line
 		std::string line = read_ln(file);
 
+		// Remove space
+		int space_index = line.rfind(" ");
+		while(space_index != std::string::npos)
+		{
+			line = line.replace(space_index, 1, "");
+			space_index = line.rfind(" ");
+		}
+
+		// Parse line
 		if(line.length() >1)
 		{
-			int separator = line.find(" = ", 0);
+			int separator = line.find("=", 0);
 			if(separator)
 			{
+				IniElement *e = my_new IniElement();
 				e -> name = line.substr(0, separator);
-				e -> value = line.substr(separator + 3, line.length());
+				e -> value = line.substr(separator + 1, line.length());
 				_list.insert(_list.end(), e);
 			}
 		}
@@ -101,7 +111,7 @@ void IniFile::clear()
 	while(!_list.empty())
 	{
 		IniElement *e = (IniElement*) *it;
-		delete e;
+		my_delete(e);
 		it = _list.erase(it);
 	}
 }
@@ -123,7 +133,7 @@ void IniFile::add(std::string name, std::string value)
 		it++;
 	}
 
-	IniElement *e = new IniElement();
+	IniElement *e = my_new IniElement();
 	e -> name = name;
 	e -> value = value;
 	_list.insert(_list.end(), e);
@@ -149,7 +159,7 @@ void IniFile::add(std::string name, bool value)
 		it++;
 	}
 
-	IniElement *e = new IniElement();
+	IniElement *e = my_new IniElement();
 	e -> name = name;
 
 	if(value)
@@ -183,7 +193,7 @@ void IniFile::add(std::string name, int value)
 		it++;
 	}
 
-	IniElement *e = new IniElement();
+	IniElement *e = my_new IniElement();
 	e -> name = name;
 	try
 	{

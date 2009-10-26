@@ -37,6 +37,7 @@ void SkinsManager::init()
 /************************************************************************/
 void SkinsManager::term()
 {
+	_save_registred_skins();
 	for(unsigned int i = 0; i < _skins.size(); ++i)
 	{
 		my_delete(_skins[i]);
