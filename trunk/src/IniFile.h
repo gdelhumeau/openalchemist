@@ -33,6 +33,12 @@ class IniFile{
 
 public:
 
+	/** Constructor */
+	IniFile();
+	
+	/** Destructor */
+	~IniFile();
+
 	/** Read file */
 	void read(CL_File *file);
 
