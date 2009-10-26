@@ -127,7 +127,7 @@ void Player::new_game()
 	_board.clear();
 	_board.unlocked_pieces = 3;
 	_board.visible_pieces  = 3;
-	_board.score = 0;
+	_board.body_score = 0;
 	_board.bonus_score = 0;
 	_board.calc_score();
 
@@ -317,7 +317,8 @@ void Player::draw(CL_GraphicContext & gc)
 	// TODO : must work with differents difficulties
 	if(resources -> highscore > 0)
 	{
-		int percentage = (int)((double)(_board.score + _board.bonus_score) / (double)resources -> highscore * 100.0);
+		int percentage = (int)((double)(get_score())
+			/ (double)resources -> highscore * 100.0);
 		if(percentage > 100)
 			percentage = 100;
 		_progress_bar.draw(gc, percentage);
@@ -617,7 +618,7 @@ void Player::fall()
 void Player::_update_falling_and_creating()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources *p_resources = common_resources_get_instance();
 	bool placed = _board.fall_and_create();
 	if(placed)
 	{
@@ -633,16 +634,16 @@ void Player::_update_falling_and_creating()
 		{
 			if(_board.is_game_over())
 			{
-				resources -> p_engine -> set_skin_element(_board.visible_pieces);
-				if(_board.score + _board.bonus_score > resources -> highscore)
+				p_resources -> p_engine -> set_skin_element(_board.visible_pieces);
+				if(get_score() > p_resources -> highscore)
 				{
-					resources -> p_engine -> set_state_gameover(true);
-					resources -> old_highscore = resources -> highscore;
-					resources -> highscore = _board.score + _board.bonus_score;
-					resources -> save_scores();
+					p_resources -> p_engine -> set_state_gameover(true);
+					p_resources -> old_highscore = p_resources -> highscore;
+					p_resources -> highscore = get_score();
+					p_resources -> save_scores();
 				}
 				else
-					resources -> p_engine -> set_state_gameover(false);
+					p_resources -> p_engine -> set_state_gameover(false);
 				return;
 			}
 			_prepare_to_play();
@@ -683,12 +684,11 @@ void Player::_prepare_to_play()
 	_board.calc_score();
 
 	// Adding combo bonus
-	if(_combo > 1)
+	if(_combo > 2)
 	{
-		u_int delta_score = _board.score - _board.undo_score;
-		u_int combo_bonus = _combo * delta_score / 10;
+		u_int delta_score = get_score() - _board.undo_body_score - _board.undo_bonus_score;
+		u_int combo_bonus = (_combo - 2) * delta_score;
 		_board.bonus_score += combo_bonus;
-		_board.undo_bonus_score += combo_bonus;
 	}
 	_combo = 0;
 
@@ -789,14 +789,6 @@ int Player::get_visible_pieces()
 }
 
 /************************************************************************/
-/* Get score                                                            */
-/************************************************************************/
-u_int Player::get_score()
-{
-	return _board.score + _board.bonus_score;
-}
-
-/************************************************************************/
 /* Is game over                                                         */
 /************************************************************************/
 bool Player::is_game_over()
@@ -815,7 +807,7 @@ void Player::give_up()
 	_board.clear();
 	_board.unlocked_pieces = 3;
 	_board.visible_pieces  = 3;
-	_board.score = 0;
+	_board.body_score = 0;
 	_board.bonus_score = 0;
 
 }
