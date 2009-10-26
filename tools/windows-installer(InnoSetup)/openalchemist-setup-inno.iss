@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{C4CC94C6-FFDB-4EF0-A45E-4E4D9C375D20}
 AppName=OpenAlchemist
-AppVerName=OpenAlchemist 0.3
+AppVerName=OpenAlchemist 1.0 RC 1
 AppPublisher=OpenAlchemist Team
 AppPublisherURL=http://www.openalchemist.com
 AppSupportURL=http://www.openalchemist.com
@@ -15,12 +15,14 @@ AppUpdatesURL=http://www.openalchemist.com
 DefaultDirName={pf}\OpenAlchemist
 DefaultGroupName=OpenAlchemist
 AllowNoIcons=yes
-LicenseFile=C:\Users\Keph\Documents\Dev\OpenAlchemistSVN\software\license-setup.txt
-OutputDir=C:\Users\Keph\Documents\Dev\Output
-OutputBaseFilename=setup
-SetupIconFile=C:\Users\Keph\Documents\logo.ico
+LicenseFile=license.txt
+OutputDir=..\..\releases\
+OutputBaseFilename=OpenAlchemist-1.0-RC1-win-setup.exe
+SetupIconFile=..\..\trunk\data\logo.ico
 Compression=lzma
 SolidCompression=yes
+WizardImageFile=image.bmp
+WizardSmallImageFile=small_image.bmp
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -29,10 +31,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\OpenAlchemist.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\Config.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Keph\Documents\Visual Studio 2008\Projects\OpenAlchemist\Release\skins\*"; DestDir: "{app}\skins"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\trunk\OpenAlchemist.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\trunk\Config.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\trunk\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\trunk\skins\*.zip"; DestDir: "{app}\skins"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\trunk\music\*"; DestDir: "{app}\music"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\trunk\sounds\*"; DestDir: "{app}\sounds"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

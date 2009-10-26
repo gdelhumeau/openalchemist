@@ -1,0 +1,8 @@
+* Code is protected by GNU GPL 2+
+http://www.gnu.org/licenses/gpl-2.0.html
+
+* Graphics are protected Creative Commons By-SA license http://creativecommons.org/licenses/by-sa/2.0/fr/
+
+* If you want to make a derivated project with OpenAlchemist code or graphs, you can do it. But a message from you to show us your project will  be appreciated (we're curious :)).
+
+contact@openalchemist.com
