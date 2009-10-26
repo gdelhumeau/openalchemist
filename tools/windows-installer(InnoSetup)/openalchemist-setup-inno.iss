@@ -8,6 +8,7 @@
 AppId={{C4CC94C6-FFDB-4EF0-A45E-4E4D9C375D20}
 AppName=OpenAlchemist
 AppVerName=OpenAlchemist 1.0 RC 1
+AppVersion=1.0rc1
 AppPublisher=OpenAlchemist Team
 AppPublisherURL=http://www.openalchemist.com
 AppSupportURL=http://www.openalchemist.com
@@ -17,12 +18,13 @@ DefaultGroupName=OpenAlchemist
 AllowNoIcons=yes
 LicenseFile=license.txt
 OutputDir=..\..\releases\
-OutputBaseFilename=OpenAlchemist-1.0-RC1-win-setup.exe
+OutputBaseFilename=openalchemist-1.0-rc1-win-setup.exe
 SetupIconFile=..\..\trunk\data\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardImageFile=image.bmp
 WizardSmallImageFile=small_image.bmp
+UsePreviousAppDir=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
