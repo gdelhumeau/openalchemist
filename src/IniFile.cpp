@@ -11,6 +11,7 @@
 
 #include <ClanLib/core.h>
 #include "IniFile.h"
+#include "memory.h"
 
 /************************************************************************/
 /* Write a line                                                         */
@@ -53,18 +54,10 @@ void IniFile::read(CL_File *file)
 		// Get line
 		std::string line = read_ln(file);
 
-		// Remove space
-		int space_index = line.rfind(" ");
-		while(space_index != std::string::npos)
-		{
-			line = line.replace(space_index, 1, "");
-			space_index = line.rfind(" ");
-		}
-
 		// Parse line
 		if(line.length() >1)
 		{
-			int separator = line.find("=", 0);
+			int separator = line.find(" = ", 0);
 			if(separator)
 			{
 				IniElement *e = my_new IniElement();
