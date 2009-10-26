@@ -76,9 +76,10 @@ void Board::apply_skin(CL_Sprite* pieces_normal,
 void Board::draw(CL_GraphicContext & gc)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources *p_resources = common_resources_get_instance();
 
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
+	{
 		for (int j = 0; j < NUMBER_OF_LINES; ++j)
 		{
 			if (_p_board[i][j])
@@ -86,12 +87,12 @@ void Board::draw(CL_GraphicContext & gc)
 				_p_board[i][j] -> draw(gc);
 			}
 		}
+	}
 
-		// Displaying scores
-		resources -> main_font.draw_text(gc, score_left, score_top, str_score);
-		resources -> main_font.draw_text(gc, bonus_left, bonus_top, str_bonus);
-		resources -> main_font.draw_text(gc, hightscore_left, hightscore_top, str_hightscore);
-
+	// Displaying scores
+	p_resources -> main_font.draw_text(gc, score_left, score_top, str_score);
+	p_resources -> main_font.draw_text(gc, bonus_left, bonus_top, str_bonus);
+	p_resources -> main_font.draw_text(gc, hightscore_left, hightscore_top, str_hightscore);
 }
 
 /************************************************************************/
@@ -100,7 +101,11 @@ void Board::draw(CL_GraphicContext & gc)
 void Board::add_pieces(Piece* piece1, Piece* piece2)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources *p_resources = common_resources_get_instance();
+
+	// Saving old score
+	undo_body_score = body_score;
+	undo_bonus_score = bonus_score;	
 
 	// Saving board state for undoing
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
@@ -116,7 +121,6 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 			}
 		}
 
-		undo_bonus_score = 0;
 		undo_unlocked_pieces = unlocked_pieces;
 		undo_visible_pieces = visible_pieces;
 
@@ -133,8 +137,8 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		}
 
 
-		int piece_top_x = (int) ((int) piece_on_top->get_x() - game_left) / (resources->pieces_width);
-		int piece_bottom_x = (int) ((int) piece_on_bottom->get_x() - game_left) / (resources->pieces_width);
+		int piece_top_x = (int) ((int) piece_on_top->get_x() - game_left) / (p_resources->pieces_width);
+		int piece_bottom_x = (int) ((int) piece_on_bottom->get_x() - game_left) / (p_resources->pieces_width);
 
 		int y_bottom = -1;
 		while (y_bottom < NUMBER_OF_LINES - 1 && !_p_board[piece_bottom_x][y_bottom + 1])
@@ -145,7 +149,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		if (y_bottom == -1 && _p_board[piece_bottom_x][0])
 		{
 			calc_score();
-			resources -> p_engine -> set_state_gameover(false);
+			p_resources -> p_engine -> set_state_gameover(false);
 		}
 		else
 		{
@@ -162,7 +166,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		if (y_top == -1 && _p_board[piece_top_x][0])
 		{
 			calc_score();
-			resources -> p_engine -> set_state_gameover(false);
+			p_resources -> p_engine -> set_state_gameover(false);
 			_p_board[piece_bottom_x][y_bottom] = NULL;
 		}
 		else
@@ -170,10 +174,10 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 			_p_board[piece_top_x][y_top] = piece_on_top;
 		}
 
-		piece_on_bottom -> start_fall(piece_bottom_x * resources->pieces_width + game_left,
-			game_top + (y_bottom - 2) * resources->pieces_height);
-		piece_on_top -> start_fall(piece_top_x * resources->pieces_width + game_left,
-			game_top + (y_top - 2) * resources->pieces_height);
+		piece_on_bottom -> start_fall(piece_bottom_x * p_resources->pieces_width + game_left,
+			game_top + (y_bottom - 2) * p_resources->pieces_height);
+		piece_on_top -> start_fall(piece_top_x * p_resources->pieces_width + game_left,
+			game_top + (y_top - 2) * p_resources->pieces_height);
 
 		_falling_list.clear();
 		_falling_list.push_back(piece_on_top);
@@ -321,15 +325,14 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 	if (piece_number == NUMBER_OF_PIECES - 1)
 	{
 		std::cout << "You align " << counter << " ultimate elements ! Cheater :p" << std::endl;
-		undo_bonus_score += counter * _p_board[c.x][c.y]->get_score_value();
 		bonus_score += counter * _p_board[c.x][c.y]->get_score_value();
 	}
 	// If it was not last element
 	else
 	{
-		undo_bonus_score += (counter - 3) * _p_board[c.x][c.y]->get_score_value();
 		bonus_score += (counter - 3) * _p_board[c.x][c.y]->get_score_value();
 	}
+	
 
 	_create_new_piece(detected_pieces);
 
@@ -524,12 +527,6 @@ bool Board::is_game_over()
 
 			if (_p_board[i][j] != NULL)
 			{
-				//game_mode = GAME_MODE_GAME_OVER;
-				/*if(global_score + global_bonus > hightscores[current_difficulty])
-			 {
-			 game_mode = GAME_MODE_NEW_HIGHTSCORE;
-			 save_scores();
-			 }*/
 				calc_score();
 				return true;
 			}
@@ -545,29 +542,34 @@ bool Board::is_game_over()
 void Board::calc_score()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources *p_resources = common_resources_get_instance();
 
-	score = 0;
+	body_score = 0;
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
+	{
 		for (int j = 2; j < NUMBER_OF_LINES; ++j)
 		{
 			if (_p_board[i][j])
 			{
-				score += _p_board[i][j]->get_score_value();
+				body_score += _p_board[i][j]->get_score_value();
 			}
 		}
+	}
 
-		str_score = format_number(to_string(score));
-		str_bonus = format_number(to_string(bonus_score));
-		str_hightscore = format_number(to_string(resources->highscore));
+	str_score = format_number(to_string(body_score));
+	str_bonus = format_number(to_string(bonus_score));
+	str_hightscore = format_number(to_string(p_resources->highscore));
 
-		int score_width = resources->main_font.get_text_size(*resources->p_gc, str_score).width;
-		int bonus_width = resources->main_font.get_text_size(*resources->p_gc, str_bonus).width;
-		int hightscore_width = resources->main_font.get_text_size(*resources->p_gc, str_hightscore).width;
+	int score_width = p_resources->main_font.get_text_size(
+		*p_resources->p_gc, str_score).width;
+	int bonus_width = p_resources->main_font.get_text_size(
+		*p_resources->p_gc, str_bonus).width;
+	int hightscore_width = p_resources->main_font.get_text_size(
+		*p_resources->p_gc, str_hightscore).width;
 
-		score_left = score_right - score_width;
-		bonus_left = bonus_right - bonus_width;
-		hightscore_left = hightscore_right - hightscore_width;
+	score_left = score_right - score_width;
+	bonus_left = bonus_right - bonus_width;
+	hightscore_left = hightscore_right - hightscore_width;
 }
 
 /************************************************************************/
@@ -582,7 +584,7 @@ void Board::undo(
 	// Getting resources
 	static CommonResources *resources = common_resources_get_instance();
 
-	if (score + bonus_score == resources -> highscore)
+	if (body_score + bonus_score == resources -> highscore)
 	{
 		resources -> highscore = resources -> old_highscore;
 		resources -> save_scores();
@@ -598,13 +600,15 @@ void Board::undo(
 			if (_undo_board[i][j] >= 0)
 			{
 				_p_board[i][j] = my_new Piece(_undo_board[i][j]);
-				_p_board[i][j] -> set_sprites(&pieces_normal[_undo_board[i][j]], &pieces_appearing[_undo_board[i][j]],
-					&pieces_disappearing[_undo_board[i][j]], &pieces_mini[_undo_board[i][j]]);
+				_p_board[i][j] -> set_sprites(&pieces_normal[_undo_board[i][j]],
+					&pieces_appearing[_undo_board[i][j]],
+					&pieces_disappearing[_undo_board[i][j]],
+					&pieces_mini[_undo_board[i][j]]);
 				_p_board[i][j] -> set_position(i * resources->pieces_width + game_left, game_top + (j - 2) * resources->pieces_height);
 			}
 		}
 
-		bonus_score -= undo_bonus_score;
+		bonus_score = undo_bonus_score;
 		// Penality !
 		bonus_score /= 2;
 

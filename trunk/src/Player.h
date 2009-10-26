@@ -82,7 +82,7 @@ public:
 	/**
 	* Get score
 	*/
-	unsigned int get_score();  
+	inline unsigned int get_score(){ return _board.body_score + _board.bonus_score; }
 
 	/**
 	* Returning if undo is available

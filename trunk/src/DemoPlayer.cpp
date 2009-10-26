@@ -71,7 +71,7 @@ void DemoPlayer::new_game()
 	_board.clear();
 	_board.unlocked_pieces = 3;
 	_board.visible_pieces  = 3;
-	_board.score = 0;
+	_board.body_score = 0;
 	_board.bonus_score = 0;
 	_board.calc_score();
 

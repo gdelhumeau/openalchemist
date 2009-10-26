@@ -47,7 +47,7 @@ public:
 	/**
 	* Score
 	*/
-	unsigned int score;
+	unsigned int body_score;
 
 	/**
 	* Bonus score
@@ -57,7 +57,7 @@ public:
 	/**
 	* Old score
 	*/
-	unsigned int undo_score;
+	unsigned int undo_body_score;
 
 	/**
 	* Old Bonus score
