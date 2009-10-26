@@ -40,11 +40,11 @@ enum{
 	RENDER_CHOICE_DX_9 = 0,
 	RENDER_CHOICE_OPENGL,
 	RENDER_CHOICE_OPENGL2,
-	RENDER_CHOICE_GDI,
+	RENDER_CHOICE_SOFTWARE,
 #else
 	RENDER_CHOICE_OPENGL = 0,
 	RENDER_CHOICE_OPENGL2,
-	RENDER_CHOICE_GDI
+	RENDER_CHOICE_SOFTWARE
 #endif
 };
 
@@ -135,6 +135,7 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 		"menu_options/framerate/unselected",
 		"menu_options/framerate/selected");
 
+	_framerate_item.clear_choices();
 	_framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/30");
 	_framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/40");
 	_framerate_item.add_choice(gc, gfx, "menu_options/framerate-choices/50");
@@ -223,8 +224,8 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 		case Preferences::OPENGL_2:
 			_render_item.set_current_choice(RENDER_CHOICE_OPENGL2);
 			break;
-		case Preferences::GDI:
-			_render_item.set_current_choice(RENDER_CHOICE_GDI);
+		case Preferences::SOFTWARE:
+			_render_item.set_current_choice(RENDER_CHOICE_SOFTWARE);
 			break;
 	}
 
@@ -316,10 +317,10 @@ void OptionsMenuState::update_child()
 	Preferences *p_pref = pref_get_instance();
 	switch(_render_item.get_current_choice())
 	{
-	case RENDER_CHOICE_GDI:
-		if(p_pref->render_target != Preferences::GDI)
+	case RENDER_CHOICE_SOFTWARE:
+		if(p_pref->render_target != Preferences::SOFTWARE)
 		{		
-			p_pref->render_target = Preferences::GDI;
+			p_pref->render_target = Preferences::SOFTWARE;
 			p_pref->write();
 		}
 		break;
@@ -358,36 +359,7 @@ void OptionsMenuState::update_child()
 	if(p_pref->colorblind != colorblind)
 	{
 		_p_common_resources->p_engine->toggle_colorblind();
-	}
-
-	if(p_pref -> maxfps != (int) _framerate_item.get_current_choice())
-	{
-		switch(_framerate_item.get_current_choice())
-		{
-		case 0:
-			p_pref -> maxfps = 30;
-			break;
-		case 1:
-			p_pref -> maxfps = 40;
-			break;
-		case 2:
-			p_pref -> maxfps = 50;
-			break;
-		case 3:
-			p_pref -> maxfps = 60;
-			break;
-		case 4:
-			p_pref -> maxfps = 80;
-			break;
-		case 5:
-			p_pref -> maxfps = 100;
-			break;
-		case 6:
-			p_pref -> maxfps = 1000;
-			break;						
-		}
-		_p_common_resources -> p_engine -> refresh_framerate_limit();
-	}
+	}	
 
 	if((int)_sound_level_item.get_current_choice() != p_pref -> sound_level / 10)
 	{
@@ -403,6 +375,37 @@ void OptionsMenuState::update_child()
 		p_pref -> write();
 	}
 
+	// Framerate limit
+	int maxfps = 60;
+	switch(_framerate_item.get_current_choice())
+	{
+	case 0:
+		maxfps = 30;
+		break;
+	case 1:
+		maxfps = 40;
+		break;
+	case 2:
+		maxfps = 50;
+		break;
+	case 3:
+		maxfps = 60;
+		break;
+	case 4:
+		maxfps = 80;
+		break;
+	case 5:
+		maxfps = 100;
+		break;
+	case 6:
+		maxfps = 1000;
+		break;						
+	}
+	if(maxfps != p_pref->maxfps)
+	{
+		p_pref->maxfps = maxfps;
+		_p_common_resources -> p_engine -> refresh_framerate_limit();
+	}
 }
 
 /************************************************************************/

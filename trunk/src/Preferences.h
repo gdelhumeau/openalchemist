@@ -25,7 +25,7 @@ public:
 #ifdef WITH_DX_9
 		DX_9,
 #endif
-		GDI,
+		SOFTWARE,
 		OPENGL_1,
 		OPENGL_2,
 	};
@@ -63,13 +63,13 @@ public:
 private:
 
 	/** Read INI file */
-	void read_options_file(CL_File *file);
+	void _read_options_file(CL_File *file);
 
 	/** Write INI file */
-	void write_options_file(CL_File *file);
+	void _write_options_file(CL_File *file);
 
 	/** Set default values */
-	void set_default();
+	void _set_default();
 
 
 };

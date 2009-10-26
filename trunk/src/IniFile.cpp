@@ -62,7 +62,7 @@ void IniFile::read(CL_File *file)
 			{
 				IniElement *e = my_new IniElement();
 				e -> name = line.substr(0, separator);
-				e -> value = line.substr(separator + 1, line.length());
+				e -> value = line.substr(separator + 3, line.length());
 				_list.insert(_list.end(), e);
 			}
 		}

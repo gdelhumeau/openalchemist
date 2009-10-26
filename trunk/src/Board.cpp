@@ -612,7 +612,7 @@ void Board::undo(
 
 	bonus_score = undo_bonus_score;
 	// Penality !
-	bonus_score *= 0.9;
+	bonus_score = (unsigned int) (bonus_score * 0.9);
 
 	unlocked_pieces = undo_unlocked_pieces;
 	visible_pieces = undo_visible_pieces;

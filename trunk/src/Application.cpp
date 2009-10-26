@@ -96,9 +96,9 @@ bool Application::_check_args(const std::vector<CL_String> &args)
 	for(unsigned int i = 0; i < args.size(); ++i)
 	{
 		// Render target
-		if((args[i] =="--gdi") && pref->render_target != Preferences::GDI)
+		if((args[i] =="--software") && pref->render_target != Preferences::SOFTWARE)
 		{
-			pref -> render_target = Preferences::GDI;
+			pref -> render_target = Preferences::SOFTWARE;
 			pref -> write();
 		}
 		if((args[i] =="--opengl" || args[i] =="--opengl1") && pref->render_target != Preferences::OPENGL_1)
@@ -178,7 +178,7 @@ void Application::_print_help()
 #ifdef WITH_DX_9
 		<< "\t--dx9      : Use DirectX 9 as render target" << std::endl
 #endif
-		<< "\t--gdi      : Use GDI as render target (default)" << std::endl
+		<< "\t--software : Use GDI as render target (default)" << std::endl
 		<< "\t--opengl   : Use OpenGL as render target" << std::endl
 		<< "\t--opengl2  : Use OpenGL 2 as render target" << std::endl;
 	//<< "\t--sdl      : Use SDL as render target" << std::endl

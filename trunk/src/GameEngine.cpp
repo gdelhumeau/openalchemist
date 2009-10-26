@@ -54,7 +54,7 @@ void GameEngine::init()
 		target_GL1.set_current();
 		break;
 
-	case Preferences::GDI:
+	case Preferences::SOFTWARE:
 		target_GDI.set_current();
 		break;
 
@@ -266,10 +266,11 @@ void GameEngine::stop_current_state()
 /************************************************************************/
 void GameEngine::toggle_screen()
 {
-	Preferences *pref = pref_get_instance();
-	pref -> fullscreen = !pref -> fullscreen;
+	Preferences *p_pref = pref_get_instance();
+	p_pref -> fullscreen = !p_pref -> fullscreen;
 	_window.manage(*this);
 	_optionsmenu_state.toggle_screen();
+	p_pref->write();
 
 }
 
@@ -313,8 +314,9 @@ void GameEngine::toggle_colorblind()
 /************************************************************************/
 void GameEngine::refresh_framerate_limit()
 {
-	Preferences *pref = pref_get_instance();
-	_framerate_counter.set_fps_limit(pref -> maxfps);
+	Preferences *p_pref = pref_get_instance();
+	_framerate_counter.set_fps_limit(p_pref -> maxfps);
+	p_pref->write();
 }
 
 /************************************************************************/

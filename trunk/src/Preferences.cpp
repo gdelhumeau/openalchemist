@@ -43,12 +43,12 @@ void Preferences::read()
 	std::string options_path = get_save_path();
 	std::string options_file = get_save_path() + get_path_separator() +
 		"preferences-"+get_version()+".ini";
-	set_default();
+	_set_default();
 
 	try
 	{
 		CL_File file(options_file);
-		read_options_file(&file);
+		_read_options_file(&file);
 	}
 	catch(CL_Exception&)
 	{
@@ -56,7 +56,7 @@ void Preferences::read()
 		try
 		{
 			CL_File file(options_file);
-			set_default();
+			_set_default();
 			write();
 		}
 		catch(CL_Exception&)
@@ -70,26 +70,26 @@ void Preferences::read()
 					try
 					{
 						CL_File file(options_file);
-						set_default();
+						_set_default();
 						write();
 					}
 					catch(CL_Exception&)
 					{
 						std::cout << "Can't create " << options_file <<".\n";
-						set_default();
+						_set_default();
 					}
 
 				}
 				else
 				{
 					std::cout << "Can't access to " << options_path << ".\n";
-					set_default();
+					_set_default();
 				}
 			}
 			else
 			{
 				std::cout << "Can't access to " << options_file <<".\n";
-				set_default();
+				_set_default();
 			}
 
 		}
@@ -110,7 +110,7 @@ void Preferences::write()
 	try
 	{
 		CL_File file(options_file, CL_File::create_always, CL_File::access_write);
-		write_options_file(&file);
+		_write_options_file(&file);
 	}
 	catch(CL_Exception&)
 	{
@@ -122,14 +122,14 @@ void Preferences::write()
 /************************************************************************/
 /* Read options                                                         */
 /************************************************************************/
-void Preferences::read_options_file(CL_File *file)
+void Preferences::_read_options_file(CL_File *file)
 {
 	try{
 
 		IniFile ini;
 		ini.read(file);
 
-		render_target = GDI;
+		render_target = OPENGL_1;
 
 		std::string default_target = "OPENGL_1";
 		std::string rt = ini.get("Render Target", default_target);
@@ -137,9 +137,9 @@ void Preferences::read_options_file(CL_File *file)
 		{
 			render_target = Preferences::OPENGL_1;
 		}
-		else if(rt == "GDI")
+		else if(rt == "SOFTWARE")
 		{
-			render_target = Preferences::GDI;
+			render_target = Preferences::SOFTWARE;
 		}
 		else if(rt == "OPENGL_2")
 		{
@@ -184,17 +184,17 @@ void Preferences::read_options_file(CL_File *file)
 /************************************************************************/
 /* Write options                                                        */
 /************************************************************************/
-void Preferences::write_options_file(CL_File *file)
+void Preferences::_write_options_file(CL_File *file)
 {
 
 	IniFile ini;
 	ini.clear();
 
-	std::string rt = "GDI";
+	std::string rt = "SOFTWARE";
 	switch(render_target)
 	{
-	case GDI:
-		rt = "GDI";
+	case SOFTWARE:
+		rt = "SOFTWARE";
 		break;
 	case OPENGL_1:
 		rt = "OPENGL_1";
@@ -225,12 +225,12 @@ void Preferences::write_options_file(CL_File *file)
 /************************************************************************/
 /* Set Default                                                          */
 /************************************************************************/
-void Preferences::set_default()
+void Preferences::_set_default()
 {
 	render_target = OPENGL_1;
-	maxfps = 65;
+	maxfps = 60;
 	sound_level = 100;
-	music_level = 30;
+	music_level = 100;
 	fullscreen = false;
 	colorblind = false;
 	skin = get_skins_path() + get_path_separator() + "aqua.zip";
