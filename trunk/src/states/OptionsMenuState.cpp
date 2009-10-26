@@ -146,6 +146,7 @@ void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
 	_colorblind_item.set_description_sprites(gc, gfx,
 		"menu_options/colorblind/unselected",
 		"menu_options/colorblind/selected");
+	_colorblind_item.clear_choices();
 	_colorblind_item.add_choice(gc, gfx, "menu_options/item-no");
 	_colorblind_item.add_choice(gc, gfx, "menu_options/item-yes");
 

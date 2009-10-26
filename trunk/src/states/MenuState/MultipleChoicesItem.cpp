@@ -142,10 +142,7 @@ void MultipleChoicesItem::action_performed(ActionType action_type)
 	else if(ACTION_TYPE_MOUSE == action_type)
 	{
 		_selection++;
-		if(_selection >= _choices_list.size())
-		{
-			_selection = 0;
-		}
+		_selection = _selection % _choices_list.size();
 	}
 
 }
