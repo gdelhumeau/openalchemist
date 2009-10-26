@@ -330,7 +330,7 @@ int GameEngine::get_fps()
 /************************************************************************/
 void GameEngine::set_skin(std::string skin)
 {
-	CommonResources *resources = common_resources_get_instance();
+	CommonResources *p_resources = common_resources_get_instance();
 
 	_p_loading_screen = my_new LoadingScreen(_window);
 	_p_loading_screen -> init();
@@ -347,7 +347,7 @@ void GameEngine::set_skin(std::string skin)
 
 		if (_running)
 		{
-			resources -> load_gfx(gc, pref -> skin);
+			p_resources -> load_gfx(gc, pref -> skin);
 			_p_loading_screen -> set_progression(2.0f / 12.0f);
 		}
 
@@ -416,13 +416,17 @@ void GameEngine::set_skin(std::string skin)
 	}
 	catch (CL_Exception & err)
 	{
-		std::cout << "Skin error : " << err.message.c_str() << std::endl;
-		std::cout << "Error in : " << skin << std::endl;
+		CL_ConsoleWindow console("OpenAlchemist Console", 80, 300);
+			
+		CL_Console::write_line("Skin error : " + err.message);
+		CL_Console::write_line("Error in : " + skin);
 		if (old_skin.compare(skin))
 		{
-			std::cout << "Now loading default skin." << std::endl;
+			CL_Console::write_line("");
+			CL_Console::write_line("Now loading default skin.");
 			skin = get_skins_path() + get_path_separator() + "aqua.zip";
-			std::cout << skin << std::endl;
+			CL_Console::write_line(skin);
+			console.display_close_message();
 			set_skin(skin);
 		}
 		else

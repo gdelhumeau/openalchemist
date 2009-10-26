@@ -165,11 +165,11 @@ void GameOverState::set_highscore(bool highscore)
 	_is_highscore = highscore;
 	if(_is_highscore)
 	{
-		_background = _dialog_gameover;
+		_background = _dialog_highscore;
 	}
 	else
 	{
-		_background = _dialog_highscore;
+		_background = _dialog_gameover;
 	}
 }
 

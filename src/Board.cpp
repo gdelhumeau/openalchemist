@@ -592,6 +592,7 @@ void Board::undo(
 
 	// Delete the pieces in the board and replace by my_new ones
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
+	{
 		for (int j = 0; j < NUMBER_OF_LINES; ++j)
 		{
 			if (_p_board[i][j]) my_delete(_p_board[i][j]);
@@ -607,13 +608,14 @@ void Board::undo(
 				_p_board[i][j] -> set_position(i * resources->pieces_width + game_left, game_top + (j - 2) * resources->pieces_height);
 			}
 		}
+	}
 
-		bonus_score = undo_bonus_score;
-		// Penality !
-		bonus_score /= 2;
+	bonus_score = undo_bonus_score;
+	// Penality !
+	bonus_score *= 0.9;
 
-		unlocked_pieces = undo_unlocked_pieces;
-		visible_pieces = undo_visible_pieces;
+	unlocked_pieces = undo_unlocked_pieces;
+	visible_pieces = undo_visible_pieces;
 
-		calc_score();
+	calc_score();
 }
