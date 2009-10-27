@@ -81,6 +81,12 @@ std::string get_user_skins_path();
 /** Returning data path */
 std::string get_data_path();
 
+/** Returning music path */
+std::string get_music_path();
+
+/** Returning sounds path */
+std::string get_sounds_path();
+
 /** Returning path separator ("/" or "\\" - thx to Windows.) */
 std::string get_path_separator();
 

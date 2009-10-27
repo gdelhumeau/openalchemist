@@ -28,8 +28,8 @@ pause     (CL_KEY_PAUSE,  false),
 up        (CL_KEY_UP,     true ),
 down      (CL_KEY_DOWN,   true ),
 enter     (CL_KEY_ENTER,  false),
-options   (CL_KEY_F10,    false),
-skins     (CL_KEY_F9,     false),
+options   (CL_KEY_F9,     false),
+skins     (CL_KEY_F10,    false),
 framerate (CL_KEY_F,      false)
 {
 

@@ -100,6 +100,36 @@ std::string get_data_path()
 }
 
 /************************************************************************/
+/* Get data path                                                        */
+/************************************************************************/
+std::string get_music_path()
+{
+#ifdef DATA_DIR
+	std::string dir = DATA_DIR;
+#else
+	std::string dir = CL_System::get_exe_path();
+	dir += "music";
+#endif
+
+	return dir;
+}
+
+/************************************************************************/
+/* Get data path                                                        */
+/************************************************************************/
+std::string get_sounds_path()
+{
+#ifdef DATA_DIR
+	std::string dir = DATA_DIR;
+#else
+	std::string dir = CL_System::get_exe_path();
+	dir += "sounds";
+#endif
+
+	return dir;
+}
+
+/************************************************************************/
 /* Get path separator                                                   */
 /************************************************************************/
 std::string get_path_separator()
