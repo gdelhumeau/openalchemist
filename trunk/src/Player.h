@@ -284,22 +284,22 @@ protected:
 	/**
 	* Key for playing
 	*/
-	KeyboardKey *_p_key_change_angle;
+	KeyboardKey _key_change_angle;
 
 	/**
 	* Key for playing
 	*/
-	KeyboardKey *_p_key_left;
+	KeyboardKey _key_left;
 
 	/**
 	* Key for playing
 	*/
-	KeyboardKey *_p_key_right;
+	KeyboardKey _key_right;
 
 	/**
 	* Key for playing
 	*/
-	KeyboardKey *_p_key_falling;
+	KeyboardKey _key_falling;
 
 	/**
 	* True if player press fall button
