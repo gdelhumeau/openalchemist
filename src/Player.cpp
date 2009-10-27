@@ -34,7 +34,11 @@ static const float PIECE_ROTATION_SPEED = 0.45f;
 /************************************************************************/
 /* Constructor                                                          */
 /************************************************************************/
-Player::Player()
+Player::Player():
+_key_change_angle(CL_KEY_UP   , true),
+_key_left        (CL_KEY_LEFT , true),
+_key_right       (CL_KEY_RIGHT, true),
+_key_falling     (CL_KEY_DOWN , false)
 {
 	// Setting objects to NULL
 	_p_next_piece1    = NULL;
@@ -44,12 +48,6 @@ Player::Player()
 
 	// Initializing random numbers generator
 	srand(CL_System::get_time());
-
-	// Making key objects
-	_p_key_change_angle = my_new KeyboardKey(CL_KEY_UP    , true );
-	_p_key_left         = my_new KeyboardKey(CL_KEY_LEFT  , true );
-	_p_key_right        = my_new KeyboardKey(CL_KEY_RIGHT , true );
-	_p_key_falling      = my_new KeyboardKey(CL_KEY_DOWN  , false);
 
 	_combo = 0;  
 	_game_mode_changed = false;
@@ -63,11 +61,6 @@ Player::Player()
 Player::~Player()
 {
 	unload_gfx();
-	// Deleting key objects
-	my_delete(_p_key_change_angle);
-	my_delete(_p_key_left);
-	my_delete(_p_key_right);
-	my_delete(_p_key_falling);
 
 	if(_p_current_piece1)
 	{
@@ -367,25 +360,25 @@ void Player::events(CL_InputContext & ic)
 	if(GAME_MODE_PLAYING == _game_mode)
 	{
 		// Change the order of the pieces
-		if(_p_key_change_angle->get(ic))
+		if(_key_change_angle.get(ic))
 		{
 			change_angle();
 		}
 
 		// Look the key to know if we have to move the pieces to the left
-		if(_p_key_left->get(ic))
+		if(_key_left.get(ic))
 		{
 			move_left();
 		}
 
 		// Look the key to know if we have to move the pieces to the right
-		if(_p_key_right->get(ic))
+		if(_key_right.get(ic))
 		{
 			move_right();
 		}
 
 		// It's time for the pieces to fall
-		if(_p_key_falling -> get(ic))
+		if(_key_falling.get(ic))
 		{
 			_is_falling_requested = true;
 		}

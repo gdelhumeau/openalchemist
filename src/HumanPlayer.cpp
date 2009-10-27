@@ -40,28 +40,28 @@ void HumanPlayer::events(CL_InputContext & ic)
 	if(GAME_MODE_PLAYING == _game_mode)
 	{
 		// Change the order of the pieces 
-		if(_p_key_change_angle->get(ic))
+		if(_key_change_angle.get(ic))
 		{
 			change_angle();
 			g_audio_manager.play_sound(SOUND_MOVE);
 		}
 
 		// Look the key to know if we have to move the pieces to the left
-		if(_p_key_left->get(ic))
+		if(_key_left.get(ic))
 		{
 			move_left();
 			g_audio_manager.play_sound(SOUND_MOVE);
 		}
 
 		// Look the key to know if we have to move the pieces to the right
-		if(_p_key_right->get(ic))
+		if(_key_right.get(ic))
 		{
 			move_right();
 			g_audio_manager.play_sound(SOUND_MOVE);
 		}
 
 		// It's time for the pieces to fall
-		if(_p_key_falling -> get(ic))
+		if(_key_falling.get(ic))
 		{
 			_is_falling_requested = true; 
 		} 
