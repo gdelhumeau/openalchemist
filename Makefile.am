@@ -2,7 +2,7 @@ SUBDIRS = build
 
 bin_SCRIPTS = openalchemist-config
 
-dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* CODE-LICENSE GRAPHICS-LICENSE skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
+dist_pkgdata_DATA = skins/aqua skins/brushed skins/vectoriel data/* music/* sounds/* CODE-LICENSE GRAPHICS-LICENSE skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 
 all : skins/aqua.zip skins/brushed.zip skins/vectoriel.zip
 	@echo "-----------------------------------------"

@@ -4810,12 +4810,16 @@ if test -n "$PKG_CONFIG"; then
 	clanApp-2.1 >= \$REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= \$REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= \$REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= \$REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= \$REQUIRED_CLANLIB_VERSION
 \"") >&5
   ($PKG_CONFIG --exists --print-errors "
 	clanCore-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
@@ -4825,6 +4829,8 @@ if test -n "$PKG_CONFIG"; then
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 " 2>/dev/null`
 else
   pkg_failed=yes
@@ -4843,12 +4849,16 @@ if test -n "$PKG_CONFIG"; then
 	clanApp-2.1 >= \$REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= \$REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= \$REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= \$REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= \$REQUIRED_CLANLIB_VERSION
 \"") >&5
   ($PKG_CONFIG --exists --print-errors "
 	clanCore-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
@@ -4858,6 +4868,8 @@ if test -n "$PKG_CONFIG"; then
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 " 2>/dev/null`
 else
   pkg_failed=yes
@@ -4882,6 +4894,8 @@ fi
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 "`
         else
 	        clanlib_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "
@@ -4889,6 +4903,8 @@ fi
 	clanApp-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanDisplay-2.1 >= $REQUIRED_CLANLIB_VERSION
 	clanGL-2.1 >= $REQUIRED_CLANLIB_VERSION
+	clanSound-2.1 >= $REQUIRED_CLANLIB_VERSION
+  clanVorbis-2.1 >= $REQUIRED_CLANLIB_VERSION
 "`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -4896,9 +4912,9 @@ fi
 
 	{ $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
-                echo "This program needs ClanLib >= 2.0 (clanCore, clanApp, clanDisplay, clanGL)"; exit
+                echo "This program needs ClanLib >= 2.0 (clanCore, clanApp, clanDisplay, clanGL, clanSound, clanVorbis)"; exit
 elif test $pkg_failed = untried; then
-	echo "This program needs ClanLib >= 2.0 (clanCore, clanApp, clanDisplay, clanGL)"; exit
+	echo "This program needs ClanLib >= 2.0 (clanCore, clanApp, clanDisplay, clanGL, clanSound, clanVorbis)"; exit
 else
 	clanlib_CFLAGS=$pkg_cv_clanlib_CFLAGS
 	clanlib_LIBS=$pkg_cv_clanlib_LIBS
@@ -4908,7 +4924,7 @@ $as_echo "yes" >&6; }
 fi
 
 % Outputfiles
-ac_config_headers="$ac_config_headers src/config.h"
+% ac_config_headers="$ac_config_headers src/config.h"
 
 ac_config_files="$ac_config_files Makefile build/Makefile"
 
