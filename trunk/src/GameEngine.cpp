@@ -65,9 +65,9 @@ void GameEngine::init()
 
 	_running = true;
 
-	CommonResources *resources = common_resources_get_instance();	
+	CommonResources *p_resources = common_resources_get_instance();	
 
-	resources -> init(this);
+	p_resources -> init(this);
 	_window.manage(*this);
 	CL_GraphicContext gc = _window.get_gc();
 	_skins_manager.init();
@@ -110,8 +110,8 @@ void GameEngine::run()
 	{
 		set_state_title();
 
-		CommonResources *resources = common_resources_get_instance();
-		resources -> player1.new_game();
+		CommonResources *p_resources = common_resources_get_instance();
+		p_resources -> player1.new_game();
 
 		while (_running)
 		{
@@ -121,25 +121,25 @@ void GameEngine::run()
 			_common_state.update(_window.get_gc());
 			_common_state.draw(_window.get_gc());
 
-			GameState* current_state = _states_stack.top();
-			current_state -> events(_window);
-			current_state -> update(_window.get_gc());
+			GameState* p_current_state = _states_stack.top();
+			p_current_state -> events(_window);
+			p_current_state -> update(_window.get_gc());
 
 			// Drawing the front layer behind the current state or not
-			if (current_state -> front_layer_behind())
+			if (p_current_state -> front_layer_behind())
 			{
-				resources -> front_layer.draw(_window.get_gc());
-				current_state -> draw(_window.get_gc());
+				p_resources -> front_layer.draw(_window.get_gc());
+				p_current_state -> draw(_window.get_gc());
 			}
 			else
 			{
-				current_state -> draw(_window.get_gc());
-				resources -> front_layer.draw(_window.get_gc());
+				p_current_state -> draw(_window.get_gc());
+				p_resources -> front_layer.draw(_window.get_gc());
 			}
 
 			// Get the Frame rate
-			resources -> fps = _framerate_counter.get_fps();
-			resources -> delta_time = get_time_interval(resources->fps);
+			p_resources -> fps = _framerate_counter.get_fps();
+			p_resources -> delta_time = get_time_interval(p_resources->fps);
 
 			_window.display();
 			_framerate_counter.keep_alive();        
