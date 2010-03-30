@@ -23,7 +23,7 @@ public:
 	/**
 	* Application main function
 	*/
-	int main(const std::vector<CL_String> &args);
+	int main(const std::vector<CL_String>& args);
 
 private:
 
@@ -45,7 +45,7 @@ private:
 	/**
 	* Check command lines arguments
 	*/
-	bool _check_args(const std::vector<CL_String> &args);
+	bool _check_args(const std::vector<CL_String>& args);
 
 	/**
 	* Display the help informations

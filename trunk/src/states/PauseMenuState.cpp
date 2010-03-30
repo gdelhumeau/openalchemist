@@ -72,7 +72,7 @@ void PauseMenuState::term ()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void PauseMenuState::load_gfx (CL_GraphicContext &gc, std::string skin)
+void PauseMenuState::load_gfx (CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 

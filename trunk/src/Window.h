@@ -23,101 +23,63 @@ class Window{
 
 public:
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor	*/
 	Window(int game_width, int game_height);
 
-	/** 
-	* Destructor
-	*/
+	/** Destructor */
 	~Window();
 
-	/** 
-	* Manage window
-	*/
-	void manage(GameEngine & game_engine);
+	/** Manage window */
+	void manage(GameEngine& game_engine);
 
-	/** 
-	* Clear and prepare window for a new frame
-	*/
+	/** Clear and prepare window for a new frame */
 	void prepare();
 
-	/** 
-	* Display the frame when it's done
-	*/
+	/** Display the frame when it's done */
 	void display();
 
-	/** 
-	* Get the game surface width
-	*/
+	/** Get the game surface width */
 	inline int get_game_width() const { return _game_width; }
 
-	/** 
-	* Get the game surface height
-	*/
+	/** Get the game surface height	*/
 	inline int get_game_height() const { return _game_height; }
 
-	/** 
-	* Get the Graphic Context
-	*/
-	inline CL_GraphicContext & get_gc() { return _clanlib_window.get_gc(); }
+	/** Get the Graphic Context */
+	inline CL_GraphicContext& get_gc() { return _clanlib_window.get_gc(); }
 
-	/** 
-	* Get the Input Context
-	*/
-	inline CL_InputContext & get_ic() { return _clanlib_window.get_ic(); }
+	/** Get the Input Context */
+	inline CL_InputContext& get_ic() { return _clanlib_window.get_ic(); }
 
-	/** 
-	* Get current scale
-	*/
+	/** Get current scale */
 	inline float get_scale() const { return _scale; }
 
-	/** 
-	* Get the display translation (x)
-	*/
+	/** Get the display translation (x)	*/
 	inline int get_dx() const { return _dx; }
 
-	/** 
-	* Get the display translation (y)
-	*/
+	/** Get the display translation (y)	*/
 	inline int get_dy() const { return _dy; }
 
 private:
 
-	/**
-	* ClanLib window
-	*/
+	/** ClanLib window */
 	CL_DisplayWindow _clanlib_window;
 
-	/** 
-	* Slot for quit event
-	*/
+	/** Slot for quit event */
 	CL_Slot _quit_event;
 
-	/** 
-	* Game Width
-	*/
+	/** Game Width */
 	int _game_width;
 
-	/** 
-	* Game Height
-	*/
+	/** Game Height	*/
 	int _game_height;
 
-	/** 
-	* Display scale
-	*/
+	/** Display scale */
 	float _scale;
 
-	/** 
-	* Display translation (x)
-	*/
+	/** Display translation (x)	*/
 	int _dx;
 
-	/** 
-	* Display translation (dy)
-	*/
+	/** Display translation (dy) */
 	int _dy;
 
 };

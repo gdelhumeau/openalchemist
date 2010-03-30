@@ -12,7 +12,7 @@
 #include <ClanLib/application.h>
 #include "Application.h"
 
-int my_main(const std::vector<CL_String> & args)
+int my_main(const std::vector<CL_String>& args)
 {
 	Application application;
 	return application.main(args);	

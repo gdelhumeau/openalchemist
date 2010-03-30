@@ -17,7 +17,7 @@
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void FrontLayer::load_gfx(CL_GraphicContext & gc, std::string skin)
+void FrontLayer::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 	CL_ZipArchive zip(skin);
@@ -44,17 +44,17 @@ void FrontLayer::load_gfx(CL_GraphicContext & gc, std::string skin)
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void FrontLayer::_load_gfx(CL_GraphicContext & gc, CL_ResourceManager *gfx_frontlayer)
+void FrontLayer::_load_gfx(CL_GraphicContext& gc, CL_ResourceManager* p_gfx_frontlayer)
 {
 	unload_gfx();
 
-	int number = CL_Integer_to_int("frontlayer/number_of_sprites", gfx_frontlayer);
+	int number = CL_Integer_to_int("frontlayer/number_of_sprites", p_gfx_frontlayer);
 	for(int i=1; i<=number; ++i)
 	{
 		FrontLayerSprite *fsprite = my_new FrontLayerSprite();
-		fsprite -> _sprite = CL_Sprite(gc, "frontlayer/"+to_string(i)+"/sprite", gfx_frontlayer);
-		fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", gfx_frontlayer);
-		fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", gfx_frontlayer);
+		fsprite -> _sprite = CL_Sprite(gc, "frontlayer/"+to_string(i)+"/sprite", p_gfx_frontlayer);
+		fsprite -> left = CL_Integer_to_int("frontlayer/"+to_string(i)+"/left", p_gfx_frontlayer);
+		fsprite -> top = CL_Integer_to_int("frontlayer/"+to_string(i)+"/top", p_gfx_frontlayer);
 		list.insert(list.end(), fsprite);
 	}
 }
@@ -78,14 +78,14 @@ void FrontLayer::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void FrontLayer::draw(CL_GraphicContext & gc)
+void FrontLayer::draw(CL_GraphicContext& gc)
 {
 	std::list<FrontLayerSprite*>::iterator it = list.begin();
 	while(it != list.end())
 	{
-		FrontLayerSprite *fsprite = (FrontLayerSprite*)*it;
-		fsprite -> _sprite.draw(gc, fsprite -> left, fsprite -> top);
-		fsprite -> _sprite.update();
+		FrontLayerSprite* p_fsprite = (FrontLayerSprite*)*it;
+		p_fsprite -> _sprite.draw(gc, p_fsprite -> left, p_fsprite -> top);
+		p_fsprite -> _sprite.update();
 		it++;
 	}
 }

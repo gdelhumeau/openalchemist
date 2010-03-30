@@ -47,7 +47,7 @@ public:
 
 	virtual void term();
 
-	virtual void load_gfx(CL_GraphicContext &gc, std::string skin);
+	virtual void load_gfx(CL_GraphicContext& gc, std::string skin);
 
 	virtual void unload_gfx();
 

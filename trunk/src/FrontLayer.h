@@ -23,14 +23,10 @@ struct FrontLayerSprite{
 
 public:
 
-	/** 
-	* Sprite
-	*/
+	/** Sprite */
 	CL_Sprite _sprite;
 
-	/** 
-	* Coords
-	*/
+	/** Coords */
 	int left, top;
 
 };
@@ -42,37 +38,25 @@ class FrontLayer{
 
 public:
 
-	/** 
-	* Is front layer enabled
-	*/
+	/** Is front layer enabled */
 	bool is_enabled;
 
-	/** 
-	* List of sprites to display
-	*/
+	/** List of sprites to display */
 	std::list<FrontLayerSprite*> list;
 
-	/** 
-	* Load GFX
-	*/
-	void load_gfx(CL_GraphicContext & gc, std::string skin);
+	/** Load GFX */
+	void load_gfx(CL_GraphicContext& gc, std::string skin);
 
-	/** 
-	* Unload GFX
-	*/
+	/** Unload GFX */
 	void unload_gfx();
 
-	/** 
-	* Draw
-	*/
-	void draw(CL_GraphicContext & gc);
+	/** Draw */
+	void draw(CL_GraphicContext& gc);
 
 private:
 
-	/** 
-	* Load GFX
-	*/
-	void _load_gfx(CL_GraphicContext & gc, CL_ResourceManager *p_gfx_frontlayer);
+	/** Load GFX */
+	void _load_gfx(CL_GraphicContext& gc, CL_ResourceManager* p_gfx_frontlayer);
 
 };
 

@@ -30,7 +30,7 @@ public:
 	/** Destructor */
 	~MultipleChoicesItem();	
 
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 
 	virtual void action_performed(ActionType action_type);
 
@@ -47,11 +47,11 @@ public:
 	void set_choice_y(int y){_choice_y = y;}
 
 	/** Set sprites for item description (not choice) */
-	void set_description_sprites(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	void set_description_sprites(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string normal, std::string selected, std::string locked = "");
 
 	/** Add a choice */
-	void add_choice(CL_GraphicContext & gc, CL_ResourceManager & gfx, std::string name);
+	void add_choice(CL_GraphicContext& gc, CL_ResourceManager& gfx, std::string name);
 
 	/** Set current choice */
 	void set_current_choice(unsigned int choice);

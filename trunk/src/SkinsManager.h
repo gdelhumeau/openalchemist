@@ -35,7 +35,7 @@ public:
 	void set_skin_elements(unsigned int element);
 
 	/** Get a skin */
-	inline Skin* get_skin(unsigned int i){ return _skins[i] ;}
+	inline Skin* get_skin(unsigned int i){ return _skins[i]; }
 
 	/** Get the number of skins */
 	inline unsigned int get_nb_skins() const { return _skins.size(); }
@@ -43,7 +43,7 @@ public:
 private:
 
 	/** Common resources */
-	CommonResources * _p_common_resources;
+	CommonResources* _p_common_resources;
 
 	/** Skins skins list (read in the .openalchemist/skins file) */
 	std::vector<Skin*> _skins;

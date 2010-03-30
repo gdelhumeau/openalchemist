@@ -28,29 +28,19 @@ class DemoPlayer : public Player{
 
 public:
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor	*/
 	DemoPlayer();
 
-	/**
-	* Checking key events
-	*/
-	void events(CL_DisplayWindow & window);
+	/** Checking key events	*/
+	void events(CL_DisplayWindow& window);
 
-	/** 
-	* Update player
-	*/
+	/** Update player */
 	void update();
 
-	/** 
-	* Resume (if game mode is paused)
-	*/
+	/** Resume (if game mode is paused)	*/
 	void resume();
 
-	/**
-	* Make a my_new game
-	*/
+	/** Make a my_new game */
 	void new_game();
 
 	inline virtual bool is_human(){ return false; }

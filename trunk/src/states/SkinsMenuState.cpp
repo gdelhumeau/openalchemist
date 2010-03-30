@@ -66,7 +66,7 @@ void SkinsMenuState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void SkinsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
+void SkinsMenuState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	// Getting skins resources
 	CL_VirtualFileSystem vfs(skin, true);
@@ -121,7 +121,7 @@ void SkinsMenuState::action_performed(int selection, ActionType action_type)
 /************************************************************************/
 void SkinsMenuState::update_child()
 {
-	SkinsManager & skins_manager = _p_common_resources->p_engine->get_skins_manager();
+	SkinsManager& skins_manager = _p_common_resources->p_engine->get_skins_manager();
 	for(unsigned int i=0; i<skins_manager.get_nb_skins(); ++i)
 	{
 		bool skin_enabled = skins_manager.get_skin(i)->get_unlocked_elements() >= 
@@ -136,8 +136,8 @@ void SkinsMenuState::update_child()
 /************************************************************************/
 void SkinsMenuState::choice_selected(int choice)
 {
-	SkinsManager & skins_manager = _p_common_resources->p_engine->get_skins_manager();
-	Skin * p_skin = skins_manager.get_skin(choice);
+	SkinsManager& skins_manager = _p_common_resources->p_engine->get_skins_manager();
+	Skin* p_skin = skins_manager.get_skin(choice);
 	if(_p_common_resources->skin != p_skin->get_filename())
 	{
 		_p_common_resources->p_engine->set_skin(p_skin->get_filename());

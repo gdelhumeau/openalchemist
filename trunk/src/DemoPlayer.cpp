@@ -32,7 +32,7 @@ DemoPlayer::DemoPlayer()
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void DemoPlayer::events(CL_DisplayWindow & window)
+void DemoPlayer::events(CL_DisplayWindow& window)
 {
 }
 
@@ -44,7 +44,7 @@ void DemoPlayer::new_game()
 	term_game();
 
 	// Getting resources
-	CommonResources *resources = common_resources_get_instance();
+	CommonResources* p_resources = common_resources_get_instance();
 
 	// Creating new pieces for playable pieces and next pieces
 	_p_current_piece1 = my_new Piece(2);
@@ -61,9 +61,9 @@ void DemoPlayer::new_game()
 	_undo_possible = false;
 	_next_next_piece1 = 0;
 	_next_next_piece2 = 0;
-	_x = (float)_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+	_x = (float)_position * p_resources->pieces_width + (_position_bis )*p_resources->pieces_width/2;
 	_p_next_piece1 -> set_position(_next_left, _next_top);
-	_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
+	_p_next_piece2 -> set_position(_next_left+((p_resources->pieces_width)/2),_next_top);
 
 	_is_falling_requested = false;
 	_game_mode = GAME_MODE_PLAYING;

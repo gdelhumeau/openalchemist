@@ -49,7 +49,7 @@ void TitleState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void TitleState::load_gfx(CL_GraphicContext & gc, std::string skin)
+void TitleState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
@@ -97,7 +97,7 @@ void TitleState::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void TitleState::draw(CL_GraphicContext & gc)
+void TitleState::draw(CL_GraphicContext& gc)
 {
 	_sentences[_step].draw (gc, _sentences_x[_step], _sentences_y[_step]);
 	_start_message.draw(gc, _start_message_x,_start_message_y);
@@ -151,7 +151,7 @@ void TitleState::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Update                                                               */
 /************************************************************************/
-void TitleState::update(CL_GraphicContext & gc)
+void TitleState::update(CL_GraphicContext& gc)
 {
 	_start_message.update();
 
@@ -279,10 +279,10 @@ void TitleState::update(CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void TitleState::events(Window & window)
+void TitleState::events(Window& window)
 {
-	CL_InputContext & ic = window.get_ic();
-	CL_InputDevice &keyboard = ic.get_keyboard();
+	CL_InputContext& ic = window.get_ic();
+	CL_InputDevice& keyboard = ic.get_keyboard();
 	if(_p_common_resources -> key.enter.get(ic) || keyboard.get_keycode(CL_KEY_SPACE))
 	{
 		_p_common_resources -> p_engine -> set_state_ingame();

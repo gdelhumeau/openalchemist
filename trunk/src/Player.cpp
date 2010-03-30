@@ -181,12 +181,12 @@ void Player::term_game()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
+void Player::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
 	// Getting resources
-	CommonResources *resources = common_resources_get_instance();
+	CommonResources* p_resources = common_resources_get_instance();
 
 	// Getting skins resources
 	CL_VirtualFileSystem vfs(skin, true);
@@ -196,12 +196,12 @@ void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 	CL_ResourceManager gfx("general.xml", vd);
 
 	// Getting preferences (to know if colorbling is activated)
-	Preferences *pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 
 	// First we load the sprites
 	for(int i = 1; i<=NUMBER_OF_PIECES; ++i)
 	{
-		if(pref -> colorblind)
+		if(p_pref -> colorblind)
 			_pieces_normal[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/normal_color_blind", &gfx_pieces);
 		else
 			_pieces_normal[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/normal", &gfx_pieces);
@@ -209,7 +209,7 @@ void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 		_pieces_appearing[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/appear", &gfx_pieces);
 		_pieces_disappearing[i-1] = CL_Sprite(gc, "pieces/piece_"+to_string(i)+"/disappear", &gfx_pieces);
 
-		if(pref -> colorblind)
+		if(p_pref -> colorblind)
 			_pieces_mini[i-1] = CL_Sprite(gc, "pieces_preview/piece_"+to_string(i)+"/little_color_blind", &gfx_preview_pieces);
 		else
 			_pieces_mini[i-1] = CL_Sprite(gc, "pieces_preview/piece_"+to_string(i)+"/little", &gfx_preview_pieces);
@@ -240,7 +240,7 @@ void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 	_board.hightscore_right = CL_Integer_to_int("high_score_right", &gfx);
 
 	// Calculating c² = a²+b³
-	_current_pieces_r = resources->pieces_width/2;
+	_current_pieces_r = p_resources->pieces_width/2;
 
 	// Then, we appmy_new ew sprites
 	if(_p_next_piece1 && _p_next_piece2 && _p_current_piece1 && _p_current_piece2)
@@ -264,7 +264,7 @@ void Player::load_gfx(CL_GraphicContext & gc, std::string skin)
 			&_pieces_disappearing[value], &_pieces_mini[value]);
 
 		_p_next_piece1 -> set_position(_next_left, _next_top);
-		_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
+		_p_next_piece2 -> set_position(_next_left+((p_resources->pieces_width)/2),_next_top);
 	}
 
 	// And to the board too
@@ -289,10 +289,10 @@ void Player::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void Player::draw(CL_GraphicContext & gc)
+void Player::draw(CL_GraphicContext& gc)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	// Drawing unlocked pieces
 	for(int i=0; i<NUMBER_OF_PIECES; ++i)
@@ -308,10 +308,10 @@ void Player::draw(CL_GraphicContext & gc)
 
 	// Drawing the progress bar
 	// TODO : must work with differents difficulties
-	if(resources -> highscore > 0)
+	if(p_resources -> highscore > 0)
 	{
 		int percentage = (int)((double)(get_score())
-			/ (double)resources -> highscore * 100.0);
+			/ (double)p_resources -> highscore * 100.0);
 		if(percentage > 100)
 			percentage = 100;
 		_progress_bar.draw(gc, percentage);
@@ -330,10 +330,10 @@ void Player::draw(CL_GraphicContext & gc)
 	{
 		// Setting playable pieces position
 		_p_current_piece1 -> set_position(_board.game_left+_x+cosf(_angle*TO_RAD)*_current_pieces_r,
-			_board.zone_top+resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
+			_board.zone_top+p_resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
 
 		_p_current_piece2 -> set_position(_board.game_left+_x+cosf((_angle+180)*TO_RAD)*_current_pieces_r,
-			_board.zone_top+resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
+			_board.zone_top+p_resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
 
 		// Displaying playable pieces
 		_p_current_piece1 -> draw(gc);
@@ -352,10 +352,10 @@ void Player::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void Player::events(CL_InputContext & ic)
+void Player::events(CL_InputContext& ic)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	if(GAME_MODE_PLAYING == _game_mode)
 	{
@@ -393,15 +393,15 @@ void Player::events(CL_InputContext & ic)
 	}
 
 	// Undo the last move
-	if(resources->key.undo.get(ic))
+	if(p_resources->key.undo.get(ic))
 	{
 		undo();
 	}
 
 	// Retry current game
-	if(resources -> key.retry.get(ic))
+	if(p_resources -> key.retry.get(ic))
 	{
-		resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
+		p_resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
 	}
 
 }
@@ -493,12 +493,12 @@ void Player::update()
 /************************************************************************/
 void Player::_update_playing()
 {
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	// Move the pieces if the order has been changed
 	if(_angle<_aimed_angle)
 	{
-		_angle += resources->delta_time * PIECE_ROTATION_SPEED;
+		_angle += p_resources->delta_time * PIECE_ROTATION_SPEED;
 		if(_angle>=_aimed_angle)
 		{
 			while(_aimed_angle>=360)
@@ -512,13 +512,13 @@ void Player::_update_playing()
 	// Move the pieces to the right
 	if(!_is_placed)
 	{
-		if(_position * resources->pieces_width + _position_bis *resources->pieces_width/2 >= _x)
+		if(_position * p_resources->pieces_width + _position_bis *p_resources->pieces_width/2 >= _x)
 		{
-			_x += resources->delta_time * PIECE_MOVING_SPEED;
-			if(_x > _position * resources->pieces_width + (_position_bis )*resources->pieces_width/2)
+			_x += p_resources->delta_time * PIECE_MOVING_SPEED;
+			if(_x > _position * p_resources->pieces_width + (_position_bis )*p_resources->pieces_width/2)
 			{
 				_x = (float)
-					_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2;
+					_position * p_resources->pieces_width + (_position_bis )*p_resources->pieces_width/2;
 				_is_placed = true;
 			}
 		}
@@ -527,13 +527,13 @@ void Player::_update_playing()
 	// Move the pieces to the left
 	if(!_is_placed)
 	{
-		if(_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2 <= _x)
+		if(_position * p_resources->pieces_width + (_position_bis )*p_resources->pieces_width/2 <= _x)
 		{
-			_x -= resources->delta_time * PIECE_MOVING_SPEED;
-			if(_x < _position * resources->pieces_width + (_position_bis)*resources->pieces_width/2)
+			_x -= p_resources->delta_time * PIECE_MOVING_SPEED;
+			if(_x < _position * p_resources->pieces_width + (_position_bis)*p_resources->pieces_width/2)
 			{
 				_x = (float)
-					_position * resources->pieces_width + (_position_bis)*resources->pieces_width/2;
+					_position * p_resources->pieces_width + (_position_bis)*p_resources->pieces_width/2;
 				_is_placed = true;
 			}
 		}
@@ -552,7 +552,7 @@ void Player::_update_playing()
 void Player::fall()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	_is_falling_requested = false;
 
@@ -565,10 +565,10 @@ void Player::fall()
 
 
 	_p_current_piece1 -> set_position(_board.game_left+_x+cosf(_angle*TO_RAD)*_current_pieces_r,
-		_board.zone_top+resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
+		_board.zone_top+p_resources->pieces_height/2+sinf((_angle)*TO_RAD)*_current_pieces_r);
 
 	_p_current_piece2 -> set_position(_board.game_left+_x+cosf((_angle+180)*TO_RAD)*_current_pieces_r,
-		_board.zone_top+resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
+		_board.zone_top+p_resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
 
 	_board.add_pieces(_p_current_piece1, _p_current_piece2);
 
@@ -611,9 +611,9 @@ void Player::fall()
 void Player::_update_falling_and_creating()
 {
 	// Getting resources
-	static CommonResources *p_resources = common_resources_get_instance();
-	bool placed = _board.fall_and_create();
-	if(placed)
+	static CommonResources* p_resources = common_resources_get_instance();
+	bool is_placed = _board.fall_and_create();
+	if(is_placed)
 	{
 		_combo ++;
 		bool to_destroy = _board.detect_pieces_to_destroy();
@@ -718,7 +718,7 @@ void Player::_prepare_to_play()
 void Player::undo()
 {
 	// Getting resources
-	static CommonResources *p_resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	// First verify than the last move is not the first one
 	if(_undo_possible)
@@ -797,8 +797,8 @@ bool Player::is_game_over()
 void Player::give_up()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
-	resources -> p_engine -> set_skin_element(_board.visible_pieces);
+	static CommonResources* p_resources = common_resources_get_instance();
+	p_resources -> p_engine -> set_skin_element(_board.visible_pieces);
 	_board.clear();
 	_board.unlocked_pieces = 3;
 	_board.visible_pieces  = 3;

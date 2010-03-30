@@ -18,7 +18,7 @@
 /************************************************************************/
 /* Constructor                                                          */
 /************************************************************************/
-LoadingScreen::LoadingScreen(Window & window):
+LoadingScreen::LoadingScreen(Window& window):
 _window(window)
 {
 
@@ -36,7 +36,7 @@ LoadingScreen::~LoadingScreen()
 /************************************************************************/
 void LoadingScreen::init()
 {
-	CL_GraphicContext & gc = _window.get_gc();
+	CL_GraphicContext& gc = _window.get_gc();
 	std::string file_path = get_data_path();
 	_logo = CL_Image(gc, file_path + "loading.png");
 
@@ -51,7 +51,7 @@ void LoadingScreen::set_progression(float progression)
 {    
 	_window.prepare();
 	
-	CL_GraphicContext & gc = _window.get_gc();
+	CL_GraphicContext& gc = _window.get_gc();
 	_logo.draw(gc, 400 - _logo.get_width() / 2, 280 - _logo.get_height() / 2);
 
 	int base_x = 400 - _progression.get_width() / 2;

@@ -36,15 +36,15 @@ public:
 
 	virtual void term();
 	
-	virtual void load_gfx(CL_GraphicContext &gc, std::string skin);
+	virtual void load_gfx(CL_GraphicContext& gc, std::string skin);
 	
 	virtual void unload_gfx();
 
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 	
-	virtual void update(CL_GraphicContext &gc);
+	virtual void update(CL_GraphicContext& gc);
 	
-	virtual void events(Window & window);
+	virtual void events(Window& window);
 
 	virtual bool front_layer_behind();
 

@@ -32,10 +32,10 @@ static const float PIECE_MOVING_SPEED = 0.25;
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void HumanPlayer::events(CL_InputContext & ic)
+void HumanPlayer::events(CL_InputContext& ic)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	if(GAME_MODE_PLAYING == _game_mode)
 	{
@@ -67,7 +67,7 @@ void HumanPlayer::events(CL_InputContext & ic)
 		} 
 
 		// Cheatting
-		CL_InputDevice &keyboard = ic.get_keyboard();
+		CL_InputDevice& keyboard = ic.get_keyboard();
 		if(keyboard.get_keycode(CL_KEY_A) && keyboard.get_keycode(CL_KEY_L))
 		{
 			_board.unlocked_pieces = NUMBER_OF_PIECES;
@@ -76,15 +76,15 @@ void HumanPlayer::events(CL_InputContext & ic)
 	}
 
 	// Undo the last move
-	if(resources->key.undo.get(ic))
+	if(p_resources->key.undo.get(ic))
 	{
 		undo();
 	}
 
 	// Retry current game
-	if(resources -> key.retry.get(ic))
+	if(p_resources -> key.retry.get(ic))
 	{
-		resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
+		p_resources -> p_engine -> set_state_quit_menu(QUITMENU_RETRY);
 	}
 
 }

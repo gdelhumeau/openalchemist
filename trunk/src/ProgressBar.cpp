@@ -31,7 +31,7 @@ ProgressBar::~ProgressBar()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void ProgressBar::load_gfx(CL_GraphicContext & gc, std::string skin)
+void ProgressBar::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
@@ -64,7 +64,7 @@ void ProgressBar::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void ProgressBar::draw(CL_GraphicContext & gc, int percentage)
+void ProgressBar::draw(CL_GraphicContext& gc, int percentage)
 {
 	int head_height = _head.get_height();
 	int height = _foot_top - (_head_top + head_height);

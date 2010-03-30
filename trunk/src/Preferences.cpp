@@ -21,10 +21,10 @@
 /************************************************************************/
 Preferences* pref_get_instance()
 {
-	static Preferences *instance = NULL;
-	if(instance == NULL)
-		instance = my_new Preferences();
-	return instance;
+	static Preferences* p_instance = NULL;
+	if(p_instance == NULL)
+		p_instance = my_new Preferences();
+	return p_instance;
 }
 
 /************************************************************************/
@@ -122,12 +122,12 @@ void Preferences::write()
 /************************************************************************/
 /* Read options                                                         */
 /************************************************************************/
-void Preferences::_read_options_file(CL_File *file)
+void Preferences::_read_options_file(CL_File* p_file)
 {
 	try{
 
 		IniFile ini;
-		ini.read(file);
+		ini.read(p_file);
 
 		render_target = OPENGL_1;
 
@@ -172,7 +172,7 @@ void Preferences::_read_options_file(CL_File *file)
 		}
 
 
-		file -> close();
+		p_file -> close();
 
 	}
 	catch(CL_Exception&)
@@ -184,7 +184,7 @@ void Preferences::_read_options_file(CL_File *file)
 /************************************************************************/
 /* Write options                                                        */
 /************************************************************************/
-void Preferences::_write_options_file(CL_File *file)
+void Preferences::_write_options_file(CL_File* p_file)
 {
 
 	IniFile ini;
@@ -217,9 +217,9 @@ void Preferences::_write_options_file(CL_File *file)
 	ini.add("Colorblind", colorblind);
 	ini.add("Skin", skin);
 
-	ini.write(file);
+	ini.write(p_file);
 
-	file -> close();
+	p_file -> close();
 }
 
 /************************************************************************/

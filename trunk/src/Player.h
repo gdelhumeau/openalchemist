@@ -34,296 +34,180 @@ class Player{
 
 public:
 	
-	/**
-	* Constructor
-	*/
+	/** Constructor	*/
 	Player();
 
-	/**
-	* Destructor
-	*/
+	/** Destructor */
 	~Player();
 
-	/**
-	* Load GFX
-	*/
-	void load_gfx(CL_GraphicContext & gc, std::string skin);
+	/** Load GFX */
+	void load_gfx(CL_GraphicContext& gc, std::string skin);
 
-	/**
-	* Unload GFX
-	*/
+	/** Unload GFX */
 	void unload_gfx();
 
-	/**
-	* Checking key events
-	*/
-	void events(CL_InputContext & ic);    
+	/** Checking key events	*/
+	void events(CL_InputContext& ic);    
 
-	/**
-	* Draw player (board and playable pieces)
-	*/
-	void draw(CL_GraphicContext & gc);
+	/** Draw player (board and playable pieces)	*/
+	void draw(CL_GraphicContext& gc);
 
-	/**
-	* Make a new party
-	*/
+	/** Make a new party */
 	void new_game();
 
-	/**
-	* Terminate the party
-	*/
+	/** Terminate the party	*/
 	void term_game();
 
-	/**
-	* Update playable pieces and board
-	*/
+	/** Update playable pieces and board */
 	void update();  
 
-	/**
-	* Get score
-	*/
+	/** Get score */
 	inline unsigned int get_score(){ return _board.body_score + _board.bonus_score; }
 
-	/**
-	* Returning if undo is available
-	*/
+	/** Returning if undo is available */
 	bool is_undo_available();
 
-	/**
-	* Undoing last action
-	*/
+	/** Undoing last action */
 	void undo();  
 
-	/**
-	* Returns if the game is over
-	*/
+	/** Returns if the game is over	*/
 	bool is_game_over();
 
-	/** 
-	* Give up
-	*/
+	/** Give up	*/
 	void give_up();  
 
-	/**
-	* Get number of visible pieces
-	*/
+	/** Get number of visible pieces */
 	int get_visible_pieces();
 
-	/**
-	* Change angle of playable pieces
-	*/
+	/** Change angle of playable pieces	*/
 	void change_angle();
 
-	/**
-	* Move playable pieces to the left
-	*/
+	/** Move playable pieces to the left */
 	void move_left();
 
-	/**
-	* Move playable pieces to the right
-	*/
+	/** Move playable pieces to the right */
 	void move_right();
 
-	/**
-	* Fall playable pieces
-	*/
+	/** Fall playable pieces */
 	void fall();
 
-	/** 
-	* Returns if the player is human
-	*/
+	/** Returns if the player is human	*/
 	virtual bool is_human() = 0;
 
 protected:
 
-	/**
-	* X Position
-	*/
+	/** X Position */
 	float _x;
 
-	/**
-	* Angle
-	*/
+	/** Angle */
 	float _angle;  
 
-	/**
-	* Angle required (for changing)
-	*/
+	/** Angle required (for changing) */
 	int _aimed_angle;
 
-	/**
-	* Current position (in cols)
-	*/
+	/** Current position (in cols) */
 	int _position;
 
-	/**
-	* Old position (to undo - in cols)
-	*/
+	/** Old position (to undo - in cols) */
 	int _old_position;
 
-	/**
-	* 1 if angle = 90 or 180
-	*/
+	/** 1 if angle = 90 or 180 */
 	int _position_bis;
 
-	/**
-	* Old position bis to undo
-	*/
+	/** Old position bis to undo */
 	int _old_position_bis;
 
-	/**
-	* To know if the position bis is due to right position
-	*/
+	/** To know if the position bis is due to right position */
 	bool _is_forced_bis;
 
-	/**
-	* To know if pieces are moving too the left or to the right or not
-	*/
+	/** To know if pieces are moving too the left or to the right or not */
 	bool _is_placed;
 
-	/**
-	* Game Mode
-	*/
+	/** Game Mode */
 	GameMode _game_mode;
 
-	/** 
-	* Save if the game mode has changed
-	*/
+	/** Save if the game mode has changed */
 	bool _game_mode_changed;
 
-	/** 
-	* Sound played
-	*/
+	/** Sound played */
 	bool _play_destroying_sound;
 
-	/** 
-	* Manual mode (to stop game mode succession - for DemoPlayer)
-	*/
+	/** Manual mode (to stop game mode succession - for DemoPlayer)	*/
 	bool _manual_mode;
 
-	/**
-	* One of the next piece (displaying in top)
-	*/
+	/** One of the next piece (displaying in top) */
 	Piece* _p_next_piece1;
 
-	/**
-	* One of the next piece (displaying in top)
-	*/
+	/** One of the next piece (displaying in top) */
 	Piece* _p_next_piece2;
 
-	/** 
-	* Next pieces ID
-	*/
+	/** Next pieces ID */
 	int _next_next_piece1, _next_next_piece2;
 
-	/**
-	* X Position for next items
-	*/
+	/** X Position for next items */
 	int _next_left;
 
-	/**
-	* Y Position for next items
-	*/
+	/** Y Position for next items */
 	int _next_top;
 
-	/**
-	* One of the current pieces
-	*/
+	/** One of the current pieces */
 	Piece* _p_current_piece1;
 
-	/**
-	* One of the current pieces
-	*/
+	/** One of the current pieces */
 	Piece* _p_current_piece2;
 
-	/**
-	* Rayon of circle which contains playable pieces
-	*/
+	/** Rayon of circle which contains playable pieces */
 	int _current_pieces_r;
 
-	/** 
-	* Contains the normal pieces sprites
-	*/
+	/** Contains the normal pieces sprites */
 	CL_Sprite _pieces_normal[NUMBER_OF_PIECES];
 
-	/**
-	* Contains the appearing pieces sprites
-	*/
+	/** Contains the appearing pieces sprites */
 	CL_Sprite _pieces_appearing[NUMBER_OF_PIECES];
 
-	/**
-	* Contains the disappearing pieces sprites
-	*/
+	/** Contains the disappearing pieces sprites */
 	CL_Sprite _pieces_disappearing[NUMBER_OF_PIECES];
 
-	/**
-	* Contains the mini pieces sprites
-	*/
+	/** Contains the mini pieces sprites */
 	CL_Sprite _pieces_mini[NUMBER_OF_PIECES];
 
-	/**
-	* Contains the hidden pieces sprites
-	*/
+	/** Contains the hidden pieces sprites */
 	CL_Sprite _pieces_hidden[NUMBER_OF_PIECES - 3];
 
-	/**
-	* X Coord of pieces preview
-	*/
+	/** X Coord of pieces preview */
 	int _pieces_preview_x[NUMBER_OF_PIECES];
 
-	/**
-	* Y Coord if pieces preview
-	*/
+	/** Y Coord if pieces preview */
 	int _pieces_preview_y[NUMBER_OF_PIECES];
 
-	/**
-	* Board game
-	*/
+	/** Board game */
 	Board _board;
 
-	/**
-	* Key for playing
-	*/
+	/** Key for playing	*/
 	KeyboardKey _key_change_angle;
 
-	/**
-	* Key for playing
-	*/
+	/** Key for playing	*/
 	KeyboardKey _key_left;
 
-	/**
-	* Key for playing
-	*/
+	/** Key for playing	*/
 	KeyboardKey _key_right;
 
-	/**
-	* Key for playing
-	*/
+	/** Key for playing	*/
 	KeyboardKey _key_falling;
 
-	/**
-	* True if player press fall button
-	*/
+	/** True if player press fall button */
 	bool _is_falling_requested;
 
-	/**
-	* Combo counter
-	*/
+	/** Combo counter */
 	int _combo;
 
-	/**
-	* Combos Painter
-	*/
+	/** Combos Painter */
 	CombosPainter _combos_painter;
 
-	/**
-	* Progress Bar
-	*/
+	/** Progress Bar */
 	ProgressBar _progress_bar;
 
-	/**
-	* Undo elements
-	*/
+	/** Undo elements */
 	int _undo_position;
 	int _undo_position_bis;
 	int _undo_piece1_number;
@@ -331,26 +215,17 @@ protected:
 	int _undo_angle;
 	bool _undo_possible;
 
-	/**
-	* Update when game_mode = playing
-	*/
+	/** Update when game_mode = playing	*/
 	void _update_playing();
 
-	/**
-	* Update when game_mode = falling & creating
-	*/
+	/** Update when game_mode = falling & creating */
 	void _update_falling_and_creating();
 
-	/**
-	* Update when game_mode = destroying
-	*/
+	/** Update when game_mode = destroying */
 	void _update_destroying();
 
-	/**
-	* Prepare game to play (after a fall)
-	*/
+	/** Prepare game to play (after a fall)	*/
 	void _prepare_to_play();
-
 
 };
 

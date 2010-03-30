@@ -38,7 +38,7 @@ public:
 	~DualChoiceItem();
 
 	/** Set item GFX */
-	void set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	void set_gfx(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string normal_left, std::string selected_left,
 		std::string normal_right, std::string selected_right);
 
@@ -54,7 +54,7 @@ public:
 	/** Return current selection */
 	DualChoiceChoice get_selection(){ return _selection; }
 	
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 	
 	virtual void action_performed(ActionType action_type);
 

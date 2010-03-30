@@ -42,7 +42,7 @@ CombosPainter :: ~CombosPainter()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void CombosPainter :: load_gfx(CL_GraphicContext &gc, std::string skin)
+void CombosPainter :: load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 
 	unload_gfx();
@@ -99,7 +99,7 @@ void CombosPainter :: set_score(int score)
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void CombosPainter :: draw(CL_GraphicContext &gc)
+void CombosPainter :: draw(CL_GraphicContext& gc)
 {
 	if(!_is_enabled)
 		return;
@@ -140,18 +140,18 @@ void CombosPainter :: update()
 void CombosPainter :: _update_appearing()
 {
 	// Getting resources
-	CommonResources *resources = common_resources_get_instance();
+	CommonResources* p_resources = common_resources_get_instance();
 
 	if(_sprite_current_x > _sprite_x)
 	{
-		_sprite_current_x -= COMBOS_SPEED * resources -> delta_time;
+		_sprite_current_x -= COMBOS_SPEED * p_resources -> delta_time;
 		if(_sprite_current_x < _sprite_x)
 			_sprite_current_x = (float)_sprite_x;
 	}
 
 	if(_score_current_y < _score_y)
 	{
-		_score_current_y += COMBOS_SPEED * resources -> delta_time;
+		_score_current_y += COMBOS_SPEED * p_resources -> delta_time;
 		if(_score_current_y > _score_y)
 			_score_current_y = (float)_score_y;
 	}

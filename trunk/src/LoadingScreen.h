@@ -20,7 +20,7 @@ class LoadingScreen
 {
 
 public:
-	LoadingScreen(Window & window);
+	LoadingScreen(Window& window);
 	~LoadingScreen();
 
 	void init();
@@ -32,7 +32,7 @@ private:
 	CL_Image _progression;
 	CL_Image _progression_cursor;
 
-	Window & _window;
+	Window& _window;
 
 };
 

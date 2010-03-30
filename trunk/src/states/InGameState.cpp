@@ -49,7 +49,7 @@ void InGameState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void InGameState::load_gfx(CL_GraphicContext & gc, std::string skin)
+void InGameState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 
 }
@@ -65,7 +65,7 @@ void InGameState::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void InGameState::draw(CL_GraphicContext & gc)
+void InGameState::draw(CL_GraphicContext& gc)
 {
 
 }
@@ -73,7 +73,7 @@ void InGameState::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Update                                                               */
 /************************************************************************/
-void InGameState::update(CL_GraphicContext & gc)
+void InGameState::update(CL_GraphicContext& gc)
 {
 	_p_common_resources -> player1.update();
 }
@@ -81,7 +81,7 @@ void InGameState::update(CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void InGameState::events(Window & window)
+void InGameState::events(Window& window)
 {
 	CL_InputContext & ic = window.get_ic();
 	_p_common_resources -> player1.events(ic);

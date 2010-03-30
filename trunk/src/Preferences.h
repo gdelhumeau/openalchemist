@@ -17,7 +17,6 @@
 /** Implements the preferences that users can save */
 class Preferences
 {
-
 public:
 
 	enum RenderTarget
@@ -63,14 +62,13 @@ public:
 private:
 
 	/** Read INI file */
-	void _read_options_file(CL_File *file);
+	void _read_options_file(CL_File* p_file);
 
 	/** Write INI file */
-	void _write_options_file(CL_File *file);
+	void _write_options_file(CL_File* p_file);
 
 	/** Set default values */
 	void _set_default();
-
 
 };
 

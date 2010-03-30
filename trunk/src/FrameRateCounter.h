@@ -21,34 +21,22 @@ class CL_FramerateCounter
 {
 public:
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor	*/
 	CL_FramerateCounter();
 
-	/** 
-	* Destructor
-	*/
+	/** Destructor */
 	~CL_FramerateCounter ();
 
-	/** 
-	* Returns framerate
-	*/
+	/** Returns framerate */
 	int get_fps();
 
-	/** 
-	* Set the max framerate authorised
-	*/
+	/** Set the max framerate authorised */
 	void set_fps_limit(int fps);
 
-	/** 
-	* Keep alive windows
-	*/
+	/** Keep alive windows */
 	void keep_alive();
 
-	/**
-	* Clanlib implementation
-	*/
+	/** Clanlib implementation */
 	CL_FramerateCounter_Generic *impl;
 };
 

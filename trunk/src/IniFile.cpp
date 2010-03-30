@@ -31,27 +31,27 @@ IniFile::~IniFile()
 /************************************************************************/
 /* Write a line                                                         */
 /************************************************************************/
-static void write_ln(CL_File *file, std::string string)
+static void write_ln(CL_File* p_file, std::string string)
 {
 #ifdef WIN32
 	string += "\r\n";
 #else
 	string += "\n";
 #endif
-	file->write(string.c_str(), string.length());
+	p_file->write(string.c_str(), string.length());
 }
 
 /************************************************************************/
 /* Read a line                                                          */
 /************************************************************************/
-static std::string read_ln(CL_File *file)
+static std::string read_ln(CL_File* p_file)
 {
 	std::string s = "";
-	char c = file -> read_uint8();
-	while(c != '\n' && c != '\r' && file->get_position() != file->get_size())
+	char c = p_file -> read_uint8();
+	while(c != '\n' && c != '\r' && p_file->get_position() != p_file->get_size())
 	{
 		s += c;
-		c = file -> read_uint8();
+		c = p_file -> read_uint8();
 	}
 
 	return s;
@@ -60,14 +60,14 @@ static std::string read_ln(CL_File *file)
 /************************************************************************/
 /* Read                                                                 */
 /************************************************************************/
-void IniFile::read(CL_File *file)
+void IniFile::read(CL_File* p_file)
 {
 	clear();
 
-	while(file->get_position() != file->get_size())
+	while(p_file->get_position() != p_file->get_size())
 	{
 		// Get line
-		std::string line = read_ln(file);
+		std::string line = read_ln(p_file);
 
 		// Parse line
 		if(line.length() >1)
@@ -75,7 +75,7 @@ void IniFile::read(CL_File *file)
 			int separator = line.find(" = ", 0);
 			if(separator)
 			{
-				IniElement *e = my_new IniElement();
+				IniElement* e = my_new IniElement();
 				e -> name = line.substr(0, separator);
 				e -> value = line.substr(separator + 3, line.length());
 				_list.insert(_list.end(), e);
@@ -88,18 +88,18 @@ void IniFile::read(CL_File *file)
 /************************************************************************/
 /* Write                                                                */
 /************************************************************************/
-void IniFile::write(CL_File *file)
+void IniFile::write(CL_File* p_file)
 {
 	try
 	{
 		std::string section = "[Preferences]";
-		write_ln(file, section);
+		write_ln(p_file, section);
 		std::list<IniElement*>::iterator it = _list.begin();
 		while(it != _list.end())
 		{
-			IniElement *e = (IniElement*)*it;
+			IniElement* e = (IniElement*)*it;
 			std::string line = e -> name + " = " + e -> value;
-			write_ln(file, line);
+			write_ln(p_file, line);
 			it++;
 		}
 
@@ -118,7 +118,7 @@ void IniFile::clear()
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(!_list.empty())
 	{
-		IniElement *e = (IniElement*) *it;
+		IniElement* e = (IniElement*) *it;
 		my_delete(e);
 		it = _list.erase(it);
 	}
@@ -132,7 +132,7 @@ void IniFile::add(std::string name, std::string value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			e -> value = value;
@@ -141,7 +141,7 @@ void IniFile::add(std::string name, std::string value)
 		it++;
 	}
 
-	IniElement *e = my_new IniElement();
+	IniElement* e = my_new IniElement();
 	e -> name = name;
 	e -> value = value;
 	_list.insert(_list.end(), e);
@@ -155,7 +155,7 @@ void IniFile::add(std::string name, bool value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			if(value)
@@ -167,7 +167,7 @@ void IniFile::add(std::string name, bool value)
 		it++;
 	}
 
-	IniElement *e = my_new IniElement();
+	IniElement* e = my_new IniElement();
 	e -> name = name;
 
 	if(value)
@@ -186,7 +186,7 @@ void IniFile::add(std::string name, int value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			try{
@@ -201,7 +201,7 @@ void IniFile::add(std::string name, int value)
 		it++;
 	}
 
-	IniElement *e = my_new IniElement();
+	IniElement* e = my_new IniElement();
 	e -> name = name;
 	try
 	{
@@ -223,7 +223,7 @@ std::string IniFile::get(std::string name, std::string default_value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			return e -> value;
@@ -241,7 +241,7 @@ bool IniFile::get(std::string name, bool default_value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			return CL_StringHelp::text_to_bool(e-> value);
@@ -259,7 +259,7 @@ int IniFile::get(std::string name, int default_value)
 	std::list<IniElement*>::iterator it = _list.begin();
 	while(it != _list.end())
 	{
-		IniElement *e = (IniElement*)*it;
+		IniElement* e = (IniElement*)*it;
 		if(e -> name == name)
 		{
 			try

@@ -40,10 +40,10 @@ public:
 	~IniFile();
 
 	/** Read file */
-	void read(CL_File *file);
+	void read(CL_File* p_file);
 
 	/** Write file */
-	void write(CL_File *file);
+	void write(CL_File* p_file);
 
 	/** Clear variables */
 	void clear();

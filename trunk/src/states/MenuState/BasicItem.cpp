@@ -32,7 +32,7 @@ BasicItem::~BasicItem()
 /************************************************************************/
 /* Set GFX                                                              */
 /************************************************************************/
-void BasicItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager &gfx,
+void BasicItem::set_gfx(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 						std::string normal,
 						std::string selected,
 						std::string locked)
@@ -62,7 +62,7 @@ void BasicItem::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void BasicItem::draw(CL_GraphicContext &gc)
+void BasicItem::draw(CL_GraphicContext& gc)
 {
 	if (_is_selected)
 	{

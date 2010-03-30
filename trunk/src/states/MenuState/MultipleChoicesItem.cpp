@@ -50,8 +50,8 @@ bool MultipleChoicesItem::is_inside(int x, int y)
 /************************************************************************/
 /* Set description sprites                                              */
 /************************************************************************/
-void MultipleChoicesItem::set_description_sprites(CL_GraphicContext &gc,
-												  CL_ResourceManager & gfx,
+void MultipleChoicesItem::set_description_sprites(CL_GraphicContext& gc,
+												  CL_ResourceManager& gfx,
 												  std::string normal,
 												  std::string selected,
 												  std::string locked)
@@ -72,8 +72,8 @@ void MultipleChoicesItem::set_description_sprites(CL_GraphicContext &gc,
 /************************************************************************/
 /* Add choice                                                           */
 /************************************************************************/
-void MultipleChoicesItem::add_choice(CL_GraphicContext & gc,
-									 CL_ResourceManager & gfx,
+void MultipleChoicesItem::add_choice(CL_GraphicContext& gc,
+									 CL_ResourceManager& gfx,
 									 std::string name)
 {
 	_choices_list.push_back(CL_Sprite(gc, name, &gfx));
@@ -101,7 +101,7 @@ void MultipleChoicesItem::clear_choices()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void MultipleChoicesItem::draw(CL_GraphicContext &gc)
+void MultipleChoicesItem::draw(CL_GraphicContext& gc)
 {
 	if(_is_selected)
 	{

@@ -19,24 +19,16 @@ class Coords
 {
 public:
 
-	/** 
-	* X coord
-	*/
+	/** X coord	*/
 	int x;
 
-	/** 
-	* Y coord
-	*/
+	/** Y coord	*/
 	int y;
 
-	/** 
-	* Piece number
-	*/
+	/** Piece number */
 	int piece_number;
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor	*/
 	Coords(int x, int y)
 	{
 		this -> x = x;
@@ -44,14 +36,12 @@ public:
 		this -> piece_number = 0;
 	}
 
-	/** 
-	* Constructor
-	*/
-	Coords(Coords* c)
+	/** Constructor	*/
+	Coords(Coords* p_c)
 	{
-		this -> x = c->x;
-		this -> y = c->y;
-		this -> piece_number = c->piece_number;
+		this -> x = p_c->x;
+		this -> y = p_c->y;
+		this -> piece_number = p_c->piece_number;
 	}
 };
 
