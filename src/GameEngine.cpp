@@ -192,8 +192,8 @@ void GameEngine::set_state_pause_menu()
 /************************************************************************/
 void GameEngine::set_state_ingame()
 {
-	CommonResources *common_resources = common_resources_get_instance();
-	common_resources -> p_current_player = &(common_resources -> player1);
+	CommonResources* p_common_resources = common_resources_get_instance();
+	p_common_resources -> p_current_player = &(p_common_resources -> player1);
 	_states_stack.push(&_ingame_state);
 	g_audio_manager.resume_sounds();
 }
@@ -342,7 +342,7 @@ void GameEngine::set_skin(std::string skin)
 
 	std::string old_skin = p_pref -> skin;
 
-	CL_GraphicContext gc = _window.get_gc();
+	CL_GraphicContext& gc = _window.get_gc();
 	try
 	{
 		p_pref -> skin = skin;
