@@ -42,7 +42,7 @@ inline float min(float a, float b){ return a < b ? a : b; }
 /************************************************************************/
 /* Manager                                                              */
 /************************************************************************/
-void Window::manage(GameEngine & game_engine)
+void Window::manage(GameEngine& game_engine)
 {
 	// Save the old main_window (if valid), so graphics are not lost 
 	// when screen mode is changed.
@@ -53,7 +53,7 @@ void Window::manage(GameEngine & game_engine)
 	CL_DisplayWindowDescription desc;
 	desc.set_title("OpenAlchemist");
 	desc.set_size(CL_Size(_game_width, _game_height), true);
-	Preferences *p_pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 	if(p_pref -> fullscreen)
 	{
 		desc.set_fullscreen(true);
@@ -76,7 +76,7 @@ void Window::manage(GameEngine & game_engine)
 	display();
 
 	// Set some variables
-	CommonResources * p_common_resources = common_resources_get_instance();
+	CommonResources* p_common_resources = common_resources_get_instance();
 	p_common_resources -> p_window = &_clanlib_window;
 	p_common_resources -> p_gc = &_clanlib_window.get_gc();
 

@@ -41,7 +41,7 @@ struct MemAlloc{
 /* Static global variables                                              */
 /************************************************************************/
 static MemAlloc mem_alloc_first;
-static MemAlloc * mem_alloc_last;
+static MemAlloc* mem_alloc_last;
 static int comp;
 static int comp_size;
 static int max_size;
@@ -99,7 +99,7 @@ void term_memory()
 /************************************************************************/
 /* My alloc                                                             */
 /************************************************************************/
-inline void * my_alloc(int size, const char* file, const unsigned long line)
+inline void* my_alloc(int size, const char* file, const unsigned long line)
 {
 	//if(line==41)
 	//std::cout << "Alloc " << file << " ligne " << line << std::endl;

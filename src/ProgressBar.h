@@ -22,44 +22,30 @@ class ProgressBar{
 
 private:
 	
-	/**
-	* Sprites for progress bar
-	*/
+	/** Sprites for progress bar */
 	CL_Sprite _head, _head_ok;
 	CL_Sprite _foot;
 	CL_Sprite _item, _item_ok;
 
-	/**
-	* Progress bar coords
-	*/
+	/** Progress bar coords */
 	int _left, _head_top, _foot_top;
 
 public:
 
-	/**
-	* Constructor
-	*/
+	/** Constructor	*/
 	ProgressBar();
 
-	/**
-	* Destructor
-	*/
+	/** Destructor */
 	~ProgressBar();
 
-	/**
-	* Loading GFX
-	*/
-	void load_gfx(CL_GraphicContext & gc, std::string skin);
+	/** Loading GFX	*/
+	void load_gfx(CL_GraphicContext& gc, std::string skin);
 
-	/**
-	* Unloading GFX
-	*/
+	/** Unloading GFX */
 	void unload_gfx();
 
-	/**
-	* Drawing the percentage bar
-	*/
-	void draw(CL_GraphicContext & gc, int percentage);
+	/** Drawing the percentage bar */
+	void draw(CL_GraphicContext& gc, int percentage);
 
 };
 

@@ -57,7 +57,7 @@ AudioManager::~AudioManager()
 void AudioManager::init()
 {
 	// Getting resources
-	Preferences *p_pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 
 	_p_setup_sound = my_new CL_SetupSound();
 	_p_output = my_new CL_SoundOutput(44100);

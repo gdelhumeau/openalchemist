@@ -54,7 +54,7 @@ void CommonState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void CommonState::load_gfx(CL_GraphicContext & gc, std::string skin)
+void CommonState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
@@ -76,7 +76,7 @@ void CommonState::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void CommonState::draw(CL_GraphicContext & gc)
+void CommonState::draw(CL_GraphicContext& gc)
 {
 	_background.draw(gc, 0, 0);
 	if(_enable_framerate_drawing)
@@ -92,7 +92,7 @@ void CommonState::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Update                                                               */
 /************************************************************************/
-void CommonState::update(CL_GraphicContext & gc)
+void CommonState::update(CL_GraphicContext& gc)
 {
 
 }
@@ -100,9 +100,9 @@ void CommonState::update(CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void CommonState::events(Window & window)
+void CommonState::events(Window& window)
 {
-	CL_InputContext & ic = window.get_ic();
+	CL_InputContext& ic = window.get_ic();
 	if(_p_common_resources->key.framerate.get(ic))
 	{
 		_enable_framerate_drawing = !_enable_framerate_drawing;

@@ -49,7 +49,7 @@ void DualChoiceItem::set_y2(int y)
 /************************************************************************/
 /* Set GFX                                                              */
 /************************************************************************/
-void DualChoiceItem::set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+void DualChoiceItem::set_gfx(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 							 std::string normal_left, std::string selected_left,
 							 std::string normal_right, std::string selected_right)
 {
@@ -70,7 +70,7 @@ void DualChoiceItem::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void DualChoiceItem::draw(CL_GraphicContext &gc)
+void DualChoiceItem::draw(CL_GraphicContext& gc)
 {
 	_selected_sprite_left  .update();
 	_selected_sprite_right .update();

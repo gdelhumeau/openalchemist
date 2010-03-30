@@ -21,115 +21,73 @@ class CombosPainter{
 
 public:
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor	*/
 	CombosPainter();
  
-	/** 
-	* Destructor
-	*/
+	/** Destructor */
 	~CombosPainter();
 
-	/** 
-	* Load gfx
-	*/
-	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	/** Load gfx */
+	void load_gfx(CL_GraphicContext& gc, std::string skin);
 	
-	/** 
-	* Unload GFX
-	*/
+	/** Unload GFX */
 	void unload_gfx();
 
-	/** 
-	* Set the score to desplay
-	*/
+	/** Set the score to desplay */
 	void set_score(int score);
 
-	/** 
-	* Draw the combo score
-	*/
-	void draw(CL_GraphicContext &gc);
+	/** Draw the combo score */
+	void draw(CL_GraphicContext& gc);
 
-	/** 
-	* Update
-	*/
+	/** Update */
 	void update();
 
 private:
 
-	/**
-	* State 
-	*/
+	/** State */
 	enum State{
 		STATE_APPEARING,
 		STATE_DISPLAY,
 		STATE_DISAPPEARING	
 	};
 
-	/** 
-	* Score to draw
-	*/
+	/** Score to draw */
 	int _score;
 
-	/** 
-	* Current state
-	*/
+	/** Current state */
 	State _state;
 
-	/** 
-	* Is the combo painter enabled
-	*/
+	/** Is the combo painter enabled */
 	bool _is_enabled;
 
-	/**
-	* Single text sprite
-	*/
+	/** Single text sprite */
 	CL_Sprite _sprite_single;
 
-	/**
-	* Plural text sprite
-	*/
+	/** Plural text sprite */
 	CL_Sprite _sprite_plural;
 
-	/**
-	* Font
-	*/
+	/** Font */
 	CL_Font _font;
 
-	/**
-	* Coords
-	*/ 
+	/**	Coords */ 
 	int _sprite_x, _sprite_y, _score_x, _score_y;
 
-	/**
-	* Actual coords
-	*/
+	/** Actual coords */
 	float _sprite_current_x, _sprite_current_y, _score_current_x, _score_current_y;
 
-	/** 
-	* Next state time
-	*/
+	/** Next state time	*/
 	unsigned long int _next_time;
 
-	/** 
-	* Font height
-	*/
+	/** Font height	*/
 	int _font_height;
 
-	/** 
-	* Update appearing state
-	*/
+	/** Update appearing state */
 	void _update_appearing();
 
-	/** 
-	* Update display state
-	*/
+	/** Update display state */
 	void _update_display();
 
-	/** 
-	* Update disappearing state
-	*/
+	/** Update disappearing state */
 	void _update_disappearing();
 
 };

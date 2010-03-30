@@ -24,17 +24,17 @@ std::string get_version()
 /************************************************************************/
 /* CL_Integer to int                                                    */
 /************************************************************************/
-int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx)
+int CL_Integer_to_int(const std::string& ressource_name, CL_ResourceManager* p_gfx)
 {    
-	return gfx->get_integer_resource(ressource_name, 0);
+	return p_gfx->get_integer_resource(ressource_name, 0);
 }
 
 /************************************************************************/
 /* CL_Boolean to bool                                                   */
 /************************************************************************/
-int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx)
+int CL_Boolean_to_bool(const std::string& ressource_name, CL_ResourceManager* p_gfx)
 {    
-	return gfx->get_boolean_resource(ressource_name, false);
+	return p_gfx->get_boolean_resource(ressource_name, false);
 }
 
 /************************************************************************/

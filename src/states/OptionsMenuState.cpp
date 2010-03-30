@@ -97,7 +97,7 @@ void OptionsMenuState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void OptionsMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
+void OptionsMenuState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
@@ -314,7 +314,7 @@ void OptionsMenuState::action_performed(int selection, ActionType action_type)
 /************************************************************************/
 void OptionsMenuState::update_child()
 {
-	Preferences *p_pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 	switch(_render_item.get_current_choice())
 	{
 	case RENDER_CHOICE_SOFTWARE:
@@ -413,7 +413,7 @@ void OptionsMenuState::update_child()
 /************************************************************************/
 void OptionsMenuState::toggle_screen()
 {
-	Preferences *p_pref = pref_get_instance();		
+	Preferences* p_pref = pref_get_instance();		
 	if(p_pref -> fullscreen)
 	{
 		_fullscreen_item.set_current_choice(ITEM_YES);

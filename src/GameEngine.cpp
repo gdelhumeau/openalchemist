@@ -41,8 +41,8 @@ GameEngine::~GameEngine()
 /************************************************************************/
 void GameEngine::init()
 {
-	Preferences *pref = pref_get_instance();
-	switch(pref->render_target)
+	Preferences* p_pref = pref_get_instance();
+	switch(p_pref->render_target)
 	{
 #ifdef WITH_DX_9
 	case Preferences::DX_9:
@@ -65,7 +65,7 @@ void GameEngine::init()
 
 	_running = true;
 
-	CommonResources *p_resources = common_resources_get_instance();	
+	CommonResources* p_resources = common_resources_get_instance();	
 
 	p_resources -> init(this);
 	_window.manage(*this);
@@ -80,9 +80,9 @@ void GameEngine::init()
 	_title_state.init();
 	_quitmenu_state.init();
 
-	set_skin(pref -> skin);
+	set_skin(p_pref -> skin);
 
-	_framerate_counter.set_fps_limit(pref -> maxfps);
+	_framerate_counter.set_fps_limit(p_pref -> maxfps);
 }
 
 /************************************************************************/
@@ -110,7 +110,7 @@ void GameEngine::run()
 	{
 		set_state_title();
 
-		CommonResources *p_resources = common_resources_get_instance();
+		CommonResources* p_resources = common_resources_get_instance();
 		p_resources -> player1.new_game();
 
 		while (_running)
@@ -266,7 +266,7 @@ void GameEngine::stop_current_state()
 /************************************************************************/
 void GameEngine::toggle_screen()
 {
-	Preferences *p_pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 	p_pref -> fullscreen = !p_pref -> fullscreen;
 	_window.manage(*this);
 	_optionsmenu_state.toggle_screen();
@@ -280,8 +280,8 @@ void GameEngine::toggle_screen()
 void GameEngine::toggle_colorblind()
 {
 	// Getting globals
-	Preferences *p_pref = pref_get_instance();
-	CommonResources *p_common_resources = common_resources_get_instance();
+	Preferences* p_pref = pref_get_instance();
+	CommonResources* p_common_resources = common_resources_get_instance();
 	
 	// Changing preferences
 	p_pref -> colorblind = !p_pref -> colorblind;
@@ -314,7 +314,7 @@ void GameEngine::toggle_colorblind()
 /************************************************************************/
 void GameEngine::refresh_framerate_limit()
 {
-	Preferences *p_pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 	_framerate_counter.set_fps_limit(p_pref -> maxfps);
 	p_pref->write();
 }
@@ -332,85 +332,85 @@ int GameEngine::get_fps()
 /************************************************************************/
 void GameEngine::set_skin(std::string skin)
 {
-	CommonResources *p_resources = common_resources_get_instance();
+	CommonResources* p_resources = common_resources_get_instance();
 
 	_p_loading_screen = my_new LoadingScreen(_window);
 	_p_loading_screen -> init();
 	_p_loading_screen -> set_progression(0.0f);
 
-	Preferences *pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 
-	std::string old_skin = pref -> skin;
+	std::string old_skin = p_pref -> skin;
 
 	CL_GraphicContext gc = _window.get_gc();
 	try
 	{
-		pref -> skin = skin;
+		p_pref -> skin = skin;
 
 		if (_running)
 		{
-			p_resources -> load_gfx(gc, pref -> skin);
+			p_resources -> load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(1.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_title_state.load_gfx(gc, pref -> skin);
+			_title_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(2.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_common_state.load_gfx(gc, pref -> skin);
+			_common_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(3.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_ingame_state.load_gfx(gc, pref -> skin);
+			_ingame_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(4.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_gameover_state.load_gfx(gc, pref -> skin);
+			_gameover_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(5.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_pausemenu_state.load_gfx(gc, pref -> skin);
+			_pausemenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(6.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_skinsmenu_state.load_gfx(gc, pref -> skin);
+			_skinsmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(7.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_optionsmenu_state.load_gfx(gc, pref -> skin);
+			_optionsmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(8.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_title_state.load_gfx(gc, pref -> skin);
+			_title_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(9.0f / 10.0f);
 		}
 
 		if (_running)
 		{
-			_quitmenu_state.load_gfx(gc, pref -> skin);
+			_quitmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(10.0f / 10.0f);
 		}
 
-		pref -> write();
+		p_pref -> write();
 
 	}
-	catch (CL_Exception & err)
+	catch (CL_Exception& err)
 	{
 		CL_ConsoleWindow console("OpenAlchemist Console", 80, 300);
 			

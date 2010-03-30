@@ -35,109 +35,67 @@ class CommonResources{
 
 public:
 
-	/** 
-	* GameEngine instance
-	*/
-	GameEngine *p_engine;
+	/** GameEngine instance	*/
+	GameEngine* p_engine;
 
-	/** 
-	* Main font
-	**/
+	/** Main font */
 	CL_Font main_font;
 
-	/** 
-	* Graphic context
-	*/
-	CL_GraphicContext * p_gc;
+	/** Graphic context */
+	CL_GraphicContext* p_gc;
 
-	/** 
-	* Window instance
-	*/
-	CL_DisplayWindow * p_window;
+	/** Window instance	*/
+	CL_DisplayWindow* p_window;
 
-	/** 
-	* Human player
-	*/
+	/** Human player */
 	HumanPlayer player1;
 
-	/** 
-	* Common player
-	*/
-	Player *p_current_player;
+	/** Common player */
+	Player* p_current_player;
 
-	/** 
-	* Front layer
-	*/
+	/** Front layer */
 	FrontLayer front_layer;
 
-	/** 
-	* Keys most used
-	*/
+	/** Keys most used */
 	Keys key;
 
-	/** 
-	* Current skin
-	*/
+	/** Current skin */
 	std::string skin;
 
-	/** 
-	* Pieces dimension
-	*/
+	/** Pieces dimension */
 	int pieces_width, pieces_height;
 
-	/** 
-	* Time elapsed between current frame and the last one
-	*/
+	/** Time elapsed between current frame and the last one	*/
 	float delta_time;
 
-	/** 
-	* Framerate (in frame / sec)
-	*/
+	/** Framerate (in frame / sec) */
 	int fps;
 
-	/** 
-	* Highscore
-	*/
+	/** Highscore */
 	unsigned int highscore;
 
-	/** 
-	* Previous highscore
-	*/
+	/** Previous highscore	*/
 	unsigned int old_highscore;
 
-	/** 
-	* Constructor
-	*/
+	/** Constructor */
 	CommonResources();
 
-	/** 
-	* Destructor
-	*/
+	/** Destructor */
 	~CommonResources();
 	
-	/** 
-	* Init resources
-	*/
-	void init(GameEngine *p_engine);
+	/** Init resources */
+	void init(GameEngine* p_engine);
 
-	/** 
-	* Load GFX
-	*/
-	void load_gfx(CL_GraphicContext &gc, std::string skin);
+	/** Load GFX */
+	void load_gfx(CL_GraphicContext& gc, std::string skin);
 
-	/** 
-	* Unload GFX
-	*/
+	/** Unload GFX */
 	void unload_gfx();
 
-	/** 
-	* Read scores
-	*/
+	/** Read scores	*/
 	void read_scores();
 
-	/** 
-	* Save scores
-	*/
+	/** Save scores	*/
 	void save_scores();
 
 };

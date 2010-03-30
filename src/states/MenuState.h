@@ -43,15 +43,15 @@ public:
 
 	virtual void term() = 0;
 
-	virtual void load_gfx(CL_GraphicContext &gc, std::string skin) = 0;
+	virtual void load_gfx(CL_GraphicContext& gc, std::string skin) = 0;
 
 	virtual void unload_gfx() = 0;
 
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 
-	virtual void update(CL_GraphicContext &gc);
+	virtual void update(CL_GraphicContext& gc);
 
-	virtual void events(Window & window);
+	virtual void events(Window& window);
 
 	virtual bool front_layer_behind();
 	
@@ -97,7 +97,7 @@ protected:
 	bool _quit_enabled;
 
 	/** Set background sprite */
-	void _set_background_sprite(CL_Sprite & background);
+	void _set_background_sprite(CL_Sprite& background);
 
 	/** Make menu appear */
 	void _appear();
@@ -109,7 +109,7 @@ protected:
 	void _start_disappear();
 
 	/** Mouse events */
-	void _mouse_events(Window & window);
+	void _mouse_events(Window& window);
 
 };
 

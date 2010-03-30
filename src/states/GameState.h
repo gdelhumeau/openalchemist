@@ -25,62 +25,40 @@ class GameState{
 
 public:
 
- /**
-   * Constructor
-   */
+  /** Constructor */
   GameState();
 
-  /**
-   * Destructor
-   */
+  /** Destructor */
   virtual ~GameState();
 
-  /**
-   * Initializing the state
-   */
+  /** Initializing the state */
   virtual void init() = 0;
 
-  /**
-   * Deleting the initialized values
-   */
+  /** Deleting the initialized values */
   virtual void term() = 0;
 
-  /**
-   * Loading GFX
-   */
-  virtual void load_gfx(CL_GraphicContext & gc, std::string skin) = 0;
+  /** Loading GFX */
+  virtual void load_gfx(CL_GraphicContext& gc, std::string skin) = 0;
 
-  /**
-   * Unloading GFX
-   */
+  /** Unloading GFX */
   virtual void unload_gfx() = 0;
 
-  /**
-   * Drawing the state
-   */
-  virtual void draw(CL_GraphicContext & gc) = 0;
+  /** Drawing the state */
+  virtual void draw(CL_GraphicContext& gc) = 0;
 
-  /**
-   * Updating the state
-   */
-  virtual void update(CL_GraphicContext & gc) = 0;
+  /** Updating the state */
+  virtual void update(CL_GraphicContext& gc) = 0;
 
-  /**
-   * Looking up key events
-   */
-  virtual void events(Window & window) = 0;
+  /** Looking up key events */
+  virtual void events(Window& window) = 0;
 
-  /**
-  * @return true if the front layer should be displayed behind this state
-  */
+  /** @return true if the front layer should be displayed behind this state */
   virtual bool front_layer_behind() = 0;
 
 protected:
 
-	/** 
-	* Common resources instance 
-	*/
-	CommonResources *_p_common_resources;
+	/** Common resources instance */
+	CommonResources* _p_common_resources;
 
 };
 

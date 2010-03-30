@@ -49,9 +49,9 @@ CommonResources::~CommonResources()
 /************************************************************************/
 /* Init                                                                 */
 /************************************************************************/
-void CommonResources::init(GameEngine *engine)
+void CommonResources::init(GameEngine* p_engine)
 {
-	this -> p_engine = engine;
+	this -> p_engine = p_engine;
 	read_scores();
 
 }
@@ -59,7 +59,7 @@ void CommonResources::init(GameEngine *engine)
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void CommonResources::load_gfx(CL_GraphicContext &gc, std::string skin)
+void CommonResources::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	this -> skin = skin;
 

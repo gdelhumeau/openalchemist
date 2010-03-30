@@ -73,10 +73,10 @@ void Board::apply_skin(CL_Sprite* pieces_normal,
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void Board::draw(CL_GraphicContext & gc)
+void Board::draw(CL_GraphicContext& gc)
 {
 	// Getting resources
-	static CommonResources *p_resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
 	{
@@ -98,10 +98,10 @@ void Board::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Add pieces                                                           */
 /************************************************************************/
-void Board::add_pieces(Piece* piece1, Piece* piece2)
+void Board::add_pieces(Piece* p_piece1, Piece* p_piece2)
 {
 	// Getting resources
-	static CommonResources *p_resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	// Saving old score
 	undo_body_score = body_score;
@@ -124,21 +124,22 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		undo_unlocked_pieces = unlocked_pieces;
 		undo_visible_pieces = visible_pieces;
 
-		Piece *piece_on_top, *piece_on_bottom;
-		if (piece1 -> get_y() <= piece2 -> get_y())
+		Piece* p_piece_on_top;
+		Piece* p_piece_on_bottom;
+		if (p_piece1 -> get_y() <= p_piece2 -> get_y())
 		{
-			piece_on_top = piece1;
-			piece_on_bottom = piece2;
+			p_piece_on_top = p_piece1;
+			p_piece_on_bottom = p_piece2;
 		}
 		else
 		{
-			piece_on_top = piece2;
-			piece_on_bottom = piece1;
+			p_piece_on_top = p_piece2;
+			p_piece_on_bottom = p_piece1;
 		}
 
 
-		int piece_top_x = (int) ((int) piece_on_top->get_x() - game_left) / (p_resources->pieces_width);
-		int piece_bottom_x = (int) ((int) piece_on_bottom->get_x() - game_left) / (p_resources->pieces_width);
+		int piece_top_x = (int) ((int) p_piece_on_top->get_x() - game_left) / (p_resources->pieces_width);
+		int piece_bottom_x = (int) ((int) p_piece_on_bottom->get_x() - game_left) / (p_resources->pieces_width);
 
 		int y_bottom = -1;
 		while (y_bottom < NUMBER_OF_LINES - 1 && !_p_board[piece_bottom_x][y_bottom + 1])
@@ -153,7 +154,7 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		}
 		else
 		{
-			_p_board[piece_bottom_x][y_bottom] = piece_on_bottom;
+			_p_board[piece_bottom_x][y_bottom] = p_piece_on_bottom;
 		}
 
 
@@ -171,17 +172,17 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 		}
 		else
 		{
-			_p_board[piece_top_x][y_top] = piece_on_top;
+			_p_board[piece_top_x][y_top] = p_piece_on_top;
 		}
 
-		piece_on_bottom -> start_fall(piece_bottom_x * p_resources->pieces_width + game_left,
+		p_piece_on_bottom -> start_fall(piece_bottom_x * p_resources->pieces_width + game_left,
 			game_top + (y_bottom - 2) * p_resources->pieces_height);
-		piece_on_top -> start_fall(piece_top_x * p_resources->pieces_width + game_left,
+		p_piece_on_top -> start_fall(piece_top_x * p_resources->pieces_width + game_left,
 			game_top + (y_top - 2) * p_resources->pieces_height);
 
 		_falling_list.clear();
-		_falling_list.push_back(piece_on_top);
-		_falling_list.push_back(piece_on_bottom);
+		_falling_list.push_back(p_piece_on_top);
+		_falling_list.push_back(p_piece_on_bottom);
 
 }
 
@@ -191,14 +192,14 @@ void Board::add_pieces(Piece* piece1, Piece* piece2)
 bool Board::fall_and_create()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	bool all_pieces_are_placed = true;
 	for (unsigned int i = 0; i < _falling_list.size(); ++i)
 	{
 		if (_falling_list[i])
 		{
-			if (!_falling_list[i] -> fall(resources -> delta_time))
+			if (!_falling_list[i] -> fall(p_resources -> delta_time))
 			{
 				all_pieces_are_placed = false;
 			}
@@ -209,7 +210,7 @@ bool Board::fall_and_create()
 	std::list<Piece*>::iterator it = _appearing_list.begin();
 	while (it != _appearing_list.end())
 	{
-		Piece *p = (Piece*) * it;
+		Piece* p = (Piece*) * it;
 		if (p -> appear())
 		{
 			it = _appearing_list.erase(it);
@@ -313,7 +314,7 @@ void Board::_detect_pieces_to_destroy_from(int i,
 /************************************************************************/
 /* Pieces to destroys are detected                                      */
 /************************************************************************/
-void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
+void Board::_pieces_to_destroy_detected(std::vector<Coords>& detected_pieces)
 {
 
 	Coords c = detected_pieces[0];
@@ -341,7 +342,7 @@ void Board::_pieces_to_destroy_detected(std::vector<Coords> &detected_pieces)
 /************************************************************************/
 /* Create new piece                                                     */
 /************************************************************************/
-void Board::_create_new_piece(std::vector<Coords> &detected_pieces)
+void Board::_create_new_piece(std::vector<Coords>& detected_pieces)
 {
 	// Determining the new piece coords
 	Coords new_piece(NUMBER_OF_COLS + 1, -1);
@@ -367,12 +368,12 @@ void Board::_create_new_piece(std::vector<Coords> &detected_pieces)
 /************************************************************************/
 /* Choose new piece coord                                               */
 /************************************************************************/
-void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords> &detected_pieces)
+void Board::_choose_new_piece_coords(Coords& new_piece, std::vector<Coords>& detected_pieces)
 {
 	std::vector<Coords>::iterator it = detected_pieces.begin();
 	while (it != detected_pieces.end())
 	{
-		Coords c = (Coords) * it;
+		Coords c = (Coords) *it;
 		_p_board[c.x][c.y]->start_disappear();
 		_list_to_destroy.insert(_list_to_destroy.end(), c);
 
@@ -398,16 +399,16 @@ void Board::_choose_new_piece_coords(Coords &new_piece, std::vector<Coords> &det
 /************************************************************************/
 /* Unlock piece                                                         */
 /************************************************************************/
-void Board::_unlock_piece(Coords &new_piece)
+void Board::_unlock_piece(Coords& new_piece)
 {
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	if (new_piece.piece_number > visible_pieces - 1)
 	{
 		++visible_pieces;
 
 		// now we have unlocked this element with this skin		
-		resources -> p_engine -> set_skin_element(visible_pieces);
+		p_resources -> p_engine -> set_skin_element(visible_pieces);
 	}
 	if (new_piece.piece_number > unlocked_pieces)
 	{
@@ -446,13 +447,13 @@ bool Board::destroy()
 /************************************************************************/
 /* Create new pieces                                                    */
 /************************************************************************/
-void Board::create_new_pieces(CL_Sprite *pieces_normal,
-							  CL_Sprite *pieces_appearing,
-							  CL_Sprite *pieces_disappearing,
-							  CL_Sprite *pieces_mini)
+void Board::create_new_pieces(CL_Sprite* pieces_normal,
+							  CL_Sprite* pieces_appearing,
+							  CL_Sprite* pieces_disappearing,
+							  CL_Sprite* pieces_mini)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	_list_to_destroy.clear();
 	_appearing_list.clear();
@@ -467,9 +468,9 @@ void Board::create_new_pieces(CL_Sprite *pieces_normal,
 		{
 
 			int score = c.piece_number;
-			Piece *p = my_new Piece(score);
-			p -> set_position(c.x * resources->pieces_width + game_left,
-				game_top + (c.y - 2) * resources->pieces_height);
+			Piece* p = my_new Piece(score);
+			p -> set_position(c.x * p_resources->pieces_width + game_left,
+				game_top + (c.y - 2) * p_resources->pieces_height);
 
 			p -> set_sprites(&pieces_normal[score], &pieces_appearing[score],
 				&pieces_disappearing[score], &pieces_mini[score]);
@@ -491,7 +492,7 @@ void Board::create_new_pieces(CL_Sprite *pieces_normal,
 void Board::detect_pieces_to_fall()
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	_falling_list.clear();
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
@@ -505,7 +506,7 @@ void Board::detect_pieces_to_fall()
 					_p_board[i][j + k] = _p_board[i][j + k - 1];
 					_p_board[i][j + k - 1] = NULL;
 					_p_board[i][j + k] -> start_fall((int) (_p_board[i][j + k]->get_x()),
-						(int) (game_top + (j + k - 2) * resources->pieces_height));
+						(int) (game_top + (j + k - 2) * p_resources->pieces_height));
 					k++;
 				}
 				if (k > 1)
@@ -542,7 +543,7 @@ bool Board::is_game_over()
 void Board::calc_score()
 {
 	// Getting resources
-	static CommonResources *p_resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
 	body_score = 0;
 	for (int i = 0; i < NUMBER_OF_COLS; ++i)
@@ -576,18 +577,18 @@ void Board::calc_score()
 /* Undo                                                                 */
 /************************************************************************/
 void Board::undo(
-				 CL_Sprite *pieces_normal,
+				 CL_Sprite* pieces_normal,
 				 CL_Sprite* pieces_appearing,
 				 CL_Sprite* pieces_disappearing,
 				 CL_Sprite* pieces_mini)
 {
 	// Getting resources
-	static CommonResources *resources = common_resources_get_instance();
+	static CommonResources* p_resources = common_resources_get_instance();
 
-	if (body_score + bonus_score == resources -> highscore)
+	if (body_score + bonus_score == p_resources -> highscore)
 	{
-		resources -> highscore = resources -> old_highscore;
-		resources -> save_scores();
+		p_resources -> highscore = p_resources -> old_highscore;
+		p_resources -> save_scores();
 	}
 
 	// Delete the pieces in the board and replace by my_new ones
@@ -605,7 +606,7 @@ void Board::undo(
 					&pieces_appearing[_undo_board[i][j]],
 					&pieces_disappearing[_undo_board[i][j]],
 					&pieces_mini[_undo_board[i][j]]);
-				_p_board[i][j] -> set_position(i * resources->pieces_width + game_left, game_top + (j - 2) * resources->pieces_height);
+				_p_board[i][j] -> set_position(i * p_resources->pieces_width + game_left, game_top + (j - 2) * p_resources->pieces_height);
 			}
 		}
 	}

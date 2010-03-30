@@ -54,7 +54,7 @@ inline std::string to_string( const T & Value )
 }
 
 /** Format number like 000.000.000 */
-inline std::string format_number(const std::string &string)
+inline std::string format_number(const std::string& string)
 {
 	int length = (int)string.length();
 	std::string string_modified = "";
@@ -91,9 +91,9 @@ std::string get_sounds_path();
 std::string get_path_separator();
 
 /** Convert a CL_Integer to a int */
-int CL_Integer_to_int(const std::string &ressource_name, CL_ResourceManager *gfx);
+int CL_Integer_to_int(const std::string& ressource_name, CL_ResourceManager* p_gfx);
 
 /** Convert a CL_Boolean to a boolean */
-int CL_Boolean_to_bool(const std::string &ressource_name, CL_ResourceManager *gfx);
+int CL_Boolean_to_bool(const std::string& ressource_name, CL_ResourceManager* p_gfx);
 
 #endif

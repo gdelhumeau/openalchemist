@@ -15,7 +15,7 @@
 /************************************************************************/
 /* Constructor                                                          */
 /************************************************************************/
-Skin::Skin(std::string filename, CL_GraphicContext & gc)
+Skin::Skin(std::string filename, CL_GraphicContext& gc)
 {
 	_filename = filename;
 	_element = 3;

@@ -52,7 +52,7 @@ void GameOverState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void GameOverState::load_gfx(CL_GraphicContext & gc, std::string skin)
+void GameOverState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 
@@ -95,7 +95,7 @@ void GameOverState::unload_gfx()
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void GameOverState::draw(CL_GraphicContext & gc)
+void GameOverState::draw(CL_GraphicContext& gc)
 {
 	MenuState::draw(gc);
 
@@ -132,11 +132,11 @@ void GameOverState::draw(CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void GameOverState::events(Window & window)
+void GameOverState::events(Window& window)
 {
 	MenuState::events(window);
 		
-	CL_InputContext & ic = window.get_ic();
+	CL_InputContext& ic = window.get_ic();
 
 	if(_p_common_resources -> key.retry.get(ic))
 	{

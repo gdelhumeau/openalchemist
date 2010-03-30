@@ -43,23 +43,23 @@ public:
 	}
 
 	/** Method to set the sprites */
-	void set_sprites(CL_Sprite *normal, CL_Sprite *appearing, CL_Sprite *disappearing, CL_Sprite *mini)
+	void set_sprites(CL_Sprite* p_normal, CL_Sprite* p_appearing, CL_Sprite* p_disappearing, CL_Sprite* p_mini)
 	{
-		_p_normal_sprite = normal;
-		_p_appearing_sprite = appearing;
-		_p_disappearing_sprite = disappearing;
-		_p_mini_sprite = mini;
+		_p_normal_sprite = p_normal;
+		_p_appearing_sprite = p_appearing;
+		_p_disappearing_sprite = p_disappearing;
+		_p_mini_sprite = p_mini;
 		_p_current_sprite = _p_normal_sprite;
 	}
 
 	/** Methods to display - be carefull, if current_prite is not initialized */
-	void draw(CL_GraphicContext &gc)
+	void draw(CL_GraphicContext& gc)
 	{
 		_p_current_sprite -> draw(gc, _x, _y);
 	}
 
 	/** Draw mini version of the piece */
-	void draw_mini(CL_GraphicContext &gc)
+	void draw_mini(CL_GraphicContext& gc)
 	{
 		_p_mini_sprite -> draw(gc, _x, _y); 
 	}
@@ -224,19 +224,19 @@ public:
 private:
 
 	/** Normal sprite */
-	CL_Sprite *_p_normal_sprite;
+	CL_Sprite* _p_normal_sprite;
 
 	/** Appearing sprite */
-	CL_Sprite *_p_appearing_sprite;
+	CL_Sprite* _p_appearing_sprite;
 
 	/** Disappearing sprite */
-	CL_Sprite *_p_disappearing_sprite;
+	CL_Sprite* _p_disappearing_sprite;
 
 	/** Current sprite */
-	CL_Sprite *_p_current_sprite;
+	CL_Sprite* _p_current_sprite;
 
 	/** Mini sprite */
-	CL_Sprite *_p_mini_sprite;
+	CL_Sprite* _p_mini_sprite;
 
 	/** Pieces values */
 	static const int _score[12];

@@ -28,10 +28,8 @@ class HumanPlayer : public Player{
 
 public:
 
-	/**
-	* Checking key events
-	*/
-	void events(CL_InputContext & ic);
+	/** Checking key events	*/
+	void events(CL_InputContext& ic);
 
 	virtual bool is_human(){ return true; }
 

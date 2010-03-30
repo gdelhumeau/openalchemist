@@ -39,7 +39,7 @@ TableChoicesItem::TableChoicesItem()
 /************************************************************************/
 /* Add choice                                                           */
 /************************************************************************/
-void TableChoicesItem::add_choice(CL_Image * p_image)	
+void TableChoicesItem::add_choice(CL_Image* p_image)	
 {
 	_choices.push_back(p_image);
 	_choices_enabled.push_back(true);
@@ -48,8 +48,8 @@ void TableChoicesItem::add_choice(CL_Image * p_image)
 /************************************************************************/
 /* Set cursor                                                           */
 /************************************************************************/
-void TableChoicesItem::set_cursor(CL_GraphicContext & gc,
-				CL_ResourceManager & gfx,
+void TableChoicesItem::set_cursor(CL_GraphicContext& gc,
+				CL_ResourceManager& gfx,
 				std::string name)
 {
 	_cursor = CL_Sprite(gc, name, &gfx);
@@ -58,8 +58,8 @@ void TableChoicesItem::set_cursor(CL_GraphicContext & gc,
 /************************************************************************/
 /* Set arrow up                                                         */
 /************************************************************************/
-void TableChoicesItem::set_arrow_up(CL_GraphicContext & gc,
-									CL_ResourceManager & gfx,
+void TableChoicesItem::set_arrow_up(CL_GraphicContext& gc,
+									CL_ResourceManager& gfx,
 									std::string name)
 {
 	_arrow_up = CL_Sprite(gc, name, &gfx);
@@ -68,8 +68,8 @@ void TableChoicesItem::set_arrow_up(CL_GraphicContext & gc,
 /************************************************************************/
 /* Set arrow down                                                       */
 /************************************************************************/
-void TableChoicesItem::set_arrow_down(CL_GraphicContext & gc,
-									  CL_ResourceManager & gfx,
+void TableChoicesItem::set_arrow_down(CL_GraphicContext& gc,
+									  CL_ResourceManager& gfx,
 									  std::string name)
 {
 	_arrow_down = CL_Sprite(gc, name, &gfx);
@@ -78,8 +78,8 @@ void TableChoicesItem::set_arrow_down(CL_GraphicContext & gc,
 /************************************************************************/
 /* Set disabled choice                                                  */
 /************************************************************************/
-void TableChoicesItem::set_disabled_choice(CL_GraphicContext & gc, 
-										   CL_ResourceManager & gfx,
+void TableChoicesItem::set_disabled_choice(CL_GraphicContext& gc, 
+										   CL_ResourceManager& gfx,
 										   std::string name)
 {
 	_disabled_choice = CL_Image(gc, name, &gfx);
@@ -99,7 +99,7 @@ void TableChoicesItem::set_choice_enabled(unsigned int choice_index, bool enable
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void TableChoicesItem::draw(CL_GraphicContext &gc)
+void TableChoicesItem::draw(CL_GraphicContext& gc)
 {
 	_disabled_choice.set_alpha(_alpha);
 	for(unsigned int i=0; i<_choices.size(); ++i)

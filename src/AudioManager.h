@@ -60,13 +60,13 @@ public:
 private:
 
 	/** Clan sound */
-	CL_SetupSound * _p_setup_sound;
+	CL_SetupSound* _p_setup_sound;
 
 	/** Sound outpur */
-	CL_SoundOutput * _p_output;
+	CL_SoundOutput* _p_output;
 
 	/** Clan vorbis */
-	CL_SetupVorbis * _p_setup_vorbis;
+	CL_SetupVorbis* _p_setup_vorbis;
 
 	/** Sound buffer */
 	CL_SoundBuffer_Session _playback;

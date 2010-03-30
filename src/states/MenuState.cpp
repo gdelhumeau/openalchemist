@@ -51,7 +51,7 @@ bool MenuState::front_layer_behind ()
 /************************************************************************/
 /* Set background sprite                                                */
 /************************************************************************/
-void MenuState::_set_background_sprite (CL_Sprite & background)
+void MenuState::_set_background_sprite (CL_Sprite& background)
 {
 	this -> _background = background;
 }
@@ -59,7 +59,7 @@ void MenuState::_set_background_sprite (CL_Sprite & background)
 /************************************************************************/
 /* Draw                                                                 */
 /************************************************************************/
-void MenuState::draw (CL_GraphicContext & gc)
+void MenuState::draw (CL_GraphicContext& gc)
 {
 	// Displaying background
 	int x = 400 - _background.get_width () / 2;
@@ -80,7 +80,7 @@ void MenuState::draw (CL_GraphicContext & gc)
 /************************************************************************/
 /* Update                                                               */
 /************************************************************************/
-void MenuState::update (CL_GraphicContext & gc)
+void MenuState::update (CL_GraphicContext& gc)
 {
 	switch (_state)
 	{
@@ -97,7 +97,7 @@ void MenuState::update (CL_GraphicContext & gc)
 /************************************************************************/
 /* Events                                                               */
 /************************************************************************/
-void MenuState::events (Window & window)
+void MenuState::events (Window& window)
 {
 	CL_InputContext & ic = window.get_ic();
 
@@ -197,7 +197,7 @@ void MenuState::events (Window & window)
 /************************************************************************/
 /* Mouse events                                                         */
 /************************************************************************/
-void MenuState::_mouse_events(Window & window)
+void MenuState::_mouse_events(Window& window)
 {
 	CL_InputContext & ic = window.get_ic();
 	if(ic.get_mouse_count() > 0)

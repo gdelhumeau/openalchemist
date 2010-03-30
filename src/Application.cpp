@@ -41,11 +41,11 @@ void Application::_term()
 /************************************************************************/
 /* Main function                                                        */
 /************************************************************************/
-int Application::main(const std::vector<CL_String> &args)
+int Application::main(const std::vector<CL_String>& args)
 {
 	_init();
-	bool run_game = _check_args(args);
-	if(run_game)
+	bool b_run_game = _check_args(args);
+	if(b_run_game)
 	{
 		try
 		{
@@ -87,29 +87,29 @@ int Application::main(const std::vector<CL_String> &args)
 /************************************************************************/
 /* Check args                                                           */
 /************************************************************************/
-bool Application::_check_args(const std::vector<CL_String> &args)
+bool Application::_check_args(const std::vector<CL_String>& args)
 {
 	bool run_game = true;
-	Preferences *pref = pref_get_instance();
+	Preferences* p_pref = pref_get_instance();
 
 	// Checking parameters
 	for(unsigned int i = 0; i < args.size(); ++i)
 	{
 		// Render target
-		if((args[i] =="--software") && pref->render_target != Preferences::SOFTWARE)
+		if((args[i] =="--software") && p_pref->render_target != Preferences::SOFTWARE)
 		{
-			pref -> render_target = Preferences::SOFTWARE;
-			pref -> write();
+			p_pref -> render_target = Preferences::SOFTWARE;
+			p_pref -> write();
 		}
-		if((args[i] =="--opengl" || args[i] =="--opengl1") && pref->render_target != Preferences::OPENGL_1)
+		if((args[i] =="--opengl" || args[i] =="--opengl1") && p_pref->render_target != Preferences::OPENGL_1)
 		{
-			pref -> render_target = Preferences::OPENGL_1;
-			pref -> write();
+			p_pref -> render_target = Preferences::OPENGL_1;
+			p_pref -> write();
 		}
-		if((args[i] =="--opengl2") && pref->render_target != Preferences::OPENGL_2)
+		if((args[i] =="--opengl2") && p_pref->render_target != Preferences::OPENGL_2)
 		{
-			pref -> render_target = Preferences::OPENGL_2;
-			pref -> write();
+			p_pref -> render_target = Preferences::OPENGL_2;
+			p_pref -> write();
 		}
 
 		// Help
@@ -132,7 +132,7 @@ bool Application::_check_args(const std::vector<CL_String> &args)
 			int maxfps = CL_StringHelp::text_to_int(args[i+1]);
 			if(maxfps)
 			{
-				pref -> maxfps = maxfps;
+				p_pref -> maxfps = maxfps;
 			}
 			else
 			{
@@ -145,14 +145,14 @@ bool Application::_check_args(const std::vector<CL_String> &args)
 		// Colorblind mode
 		if((args[i] =="--cb"))
 		{
-			pref -> colorblind = true;
-			pref -> write();
+			p_pref -> colorblind = true;
+			p_pref -> write();
 
 		}
 		if((args[i] =="--nocb"))
 		{
-			pref -> colorblind = false;
-			pref -> write();
+			p_pref -> colorblind = false;
+			p_pref -> write();
 
 		}
 

@@ -50,7 +50,7 @@ void QuitMenuState::term()
 /************************************************************************/
 /* Load GFX                                                             */
 /************************************************************************/
-void QuitMenuState::load_gfx(CL_GraphicContext &gc, std::string skin)
+void QuitMenuState::load_gfx(CL_GraphicContext& gc, std::string skin)
 {
 	unload_gfx();
 

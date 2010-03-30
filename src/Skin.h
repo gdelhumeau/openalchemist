@@ -20,13 +20,13 @@ class Skin{
 public:
 
 	/** Constructor	*/
-	Skin(std::string filename, CL_GraphicContext & gc);
+	Skin(std::string filename, CL_GraphicContext& gc);
 
 	/** Get filename */
 	inline std::string get_filename() const { return _filename; }
 
 	/** Get logo */
-	inline CL_Image & get_logo() { return _logo; }
+	inline CL_Image& get_logo() { return _logo; }
 
 	/** Get unlocked elements */
 	inline unsigned int get_unlocked_elements() const { return _element; }

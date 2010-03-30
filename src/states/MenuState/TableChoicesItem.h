@@ -27,9 +27,9 @@ public:
 
 	TableChoicesItem();
 
-	inline void set_parent(ITableChoicesItemParent * p_parent){ _p_parent = p_parent; }
+	inline void set_parent(ITableChoicesItemParent* p_parent){ _p_parent = p_parent; }
 
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 
 	virtual void action_performed(ActionType action_type);
 
@@ -40,25 +40,25 @@ public:
 	virtual bool is_inside(int x, int y);
 
 	/** Add a choice */
-	void add_choice(CL_Image * p_image);
+	void add_choice(CL_Image* p_image);
 
 	/** Set choice enabled */
 	void set_choice_enabled(unsigned int choice_index, bool enable);
 
 	/** Set disabled choice */
-	void set_disabled_choice(CL_GraphicContext & gc, CL_ResourceManager & gfx,
+	void set_disabled_choice(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string name);
 
 	/** Set cursor */
-	void set_cursor(CL_GraphicContext & gc,	CL_ResourceManager & gfx,
+	void set_cursor(CL_GraphicContext& gc,	CL_ResourceManager& gfx,
 		std::string name);
 
 	/** Set up arrow */
-	void set_arrow_up(CL_GraphicContext & gc, CL_ResourceManager & gfx,
+	void set_arrow_up(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string name);
 
 	/** Set down arrow */
-	void set_arrow_down(CL_GraphicContext & gc, CL_ResourceManager & gfx,
+	void set_arrow_down(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string name);
 
 	/** Set fields */
@@ -79,7 +79,7 @@ public:
 
 private:
 
-	ITableChoicesItemParent * _p_parent;
+	ITableChoicesItemParent* _p_parent;
 
 	std::vector<CL_Image*> _choices;
 

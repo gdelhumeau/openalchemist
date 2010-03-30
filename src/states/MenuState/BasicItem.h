@@ -30,13 +30,13 @@ public:
 	~BasicItem();
 
 	/** Set item gfx */
-	void set_gfx(CL_GraphicContext &gc, CL_ResourceManager & gfx,
+	void set_gfx(CL_GraphicContext& gc, CL_ResourceManager& gfx,
 		std::string normal, std::string selected, std::string locked_sprite = "");
 	
 	/** Unload GFX */
 	void unload_gfx();
 	
-	virtual void draw(CL_GraphicContext &gc);
+	virtual void draw(CL_GraphicContext& gc);
 	
 	virtual void action_performed(ActionType action_type);
 	

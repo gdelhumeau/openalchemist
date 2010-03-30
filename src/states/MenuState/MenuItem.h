@@ -27,7 +27,7 @@ public:
 	MenuItem();	
 
 	/** Draw item */
-	virtual void draw(CL_GraphicContext &gc) = 0;
+	virtual void draw(CL_GraphicContext& gc) = 0;
 
 	/** Action is performed on the item */
 	virtual void action_performed(ActionType action_type) = 0;
