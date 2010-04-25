@@ -92,7 +92,7 @@ public:
 	* Look if there is pieces to destroy
 	* @return true if there is pieces to destroy
 	*/
-	bool detect_pieces_to_destroy();	
+	bool detect_pieces_to_destroy();
 
 	/**
 	* Destroying pieces
