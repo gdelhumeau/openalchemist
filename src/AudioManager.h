@@ -51,7 +51,7 @@ public:
 	/** Play a sound */
 	void play_sound(int sound_index);
 	
-	/** ¨Pause sounds */
+	/** Pause sounds */
 	void pause_sounds();
 
 	/** Resume sounds */
