@@ -1,10 +1,16 @@
-* 0.4 * - under development
-#457 : On peut désormais redimmensionner la fenêtre (si OpenGL)
-#455 : Ajout d'un nouveau système de menu (en interne, MenuState.h)
-#451 : Ajout du mode 16:9 wide screen (uniquement disponible avec OpenGL)
-#451 : Ajout du fichier .desktop
-#450 : Split de la fonction Board::detect_to_destroy();
-#449 : Amélioration de la synchronisation (le jeu va à la même vitesse partout)
+* 0.4 * - 25/04/2010
+- Passage à ClanLib 2.
+- Ajout des musiques et des sons (non définitifs)
+- Nouveau système de menus, plus extensible.
+- Nouveaux menus (plus d'options directement accessibles depuis le jeu)
+- BugFix sur le calcul des scores.
+- De nombreux memory leaks supprimés.
+- Opérateurs new et delete redéfinis, pour tracer les allocations mémoires.
+- Coding Style changé.
+- Ajout d'un écran de chargement.
+- Ajout du fichier .desktop
+- Split de la fonction Board::detect_to_destroy();
+- Amélioration de la synchronisation (le jeu va à la même vitesse partout)
 
 * 0.3 * - 12/10/2008
 - Refactoring complet
