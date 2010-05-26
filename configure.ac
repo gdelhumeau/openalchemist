@@ -1,5 +1,5 @@
 % Prelude
-AC_INIT([openalchemist], [1.0-rc1], [contact@openalchemist.com])
+AC_INIT([openalchemist], [0.4], [contact@openalchemist.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/main.cpp])
