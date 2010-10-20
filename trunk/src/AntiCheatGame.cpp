@@ -16,6 +16,10 @@
 #include "CommonResources.h"
 //#include "GameEngine.h"
 
+#ifndef WIN32
+#include <stdlib.h>
+#endif
+
 /************************************************************************/
 /* Constants                                                            */
 /************************************************************************/
@@ -311,7 +315,7 @@ void AntiCheatGame::_choose_new_piece_coords(Coords& new_piece, std::vector<Coor
 /************************************************************************/
 void AntiCheatGame::_unlock_piece(Coords& new_piece)
 {
-	static CommonResources* p_resources = common_resources_get_instance();
+//	static CommonResources* p_resources = common_resources_get_instance();
 
 	if (new_piece.piece_number > _visible_pieces - 1)
 	{

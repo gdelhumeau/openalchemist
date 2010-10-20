@@ -17,6 +17,10 @@
 #include <iostream>
 #include <ClanLib/core.h>
 
+#ifndef WIN32
+#include <stdint.h>
+#endif
+
 /** This function return the current version name */
 std::string get_version();
 
@@ -97,7 +101,11 @@ int CL_Integer_to_int(const std::string& ressource_name, CL_ResourceManager* p_g
 int CL_Boolean_to_bool(const std::string& ressource_name, CL_ResourceManager* p_gfx);
 
 /** Custom random number generator (be sure it's the same on all platforms) */
+#ifdef WIN32
 typedef unsigned __int32 RandomSeed;
+#else
+typedef uint32_t RandomSeed;
+#endif
 inline int random_int(int min, int max, RandomSeed& random_seed)
 {
 	// Change random seed
