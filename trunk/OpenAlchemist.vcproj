@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\trunk"
+			OutputDirectory="."
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			>
@@ -92,7 +92,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\trunk"
+			OutputDirectory="."
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			>
@@ -171,172 +171,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\src\Application.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\AudioManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\menustate\BasicItem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Board.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\CombosPainter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\CommonResources.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\CommonState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Coords.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\DemoPlayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\menustate\DualChoiceItem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\FrameRateCounter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\FrontLayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\GameEngine.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\GameOverState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\GameState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HumanPlayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\InGameState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\IniFile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\KeyboardKey.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Keys.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LoadingScreen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\memory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\menustate\MenuItem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\MenuState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\misc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\menustate\MultipleChoicesItem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\OptionsMenuState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\PauseMenuState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Piece.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Player.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Preferences.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ProgressBar.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\QuitMenuState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Skin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SkinsManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\SkinsMenuState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\MenuState\TableChoicesItem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\TitleState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Window.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
@@ -352,7 +186,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\AntiCheatGame.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\AntiCheatGame.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Application.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Application.h"
 				>
 			</File>
 			<File
@@ -360,7 +206,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\menustate\BasicItem.cpp"
+				RelativePath=".\src\AudioManager.h"
 				>
 			</File>
 			<File
@@ -368,7 +214,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Board.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\CombosPainter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\CombosPainter.h"
 				>
 			</File>
 			<File
@@ -376,7 +230,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\CommonState.cpp"
+				RelativePath=".\src\CommonResources.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Coords.h"
 				>
 			</File>
 			<File
@@ -384,7 +242,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\menustate\DualChoiceItem.cpp"
+				RelativePath=".\src\DemoPlayer.h"
 				>
 			</File>
 			<File
@@ -392,7 +250,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\FrameRateCounter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\FrontLayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\FrontLayer.h"
 				>
 			</File>
 			<File
@@ -400,11 +266,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\GameOverState.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\GameState.cpp"
+				RelativePath=".\src\GameEngine.h"
 				>
 			</File>
 			<File
@@ -412,7 +274,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\InGameState.cpp"
+				RelativePath=".\src\HumanPlayer.h"
 				>
 			</File>
 			<File
@@ -420,11 +282,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\IniFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\KeyboardKey.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Keys.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\src\Keys.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LoadingScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LoadingScreen.h"
 				>
 			</File>
 			<File
@@ -436,11 +314,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\menustate\MenuItem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\MenuState.cpp"
+				RelativePath=".\src\memory.h"
 				>
 			</File>
 			<File
@@ -448,15 +322,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\menustate\MultipleChoicesItem.cpp"
+				RelativePath=".\src\misc.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\OptionsMenuState.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\PauseMenuState.cpp"
+				RelativePath=".\src\Piece.h"
 				>
 			</File>
 			<File
@@ -464,7 +334,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Player.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Preferences.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Preferences.h"
 				>
 			</File>
 			<File
@@ -472,7 +350,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\states\QuitMenuState.cpp"
+				RelativePath=".\src\ProgressBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\RecordGame.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\RecordGame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
@@ -480,25 +370,153 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Skin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\SkinsManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\SkinsMenuState.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\MenuState\TableChoicesItem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\states\TitleState.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\Window.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\Window.h"
+				>
+			</File>
+			<Filter
+				Name="States"
+				>
+				<File
+					RelativePath=".\src\states\CommonState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\CommonState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\GameOverState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\GameOverState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\GameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\GameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\InGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\InGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\MenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\MenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\OptionsMenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\OptionsMenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\PauseMenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\PauseMenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\QuitMenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\QuitMenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SkinsManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\SkinsMenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\SkinsMenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\TitleState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\states\TitleState.h"
+					>
+				</File>
+				<Filter
+					Name="GUI"
+					>
+					<File
+						RelativePath=".\src\states\menustate\BasicItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\BasicItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\DualChoiceItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\DualChoiceItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\MenuItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\MenuItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\MultipleChoicesItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\menustate\MultipleChoicesItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\MenuState\TableChoicesItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\states\MenuState\TableChoicesItem.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

@@ -96,4 +96,16 @@ int CL_Integer_to_int(const std::string& ressource_name, CL_ResourceManager* p_g
 /** Convert a CL_Boolean to a boolean */
 int CL_Boolean_to_bool(const std::string& ressource_name, CL_ResourceManager* p_gfx);
 
+/** Custom random number generator (be sure it's the same on all platforms) */
+typedef unsigned __int32 RandomSeed;
+inline int random_int(int min, int max, RandomSeed& random_seed)
+{
+	// Change random seed
+	random_seed = random_seed * 214013L + 2531011L;
+	// Compute random number
+	int rand = (random_seed >> 16) & 0x7fff;
+	// Apply range
+	return min + rand % (max - min);
+}
+
 #endif

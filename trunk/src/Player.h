@@ -19,6 +19,8 @@
 #include "KeyboardKey.h"
 #include "ProgressBar.h"
 #include "CombosPainter.h"
+#include "misc.h"
+#include "RecordGame.h"
 
 enum GameMode{
 	GAME_MODE_PLAYING,
@@ -94,7 +96,10 @@ public:
 	/** Returns if the player is human	*/
 	virtual bool is_human() = 0;
 
-protected:
+protected:	
+
+	/** Actual random seed (changes during game) */
+	RandomSeed _random_seed;
 
 	/** X Position */
 	float _x;
@@ -125,6 +130,9 @@ protected:
 
 	/** Game Mode */
 	GameMode _game_mode;
+
+	/** Game */
+	/*AntiCheatGame _game;*/
 
 	/** Save if the game mode has changed */
 	bool _game_mode_changed;
@@ -207,6 +215,9 @@ protected:
 	/** Progress Bar */
 	ProgressBar _progress_bar;
 
+	/** Record game */
+	RecordGame _record_game;
+
 	/** Undo elements */
 	int _undo_position;
 	int _undo_position_bis;
@@ -226,6 +237,9 @@ protected:
 
 	/** Prepare game to play (after a fall)	*/
 	void _prepare_to_play();
+
+	/** Compute next random pieces */
+	inline int _get_next_piece(){ return random_int(0, _board.unlocked_pieces, _random_seed); }
 
 };
 
