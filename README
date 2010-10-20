@@ -3,7 +3,7 @@ OpenAlchemist - Development version
 
 I) What OpenAlchemist needs ?
 
-OpenAlchemist is based on ClanLib 0.8. You must install it before compiling this game. You can find the last version of clanlib at: http://www.clanlib.org
+OpenAlchemist is based on ClanLib 2.1. You must install it before compiling this game. You can find the last version of clanlib at: http://www.clanlib.org
 
 You may have to edit the /etc/ld.so.conf and add to it "/etc/local/lib". Then run "ldconfig" as root.
 

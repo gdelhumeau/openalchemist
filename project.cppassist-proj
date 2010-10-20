@@ -75,3 +75,7 @@ src/states/MenuState/MultipleChoicesItem.cpp
 src/states/MenuState/MultipleChoicesItem.h
 src/states/MenuState/TableChoicesItem.cpp
 src/states/MenuState/TableChoicesItem.h
+src/AntiCheatGame.cpp
+src/AntiCheatGame.h
+src/RecordGame.cpp
+src/RecordGame.h

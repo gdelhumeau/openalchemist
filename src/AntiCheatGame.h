@@ -14,6 +14,7 @@
 
 #include <vector>
 #include "Board.h"
+#include "misc.h"
 
 /** AntiCheatGame - check if recorded game is valid */
 class AntiCheatGame{
@@ -36,10 +37,10 @@ public:
 private:
 
 	/** Initial random seed (anti-cheat checker) */
-	unsigned __int32 _initial_random_seed;
+	RandomSeed _initial_random_seed;
 
 	/** Actual random seed (changes during game) */
-	unsigned __int32 _random_seed;
+	RandomSeed _random_seed;
 
 	/** Progression - number of unlocked pieces and visible pieces */
 	int _unlocked_pieces, _visible_pieces;
