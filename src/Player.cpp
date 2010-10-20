@@ -46,9 +46,6 @@ _key_falling     (CL_KEY_DOWN , false)
 	_p_current_piece1 = NULL;
 	_p_current_piece2 = NULL;
 
-	// Initializing random numbers generator
-	srand(CL_System::get_time());
-
 	_combo = 0;  
 	_game_mode_changed = false;
 	_manual_mode = false;
@@ -92,13 +89,25 @@ void Player::new_game()
 	term_game();
 
 	// Getting resources
-	CommonResources *resources = common_resources_get_instance();
+	CommonResources* p_resources = common_resources_get_instance();
 
+	// New game
+	_random_seed = CL_System::get_time();
+	_record_game.new_game(_random_seed);
+		
+	// Init board
+	_board.clear();
+	_board.unlocked_pieces = 3;
+	_board.visible_pieces  = 3;
+	_board.body_score = 0;
+	_board.bonus_score = 0;
+	_board.calc_score();
+	
 	// Creating my_new pieces for playable pieces and next pieces		
-	_p_current_piece1 = my_new Piece(rand()%3);
-	_p_current_piece2 = my_new Piece(rand()%3);
-	_p_next_piece1 = my_new Piece(rand()%3);
-	_p_next_piece2 = my_new Piece(rand()%3);
+	_p_current_piece1 = my_new Piece(_get_next_piece());
+	_p_current_piece2 = my_new Piece(_get_next_piece());
+	_p_next_piece1 = my_new Piece(_get_next_piece());
+	_p_next_piece2 = my_new Piece(_get_next_piece());
 
 	// Setting playable pieces position
 	_angle = 0.0;
@@ -110,19 +119,12 @@ void Player::new_game()
 	_undo_possible = false;
 	_next_next_piece1 = 0;
 	_next_next_piece2 = 0;
-	_x = (float)(_position * resources->pieces_width + (_position_bis )*resources->pieces_width/2);
+	_x = (float)(_position * p_resources->pieces_width + (_position_bis )*p_resources->pieces_width/2);
 	_p_next_piece1 -> set_position(_next_left, _next_top);
-	_p_next_piece2 -> set_position(_next_left+((resources->pieces_width)/2),_next_top);
+	_p_next_piece2 -> set_position(_next_left+((p_resources->pieces_width)/2),_next_top);
 
 	_is_falling_requested = false;
 	_game_mode = GAME_MODE_PLAYING;
-
-	_board.clear();
-	_board.unlocked_pieces = 3;
-	_board.visible_pieces  = 3;
-	_board.body_score = 0;
-	_board.bonus_score = 0;
-	_board.calc_score();
 
 	_combo = 0;
 	_play_destroying_sound = false;
@@ -176,6 +178,9 @@ void Player::term_game()
 		my_delete(_p_next_piece2);
 		_p_next_piece2 = NULL;
 	}
+
+	if(!_record_game.is_empty())
+		_record_game.export_to_xml();
 }
 
 /************************************************************************/
@@ -571,6 +576,10 @@ void Player::fall()
 		_board.zone_top+p_resources->pieces_height/2+sinf((_angle+180)*TO_RAD)*_current_pieces_r);
 
 	_board.add_pieces(_p_current_piece1, _p_current_piece2);
+	int piece1_x = (int) ((int) _p_current_piece1->get_x() - _board.game_left) / (p_resources->pieces_width);
+	int piece2_x = (int) ((int) _p_current_piece2->get_x() - _board.game_left) / (p_resources->pieces_width);
+	_record_game.record_place_elements(_p_current_piece1->get_piece_number(), piece1_x, (int)_p_current_piece1->get_y(),
+								_p_current_piece2->get_piece_number(), piece2_x, (int)_p_current_piece2->get_y());
 
 	_p_current_piece1 = NULL;
 	_p_current_piece2 = NULL;
@@ -695,8 +704,8 @@ void Player::_prepare_to_play()
 	}
 	else
 	{
-		_p_next_piece1 -> set_piece_number(rand()%(_board.unlocked_pieces));
-		_p_next_piece2 -> set_piece_number(rand()%(_board.unlocked_pieces));
+		_p_next_piece1 -> set_piece_number(_get_next_piece());
+		_p_next_piece2 -> set_piece_number(_get_next_piece());
 	}
 
 	int value;
@@ -726,6 +735,7 @@ void Player::undo()
 		_undo_possible = false;
 
 		_board.undo(_pieces_normal, _pieces_appearing, _pieces_disappearing, _pieces_mini);
+		_record_game.record_undo();
 
 		_next_next_piece1 = _p_next_piece1 -> get_piece_number();
 		_next_next_piece2 = _p_next_piece2 -> get_piece_number();

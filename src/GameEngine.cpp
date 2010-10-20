@@ -347,61 +347,71 @@ void GameEngine::set_skin(std::string skin)
 	{
 		p_pref -> skin = skin;
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			p_resources -> load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(1.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_title_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(2.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_common_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(3.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_ingame_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(4.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_gameover_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(5.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_pausemenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(6.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_skinsmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(7.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_optionsmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(8.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_title_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(9.0f / 10.0f);
 		}
 
-		if (_running)
+		if (!_running) 
+			return;
 		{
 			_quitmenu_state.load_gfx(gc, p_pref -> skin);
 			_p_loading_screen -> set_progression(10.0f / 10.0f);
